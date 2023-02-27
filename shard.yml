@@ -1,0 +1,19 @@
+name: cr-image
+version: 0.1.0
+
+authors:
+  - Troy Sornson <troy@sornson.io>
+
+development_dependencies:
+  spectator:
+    gitlab: arctic-fox/spectator
+  ameba:
+    github: crystal-ameba/ameba
+  crystal-kcov:
+    github: crystal-community/crystal-kcov
+  ic:
+    github: I3oris/ic
+
+crystal: 1.7.2
+
+license: MIT
