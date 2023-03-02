@@ -13,8 +13,8 @@ development_dependencies:
     github: crystal-community/crystal-kcov
   ic:
     github: I3oris/ic
-  pluto_samples:
-    github: phenopolis/pluto-samples
+  cr-image-samples:
+    github: Vici37/cr-image-samples
 
 crystal: 1.7.2
 
