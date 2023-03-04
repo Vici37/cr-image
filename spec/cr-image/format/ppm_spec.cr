@@ -3,35 +3,25 @@ require "../../spec_helper"
 Spectator.describe CrImage::Format::PPM do
   include SpecHelper
 
-  describe ".from_ppm" do
+  describe ".from_ppm and #to_ppm" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("moon.ppm")
-      image = CrImage::RGBAImage.from_ppm(data)
+      with_sample("scenic/moon.ppm") do |file|
+        image = CrImage::RGBAImage.from_ppm(file)
 
-      expect_digest(image.to_jpeg).to eq "456a54b4c2e0dc7f6751b28fb55ea0b26705ddb6"
+        io = IO::Memory.new
+        image.to_ppm(io)
+        expect_digest(io.to_s).to eq "d764459f778b4839972367f78197bf9a96cd11fd"
+      end
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("moon.ppm")
-      image = CrImage::GrayscaleImage.from_ppm(data)
+      with_sample("scenic/moon.ppm") do |file|
+        image = CrImage::GrayscaleImage.from_ppm(file)
 
-      expect_digest(image.to_jpeg).to eq "9fefcb4b61444bbb0344bcab06f690641b34c4d2"
-    end
-  end
-
-  describe "#to_ppm" do
-    it "works with RGBAImage" do
-      data = SpecHelper.read_sample("moon.ppm")
-      image = CrImage::RGBAImage.from_ppm(data)
-
-      expect_digest(image.to_jpeg).to eq "456a54b4c2e0dc7f6751b28fb55ea0b26705ddb6"
-    end
-
-    it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("moon.ppm")
-      image = CrImage::GrayscaleImage.from_ppm(data)
-
-      expect_digest(image.to_jpeg).to eq "9fefcb4b61444bbb0344bcab06f690641b34c4d2"
+        io = IO::Memory.new
+        image.to_ppm(io)
+        expect_digest(io.to_s).to eq "62d6101d60ee8da38d1b9d8e809091099cec5994"
+      end
     end
   end
 end

@@ -9,13 +9,18 @@ module SpecHelper
     include CrImageSampleHelper
   end
 
-  def digest(image : CrImage::Image | String)
-    data = (image.is_a?(CrImage::Image) ? image.to_ppm : image)
+  def digest(image : CrImage::Image)
+    io = IO::Memory.new
+    image.to_ppm(io)
+    Digest::SHA1.hexdigest(io.to_s)
+  end
+
+  def digest(data : String)
     Digest::SHA1.hexdigest(data)
   end
 
-  def expect_digest(image : CrImage::Image | String)
-    expect(digest(image))
+  macro expect_digest(image)
+    expect(digest({{image}}))
   end
 
   macro specs_for_operator(op, gray_hash, rgba_hash)
@@ -32,8 +37,10 @@ module SpecHelper
     end
   end
 
-  def self.read_sample(name : String) : String
-    File.read("lib/cr-image-samples/scenic/#{name}")
+  def with_sample(filename : String, &)
+    File.open("lib/cr-image-samples/#{filename}") do |file|
+      yield file
+    end
   end
 
   def self.bit_arr(size : Int32, int : Int)

@@ -1,6 +1,9 @@
 require "../spec_helper"
 
 Spectator.describe CrImage::Mask do
+  include SpecHelper
+
+  # IMPL: convert shoulds to expect
   it "initializes with width and height" do
     mask = CrImage::Mask.new(3, 3)
     mask.bits.should eq BitArray.new(9, true)
@@ -319,6 +322,6 @@ Spectator.describe CrImage::Mask do
 
   it "converts to grayscale" do
     mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
-    Digest::SHA1.hexdigest(mask.to_gray.to_ppm).should eq "3f5741961d8c2290ca93988c23c7f13bc97c66aa"
+    expect_digest(mask.to_gray).to eq "3f5741961d8c2290ca93988c23c7f13bc97c66aa"
   end
 end

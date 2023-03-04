@@ -1,15 +1,12 @@
 module CrImage::Format::JPEG
   macro included
-    def self.from_jpeg(io : IO) : self
-      from_jpeg(String.new(io.getb_to_end))
-    end
-
-    def self.from_jpeg(image_data : String) : self
+    # This is the preferred, most performant JPEG overload with the least memory consumption.
+    def self.from_jpeg(image_data : Bytes) : self
       handle = LibJPEGTurbo.init_decompress
       check handle, LibJPEGTurbo.decompress_header3(
         handle,
         image_data,
-        image_data.bytesize,
+        image_data.size,
         out width,
         out height,
         out _subsampling,
@@ -19,7 +16,7 @@ module CrImage::Format::JPEG
       check handle, LibJPEGTurbo.decompress2(
         handle,
         image_data,
-        LibC::ULong.new(image_data.bytesize),
+        LibC::ULong.new(image_data.size),
         buffer,
         width,
         0,
@@ -33,15 +30,19 @@ module CrImage::Format::JPEG
       green = Array.new(width * height) { 0u8 }
       blue = Array.new(width * height) { 0u8 }
       alpha = Array.new(width * height) { 255u8 }
-      pixels = buffer.each_slice(3).to_a
 
       (width * height).times do |index|
-        red.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(0))
-        green.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(1))
-        blue.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(2))
+        red.unsafe_put(index, buffer[index * 3])
+        green.unsafe_put(index, buffer[index * 3 + 1])
+        blue.unsafe_put(index, buffer[index * 3 + 2])
       end
 
       new(red, green, blue, alpha, width, height)
+    end
+
+    # This is a less preferred JPEG overload.
+    def self.from_jpeg(io : IO) : self
+      from_jpeg(io.getb_to_end)
     end
 
     private def self.check(handle, code)
@@ -50,29 +51,18 @@ module CrImage::Format::JPEG
   end
 
   def to_jpeg(io : IO, quality : Int32 = 100) : Nil
-    buf, size = buffer(quality)
-    io.write(Slice(UInt8).new(buf, size))
-  end
-
-  def to_jpeg(quality : Int32 = 100) : String
-    buf, size = buffer(quality)
-    String.new(buf, size)
-  end
-
-  private def buffer(quality : Int32 = 100) : Tuple(Pointer(UInt8), UInt64)
     handle = LibJPEGTurbo.init_compress
-    image_data = String.build do |string|
-      size.times do |index|
-        string.write_byte(red.unsafe_fetch(index))
-        string.write_byte(green.unsafe_fetch(index))
-        string.write_byte(blue.unsafe_fetch(index))
-      end
+    image_data = IO::Memory.new(size * 3)
+    size.times do |index|
+      image_data.write_byte(red.unsafe_fetch(index))
+      image_data.write_byte(green.unsafe_fetch(index))
+      image_data.write_byte(blue.unsafe_fetch(index))
     end
 
-    buffer = Array(UInt8).new.to_unsafe
+    buffer = Pointer(UInt8).null
     check handle, LibJPEGTurbo.compress2(
       handle,
-      image_data,
+      image_data.buffer,
       @width,
       0,
       @height,
@@ -85,7 +75,10 @@ module CrImage::Format::JPEG
     )
     check handle, LibJPEGTurbo.destroy(handle)
 
-    {buffer, size}
+    bytes = Bytes.new(buffer, size)
+    io.write(bytes)
+
+    LibJPEGTurbo.free(buffer)
   end
 
   private def check(handle, code)
