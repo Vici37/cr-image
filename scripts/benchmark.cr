@@ -48,7 +48,7 @@ def print_result_table(results : Array(Result))
 end
 
 macro benchmark(&)
-  image = CrImage::RGBAImage.from_ppm(File.read("lib/cr-image-samples/scenic/moon.ppm"))
+  image = CrImage::RGBAImage.open("lib/cr-image-samples/scenic/moon.ppm")
   memory = 0i64
   time = benchmark_time do
     memory = benchmark_memory do
