@@ -61,6 +61,15 @@ class CrImage::GrayscaleImage < CrImage::Image
     @width * @height
   end
 
+  def invert
+    clone.invert!
+  end
+
+  def invert!
+    @gray.map! { |pix| 255u8 - pix }
+    self
+  end
+
   def mask_from(&block : (Int32, Int32, UInt8) -> Bool) : Mask
     Mask.new(width, BitArray.new(size) do |i|
       block.call(i % width, i // width, @gray[i])

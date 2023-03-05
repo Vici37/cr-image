@@ -1,4 +1,5 @@
 require "bit_array"
+require "./region"
 
 # Mask is a wrapper around BitArray, where each flag represents a boolean bit of information about a pixel
 # from an image. This can include whether a particular pixel has a value within certain conditions, OR
@@ -173,5 +174,33 @@ class CrImage::Mask
 
   def apply(image : Image, &block : (Int32, Int32, UInt8, ChannelType) -> UInt8) : Image
     image.apply(self, &block)
+  end
+
+  @region : Region? = nil
+
+  # Returns the bounding box of the mask where all true bits are contained. Any pixels outside of the region are false
+  def region : Region
+    @region ||= calculate_region
+  end
+
+  private def calculate_region : Region
+    min_x, min_y = width.to_u16, height.to_u16
+    max_x, max_y = 0_u16, 0_u16
+
+    bits.each_with_index do |bit, index|
+      next unless bit
+
+      x = (index % width).to_u16
+      y = (index // width).to_u16
+
+      min_y = y if min_y > y
+
+      min_x = Math.min(min_x, x)
+      max_x = Math.max(max_x, x)
+
+      max_y = y
+    end
+
+    Region.new(min_x, min_y, max_x - min_x + 1, max_y - min_y + 1)
   end
 end

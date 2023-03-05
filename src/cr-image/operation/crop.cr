@@ -1,6 +1,14 @@
 module CrImage::Operation::Crop
+  def crop(region : Region) : self
+    crop(region.x, region.y, region.width, region.height)
+  end
+
   def crop(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : self
     clone.crop!(x, y, new_width, new_height)
+  end
+
+  def crop!(region : Region) : self
+    crop!(region.x, region.y, region.width, region.height)
   end
 
   def crop!(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : self

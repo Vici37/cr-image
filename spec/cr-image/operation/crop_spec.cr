@@ -18,6 +18,20 @@ Spectator.describe CrImage::Operation::Crop do
     rgba_hash: "25237b6d0408e7eab6e167d5e4576630c30ce4f1"
   )
 
+  describe "with region" do
+    let(region) { CrImage::Region.new(450, 200, 100, 100) }
+
+    specs_for_operator(crop!(region),
+      gray_hash: "21506a4a0383736b41637e383f91373e7d0e781b",
+      rgba_hash: "25237b6d0408e7eab6e167d5e4576630c30ce4f1"
+    )
+
+    specs_for_operator(crop(region),
+      gray_hash: "21506a4a0383736b41637e383f91373e7d0e781b",
+      rgba_hash: "25237b6d0408e7eab6e167d5e4576630c30ce4f1"
+    )
+  end
+
   describe "#crop checks boundaries" do
     let(image) { gray_moon_ppm }
 
@@ -31,6 +45,14 @@ Spectator.describe CrImage::Operation::Crop do
       expect_raises(Exception, "Crop dimensions extend 1 pixels beyond height of the image (500)") do
         image.crop(0, 0, image.width, image.height + 1)
       end
+    end
+  end
+
+  context "when using masks" do
+    let(image) { gray_moon_ppm }
+
+    it "crops to the moon" do
+      expect_digest(image.threshold(2).region.crop(image)).to eq "9b73051839662bb79111764f4447d1dfe775ff01"
     end
   end
 end

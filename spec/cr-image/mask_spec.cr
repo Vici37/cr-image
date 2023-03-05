@@ -144,9 +144,18 @@ Spectator.describe CrImage::Mask do
         SpecHelper.bit_arr(2, 0b01),
       ]
     end
+
+    it "has a region" do
+      expect(mask.region).to eq CrImage::Region.new(0, 0, 4, 4)
+    end
   end
 
   context "using #[] with unique pattern" do
+    # Looks like:
+    # 0000
+    # 1110
+    # 0110
+    # 1001
     let(mask) { CrImage::Mask.new(4, 4, 0b0000111001101001) }
 
     it "supports single point" do
@@ -195,6 +204,10 @@ Spectator.describe CrImage::Mask do
         SpecHelper.bit_arr(3, 0b111),
         SpecHelper.bit_arr(3, 0b011),
       ]
+    end
+
+    it "has a region" do
+      expect(mask.region).to eq CrImage::Region.new(0, 1, 4, 3)
     end
   end
 
@@ -317,6 +330,8 @@ Spectator.describe CrImage::Mask do
         SpecHelper.bit_arr(4, 0b1001),
         SpecHelper.bit_arr(4, 0b1111),
       ]
+
+      expect(mask.invert.region).to eq CrImage::Region.new(1, 1, 2, 2)
     end
   end
 
