@@ -2,7 +2,7 @@
 
 require "../src/cr-image"
 
-record Result, name : String, time : Int64, memory : Int64
+record Result, name : String, time : Float64, memory : Int64
 
 def benchmark_memory(&)
   bytes_before_measure = GC.stats.total_bytes
@@ -16,9 +16,15 @@ def benchmark_time(&)
   Time.monotonic - time
 end
 
+private def elapsed_text(millis)
+  return "#{millis.round(2)}ms" if millis >= 1
+
+  "#{(millis * 1000).round(2)}µs"
+end
+
 def print_result_table(results : Array(Result))
   name_rjust = results.map(&.name.size).max
-  time_ljust = results.map(&.time.to_s.size.+(2)).max
+  time_ljust = results.map { |res| elapsed_text(res.time).size }.max
   memo_ljust = results.map(&.memory.humanize_bytes.size).max
 
   # Headers
@@ -31,7 +37,7 @@ def print_result_table(results : Array(Result))
   results.each do |result|
     table << [
       result.name.rjust(name_rjust),
-      "#{result.time}ms".ljust(time_ljust),
+      elapsed_text(result.time).ljust(time_ljust),
       result.memory.humanize_bytes.ljust(memo_ljust),
     ]
   end
@@ -40,7 +46,7 @@ def print_result_table(results : Array(Result))
     table.each do |row|
       string << "| " << row.join(" | ") << " |\n"
     end
-    string << "\nTotal Time: " << results.sum(&.time) << "ms\n"
+    string << "\nTotal Time: " << elapsed_text(results.sum(&.time)) << "\n"
     string << "Total Memory: " << results.sum(&.memory).humanize_bytes
   end
 
@@ -55,7 +61,7 @@ macro benchmark(&)
       {{yield}}
     end
   end
-  Result.new(name: "{{yield.id.strip.split("\n")[-1].id}}".gsub("image.", ""), memory: memory, time: time.total_milliseconds.to_i64)
+  Result.new(name: "{{yield.id.strip.split("\n")[-1].id}}".gsub("image.", ""), memory: memory, time: time.total_milliseconds)
 end
 
 results = [] of Result
@@ -68,6 +74,7 @@ results << benchmark { image.contrast!(128) }
 results << benchmark { image.gaussian_blur!(10) }
 results << benchmark { image.horizontal_blur!(10) }
 results << benchmark { image.vertical_blur!(10) }
+results << benchmark { image.crop!(300, 250, 100, 100) }
 results << benchmark do
   mask = CrImage::Mask.new(image)
   image.apply!(mask)
@@ -79,5 +86,6 @@ end
 results << benchmark { image.to_gray }
 results << benchmark { image.to_ppm(IO::Memory.new) }
 results << benchmark { image.to_jpeg(IO::Memory.new) }
+results << benchmark { image.to_webp(IO::Memory.new) }
 
 print_result_table(results)

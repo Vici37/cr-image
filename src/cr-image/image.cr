@@ -16,6 +16,7 @@ abstract class CrImage::Image
     include Operation::GaussianBlur
     include Operation::HorizontalBlur
     include Operation::VerticalBlur
+    include Operation::Crop
     include Format::Save
     extend Format::Open
 
