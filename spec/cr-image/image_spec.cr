@@ -9,6 +9,6 @@ Spectator.describe CrImage::RGBAImage do
     width = 2
     height = 1
 
-    CrImage::RGBAImage.new(red, green, blue, alpha, width, height).should be_truthy
+    expect(CrImage::RGBAImage.new(red, green, blue, alpha, width, height)).to be_truthy
   end
 end

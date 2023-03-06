@@ -10,7 +10,7 @@ Spectator.describe CrImage::Format::WebP do
         io = IO::Memory.new
         image.to_webp(io)
 
-        digest(io.to_s).should eq "db79e8b578e4509dc4b2eaed010612ac2b1c1c32"
+        expect_digest(io.to_s).to eq "db79e8b578e4509dc4b2eaed010612ac2b1c1c32"
       end
     end
 
@@ -20,7 +20,7 @@ Spectator.describe CrImage::Format::WebP do
         io = IO::Memory.new
         image.to_webp(io)
 
-        digest(io.to_s).should eq "308ce25679db4538c210831e613a7d5dd8a77b49"
+        expect_digest(io.to_s).to eq "308ce25679db4538c210831e613a7d5dd8a77b49"
       end
     end
   end

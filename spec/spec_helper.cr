@@ -1,6 +1,5 @@
 require "digest"
 require "spectator"
-require "spectator/should"
 require "../src/cr-image"
 require "./helpers/**"
 
@@ -41,9 +40,5 @@ module SpecHelper
     File.open("lib/cr-image-samples/#{filename}") do |file|
       yield file
     end
-  end
-
-  def self.bit_arr(size : Int32, int : Int)
-    BitArray.new(size) { |i| int.bit(size - i - 1) > 0 }
   end
 end

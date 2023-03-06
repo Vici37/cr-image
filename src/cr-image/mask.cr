@@ -37,8 +37,8 @@ class CrImage::Mask
     raise "BitArray size #{@bits.size} must be an even number of #{@width}" unless (@bits.size % @width) == 0
   end
 
-  def initialize(@width, height : Int32)
-    @bits = BitArray.new(@width * height, true)
+  def initialize(@width, height : Int32, initial : Bool = true)
+    @bits = BitArray.new(@width * height, initial)
   end
 
   def initialize(@width, height : Int32, &block : (Int32, Int32) -> Bool)
@@ -73,12 +73,17 @@ class CrImage::Mask
 
   delegate size, to: bits
 
+  def clone
+    Mask.new(width, bits.dup)
+  end
+
   def height : Int32
     @bits.size // width
   end
 
   def invert!
     @bits.invert
+    clear_caches
     self
   end
 
@@ -131,6 +136,7 @@ class CrImage::Mask
 
   def set(x : Int32, y : Int32, value : Bool) : Bool
     raise IndexError.new("Out of bounds: this mask is #{width}x#{height}, and (#{x},#{y}) is outside of that") if x >= width || y >= height
+    clear_caches
     @bits[y * width + x] = value
   end
 
@@ -142,6 +148,7 @@ class CrImage::Mask
     raise IndexError.new("Out of bounds: #{y} is beyond the bounds of this mask's height of #{height}") if y >= height
     start_x, count_x = resolve_to_start_and_count(xs, width)
     @bits.fill(value, y * width + start_x, count_x)
+    clear_caches
     value
   end
 
@@ -161,6 +168,7 @@ class CrImage::Mask
     count_y.times.to_a.each do |y|
       @bits.fill(value, (y + start_y) * width + start_x, count_x)
     end
+    clear_caches
     value
   end
 
@@ -176,6 +184,11 @@ class CrImage::Mask
     image.apply(self, &block)
   end
 
+  private def clear_caches
+    @region = nil
+    @segments = nil
+  end
+
   @region : Region? = nil
 
   # Returns the bounding box of the mask where all true bits are contained. Any pixels outside of the region are false
@@ -184,6 +197,8 @@ class CrImage::Mask
   end
 
   private def calculate_region : Region
+    return Region.new((width - 1).to_u16, (height - 1).to_u16, 0u16, 0u16) unless bits.any?(&.itself)
+
     min_x, min_y = width.to_u16, height.to_u16
     max_x, max_y = 0_u16, 0_u16
 
@@ -202,5 +217,50 @@ class CrImage::Mask
     end
 
     Region.new(min_x, min_y, max_x - min_x + 1, max_y - min_y + 1)
+  end
+
+  @segments : Array(Mask)? = nil
+
+  def segments : Array(Mask)
+    @segments ||= calculate_segments
+  end
+
+  def calculate_segments : Array(Mask)
+    return [] of Mask unless bits.any?(&.itself)
+
+    ret = [] of Mask
+    copy = clone
+
+    size.times do |index|
+      x = index % width
+      y = index // width
+
+      next unless copy[x, y]
+
+      new_mask = Mask.new(width, height, false)
+      new_mask[x, y] = true
+
+      index.upto(size - 1) do |new_index|
+        x = new_index % width
+        y = new_index // width
+
+        next unless copy[x, y]
+
+        lower_x = Math.max(x - 1, 0)
+        upper_x = Math.min(x + 1, width - 1)
+        lower_y = Math.max(y - 1, 0)
+
+        next unless new_mask[lower_x, y] ||
+                    new_mask[lower_x, lower_y] ||
+                    new_mask[x, lower_y] ||
+                    new_mask[upper_x, lower_y]
+
+        copy[x, y] = false
+        new_mask[x, y] = true
+      end
+      ret << new_mask
+    end
+
+    ret
   end
 end

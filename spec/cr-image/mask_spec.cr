@@ -3,45 +3,48 @@ require "../spec_helper"
 Spectator.describe CrImage::Mask do
   include SpecHelper
 
-  # IMPL: convert shoulds to expect
+  def bits(size, int) : BitArray
+    BitArray.new(size) { |i| int.bit(size - i - 1) > 0 }
+  end
+
   it "initializes with width and height" do
     mask = CrImage::Mask.new(3, 3)
-    mask.bits.should eq BitArray.new(9, true)
-    mask.size.should eq 9
+    expect(mask.bits).to eq BitArray.new(9, true)
+    expect(mask.size).to eq 9
   end
 
   it "initializes with bit array and width" do
     bits = BitArray.new(9, false)
     mask = CrImage::Mask.new(3, bits)
-    mask.bits.should eq bits
-    mask.width.should eq 3
-    mask.height.should eq 3
-    mask.size.should eq 9
+    expect(mask.bits).to eq bits
+    expect(mask.width).to eq 3
+    expect(mask.height).to eq 3
+    expect(mask.size).to eq 9
   end
 
   it "initializes with block" do
     mask = CrImage::Mask.new(4, 4) { |x, y| (1..2).includes?(x) && (1..2).includes?(y) }
-    mask.size.should eq 16
-    mask.width.should eq 4
-    mask.height.should eq 4
-    mask[0.., 0..].should eq [
-      SpecHelper.bit_arr(4, 0b0000),
-      SpecHelper.bit_arr(4, 0b0110),
-      SpecHelper.bit_arr(4, 0b0110),
-      SpecHelper.bit_arr(4, 0b0000),
+    expect(mask.size).to eq 16
+    expect(mask.width).to eq 4
+    expect(mask.height).to eq 4
+    expect(mask[0.., 0..]).to eq [
+      bits(4, 0b0000),
+      bits(4, 0b0110),
+      bits(4, 0b0110),
+      bits(4, 0b0000),
     ]
   end
 
   it "initializes from integer" do
     mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
-    mask.size.should eq 16
-    mask.width.should eq 4
-    mask.height.should eq 4
-    mask[0.., 0..].should eq [
-      SpecHelper.bit_arr(4, 0b1010),
-      SpecHelper.bit_arr(4, 0b0101),
-      SpecHelper.bit_arr(4, 0b1010),
-      SpecHelper.bit_arr(4, 0b0101),
+    expect(mask.size).to eq 16
+    expect(mask.width).to eq 4
+    expect(mask.height).to eq 4
+    expect(mask[0.., 0..]).to eq [
+      bits(4, 0b1010),
+      bits(4, 0b0101),
+      bits(4, 0b1010),
+      bits(4, 0b0101),
     ]
   end
 
@@ -61,14 +64,15 @@ Spectator.describe CrImage::Mask do
     # 0 1
 
     mask = CrImage::Mask.new(2, bits)
-    mask[0, 0].should be_false
-    mask[1, 0].should be_true
-    mask[0, 1].should be_false
-    mask[1, 1].should be_true
+    expect(mask[0, 0]).to be_false
+    expect(mask[1, 0]).to be_true
+    expect(mask[0, 1]).to be_false
+    expect(mask[1, 1]).to be_true
   end
 
   context "raises index error when" do
     let(mask) { CrImage::Mask.new(2, BitArray.new(4)) }
+
     it "coordinate is outside of height" do
       expect_raises(IndexError, "Out of bounds: this mask is 2x2, and (0,2) is outside of that") do
         mask[0, 2]
@@ -98,50 +102,50 @@ Spectator.describe CrImage::Mask do
     let(mask) { CrImage::Mask.new(4, 4, 0b1010010110100101) }
 
     it "supports single point" do
-      mask[0, 0].should be_true
-      mask[0, 1].should be_false
-      mask[1, 0].should be_false
-      mask[1, 1].should be_true
-      mask[3, 3].should be_true
+      expect(mask[0, 0]).to be_true
+      expect(mask[0, 1]).to be_false
+      expect(mask[1, 0]).to be_false
+      expect(mask[1, 1]).to be_true
+      expect(mask[3, 3]).to be_true
     end
 
     it "supports range for x" do
-      mask[0..3, 0].should eq SpecHelper.bit_arr(4, 0b1010)
-      mask[0..3, 1].should eq SpecHelper.bit_arr(4, 0b0101)
-      mask[0..3, 2].should eq SpecHelper.bit_arr(4, 0b1010)
-      mask[0..3, 3].should eq SpecHelper.bit_arr(4, 0b0101)
+      expect(mask[0..3, 0]).to eq bits(4, 0b1010)
+      expect(mask[0..3, 1]).to eq bits(4, 0b0101)
+      expect(mask[0..3, 2]).to eq bits(4, 0b1010)
+      expect(mask[0..3, 3]).to eq bits(4, 0b0101)
     end
 
     it "supports range for y" do
-      mask[0, 0..3].should eq SpecHelper.bit_arr(4, 0b1010)
-      mask[1, 0..3].should eq SpecHelper.bit_arr(4, 0b0101)
-      mask[2, 0..3].should eq SpecHelper.bit_arr(4, 0b1010)
-      mask[3, 0..3].should eq SpecHelper.bit_arr(4, 0b0101)
+      expect(mask[0, 0..3]).to eq bits(4, 0b1010)
+      expect(mask[1, 0..3]).to eq bits(4, 0b0101)
+      expect(mask[2, 0..3]).to eq bits(4, 0b1010)
+      expect(mask[3, 0..3]).to eq bits(4, 0b0101)
     end
 
     it "supports finite range for both x and y" do
-      mask[0..3, 0..3].should eq [
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b0101),
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0..3, 0..3]).to eq [
+        bits(4, 0b1010),
+        bits(4, 0b0101),
+        bits(4, 0b1010),
+        bits(4, 0b0101),
       ]
     end
 
     it "supports infinite range for both x and y" do
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b0101),
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1010),
+        bits(4, 0b0101),
+        bits(4, 0b1010),
+        bits(4, 0b0101),
       ]
     end
 
     it "initializes from a larger mask" do
       other_mask = CrImage::Mask.new(mask[1..2, 1..2])
-      other_mask[0..-1, 0..-1].should eq [
-        SpecHelper.bit_arr(2, 0b10),
-        SpecHelper.bit_arr(2, 0b01),
+      expect(other_mask[0..-1, 0..-1]).to eq [
+        bits(2, 0b10),
+        bits(2, 0b01),
       ]
     end
 
@@ -159,50 +163,50 @@ Spectator.describe CrImage::Mask do
     let(mask) { CrImage::Mask.new(4, 4, 0b0000111001101001) }
 
     it "supports single point" do
-      mask[0, 0].should be_false
-      mask[0, 1].should be_true
-      mask[1, 0].should be_false
-      mask[1, 1].should be_true
-      mask[3, 3].should be_true
+      expect(mask[0, 0]).to be_false
+      expect(mask[0, 1]).to be_true
+      expect(mask[1, 0]).to be_false
+      expect(mask[1, 1]).to be_true
+      expect(mask[3, 3]).to be_true
     end
 
     it "supports range for x" do
-      mask[0..3, 0].should eq SpecHelper.bit_arr(4, 0b0000)
-      mask[0..3, 1].should eq SpecHelper.bit_arr(4, 0b1110)
-      mask[0..3, 2].should eq SpecHelper.bit_arr(4, 0b0110)
-      mask[0..3, 3].should eq SpecHelper.bit_arr(4, 0b1001)
+      expect(mask[0..3, 0]).to eq bits(4, 0b0000)
+      expect(mask[0..3, 1]).to eq bits(4, 0b1110)
+      expect(mask[0..3, 2]).to eq bits(4, 0b0110)
+      expect(mask[0..3, 3]).to eq bits(4, 0b1001)
     end
 
     it "supports range for y" do
-      mask[0, 0..3].should eq SpecHelper.bit_arr(4, 0b0101)
-      mask[1, 0..3].should eq SpecHelper.bit_arr(4, 0b0110)
-      mask[2, 0..3].should eq SpecHelper.bit_arr(4, 0b0110)
-      mask[3, 0..3].should eq SpecHelper.bit_arr(4, 0b0001)
+      expect(mask[0, 0..3]).to eq bits(4, 0b0101)
+      expect(mask[1, 0..3]).to eq bits(4, 0b0110)
+      expect(mask[2, 0..3]).to eq bits(4, 0b0110)
+      expect(mask[3, 0..3]).to eq bits(4, 0b0001)
     end
 
     it "supports finite range for both x and y" do
-      mask[0..3, 0..3].should eq [
-        SpecHelper.bit_arr(4, 0b0000),
-        SpecHelper.bit_arr(4, 0b1110),
-        SpecHelper.bit_arr(4, 0b0110),
-        SpecHelper.bit_arr(4, 0b1001),
+      expect(mask[0..3, 0..3]).to eq [
+        bits(4, 0b0000),
+        bits(4, 0b1110),
+        bits(4, 0b0110),
+        bits(4, 0b1001),
       ]
     end
 
     it "supports infinite range for both x and y" do
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b0000),
-        SpecHelper.bit_arr(4, 0b1110),
-        SpecHelper.bit_arr(4, 0b0110),
-        SpecHelper.bit_arr(4, 0b1001),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b0000),
+        bits(4, 0b1110),
+        bits(4, 0b0110),
+        bits(4, 0b1001),
       ]
     end
 
     it "initializes from a larger mask" do
       other_mask = CrImage::Mask.new(mask[0..2, 1..2])
-      other_mask[0..-1, 0..-1].should eq [
-        SpecHelper.bit_arr(3, 0b111),
-        SpecHelper.bit_arr(3, 0b011),
+      expect(other_mask[0..-1, 0..-1]).to eq [
+        bits(3, 0b111),
+        bits(3, 0b011),
       ]
     end
 
@@ -213,125 +217,155 @@ Spectator.describe CrImage::Mask do
 
   it "#inverts" do
     mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
-    mask.invert.should eq CrImage::Mask.new(4, 4, 0b0101101001011010)
-    mask.should eq CrImage::Mask.new(4, 4, 0b1010010110100101)
-  end
-
-  it "#inverts!" do
-    mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
-    mask.invert!
-    mask.should eq CrImage::Mask.new(4, 4, 0b0101101001011010)
+    expect(mask.invert).to eq CrImage::Mask.new(4, 4, 0b0101101001011010)
+    expect(mask).to eq CrImage::Mask.new(4, 4, 0b1010010110100101)
   end
 
   context "using #[]= using checkerboard pattern" do
     it "sets a single point" do
       mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
       mask[1, 0] = true
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1110),
-        SpecHelper.bit_arr(4, 0b0101),
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1110),
+        bits(4, 0b0101),
+        bits(4, 0b1010),
+        bits(4, 0b0101),
       ]
 
       mask[3, 2] = true
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1110),
-        SpecHelper.bit_arr(4, 0b0101),
-        SpecHelper.bit_arr(4, 0b1011),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1110),
+        bits(4, 0b0101),
+        bits(4, 0b1011),
+        bits(4, 0b0101),
       ]
 
       mask[1, 1] = false
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1110),
-        SpecHelper.bit_arr(4, 0b0001),
-        SpecHelper.bit_arr(4, 0b1011),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1110),
+        bits(4, 0b0001),
+        bits(4, 0b1011),
+        bits(4, 0b0101),
       ]
     end
 
     it "sets range for x and single point for y" do
       mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
       mask[0..3, 0] = true
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1111),
-        SpecHelper.bit_arr(4, 0b0101),
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1111),
+        bits(4, 0b0101),
+        bits(4, 0b1010),
+        bits(4, 0b0101),
       ]
 
       mask[1..2, 2] = true
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1111),
-        SpecHelper.bit_arr(4, 0b0101),
-        SpecHelper.bit_arr(4, 0b1110),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1111),
+        bits(4, 0b0101),
+        bits(4, 0b1110),
+        bits(4, 0b0101),
       ]
 
       mask[1..2, 2] = false
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1111),
-        SpecHelper.bit_arr(4, 0b0101),
-        SpecHelper.bit_arr(4, 0b1000),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1111),
+        bits(4, 0b0101),
+        bits(4, 0b1000),
+        bits(4, 0b0101),
       ]
     end
 
     it "sets range for y and single point for x" do
       mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
       mask[0, 0..3] = true
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b1101),
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b1101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1010),
+        bits(4, 0b1101),
+        bits(4, 0b1010),
+        bits(4, 0b1101),
       ]
 
       mask[2, 1..2] = true
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b1111),
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b1101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1010),
+        bits(4, 0b1111),
+        bits(4, 0b1010),
+        bits(4, 0b1101),
       ]
 
       mask[2, 1..2] = false
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b1101),
-        SpecHelper.bit_arr(4, 0b1000),
-        SpecHelper.bit_arr(4, 0b1101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1010),
+        bits(4, 0b1101),
+        bits(4, 0b1000),
+        bits(4, 0b1101),
       ]
     end
 
     it "sets range for both x and y" do
       mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
       mask[1..2, 1..2] = true
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1010),
-        SpecHelper.bit_arr(4, 0b0111),
-        SpecHelper.bit_arr(4, 0b1110),
-        SpecHelper.bit_arr(4, 0b0101),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1010),
+        bits(4, 0b0111),
+        bits(4, 0b1110),
+        bits(4, 0b0101),
       ]
 
       mask[0.., 0..] = true
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1111),
-        SpecHelper.bit_arr(4, 0b1111),
-        SpecHelper.bit_arr(4, 0b1111),
-        SpecHelper.bit_arr(4, 0b1111),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1111),
+        bits(4, 0b1111),
+        bits(4, 0b1111),
+        bits(4, 0b1111),
       ]
 
       mask[1..2, 1..2] = false
-      mask[0.., 0..].should eq [
-        SpecHelper.bit_arr(4, 0b1111),
-        SpecHelper.bit_arr(4, 0b1001),
-        SpecHelper.bit_arr(4, 0b1001),
-        SpecHelper.bit_arr(4, 0b1111),
+      expect(mask[0.., 0..]).to eq [
+        bits(4, 0b1111),
+        bits(4, 0b1001),
+        bits(4, 0b1001),
+        bits(4, 0b1111),
       ]
 
       expect(mask.invert.region).to eq CrImage::Region.new(1, 1, 2, 2)
+    end
+  end
+
+  context "with regions and segments" do
+    let(mask) { CrImage::Mask.new(4, 4, false) }
+
+    it "creates an empty region" do
+      expect(mask.region).to eq CrImage::Region.new(3, 3, 0, 0)
+    end
+
+    it "creates a region" do
+      mask[1..2, 1..2] = true
+      expect(mask.region).to eq CrImage::Region.new(1, 1, 2, 2)
+      expect(mask.invert.region).to eq CrImage::Region.new(0, 0, 4, 4)
+    end
+
+    it "identifies no segments" do
+      expect(mask.segments).to be_empty
+    end
+
+    it "identifies one segment" do
+      mask[1..2, 1..2] = true
+      expect(mask.segments.size).to eq 1
+      expect(mask.segments[0]).to eq CrImage::Mask.new(4, 4, 0b0000011001100000)
+      expect(mask.segments[0].region).to eq CrImage::Region.new(1, 1, 2, 2)
+    end
+
+    it "identifies two segments" do
+      mask[0, 0..] = true
+      mask[3, 0..] = true
+
+      expect(mask.segments.size).to eq 2
+      expect(mask.segments[0]).to eq CrImage::Mask.new(4, 4, 0b1000100010001000)
+      expect(mask.segments[0].region).to eq CrImage::Region.new(0, 0, 1, 4)
+      expect(mask.segments[1]).to eq CrImage::Mask.new(4, 4, 0b0001000100010001)
+      expect(mask.segments[1].region).to eq CrImage::Region.new(3, 0, 1, 4)
     end
   end
 
