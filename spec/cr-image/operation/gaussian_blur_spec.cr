@@ -4,12 +4,12 @@ Spectator.describe CrImage::Operation::GaussianBlur do
   include SpecHelper
 
   specs_for_operator(gaussian_blur(10),
-    gray_hash: "217debdaffab3be19504828b08adb09949f6e7c2",
-    rgba_hash: "dda2a00d6d3ef73021620ad7e0e2531d29e68425"
+    gray_hash: "de22e6c2431632fb4feb0ad38366e51cb2a1c439",
+    rgba_hash: "e564ef3cbc9c6cf11961d4d05aacf0a7046ce27f"
   )
 
   specs_for_operator(gaussian_blur!(10),
-    gray_hash: "217debdaffab3be19504828b08adb09949f6e7c2",
-    rgba_hash: "dda2a00d6d3ef73021620ad7e0e2531d29e68425"
+    gray_hash: "de22e6c2431632fb4feb0ad38366e51cb2a1c439",
+    rgba_hash: "e564ef3cbc9c6cf11961d4d05aacf0a7046ce27f"
   )
 end
