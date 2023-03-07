@@ -59,4 +59,16 @@ Spectator.describe CrImage::Operation::MaskApply do
       end
     end
   end
+
+  describe "#apply_color" do
+    let(image) { rgba_moon_ppm }
+    let(color) { CrImage::Color.of("#00f") }
+
+    it "turns the moon blue" do
+      expect_digest(image.apply_color(
+        image.to_gray.threshold(8),
+        color
+      )).to eq "afb6ca5a5f8ab6e71ca306eeeada89dcd3be99a5"
+    end
+  end
 end

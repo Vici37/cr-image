@@ -7,6 +7,10 @@ module CrImage::Operation::MaskApply
     clone.apply!(mask, &block)
   end
 
+  def apply_color(mask : Mask, color : Color) : self
+    clone.apply_color!(mask, color)
+  end
+
   def apply!(mask : Mask) : self
     raise "Mask of #{mask.width}x#{mask.height} doesn't match image dimensions #{width}x#{height}" unless mask.width == width && mask.height == height
 
@@ -25,5 +29,11 @@ module CrImage::Operation::MaskApply
       end
     end
     self
+  end
+
+  def apply_color!(mask : Mask, color : Color) : self
+    apply!(mask) do |_, _, _, channel_type|
+      color[channel_type]
+    end
   end
 end

@@ -3,19 +3,21 @@ require "../spec_helper"
 Spectator.describe CrImage::Mask do
   include SpecHelper
 
+  alias Mask = CrImage::Mask
+
   def bits(size, int) : BitArray
     BitArray.new(size) { |i| int.bit(size - i - 1) > 0 }
   end
 
   it "initializes with width and height" do
-    mask = CrImage::Mask.new(3, 3)
+    mask = Mask.new(3, 3)
     expect(mask.bits).to eq BitArray.new(9, true)
     expect(mask.size).to eq 9
   end
 
   it "initializes with bit array and width" do
     bits = BitArray.new(9, false)
-    mask = CrImage::Mask.new(3, bits)
+    mask = Mask.new(3, bits)
     expect(mask.bits).to eq bits
     expect(mask.width).to eq 3
     expect(mask.height).to eq 3
@@ -23,7 +25,7 @@ Spectator.describe CrImage::Mask do
   end
 
   it "initializes with block" do
-    mask = CrImage::Mask.new(4, 4) { |x, y| (1..2).includes?(x) && (1..2).includes?(y) }
+    mask = Mask.new(4, 4) { |x, y| (1..2).includes?(x) && (1..2).includes?(y) }
     expect(mask.size).to eq 16
     expect(mask.width).to eq 4
     expect(mask.height).to eq 4
@@ -36,7 +38,7 @@ Spectator.describe CrImage::Mask do
   end
 
   it "initializes from integer" do
-    mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
+    mask = Mask.new(4, 4, 0b1010010110100101)
     expect(mask.size).to eq 16
     expect(mask.width).to eq 4
     expect(mask.height).to eq 4
@@ -50,7 +52,7 @@ Spectator.describe CrImage::Mask do
 
   it "raises if bit array size isn't evenly divisible by width" do
     expect_raises(Exception, /BitArray size 3 must be an even number of 2/) do
-      CrImage::Mask.new(2, BitArray.new(3))
+      Mask.new(2, BitArray.new(3))
     end
   end
 
@@ -63,7 +65,7 @@ Spectator.describe CrImage::Mask do
     # 0 1
     # 0 1
 
-    mask = CrImage::Mask.new(2, bits)
+    mask = Mask.new(2, bits)
     expect(mask[0, 0]).to be_false
     expect(mask[1, 0]).to be_true
     expect(mask[0, 1]).to be_false
@@ -71,7 +73,7 @@ Spectator.describe CrImage::Mask do
   end
 
   context "raises index error when" do
-    let(mask) { CrImage::Mask.new(2, BitArray.new(4)) }
+    let(mask) { Mask.new(2, BitArray.new(4)) }
 
     it "coordinate is outside of height" do
       expect_raises(IndexError, "Out of bounds: this mask is 2x2, and (0,2) is outside of that") do
@@ -99,7 +101,7 @@ Spectator.describe CrImage::Mask do
   end
 
   context "using #[] with checkerboard pattern" do
-    let(mask) { CrImage::Mask.new(4, 4, 0b1010010110100101) }
+    let(mask) { Mask.new(4, 4, 0b1010010110100101) }
 
     it "supports single point" do
       expect(mask[0, 0]).to be_true
@@ -142,7 +144,7 @@ Spectator.describe CrImage::Mask do
     end
 
     it "initializes from a larger mask" do
-      other_mask = CrImage::Mask.new(mask[1..2, 1..2])
+      other_mask = Mask.new(mask[1..2, 1..2])
       expect(other_mask[0..-1, 0..-1]).to eq [
         bits(2, 0b10),
         bits(2, 0b01),
@@ -160,7 +162,7 @@ Spectator.describe CrImage::Mask do
     # 1110
     # 0110
     # 1001
-    let(mask) { CrImage::Mask.new(4, 4, 0b0000111001101001) }
+    let(mask) { Mask.new(4, 4, 0b0000111001101001) }
 
     it "supports single point" do
       expect(mask[0, 0]).to be_false
@@ -203,7 +205,7 @@ Spectator.describe CrImage::Mask do
     end
 
     it "initializes from a larger mask" do
-      other_mask = CrImage::Mask.new(mask[0..2, 1..2])
+      other_mask = Mask.new(mask[0..2, 1..2])
       expect(other_mask[0..-1, 0..-1]).to eq [
         bits(3, 0b111),
         bits(3, 0b011),
@@ -216,14 +218,14 @@ Spectator.describe CrImage::Mask do
   end
 
   it "#inverts" do
-    mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
-    expect(mask.invert).to eq CrImage::Mask.new(4, 4, 0b0101101001011010)
-    expect(mask).to eq CrImage::Mask.new(4, 4, 0b1010010110100101)
+    mask = Mask.new(4, 4, 0b1010010110100101)
+    expect(mask.invert).to eq Mask.new(4, 4, 0b0101101001011010)
+    expect(mask).to eq Mask.new(4, 4, 0b1010010110100101)
   end
 
   context "using #[]= using checkerboard pattern" do
     it "sets a single point" do
-      mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
+      mask = Mask.new(4, 4, 0b1010010110100101)
       mask[1, 0] = true
       expect(mask[0.., 0..]).to eq [
         bits(4, 0b1110),
@@ -250,7 +252,7 @@ Spectator.describe CrImage::Mask do
     end
 
     it "sets range for x and single point for y" do
-      mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
+      mask = Mask.new(4, 4, 0b1010010110100101)
       mask[0..3, 0] = true
       expect(mask[0.., 0..]).to eq [
         bits(4, 0b1111),
@@ -277,7 +279,7 @@ Spectator.describe CrImage::Mask do
     end
 
     it "sets range for y and single point for x" do
-      mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
+      mask = Mask.new(4, 4, 0b1010010110100101)
       mask[0, 0..3] = true
       expect(mask[0.., 0..]).to eq [
         bits(4, 0b1010),
@@ -304,7 +306,7 @@ Spectator.describe CrImage::Mask do
     end
 
     it "sets range for both x and y" do
-      mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
+      mask = Mask.new(4, 4, 0b1010010110100101)
       mask[1..2, 1..2] = true
       expect(mask[0.., 0..]).to eq [
         bits(4, 0b1010),
@@ -334,7 +336,7 @@ Spectator.describe CrImage::Mask do
   end
 
   context "with regions and segments" do
-    let(mask) { CrImage::Mask.new(4, 4, false) }
+    let(mask) { Mask.new(4, 4, false) }
 
     it "creates an empty region" do
       expect(mask.region).to eq CrImage::Region.new(3, 3, 0, 0)
@@ -353,7 +355,7 @@ Spectator.describe CrImage::Mask do
     it "identifies one segment" do
       mask[1..2, 1..2] = true
       expect(mask.segments.size).to eq 1
-      expect(mask.segments[0]).to eq CrImage::Mask.new(4, 4, 0b0000011001100000)
+      expect(mask.segments[0]).to eq Mask.new(4, 4, 0b0000011001100000)
       expect(mask.segments[0].region).to eq CrImage::Region.new(1, 1, 2, 2)
     end
 
@@ -362,15 +364,15 @@ Spectator.describe CrImage::Mask do
       mask[3, 0..] = true
 
       expect(mask.segments.size).to eq 2
-      expect(mask.segments[0]).to eq CrImage::Mask.new(4, 4, 0b1000100010001000)
+      expect(mask.segments[0]).to eq Mask.new(4, 4, 0b1000100010001000)
       expect(mask.segments[0].region).to eq CrImage::Region.new(0, 0, 1, 4)
-      expect(mask.segments[1]).to eq CrImage::Mask.new(4, 4, 0b0001000100010001)
+      expect(mask.segments[1]).to eq Mask.new(4, 4, 0b0001000100010001)
       expect(mask.segments[1].region).to eq CrImage::Region.new(3, 0, 1, 4)
     end
   end
 
   it "converts to grayscale" do
-    mask = CrImage::Mask.new(4, 4, 0b1010010110100101)
+    mask = Mask.new(4, 4, 0b1010010110100101)
     expect_digest(mask.to_gray).to eq "3f5741961d8c2290ca93988c23c7f13bc97c66aa"
   end
 end
