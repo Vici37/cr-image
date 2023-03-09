@@ -7,5 +7,9 @@ module CrImage
     def crop(image : Image) : Image
       image.crop(self)
     end
+
+    def center : Tuple(Int32, Int32)
+      {(width.to_i // 2) + x.to_i, (height.to_i // 2) + y.to_i}
+    end
   end
 end

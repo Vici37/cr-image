@@ -53,8 +53,12 @@ class CrImage::GrayscaleImage < CrImage::Image
     end
   end
 
-  def to_rgba
+  def to_rgba : RGBAImage
     RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, Array(UInt8).new(size) { 255u8 }, width, height)
+  end
+
+  def to_gray : GrayscaleImage
+    self
   end
 
   def size : Int32

@@ -84,6 +84,10 @@ results << benchmark do
   mask.apply(image)
 end
 results << benchmark { image.to_gray }
+results << benchmark { image.to_gray.threshold(8) }
+results << benchmark { image.to_gray.threshold(8).region }
+results << benchmark { image.to_gray.threshold(8).segments }
+results << benchmark { image.to_gray.threshold(8).segments(diagonal: false) }
 results << benchmark { image.to_ppm(IO::Memory.new) }
 results << benchmark { image.to_jpeg(IO::Memory.new) }
 results << benchmark { image.to_webp(IO::Memory.new) }

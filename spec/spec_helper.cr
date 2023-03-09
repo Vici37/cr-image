@@ -22,16 +22,18 @@ module SpecHelper
     expect(digest({{image}}))
   end
 
-  macro specs_for_operator(op, gray_hash, rgba_hash)
-    describe CrImage::GrayscaleImage do
+  macro specs_for_operator(op, gray_hash, rgba_hash, *, focus = nil)
+    describe CrImage::GrayscaleImage{% if focus %}, :focus{% end %} do
+      let(image) { gray_moon_ppm }
       it {{"##{op.id}"}} do
-        expect_digest(gray_moon_ppm.{{op}}).to eq {{gray_hash}}
+        expect_digest(image.{{op}}).to eq {{gray_hash}}
       end
     end
 
-    describe CrImage::RGBAImage do
+    describe CrImage::RGBAImage{% if focus %}, :focus{% end %} do
+      let(image) { rgba_moon_ppm }
       it {{"##{op.id}"}} do
-        expect_digest(rgba_moon_ppm.{{op}}).to eq {{rgba_hash}}
+        expect_digest(image.{{op}}).to eq {{rgba_hash}}
       end
     end
   end

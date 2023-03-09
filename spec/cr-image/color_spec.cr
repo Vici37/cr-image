@@ -16,8 +16,6 @@ Spectator.describe CrImage::Color do
       end
 
       it "raises when not correct size" do
-        expect_raises(Exception, /Invalid hex color '#0'/) { Color.of("#0") }
-        expect_raises(Exception, /Invalid hex color '#00'/) { Color.of("#00") }
         expect_raises(Exception, /Invalid hex color '#00000'/) { Color.of("#00000") }
         expect_raises(Exception, /Invalid hex color '#0000000'/) { Color.of("#0000000") }
         expect_raises(Exception, /Invalid hex color '#000000000'/) { Color.of("#000000000") }
@@ -30,6 +28,14 @@ Spectator.describe CrImage::Color do
     end
 
     context "and parsing black" do
+      it "parses 2 chars" do
+        expect(Color.of("#0")).to eq color(0u8, 0u8, 0u8, 255u8)
+      end
+
+      it "parses 3 chars" do
+        expect(Color.of("#00")).to eq color(0u8, 0u8, 0u8, 255u8)
+      end
+
       it "parses 4 chars" do
         expect(Color.of("#000")).to eq color(0u8, 0u8, 0u8, 255u8)
       end
@@ -86,7 +92,7 @@ Spectator.describe CrImage::Color do
     end
 
     it "raises for gray channel" do
-      expect_raises(Exception, /Color doesn't support channel type Gray/) { color[:gray] }
+      expect(color[:gray]).to eq 96u8
     end
   end
 end

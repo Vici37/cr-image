@@ -369,6 +369,26 @@ Spectator.describe CrImage::Mask do
       expect(mask.segments[1]).to eq Mask.new(4, 4, 0b0001000100010001)
       expect(mask.segments[1].region).to eq CrImage::Region.new(3, 0, 1, 4)
     end
+
+    it "identifies two segments when not using diagonal" do
+      mask[0..1, 0..1] = true
+      mask[2..3, 2..3] = true
+
+      expect(mask.segments(diagonal: false).size).to eq 2
+      expect(mask.segments(diagonal: false)[0]).to eq Mask.new(4, 4, 0b1100110000000000)
+      expect(mask.segments(diagonal: false)[0].region).to eq CrImage::Region.new(0, 0, 2, 2)
+      expect(mask.segments(diagonal: false)[1]).to eq Mask.new(4, 4, 0b0000000000110011)
+      expect(mask.segments(diagonal: false)[1].region).to eq CrImage::Region.new(2, 2, 2, 2)
+    end
+
+    it "identifies two segments when using diagonal" do
+      mask[0..1, 0..1] = true
+      mask[2..3, 2..3] = true
+
+      expect(mask.segments.size).to eq 1
+      expect(mask.segments[0]).to eq Mask.new(4, 4, 0b1100110000110011)
+      expect(mask.segments[0].region).to eq CrImage::Region.new(0, 0, 4, 4)
+    end
   end
 
   it "converts to grayscale" do

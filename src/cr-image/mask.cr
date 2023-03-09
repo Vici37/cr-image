@@ -186,7 +186,8 @@ class CrImage::Mask
 
   private def clear_caches
     @region = nil
-    @segments = nil
+    @segments_8_way = nil
+    @segments_4_way = nil
   end
 
   @region : Region? = nil
@@ -219,18 +220,22 @@ class CrImage::Mask
     Region.new(min_x, min_y, max_x - min_x + 1, max_y - min_y + 1)
   end
 
-  @segments : Array(Mask)? = nil
+  @segments_8_way : Array(Mask)? = nil
+  @segments_4_way : Array(Mask)? = nil
+  @last_used : Bool? = nil
 
-  def segments : Array(Mask)
-    @segments ||= calculate_segments
+  def segments(*, diagonal : Bool = true) : Array(Mask)
+    diagonal ? (@segments_8_way ||= calculate_segments(diagonal)) : (@segments_4_way ||= calculate_segments(diagonal))
   end
 
-  def calculate_segments : Array(Mask)
+  # ameba:disable Metrics/CyclomaticComplexity
+  private def calculate_segments(diagonal) : Array(Mask)
     return [] of Mask unless bits.any?(&.itself)
 
     ret = [] of Mask
     copy = clone
 
+    # TODO: implement a scanline algo: http://www.adammil.net/blog/v126_A_More_Efficient_Flood_Fill.html
     size.times do |index|
       x = index % width
       y = index // width
@@ -258,6 +263,8 @@ class CrImage::Mask
         queue << {x, lower_y} if copy[x, lower_y]
         queue << {x, upper_y} if copy[x, upper_y]
         queue << {upper_x, y} if copy[upper_x, y]
+
+        next unless diagonal
 
         queue << {lower_x, lower_y} if copy[lower_x, lower_y]
         queue << {lower_x, upper_y} if copy[lower_x, upper_y]
