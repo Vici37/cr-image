@@ -52,9 +52,9 @@ class CrImage::Mask
     @bits = BitArray.new(size) { |i| int.bit(size - i - 1) > 0 }
   end
 
-  def initialize(image : Image)
+  def initialize(image : Image, initial : Bool = true)
     @width = image.width
-    @bits = BitArray.new(image.size, true)
+    @bits = BitArray.new(image.size, initial)
   end
 
   def initialize(other_bits : Array(BitArray))
@@ -238,26 +238,33 @@ class CrImage::Mask
       next unless copy[x, y]
 
       new_mask = Mask.new(width, height, false)
-      new_mask[x, y] = true
+      queue = Deque(Tuple(Int32, Int32)).new([{x, y}])
 
-      index.upto(size - 1) do |new_index|
-        x = new_index % width
-        y = new_index // width
+      while coords = queue.shift?
+        x, y = coords
 
-        next unless copy[x, y]
+        # has already been processed
+        next if new_mask[x, y]
+
+        new_mask[x, y] = true
+        copy[x, y] = false
 
         lower_x = Math.max(x - 1, 0)
         upper_x = Math.min(x + 1, width - 1)
         lower_y = Math.max(y - 1, 0)
+        upper_y = Math.min(y + 1, height - 1)
 
-        next unless new_mask[lower_x, y] ||
-                    new_mask[lower_x, lower_y] ||
-                    new_mask[x, lower_y] ||
-                    new_mask[upper_x, lower_y]
+        queue << {lower_x, y} if copy[lower_x, y]
+        queue << {x, lower_y} if copy[x, lower_y]
+        queue << {x, upper_y} if copy[x, upper_y]
+        queue << {upper_x, y} if copy[upper_x, y]
 
-        copy[x, y] = false
-        new_mask[x, y] = true
+        queue << {lower_x, lower_y} if copy[lower_x, lower_y]
+        queue << {lower_x, upper_y} if copy[lower_x, upper_y]
+        queue << {upper_x, lower_y} if copy[upper_x, lower_y]
+        queue << {upper_x, upper_y} if copy[upper_x, upper_y]
       end
+
       ret << new_mask
     end
 
