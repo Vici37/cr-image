@@ -54,7 +54,7 @@ class CrImage::RGBAImage < CrImage::Image
   end
 
   # Convert color image to grayscale one, using the NTSC formula as default values.
-  def to_gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114)
+  def to_gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114) : GrayscaleImage
     GrayscaleImage.new(
       red.map_with_index do |red_pix, i|
         Math.min(255, red_pix * red_multiplier + @green[i] * green_multiplier + @blue[i] * blue_multiplier).to_u8

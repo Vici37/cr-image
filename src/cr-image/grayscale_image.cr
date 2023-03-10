@@ -2,6 +2,7 @@ require "./image"
 
 class CrImage::GrayscaleImage < CrImage::Image
   property gray : Array(UInt8)
+  property alpha : Array(UInt8)
   property width : Int32
   property height : Int32
 
@@ -9,12 +10,17 @@ class CrImage::GrayscaleImage < CrImage::Image
     RGBAImage.new(red, green, blue, alpha, width, height).to_gray
   end
 
+  def initialize(@gray, @alpha, @width, @height)
+  end
+
   def initialize(@gray, @width, @height)
+    @alpha = Array(UInt8).new(@gray.size) { 255u8 }
   end
 
   def clone : GrayscaleImage
     self.class.new(
       @gray.clone,
+      @alpha.clone,
       @width,
       @height
     )
@@ -33,7 +39,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   end
 
   def alpha : Array(UInt8)
-    @gray
+    @alpha
   end
 
   def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
@@ -42,7 +48,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   end
 
   def [](channel_type : ChannelType) : Array(UInt8)
-    # All channels are gray. There can only be gray.
+    return @alpha if channel_type == ChannelType::Gray
     @gray
   end
 
@@ -54,7 +60,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   end
 
   def to_rgba : RGBAImage
-    RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, Array(UInt8).new(size) { 255u8 }, width, height)
+    RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, @alpha.clone, width, height)
   end
 
   def to_gray : GrayscaleImage

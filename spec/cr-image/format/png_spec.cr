@@ -10,7 +10,7 @@ Spectator.describe CrImage::Format::PNG do
         io = IO::Memory.new
         image.to_png(io)
 
-        expect_digest(io.to_s).to eq "5c2b3379730b878e3241220bda6e9734709d06a8"
+        expect_digest(io.to_s).to eq "c9450089873a4bbe98a2aa54f1bea959915ba088"
       end
     end
 
