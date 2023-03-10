@@ -54,8 +54,9 @@ class CrImage::GrayscaleImage < CrImage::Image
 
   def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
     case channel_type
-    when ChannelType::Gray then self.gray = channel
-    else                        raise "Unknown channel type #{channel_type} for GrayscaleImage"
+    when ChannelType::Gray  then self.gray = channel
+    when ChannelType::Alpha then self.alpha = channel
+    else                         raise "Unknown channel type #{channel_type} for GrayscaleImage"
     end
   end
 
