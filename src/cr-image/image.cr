@@ -7,6 +7,7 @@ abstract class CrImage::Image
     include Format::JPEG
     include Format::PPM
     include Format::WebP
+    include Format::PNG
 
     include Operation::BilinearResize
     include Operation::BoxBlur

@@ -1,5 +1,9 @@
 class CrImage::Exception < ::Exception
-  getter error_code : Int32
+  getter error_code : Int32?
+
+  def initialize(message : String)
+    super(message)
+  end
 
   def initialize(@error_code : Int32)
     super("Received `#{@error_code}` as the error code")
