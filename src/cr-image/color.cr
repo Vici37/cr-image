@@ -5,6 +5,11 @@ module CrImage
     def initialize(@red : UInt8, @green : UInt8, @blue : UInt8, @alpha : UInt8 = 255)
     end
 
+    def self.random : Color
+      r = Random.new
+      new(r.rand(UInt8), r.rand(UInt8), r.rand(UInt8), 255u8)
+    end
+
     def gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114) : UInt8
       Math.min(255u8,
         (red * red_multiplier + blue * blue_multiplier + green * green_multiplier).to_u8
