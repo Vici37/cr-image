@@ -7,6 +7,12 @@ module CrImage::Operation::Crop
     clone.crop!(x, y, new_width, new_height)
   end
 
+  def [](xrange : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), yrange : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : self
+    xstart, xcount = resolve_to_start_and_count(xrange, width)
+    ystart, ycount = resolve_to_start_and_count(yrange, height)
+    crop(xstart, ystart, xcount, ycount)
+  end
+
   def crop!(region : Region) : self
     crop!(region.x, region.y, region.width, region.height)
   end

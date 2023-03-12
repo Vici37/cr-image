@@ -109,17 +109,17 @@ class CrImage::Mask
     @bits[y * width + x]
   end
 
-  def [](xs : Range(Int32, Int32) | Range(Int32, Nil), y : Int32) : BitArray
+  def [](xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32) : BitArray
     start, count = resolve_to_start_and_count(xs, width)
     BitArray.new(count) { |x| self[x + start, y] }
   end
 
-  def [](x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil)) : BitArray
+  def [](x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : BitArray
     start, count = resolve_to_start_and_count(ys, height)
     BitArray.new(count) { |y| self[x, y + start] }
   end
 
-  def [](xs : Range(Int32, Int32) | Range(Int32, Nil), ys : Range(Int32, Int32) | Range(Int32, Nil)) : Array(BitArray)
+  def [](xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)
     start_x, count_x = resolve_to_start_and_count(xs, width)
     start_y, count_y = resolve_to_start_and_count(ys, height)
     count_y.times.to_a.map do |y|

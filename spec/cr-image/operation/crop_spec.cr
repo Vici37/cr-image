@@ -8,7 +8,22 @@ Spectator.describe CrImage::Operation::Crop do
     rgba_hash: "d764459f778b4839972367f78197bf9a96cd11fd"
   )
 
+  specs_for_operator([0.., 0..],
+    gray_hash: "62d6101d60ee8da38d1b9d8e809091099cec5994",
+    rgba_hash: "d764459f778b4839972367f78197bf9a96cd11fd"
+  )
+
+  specs_for_operator([..-1, ..-1],
+    gray_hash: "62d6101d60ee8da38d1b9d8e809091099cec5994",
+    rgba_hash: "d764459f778b4839972367f78197bf9a96cd11fd"
+  )
+
   specs_for_operator(crop(450, 200, 100, 100),
+    gray_hash: "21506a4a0383736b41637e383f91373e7d0e781b",
+    rgba_hash: "25237b6d0408e7eab6e167d5e4576630c30ce4f1"
+  )
+
+  specs_for_operator([450...550, 200...300],
     gray_hash: "21506a4a0383736b41637e383f91373e7d0e781b",
     rgba_hash: "25237b6d0408e7eab6e167d5e4576630c30ce4f1"
   )
