@@ -33,4 +33,92 @@ module CrImage::Operation::Draw
 
     self
   end
+
+  def draw_circle(region : Region, radius : Int, color : Color, *, fill : Bool = false) : self
+    x, y = region.center
+    clone.draw_circle!(x, y, radius, color, fill: fill)
+  end
+
+  def draw_circle(x : Int, y : Int, radius : Int, color : Color, *, fill : Bool = false) : self
+    clone.draw_circle!(x, y, radius, color, fill: fill)
+  end
+
+  def draw_circle!(region : Region, color : Color, *, fill : Bool = false, radius : Int32? = nil) : self
+    x, y = region.center
+    draw_circle!(x, y, radius, color, fill: fill)
+  end
+
+  macro mpp(*args)
+    {% for arg in args %}
+      print "{{arg}}: #{{{arg}}}\t"
+    {% end %}
+    puts
+  end
+
+  def draw_circle!(center_x : Int, center_y : Int, radius : Int, color : Color, *, fill : Bool = false) : self
+    min_x = Math.max(0, center_x - radius)
+    max_x = Math.min(width - 1, center_x + radius)
+    min_y = Math.max(0, center_y - radius)
+    max_y = Math.min(height - 1, center_y + radius)
+
+    each_channel do |channel, channel_type|
+      0.upto(radius) do |y|
+        theta_0 = Math.asin(Math.max(0, (y - 1)) / radius.to_f)
+        theta_1 = Math.asin(y / radius.to_f)
+
+        # x_0 > x_1, as we're sticking to the first quadrant of the circle (0 <= theta_* <= 90 degrees, and theta_1 > theta_0)
+        x_0 = (radius * Math.cos(theta_0)).round
+        x_1 = (radius * Math.cos(theta_1)).round
+
+        # A given horizontal line in the circle will look like:
+        #    (outer_x)..(inner_x)     (center_x)     (inner_x)..(outer_x)
+        lower_x_outer = Math.max(min_x, center_x - x_0).to_i
+        lower_x_inner = Math.max(min_x, center_x - x_1).to_i
+        upper_x_outer = Math.min(max_x, center_x + x_0).to_i
+        upper_x_inner = Math.min(max_x, center_x + x_1).to_i
+
+        lower_y = center_y - y
+        upper_y = center_y + y
+
+        lower_y_outside_of_image = (center_y - y) < 0 || (center_y - y) > max_y
+        upper_y_outside_of_image = (center_y + y) < 0 || (center_y + y) > max_y
+        left_outer_x_beyond_right_of_image = (center_x - x_0) > max_x
+        right_outer_x_beyond_left_of_image = (center_x + x_0) < 0
+        left_inner_x_beyond_left_of_image = (center_x - x_1) < 0
+        right_inner_x_beyond_right_of_image = (center_x + x_1) > max_x
+
+        if fill
+          channel[index_of(lower_x_outer, lower_y), upper_x_outer - lower_x_outer + 1] =
+            Array(UInt8).new(upper_x_outer - lower_x_outer + 1) { color[channel_type] } unless left_outer_x_beyond_right_of_image ||
+                                                                                               right_outer_x_beyond_left_of_image ||
+                                                                                               lower_y_outside_of_image
+          channel[index_of(lower_x_outer, upper_y), upper_x_outer - lower_x_outer + 1] =
+            Array(UInt8).new(upper_x_outer - lower_x_outer + 1) { color[channel_type] } unless left_outer_x_beyond_right_of_image ||
+                                                                                               right_outer_x_beyond_left_of_image ||
+                                                                                               upper_y_outside_of_image
+        else
+          channel[index_of(lower_x_outer, lower_y), lower_x_inner - lower_x_outer + 1] =
+            Array(UInt8).new(lower_x_inner - lower_x_outer + 1) { color[channel_type] } unless left_inner_x_beyond_left_of_image ||
+                                                                                               left_outer_x_beyond_right_of_image ||
+                                                                                               lower_y_outside_of_image
+
+          channel[index_of(upper_x_inner, lower_y), upper_x_outer - upper_x_inner + 1] =
+            Array(UInt8).new(upper_x_outer - upper_x_inner + 1) { color[channel_type] } unless right_inner_x_beyond_right_of_image ||
+                                                                                               right_outer_x_beyond_left_of_image ||
+                                                                                               lower_y_outside_of_image
+
+          channel[index_of(lower_x_outer, upper_y), lower_x_inner - lower_x_outer + 1] =
+            Array(UInt8).new(lower_x_inner - lower_x_outer + 1) { color[channel_type] } unless left_inner_x_beyond_left_of_image ||
+                                                                                               left_outer_x_beyond_right_of_image ||
+                                                                                               upper_y_outside_of_image
+          channel[index_of(upper_x_inner, upper_y), upper_x_outer - upper_x_inner + 1] =
+            Array(UInt8).new(upper_x_outer - upper_x_inner + 1) { color[channel_type] } unless right_inner_x_beyond_right_of_image ||
+                                                                                               right_outer_x_beyond_left_of_image ||
+                                                                                               upper_y_outside_of_image
+        end
+      end
+    end
+
+    self
+  end
 end
