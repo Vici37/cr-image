@@ -1,6 +1,10 @@
-# cr-image
+# Crystal Image (Processing)
 
-TODO: Write a description here
+This shard aims to provide feature rich image processing abilities, both for the purpose of
+image manipulation as well as feature / information extraction from those images.
+
+The code here takes imense inspiration from (Pluto)[https://github.com/phenopolis/pluto] and (Stumpy)[https://github.com/stumpycr/stumpy_core], with
+an eventual goal to be able to convert between images of this and those libraries.
 
 ## Installation
 
@@ -9,22 +13,35 @@ TODO: Write a description here
    ```yaml
    dependencies:
      cr-image:
-       github: your-github-user/cr-image
+       github: vici37/cr-image
    ```
 
 2. Run `shards install`
 
 ## Usage
 
+Assuming an image `moon.jpg` already exists:
+
 ```crystal
 require "cr-image"
+
+image = CrImage::RGBAImage.open("moon.jpg")
+
+# create a mask identifying all pixels with light (i.e. the moon)
+moon_mask = image
+  .to_gray
+  .threshold(8) # pixels ar UInt8, so 0 is blank, 255 is white
+
+# Crop out the moon from the image, and save it to a new file
+image.apply(moon_mask).save("moon_cropped.jpg")
+
 ```
 
-TODO: Write usage instructions here
+See documentation (COMING SOON!) for more examples.
 
 ## Development
 
-TODO: Write development instructions here
+This requires `libwebp`, `libspng`, and `libturbojpeg` to run.
 
 ## Contributing
 

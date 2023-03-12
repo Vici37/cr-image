@@ -3,3 +3,7 @@ test:
 
 benchmark:
 	crystal run scripts/benchmark.cr --release
+
+.PHONY: docs
+docs:
+	crystal doc src/cr-image.cr

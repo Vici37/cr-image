@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 1.6.2">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="cr-image">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="js/doc.js"></script>
 
   <meta name="repository-name" content="cr-image">
-  <title>cr-image master</title>
+  <title>cr-image master-dev</title>
   <script type="text/javascript">
   CrystalDocs.base_path = "";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        master-dev
       </span>
     </div>
   </div>
@@ -213,11 +213,14 @@
 
 
 <div class="main-content">
-<h1><a id="cr-image" class="anchor" href="#cr-image">  <svg class="octicon-link" aria-hidden="true">
+<h1><a id="crystal-image-processing" class="anchor" href="#crystal-image-processing">  <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>cr-image</h1>
-<p><span class="flag orange">TODO</span>  Write a description here</p>
+</a>Crystal Image (Processing)</h1>
+<p>This shard aims to provide feature rich image processing abilities, both for the purpose of
+image manipulation as well as feature / information extraction from those images.</p>
+<p>The code here takes imense inspiration from (Pluto)[https://github.com/phenopolis/pluto] and (Stumpy)[https://github.com/stumpycr/stumpy_core], with
+an eventual goal to be able to convert between images of this and those libraries.</p>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -228,7 +231,7 @@
 <p>Add the dependency to your <code>shard.yml</code>:</p>
 <pre><code class="language-yaml">dependencies:
   cr-image:
-    github: your-github-user/cr-image</code></pre>
+    github: vici37/cr-image</code></pre>
 </li>
 <li>
 <p>Run <code>shards install</code></p>
@@ -239,14 +242,26 @@
     <use href="#octicon-link"/>
   </svg>
 </a>Usage</h2>
-<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image&quot;</span></code></pre>
-<p><span class="flag orange">TODO</span>  Write usage instructions here</p>
+<p>Assuming an image <code>moon.jpg</code> already exists:</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image&quot;</span>
+
+image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;moon.jpg&quot;</span>)
+
+<span class="c"># create a mask identifying all pixels with light (i.e. the moon)</span>
+moon_mask <span class="o">=</span> image
+  .to_gray
+  .threshold(<span class="n">8</span>) <span class="c"># pixels ar UInt8, so 0 is blank, 255 is white</span>
+
+<span class="c"># Crop out the moon from the image, and save it to a new file</span>
+image.apply(moon_mask).save(<span class="s">&quot;moon_cropped.jpg&quot;</span>)
+</code></pre>
+<p>See documentation (COMING SOON!) for more examples.</p>
 <h2><a id="development" class="anchor" href="#development">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Development</h2>
-<p><span class="flag orange">TODO</span>  Write development instructions here</p>
+<p>This requires <code>libwebp</code>, <code>libspng</code>, and <code>libturbojpeg</code> to run.</p>
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
