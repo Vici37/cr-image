@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.6.2">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="cr-image">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="cr-image">
+  <title>CrImage::Image - cr-image master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          cr-image
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="cr-image/CrImage" data-name="crimage">
+      <a href="../CrImage.html">CrImage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/ChannelType" data-name="crimage::channeltype">
+      <a href="../CrImage/ChannelType.html">ChannelType</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Color" data-name="crimage::color">
+      <a href="../CrImage/Color.html">Color</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Exception" data-name="crimage::exception">
+      <a href="../CrImage/Exception.html">Exception</a>
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/Format" data-name="crimage::format">
+      <a href="../CrImage/Format.html">Format</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/JPEG" data-name="crimage::format::jpeg">
+      <a href="../CrImage/Format/JPEG.html">JPEG</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/Open" data-name="crimage::format::open">
+      <a href="../CrImage/Format/Open.html">Open</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/PNG" data-name="crimage::format::png">
+      <a href="../CrImage/Format/PNG.html">PNG</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/PPM" data-name="crimage::format::ppm">
+      <a href="../CrImage/Format/PPM.html">PPM</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/Save" data-name="crimage::format::save">
+      <a href="../CrImage/Format/Save.html">Save</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/WebP" data-name="crimage::format::webp">
+      <a href="../CrImage/Format/WebP.html">WebP</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/GrayscaleImage" data-name="crimage::grayscaleimage">
+      <a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a>
+      
+    </li>
+  
+  <li class=" current" data-id="cr-image/CrImage/Image" data-name="crimage::image">
+      <a href="../CrImage/Image.html">Image</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Mask" data-name="crimage::mask">
+      <a href="../CrImage/Mask.html">Mask</a>
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/Operation" data-name="crimage::operation">
+      <a href="../CrImage/Operation.html">Operation</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/BilinearResize" data-name="crimage::operation::bilinearresize">
+      <a href="../CrImage/Operation/BilinearResize.html">BilinearResize</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/BoxBlur" data-name="crimage::operation::boxblur">
+      <a href="../CrImage/Operation/BoxBlur.html">BoxBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Brightness" data-name="crimage::operation::brightness">
+      <a href="../CrImage/Operation/Brightness.html">Brightness</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/ChannelSwap" data-name="crimage::operation::channelswap">
+      <a href="../CrImage/Operation/ChannelSwap.html">ChannelSwap</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Contrast" data-name="crimage::operation::contrast">
+      <a href="../CrImage/Operation/Contrast.html">Contrast</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Crop" data-name="crimage::operation::crop">
+      <a href="../CrImage/Operation/Crop.html">Crop</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Draw" data-name="crimage::operation::draw">
+      <a href="../CrImage/Operation/Draw.html">Draw</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/GaussianBlur" data-name="crimage::operation::gaussianblur">
+      <a href="../CrImage/Operation/GaussianBlur.html">GaussianBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/HorizontalBlur" data-name="crimage::operation::horizontalblur">
+      <a href="../CrImage/Operation/HorizontalBlur.html">HorizontalBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/MaskApply" data-name="crimage::operation::maskapply">
+      <a href="../CrImage/Operation/MaskApply.html">MaskApply</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/VerticalBlur" data-name="crimage::operation::verticalblur">
+      <a href="../CrImage/Operation/VerticalBlur.html">VerticalBlur</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Region" data-name="crimage::region">
+      <a href="../CrImage/Region.html">Region</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/RGBAImage" data-name="crimage::rgbaimage">
+      <a href="../CrImage/RGBAImage.html">RGBAImage</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">abstract class</span> CrImage::Image
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../CrImage/Image.html">CrImage::Image</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="direct-known-subclasses" class="anchor" href="#direct-known-subclasses">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct Known Subclasses
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../CrImage/GrayscaleImage.html">CrImage::GrayscaleImage</a></li>
+    
+      <li class="other-type"><a href="../CrImage/RGBAImage.html">CrImage::RGBAImage</a></li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      cr-image/image.cr
+    
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method" class="signature"><strong>#[]</strong>(channel_type : ChannelType) : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method" class="signature"><strong>#[]=</strong>(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#alpha%3AArray%28UInt8%29-instance-method" class="signature"><strong>#alpha</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blue%3AArray%28UInt8%29-instance-method" class="signature"><strong>#blue</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method" class="signature"><strong>#each_channel</strong>(& : Array(UInt8), ChannelType -> Nil) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#green%3AArray%28UInt8%29-instance-method" class="signature"><strong>#green</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#height%3AInt32-instance-method" class="signature"><strong>#height</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#red%3AArray%28UInt8%29-instance-method" class="signature"><strong>#red</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#width%3AInt32-instance-method" class="signature"><strong>#width</strong> : Int32</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="[](channel_type:ChannelType):Array(UInt8)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>[]</strong>(channel_type : <a href="../CrImage/ChannelType.html">ChannelType</a>) : Array(UInt8)
+
+        <a class="method-permalink" href="#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]=(channel_type:ChannelType,channel:Array(UInt8)):Array(UInt8)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>[]=</strong>(channel_type : <a href="../CrImage/ChannelType.html">ChannelType</a>, channel : Array(UInt8)) : Array(UInt8)
+
+        <a class="method-permalink" href="#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="alpha:Array(UInt8)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>alpha</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#alpha%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="blue:Array(UInt8)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>blue</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#blue%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="each_channel(&amp;:Array(UInt8),ChannelType-&gt;Nil):Nil-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>each_channel</strong>(& : Array(UInt8), <a href="../CrImage/ChannelType.html">ChannelType</a> -> Nil) : Nil
+
+        <a class="method-permalink" href="#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="green:Array(UInt8)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>green</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#green%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="height:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>height</strong> : Int32
+
+        <a class="method-permalink" href="#height%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="red:Array(UInt8)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>red</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#red%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>size</strong> : Int32
+
+        <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="width:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>width</strong> : Int32
+
+        <a class="method-permalink" href="#width%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

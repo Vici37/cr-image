@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.6.2">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="cr-image">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="cr-image">
+  <title>CrImage::GrayscaleImage - cr-image master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          cr-image
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="cr-image/CrImage" data-name="crimage">
+      <a href="../CrImage.html">CrImage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/ChannelType" data-name="crimage::channeltype">
+      <a href="../CrImage/ChannelType.html">ChannelType</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Color" data-name="crimage::color">
+      <a href="../CrImage/Color.html">Color</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Exception" data-name="crimage::exception">
+      <a href="../CrImage/Exception.html">Exception</a>
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/Format" data-name="crimage::format">
+      <a href="../CrImage/Format.html">Format</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/JPEG" data-name="crimage::format::jpeg">
+      <a href="../CrImage/Format/JPEG.html">JPEG</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/Open" data-name="crimage::format::open">
+      <a href="../CrImage/Format/Open.html">Open</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/PNG" data-name="crimage::format::png">
+      <a href="../CrImage/Format/PNG.html">PNG</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/PPM" data-name="crimage::format::ppm">
+      <a href="../CrImage/Format/PPM.html">PPM</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/Save" data-name="crimage::format::save">
+      <a href="../CrImage/Format/Save.html">Save</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/WebP" data-name="crimage::format::webp">
+      <a href="../CrImage/Format/WebP.html">WebP</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" current" data-id="cr-image/CrImage/GrayscaleImage" data-name="crimage::grayscaleimage">
+      <a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Image" data-name="crimage::image">
+      <a href="../CrImage/Image.html">Image</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Mask" data-name="crimage::mask">
+      <a href="../CrImage/Mask.html">Mask</a>
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/Operation" data-name="crimage::operation">
+      <a href="../CrImage/Operation.html">Operation</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/BilinearResize" data-name="crimage::operation::bilinearresize">
+      <a href="../CrImage/Operation/BilinearResize.html">BilinearResize</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/BoxBlur" data-name="crimage::operation::boxblur">
+      <a href="../CrImage/Operation/BoxBlur.html">BoxBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Brightness" data-name="crimage::operation::brightness">
+      <a href="../CrImage/Operation/Brightness.html">Brightness</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/ChannelSwap" data-name="crimage::operation::channelswap">
+      <a href="../CrImage/Operation/ChannelSwap.html">ChannelSwap</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Contrast" data-name="crimage::operation::contrast">
+      <a href="../CrImage/Operation/Contrast.html">Contrast</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Crop" data-name="crimage::operation::crop">
+      <a href="../CrImage/Operation/Crop.html">Crop</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Draw" data-name="crimage::operation::draw">
+      <a href="../CrImage/Operation/Draw.html">Draw</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/GaussianBlur" data-name="crimage::operation::gaussianblur">
+      <a href="../CrImage/Operation/GaussianBlur.html">GaussianBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/HorizontalBlur" data-name="crimage::operation::horizontalblur">
+      <a href="../CrImage/Operation/HorizontalBlur.html">HorizontalBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/MaskApply" data-name="crimage::operation::maskapply">
+      <a href="../CrImage/Operation/MaskApply.html">MaskApply</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/VerticalBlur" data-name="crimage::operation::verticalblur">
+      <a href="../CrImage/Operation/VerticalBlur.html">VerticalBlur</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Region" data-name="crimage::region">
+      <a href="../CrImage/Region.html">Region</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/RGBAImage" data-name="crimage::rgbaimage">
+      <a href="../CrImage/RGBAImage.html">RGBAImage</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> CrImage::GrayscaleImage
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../CrImage/GrayscaleImage.html">CrImage::GrayscaleImage</a></li><li class="superclass"><a href="../CrImage/Image.html">CrImage::Image</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../CrImage/Format/JPEG.html">CrImage::Format::JPEG</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Format/PNG.html">CrImage::Format::PNG</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Format/PPM.html">CrImage::Format::PPM</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Format/Save.html">CrImage::Format::Save</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Format/WebP.html">CrImage::Format::WebP</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/BilinearResize.html">CrImage::Operation::BilinearResize</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/BoxBlur.html">CrImage::Operation::BoxBlur</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/Brightness.html">CrImage::Operation::Brightness</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/ChannelSwap.html">CrImage::Operation::ChannelSwap</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/Contrast.html">CrImage::Operation::Contrast</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/Crop.html">CrImage::Operation::Crop</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/Draw.html">CrImage::Operation::Draw</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/GaussianBlur.html">CrImage::Operation::GaussianBlur</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/HorizontalBlur.html">CrImage::Operation::HorizontalBlur</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/MaskApply.html">CrImage::Operation::MaskApply</a></li>
+    
+      <li class="other-type"><a href="../CrImage/Operation/VerticalBlur.html">CrImage::Operation::VerticalBlur</a></li>
+    
+  </ul>
+
+
+
+  <h2>
+    <a id="extended-modules" class="anchor" href="#extended-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Extended Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../CrImage/Format/Open.html">CrImage::Format::Open</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      cr-image/grayscale_image.cr
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#from_jpeg%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_jpeg</strong>(image_data : Bytes) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>This is the preferred, most performant JPEG overload with the least memory consumption.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_jpeg%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_jpeg</strong>(io : IO) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>This is a less preferred JPEG overload.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_png%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_png</strong>(image_data : Bytes) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>This is the preferred, most performant PNG overload with the least memory consumption.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_png%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_png</strong>(io : IO) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>This is a less preferred PNG overload.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_ppm%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_ppm</strong>(image_data : Bytes) : <span class="k">self</span></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_ppm%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_ppm</strong>(io : IO) : <span class="k">self</span></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_webp%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_webp</strong>(image_data : Bytes) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>This is the preferred, most performant WebP overload with the least memory consumption.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_webp%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_webp</strong>(io : IO) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>This is a less preferred WebP overload.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28red%3AArray%28UInt8%29%2Cgreen%3AArray%28UInt8%29%2Cblue%3AArray%28UInt8%29%2Calpha%3AArray%28UInt8%29%2Cwidth%3AInt32%2Cheight%3AInt32%29-class-method" class="signature"><strong>.new</strong>(red : Array(UInt8), green : Array(UInt8), blue : Array(UInt8), alpha : Array(UInt8), width : Int32, height : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28gray%3AArray%28UInt8%29%2Calpha%3AArray%28UInt8%29%2Cwidth%3AInt32%2Cheight%3AInt32%29-class-method" class="signature"><strong>.new</strong>(gray : Array(UInt8), alpha : Array(UInt8), width : Int32, height : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28gray%3AArray%28UInt8%29%2Cwidth%3AInt32%2Cheight%3AInt32%29-class-method" class="signature"><strong>.new</strong>(gray : Array(UInt8), width : Int32, height : Int32)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method" class="signature"><strong>#[]</strong>(channel_type : ChannelType) : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method" class="signature"><strong>#[]=</strong>(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#alpha%3AArray%28UInt8%29-instance-method" class="signature"><strong>#alpha</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#alpha%3D%28alpha%3AArray%28UInt8%29%29-instance-method" class="signature"><strong>#alpha=</strong>(alpha : Array(UInt8))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blue%3AArray%28UInt8%29-instance-method" class="signature"><strong>#blue</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clone%3AGrayscaleImage-instance-method" class="signature"><strong>#clone</strong> : GrayscaleImage</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method" class="signature"><strong>#each_channel</strong>(& : Array(UInt8), ChannelType -> Nil) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gray%3AArray%28UInt8%29-instance-method" class="signature"><strong>#gray</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gray%3D%28gray%3AArray%28UInt8%29%29-instance-method" class="signature"><strong>#gray=</strong>(gray : Array(UInt8))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#green%3AArray%28UInt8%29-instance-method" class="signature"><strong>#green</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#height%3AInt32-instance-method" class="signature"><strong>#height</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#height%3D%28height%3AInt32%29-instance-method" class="signature"><strong>#height=</strong>(height : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#invert-instance-method" class="signature"><strong>#invert</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#invert%21-instance-method" class="signature"><strong>#invert!</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mask_from%28%26block%3AInt32%2CInt32%2CUInt8-%3EBool%29%3AMask-instance-method" class="signature"><strong>#mask_from</strong>(&block : Int32, Int32, UInt8 -> Bool) : Mask</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#red%3AArray%28UInt8%29-instance-method" class="signature"><strong>#red</strong> : Array(UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#threshold%28threshold%3AInt%29%3AMask-instance-method" class="signature"><strong>#threshold</strong>(threshold : Int) : Mask</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_gray%3AGrayscaleImage-instance-method" class="signature"><strong>#to_gray</strong> : GrayscaleImage</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_rgba%3ARGBAImage-instance-method" class="signature"><strong>#to_rgba</strong> : RGBAImage</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#width%3AInt32-instance-method" class="signature"><strong>#width</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#width%3D%28width%3AInt32%29-instance-method" class="signature"><strong>#width=</strong>(width : Int32)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/MaskApply.html">CrImage::Operation::MaskApply</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/MaskApply.html#apply%28mask%3AMask%29%3Aself-instance-method" class="tooltip">
+      <span>apply(mask : Mask) : <span class="k">self</span><br/>apply(mask : Mask, &block : Int32, Int32, UInt8, ChannelType -> UInt8) : <span class="k">self</span></span>
+    apply</a>, 
+    
+  
+    <a href="../CrImage/Operation/MaskApply.html#apply%21%28mask%3AMask%29%3Aself-instance-method" class="tooltip">
+      <span>apply!(mask : Mask) : <span class="k">self</span><br/>apply!(mask : Mask, &block : Int32, Int32, UInt8, ChannelType -> UInt8) : <span class="k">self</span></span>
+    apply!</a>, 
+    
+  
+    <a href="../CrImage/Operation/MaskApply.html#apply_color%28mask%3AMask%2Ccolor%3AColor%29%3Aself-instance-method" class="tooltip">
+      <span>apply_color(mask : Mask, color : Color) : <span class="k">self</span></span>
+    apply_color</a>, 
+    
+  
+    <a href="../CrImage/Operation/MaskApply.html#apply_color%21%28mask%3AMask%2Ccolor%3AColor%29%3Aself-instance-method" class="tooltip">
+      <span>apply_color!(mask : Mask, color : Color) : <span class="k">self</span></span>
+    apply_color!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Format/Save.html">CrImage::Format::Save</a></code></h3>
+  
+  
+    <a href="../CrImage/Format/Save.html#save%28filename%3AString%29%3ANil-instance-method" class="tooltip">
+      <span>save(filename : String) : Nil</span>
+    save</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/Draw.html">CrImage::Operation::Draw</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/Draw.html#draw_box%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="tooltip">
+      <span>draw_box(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span><br/>draw_box(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></span>
+    draw_box</a>, 
+    
+  
+    <a href="../CrImage/Operation/Draw.html#draw_box%21%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="tooltip">
+      <span>draw_box!(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span><br/>draw_box!(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></span>
+    draw_box!</a>, 
+    
+  
+    <a href="../CrImage/Operation/Draw.html#draw_circle%28x%3AInt%2Cy%3AInt%2Cradius%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="tooltip">
+      <span>draw_circle(x : Int, y : Int, radius : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span><br/>draw_circle(region : Region, radius : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></span>
+    draw_circle</a>, 
+    
+  
+    <a href="../CrImage/Operation/Draw.html#draw_circle%21%28center_x%3AInt%2Ccenter_y%3AInt%2Cradius%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="tooltip">
+      <span>draw_circle!(center_x : Int, center_y : Int, radius : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span><br/>draw_circle!(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>, radius : Int32 | Nil = <span class="n">nil</span>) : <span class="k">self</span></span>
+    draw_circle!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/Crop.html">CrImage::Operation::Crop</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/Crop.html#%5B%5D%28xrange%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cyrange%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3Aself-instance-method" class="tooltip">
+      <span>[](xrange : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), yrange : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : <span class="k">self</span></span>
+    []</a>, 
+    
+  
+    <a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>crop(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : <span class="k">self</span><br/>crop(region : Region) : <span class="k">self</span></span>
+    crop</a>, 
+    
+  
+    <a href="../CrImage/Operation/Crop.html#crop%21%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>crop!(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : <span class="k">self</span><br/>crop!(region : Region) : <span class="k">self</span></span>
+    crop!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/VerticalBlur.html">CrImage::Operation::VerticalBlur</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/VerticalBlur.html#vertical_blur%28value%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>vertical_blur(value : Int32) : <span class="k">self</span></span>
+    vertical_blur</a>, 
+    
+  
+    <a href="../CrImage/Operation/VerticalBlur.html#vertical_blur%21%28value%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>vertical_blur!(value : Int32) : <span class="k">self</span></span>
+    vertical_blur!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/HorizontalBlur.html">CrImage::Operation::HorizontalBlur</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/HorizontalBlur.html#horizontal_blur%28value%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>horizontal_blur(value : Int32) : <span class="k">self</span></span>
+    horizontal_blur</a>, 
+    
+  
+    <a href="../CrImage/Operation/HorizontalBlur.html#horizontal_blur%21%28value%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>horizontal_blur!(value : Int32) : <span class="k">self</span></span>
+    horizontal_blur!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/GaussianBlur.html">CrImage::Operation::GaussianBlur</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/GaussianBlur.html#gaussian_blur%28value%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>gaussian_blur(value : Int32) : <span class="k">self</span></span>
+    gaussian_blur</a>, 
+    
+  
+    <a href="../CrImage/Operation/GaussianBlur.html#gaussian_blur%21%28value%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>gaussian_blur!(value : Int32) : <span class="k">self</span></span>
+    gaussian_blur!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/Contrast.html">CrImage::Operation::Contrast</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/Contrast.html#contrast%28value%3AFloat64%29%3Aself-instance-method" class="tooltip">
+      <span>contrast(value : Float64) : <span class="k">self</span></span>
+    contrast</a>, 
+    
+  
+    <a href="../CrImage/Operation/Contrast.html#contrast%21%28value%3AFloat64%29%3Aself-instance-method" class="tooltip">
+      <span>contrast!(value : Float64) : <span class="k">self</span></span>
+    contrast!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/ChannelSwap.html">CrImage::Operation::ChannelSwap</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/ChannelSwap.html#channel_swap%28a%3AChannelType%2Cb%3AChannelType%29%3Aself-instance-method" class="tooltip">
+      <span>channel_swap(a : ChannelType, b : ChannelType) : <span class="k">self</span></span>
+    channel_swap</a>, 
+    
+  
+    <a href="../CrImage/Operation/ChannelSwap.html#channel_swap%21%28a%3AChannelType%2Cb%3AChannelType%29%3Aself-instance-method" class="tooltip">
+      <span>channel_swap!(a : ChannelType, b : ChannelType) : <span class="k">self</span></span>
+    channel_swap!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/Brightness.html">CrImage::Operation::Brightness</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/Brightness.html#brightness%28value%3AFloat64%29%3Aself-instance-method" class="tooltip">
+      <span>brightness(value : Float64) : <span class="k">self</span></span>
+    brightness</a>, 
+    
+  
+    <a href="../CrImage/Operation/Brightness.html#brightness%21%28value%3AFloat64%29%3Aself-instance-method" class="tooltip">
+      <span>brightness!(value : Float64) : <span class="k">self</span></span>
+    brightness!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/BoxBlur.html">CrImage::Operation::BoxBlur</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/BoxBlur.html#box_blur%28value%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>box_blur(value : Int32) : <span class="k">self</span></span>
+    box_blur</a>, 
+    
+  
+    <a href="../CrImage/Operation/BoxBlur.html#box_blur%21%28value%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>box_blur!(value : Int32) : <span class="k">self</span></span>
+    box_blur!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/BilinearResize.html">CrImage::Operation::BilinearResize</a></code></h3>
+  
+  
+    <a href="../CrImage/Operation/BilinearResize.html#bilinear_resize%28width%3AInt32%2Cheight%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>bilinear_resize(width : Int32, height : Int32) : <span class="k">self</span></span>
+    bilinear_resize</a>, 
+    
+  
+    <a href="../CrImage/Operation/BilinearResize.html#bilinear_resize%21%28width%3AInt32%2Cheight%3AInt32%29%3Aself-instance-method" class="tooltip">
+      <span>bilinear_resize!(width : Int32, height : Int32) : <span class="k">self</span></span>
+    bilinear_resize!</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Format/PNG.html">CrImage::Format::PNG</a></code></h3>
+  
+  
+    <a href="../CrImage/Format/PNG.html#check_png%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>check_png(*args, **options)<br/>check_png(*args, **options, &)</span>
+    check_png</a>, 
+    
+  
+    <a href="../CrImage/Format/PNG.html#to_png%28io%3AIO%29%3ANil-instance-method" class="tooltip">
+      <span>to_png(io : IO) : Nil</span>
+    to_png</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Format/WebP.html">CrImage::Format::WebP</a></code></h3>
+  
+  
+    <a href="../CrImage/Format/WebP.html#check_webp%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>check_webp(*args, **options)<br/>check_webp(*args, **options, &)</span>
+    check_webp</a>, 
+    
+  
+    <a href="../CrImage/Format/WebP.html#to_webp%28io%3AIO%29%3ANil-instance-method" class="tooltip">
+      <span>to_webp(io : IO) : Nil</span>
+    to_webp</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Format/PPM.html">CrImage::Format::PPM</a></code></h3>
+  
+  
+    <a href="../CrImage/Format/PPM.html#to_ppm%28io%3AIO%29%3ANil-instance-method" class="tooltip">
+      <span>to_ppm(io : IO) : Nil</span>
+    to_ppm</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Format/JPEG.html">CrImage::Format::JPEG</a></code></h3>
+  
+  
+    <a href="../CrImage/Format/JPEG.html#check_jpeg%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>check_jpeg(*args, **options)<br/>check_jpeg(*args, **options, &)</span>
+    check_jpeg</a>, 
+    
+  
+    <a href="../CrImage/Format/JPEG.html#to_jpeg%28io%3AIO%2Cquality%3AInt32%3D100%29%3ANil-instance-method" class="tooltip">
+      <span>to_jpeg(io : IO, quality : Int32 = <span class="n">100</span>) : Nil</span>
+    to_jpeg</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from class <code><a href="../CrImage/Image.html">CrImage::Image</a></code></h3>
+  
+  
+    <a href="../CrImage/Image.html#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method" class="tooltip">
+      <span>[](channel_type : ChannelType) : Array(UInt8)</span>
+    []</a>, 
+    
+  
+    <a href="../CrImage/Image.html#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method" class="tooltip">
+      <span>[]=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)</span>
+    []=</a>, 
+    
+  
+    <a href="../CrImage/Image.html#alpha%3AArray%28UInt8%29-instance-method" class="tooltip">
+      <span>alpha : Array(UInt8)</span>
+    alpha</a>, 
+    
+  
+    <a href="../CrImage/Image.html#blue%3AArray%28UInt8%29-instance-method" class="tooltip">
+      <span>blue : Array(UInt8)</span>
+    blue</a>, 
+    
+  
+    <a href="../CrImage/Image.html#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method" class="tooltip">
+      <span>each_channel(& : Array(UInt8), ChannelType -> Nil) : Nil</span>
+    each_channel</a>, 
+    
+  
+    <a href="../CrImage/Image.html#green%3AArray%28UInt8%29-instance-method" class="tooltip">
+      <span>green : Array(UInt8)</span>
+    green</a>, 
+    
+  
+    <a href="../CrImage/Image.html#height%3AInt32-instance-method" class="tooltip">
+      <span>height : Int32</span>
+    height</a>, 
+    
+  
+    <a href="../CrImage/Image.html#red%3AArray%28UInt8%29-instance-method" class="tooltip">
+      <span>red : Array(UInt8)</span>
+    red</a>, 
+    
+  
+    <a href="../CrImage/Image.html#size%3AInt32-instance-method" class="tooltip">
+      <span>size : Int32</span>
+    size</a>, 
+    
+  
+    <a href="../CrImage/Image.html#width%3AInt32-instance-method" class="tooltip">
+      <span>width : Int32</span>
+    width</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="from_jpeg(image_data:Bytes):self-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_jpeg</strong>(image_data : Bytes) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#from_jpeg%28image_data%3ABytes%29%3Aself-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>This is the preferred, most performant JPEG overload with the least memory consumption.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_jpeg(io:IO):self-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_jpeg</strong>(io : IO) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#from_jpeg%28io%3AIO%29%3Aself-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>This is a less preferred JPEG overload.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_png(image_data:Bytes):self-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_png</strong>(image_data : Bytes) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#from_png%28image_data%3ABytes%29%3Aself-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>This is the preferred, most performant PNG overload with the least memory consumption.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_png(io:IO):self-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_png</strong>(io : IO) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#from_png%28io%3AIO%29%3Aself-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>This is a less preferred PNG overload.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_ppm(image_data:Bytes):self-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_ppm</strong>(image_data : Bytes) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#from_ppm%28image_data%3ABytes%29%3Aself-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_ppm(io:IO):self-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_ppm</strong>(io : IO) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#from_ppm%28io%3AIO%29%3Aself-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_webp(image_data:Bytes):self-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_webp</strong>(image_data : Bytes) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#from_webp%28image_data%3ABytes%29%3Aself-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>This is the preferred, most performant WebP overload with the least memory consumption.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_webp(io:IO):self-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_webp</strong>(io : IO) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#from_webp%28io%3AIO%29%3Aself-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>This is a less preferred WebP overload.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(red:Array(UInt8),green:Array(UInt8),blue:Array(UInt8),alpha:Array(UInt8),width:Int32,height:Int32)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(red : Array(UInt8), green : Array(UInt8), blue : Array(UInt8), alpha : Array(UInt8), width : Int32, height : Int32)
+
+        <a class="method-permalink" href="#new%28red%3AArray%28UInt8%29%2Cgreen%3AArray%28UInt8%29%2Cblue%3AArray%28UInt8%29%2Calpha%3AArray%28UInt8%29%2Cwidth%3AInt32%2Cheight%3AInt32%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(gray:Array(UInt8),alpha:Array(UInt8),width:Int32,height:Int32)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(gray : Array(UInt8), alpha : Array(UInt8), width : Int32, height : Int32)
+
+        <a class="method-permalink" href="#new%28gray%3AArray%28UInt8%29%2Calpha%3AArray%28UInt8%29%2Cwidth%3AInt32%2Cheight%3AInt32%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(gray:Array(UInt8),width:Int32,height:Int32)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(gray : Array(UInt8), width : Int32, height : Int32)
+
+        <a class="method-permalink" href="#new%28gray%3AArray%28UInt8%29%2Cwidth%3AInt32%2Cheight%3AInt32%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="[](channel_type:ChannelType):Array(UInt8)-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(channel_type : <a href="../CrImage/ChannelType.html">ChannelType</a>) : Array(UInt8)
+
+        <a class="method-permalink" href="#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]=(channel_type:ChannelType,channel:Array(UInt8)):Array(UInt8)-instance-method">
+      <div class="signature">
+        
+        def <strong>[]=</strong>(channel_type : <a href="../CrImage/ChannelType.html">ChannelType</a>, channel : Array(UInt8)) : Array(UInt8)
+
+        <a class="method-permalink" href="#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="alpha:Array(UInt8)-instance-method">
+      <div class="signature">
+        
+        def <strong>alpha</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#alpha%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="alpha=(alpha:Array(UInt8))-instance-method">
+      <div class="signature">
+        
+        def <strong>alpha=</strong>(alpha : Array(UInt8))
+
+        <a class="method-permalink" href="#alpha%3D%28alpha%3AArray%28UInt8%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="blue:Array(UInt8)-instance-method">
+      <div class="signature">
+        
+        def <strong>blue</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#blue%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clone:GrayscaleImage-instance-method">
+      <div class="signature">
+        
+        def <strong>clone</strong> : <a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a>
+
+        <a class="method-permalink" href="#clone%3AGrayscaleImage-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="each_channel(&amp;:Array(UInt8),ChannelType-&gt;Nil):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>each_channel</strong>(& : Array(UInt8), <a href="../CrImage/ChannelType.html">ChannelType</a> -> Nil) : Nil
+
+        <a class="method-permalink" href="#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gray:Array(UInt8)-instance-method">
+      <div class="signature">
+        
+        def <strong>gray</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#gray%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gray=(gray:Array(UInt8))-instance-method">
+      <div class="signature">
+        
+        def <strong>gray=</strong>(gray : Array(UInt8))
+
+        <a class="method-permalink" href="#gray%3D%28gray%3AArray%28UInt8%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="green:Array(UInt8)-instance-method">
+      <div class="signature">
+        
+        def <strong>green</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#green%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="height:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>height</strong> : Int32
+
+        <a class="method-permalink" href="#height%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="height=(height:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>height=</strong>(height : Int32)
+
+        <a class="method-permalink" href="#height%3D%28height%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="invert-instance-method">
+      <div class="signature">
+        
+        def <strong>invert</strong>
+
+        <a class="method-permalink" href="#invert-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="invert!-instance-method">
+      <div class="signature">
+        
+        def <strong>invert!</strong>
+
+        <a class="method-permalink" href="#invert%21-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mask_from(&amp;block:Int32,Int32,UInt8-&gt;Bool):Mask-instance-method">
+      <div class="signature">
+        
+        def <strong>mask_from</strong>(&block : Int32, Int32, UInt8 -> Bool) : <a href="../CrImage/Mask.html">Mask</a>
+
+        <a class="method-permalink" href="#mask_from%28%26block%3AInt32%2CInt32%2CUInt8-%3EBool%29%3AMask-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="red:Array(UInt8)-instance-method">
+      <div class="signature">
+        
+        def <strong>red</strong> : Array(UInt8)
+
+        <a class="method-permalink" href="#red%3AArray%28UInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>size</strong> : Int32
+
+        <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="threshold(threshold:Int):Mask-instance-method">
+      <div class="signature">
+        
+        def <strong>threshold</strong>(threshold : Int) : <a href="../CrImage/Mask.html">Mask</a>
+
+        <a class="method-permalink" href="#threshold%28threshold%3AInt%29%3AMask-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_gray:GrayscaleImage-instance-method">
+      <div class="signature">
+        
+        def <strong>to_gray</strong> : <a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a>
+
+        <a class="method-permalink" href="#to_gray%3AGrayscaleImage-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_rgba:RGBAImage-instance-method">
+      <div class="signature">
+        
+        def <strong>to_rgba</strong> : <a href="../CrImage/RGBAImage.html">RGBAImage</a>
+
+        <a class="method-permalink" href="#to_rgba%3ARGBAImage-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="width:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>width</strong> : Int32
+
+        <a class="method-permalink" href="#width%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="width=(width:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>width=</strong>(width : Int32)
+
+        <a class="method-permalink" href="#width%3D%28width%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
