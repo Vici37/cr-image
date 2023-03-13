@@ -3,7 +3,7 @@
 This shard aims to provide feature rich image processing abilities, both for the purpose of
 image manipulation as well as feature / information extraction from those images.
 
-The code here takes imense inspiration from (Pluto)[https://github.com/phenopolis/pluto] and (Stumpy)[https://github.com/stumpycr/stumpy_core], with
+The code here takes imense inspiration from [Pluto](https://github.com/phenopolis/pluto) and [Stumpy](https://github.com/stumpycr/stumpy_core), with
 an eventual goal to be able to convert between images of this and those libraries.
 
 ## Installation
@@ -22,7 +22,7 @@ an eventual goal to be able to convert between images of this and those librarie
 
 Assuming an image `moon.jpg` already exists
 
-<img href="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon.jpg" alt="Picture of moon"/>
+![Picture of moon](./docs/images/moon.jpg)
 
 ```crystal
 require "cr-image"
@@ -42,8 +42,7 @@ image.crop(
 ```
 
 Yields this image:
-
-<img href="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon_cropped.jpg" alt="Cropped example of moon"/>
+![Cropped example of moon](./docs/images/moon_cropped.jpg)
 
 See documentation (COMING SOON!) for more examples.
 
