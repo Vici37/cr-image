@@ -242,7 +242,8 @@ an eventual goal to be able to convert between images of this and those librarie
     <use href="#octicon-link"/>
   </svg>
 </a>Usage</h2>
-<p>Assuming an image <code>moon.jpg</code> already exists:</p>
+<p>Assuming an image <code>moon.jpg</code> already exists</p>
+<img href="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon.jpg" alt="Picture of moon"/>
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image&quot;</span>
 
 image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;moon.jpg&quot;</span>)
@@ -253,8 +254,12 @@ moon_mask <span class="o">=</span> image
   .threshold(<span class="n">8</span>) <span class="c"># pixels ar UInt8, so 0 is blank, 255 is white</span>
 
 <span class="c"># Crop out the moon from the image, and save it to a new file</span>
-image.apply(moon_mask).save(<span class="s">&quot;moon_cropped.jpg&quot;</span>)
+image.crop(
+  moon_mask.region <span class="c"># smallest area that encompasses all true bits in mask</span>
+).save(<span class="s">&quot;moon_cropped.jpg&quot;</span>)
 </code></pre>
+<p>Yields this image:</p>
+<img href="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon_cropped.jpg" alt="Cropped example of moon"/>
 <p>See documentation (COMING SOON!) for more examples.</p>
 <h2><a id="development" class="anchor" href="#development">
   <svg class="octicon-link" aria-hidden="true">

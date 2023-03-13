@@ -20,7 +20,9 @@ an eventual goal to be able to convert between images of this and those librarie
 
 ## Usage
 
-Assuming an image `moon.jpg` already exists:
+Assuming an image `moon.jpg` already exists
+
+<img href="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon.jpg" alt="Picture of moon"/>
 
 ```crystal
 require "cr-image"
@@ -33,9 +35,15 @@ moon_mask = image
   .threshold(8) # pixels ar UInt8, so 0 is blank, 255 is white
 
 # Crop out the moon from the image, and save it to a new file
-image.apply(moon_mask).save("moon_cropped.jpg")
+image.crop(
+  moon_mask.region # smallest area that encompasses all true bits in mask
+).save("moon_cropped.jpg")
 
 ```
+
+Yields this image:
+
+<img href="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon_cropped.jpg" alt="Cropped example of moon"/>
 
 See documentation (COMING SOON!) for more examples.
 
