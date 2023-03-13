@@ -24,8 +24,6 @@ All sample images used are from [Unsplash](https://unsplash.com/).
 
 Assuming an image `moon.jpg` already exists
 
-![Picture of moon](./docs/images/moon.jpg)
-
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon.jpg" alt="Picture of moon"/>
 
 ```crystal

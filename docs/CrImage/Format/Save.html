@@ -223,6 +223,26 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Provides a convenience method for saving image files to the filesystem.
+Currently supports:</p>
+<ul>
+<li>PPM (<code>.ppm</code>)</li>
+<li>WebP (<code>.webp</code>)</li>
+<li>JPEG (<code>.jpeg</code>, <code>.jpg</code>)</li>
+<li>PNG (<code>.png</code>)</li>
+</ul>
+<pre><code class="language-crystal">image.save(<span class="s">&quot;image.jpg&quot;</span>)</code></pre>
+<p>See <code><a href="../../CrImage/Format/Open.html">Open</a></code> for a convenience method to read images from the filesystem</p>
+
 
 
 
@@ -288,6 +308,8 @@
       <li class="entry-summary">
         <a href="#save%28filename%3AString%29%3ANil-instance-method" class="signature"><strong>#save</strong>(filename : String) : Nil</a>
         
+          <div class="summary"><p>Write this image to file using the provided filename.</p></div>
+        
       </li>
     
   </ul>
@@ -321,6 +343,13 @@
 
         <a class="method-permalink" href="#save%28filename%3AString%29%3ANil-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Write this image to file using the provided filename.</p>
+<p>This method <em>will not</em> create intermediate directory paths. This method will throw an
+error if they don't exist.</p>
+        </div>
       
       <br/>
       <div>

@@ -1,6 +1,20 @@
+require "../bindings/lib_spng"
+
+# Provides methods to read from and write to PNG. Requires `libspng` to function.
+#
+# ```
+# image = File.open("image.png") { |file| CrImage::RGBAImage.from_png(file) }
+# File.open("other_image.png") { |file| image.to_png(file) }
+# ```
+# Alternatively, you can use the convenience methods in the `Open` and `Save` modules
+# to acheive the same thing:
+# ```
+# image = CrImage::RGBAImage.open("image.png")
+# image.save("other_image.png")
+# ```
 module CrImage::Format::PNG
   macro included
-    # This is the preferred, most performant PNG overload with the least memory consumption.
+    # Read `image_data` and PNG encoded bytes
     def self.from_png(image_data : Bytes) : self
       ctx = LibSPNG.ctx_new(LibSPNG::CtxFlags::None)
       raise ::CrImage::Exception.new("Failed to create a context") unless ctx
@@ -41,16 +55,18 @@ module CrImage::Format::PNG
       new(red, green, blue, alpha, width.to_i, height.to_i)
     end
 
-    # This is a less preferred PNG overload.
+    # Construct an Image by reading bytes from `io`
     def self.from_png(io : IO) : self
       from_png(io.getb_to_end)
     end
 
+    # :nodoc:
     protected def self.check_png(code)
       raise ::CrImage::Exception.new(code) if code != 0
     end
   end
 
+  # Output the image as PNG to `io`
   def to_png(io : IO) : Nil
     image_data = IO::Memory.new(size * 4)
     size.times do |index|
@@ -91,5 +107,6 @@ module CrImage::Format::PNG
     LibC.free(buffer)
   end
 
+  # :nodoc:
   delegate check_png, to: self.class
 end

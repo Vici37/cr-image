@@ -328,52 +328,56 @@
       <li class="entry-summary">
         <a href="#from_jpeg%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_jpeg</strong>(image_data : Bytes) : <span class="k">self</span></a>
         
-          <div class="summary"><p>This is the preferred, most performant JPEG overload with the least memory consumption.</p></div>
+          <div class="summary"><p>Read <code>image_data</code> as JPEG encoded bytes</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#from_jpeg%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_jpeg</strong>(io : IO) : <span class="k">self</span></a>
         
-          <div class="summary"><p>This is a less preferred JPEG overload.</p></div>
+          <div class="summary"><p>Construct an Image from reading in bytes from <code>io</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#from_png%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_png</strong>(image_data : Bytes) : <span class="k">self</span></a>
         
-          <div class="summary"><p>This is the preferred, most performant PNG overload with the least memory consumption.</p></div>
+          <div class="summary"><p>Read <code>image_data</code> and PNG encoded bytes</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#from_png%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_png</strong>(io : IO) : <span class="k">self</span></a>
         
-          <div class="summary"><p>This is a less preferred PNG overload.</p></div>
+          <div class="summary"><p>Construct an Image by reading bytes from <code>io</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#from_ppm%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_ppm</strong>(image_data : Bytes) : <span class="k">self</span></a>
         
+          <div class="summary"><p>Read <code>image_data</code> as PPM encoded bytes</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#from_ppm%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_ppm</strong>(io : IO) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Read bytes from <code>io</code> as PPM encoded</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#from_webp%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_webp</strong>(image_data : Bytes) : <span class="k">self</span></a>
         
-          <div class="summary"><p>This is the preferred, most performant WebP overload with the least memory consumption.</p></div>
+          <div class="summary"><p>Read <code>image_data</code> as WebP encoded bytes</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#from_webp%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_webp</strong>(io : IO) : <span class="k">self</span></a>
         
-          <div class="summary"><p>This is a less preferred WebP overload.</p></div>
+          <div class="summary"><p>Read bytes from <code>io</code> as WebP encoded</p></div>
         
       </li>
     
@@ -839,11 +843,6 @@
   <h3>Instance methods inherited from module <code><a href="../CrImage/Format/PNG.html">CrImage::Format::PNG</a></code></h3>
   
   
-    <a href="../CrImage/Format/PNG.html#check_png%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
-      <span>check_png(*args, **options)<br/>check_png(*args, **options, &)</span>
-    check_png</a>, 
-    
-  
     <a href="../CrImage/Format/PNG.html#to_png%28io%3AIO%29%3ANil-instance-method" class="tooltip">
       <span>to_png(io : IO) : Nil</span>
     to_png</a>
@@ -862,11 +861,6 @@
 
   <h3>Instance methods inherited from module <code><a href="../CrImage/Format/WebP.html">CrImage::Format::WebP</a></code></h3>
   
-  
-    <a href="../CrImage/Format/WebP.html#check_webp%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
-      <span>check_webp(*args, **options)<br/>check_webp(*args, **options, &)</span>
-    check_webp</a>, 
-    
   
     <a href="../CrImage/Format/WebP.html#to_webp%28io%3AIO%29%3ANil-instance-method" class="tooltip">
       <span>to_webp(io : IO) : Nil</span>
@@ -905,11 +899,6 @@
 
   <h3>Instance methods inherited from module <code><a href="../CrImage/Format/JPEG.html">CrImage::Format::JPEG</a></code></h3>
   
-  
-    <a href="../CrImage/Format/JPEG.html#check_jpeg%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
-      <span>check_jpeg(*args, **options)<br/>check_jpeg(*args, **options, &)</span>
-    check_jpeg</a>, 
-    
   
     <a href="../CrImage/Format/JPEG.html#to_jpeg%28io%3AIO%2Cquality%3AInt32%3D100%29%3ANil-instance-method" class="tooltip">
       <span>to_jpeg(io : IO, quality : Int32 = <span class="n">100</span>) : Nil</span>
@@ -1031,7 +1020,7 @@
       
         <div class="doc">
           
-          <p>This is the preferred, most performant JPEG overload with the least memory consumption.</p>
+          <p>Read <code>image_data</code> as JPEG encoded bytes</p>
         </div>
       
       <br/>
@@ -1050,7 +1039,7 @@
       
         <div class="doc">
           
-          <p>This is a less preferred JPEG overload.</p>
+          <p>Construct an Image from reading in bytes from <code>io</code></p>
         </div>
       
       <br/>
@@ -1069,7 +1058,7 @@
       
         <div class="doc">
           
-          <p>This is the preferred, most performant PNG overload with the least memory consumption.</p>
+          <p>Read <code>image_data</code> and PNG encoded bytes</p>
         </div>
       
       <br/>
@@ -1088,7 +1077,7 @@
       
         <div class="doc">
           
-          <p>This is a less preferred PNG overload.</p>
+          <p>Construct an Image by reading bytes from <code>io</code></p>
         </div>
       
       <br/>
@@ -1105,6 +1094,11 @@
         <a class="method-permalink" href="#from_ppm%28image_data%3ABytes%29%3Aself-class-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Read <code>image_data</code> as PPM encoded bytes</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -1118,6 +1112,11 @@
 
         <a class="method-permalink" href="#from_ppm%28io%3AIO%29%3Aself-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Read bytes from <code>io</code> as PPM encoded</p>
+        </div>
       
       <br/>
       <div>
@@ -1135,7 +1134,7 @@
       
         <div class="doc">
           
-          <p>This is the preferred, most performant WebP overload with the least memory consumption.</p>
+          <p>Read <code>image_data</code> as WebP encoded bytes</p>
         </div>
       
       <br/>
@@ -1154,7 +1153,7 @@
       
         <div class="doc">
           
-          <p>This is a less preferred WebP overload.</p>
+          <p>Read bytes from <code>io</code> as WebP encoded</p>
         </div>
       
       <br/>

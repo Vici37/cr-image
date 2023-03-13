@@ -223,6 +223,23 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Provides methods to read from and write to PPM.</p>
+<pre><code class="language-crystal">image <span class="o">=</span> <span class="t">File</span>.open(<span class="s">&quot;image.ppm&quot;</span>) { <span class="o">|</span>file<span class="o">|</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.from_ppm(file) }
+<span class="t">File</span>.open(<span class="s">&quot;other_image.ppm&quot;</span>) { <span class="o">|</span>file<span class="o">|</span> image.to_ppm(file) }</code></pre>
+<p>Alternatively, you can use the convenience methods in the <code><a href="../../CrImage/Format/Open.html">Open</a></code> and <code><a href="../../CrImage/Format/Save.html">Save</a></code> modules
+to acheive the same thing:</p>
+<pre><code class="language-crystal">image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;image.ppm&quot;</span>)
+image.save(<span class="s">&quot;other_image.ppm&quot;</span>)</code></pre>
+
 
 
 
@@ -288,6 +305,8 @@
       <li class="entry-summary">
         <a href="#to_ppm%28io%3AIO%29%3ANil-instance-method" class="signature"><strong>#to_ppm</strong>(io : IO) : Nil</a>
         
+          <div class="summary"><p>Output this image to <code>io</code> using PPM image encoding</p></div>
+        
       </li>
     
   </ul>
@@ -321,6 +340,11 @@
 
         <a class="method-permalink" href="#to_ppm%28io%3AIO%29%3ANil-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Output this image to <code>io</code> using PPM image encoding</p>
+        </div>
       
       <br/>
       <div>

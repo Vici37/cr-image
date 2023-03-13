@@ -223,6 +223,23 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Provides methods to read from and write to PNG. Requires <code>libspng</code> to function.</p>
+<pre><code class="language-crystal">image <span class="o">=</span> <span class="t">File</span>.open(<span class="s">&quot;image.png&quot;</span>) { <span class="o">|</span>file<span class="o">|</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.from_png(file) }
+<span class="t">File</span>.open(<span class="s">&quot;other_image.png&quot;</span>) { <span class="o">|</span>file<span class="o">|</span> image.to_png(file) }</code></pre>
+<p>Alternatively, you can use the convenience methods in the <code><a href="../../CrImage/Format/Open.html">Open</a></code> and <code><a href="../../CrImage/Format/Save.html">Save</a></code> modules
+to acheive the same thing:</p>
+<pre><code class="language-crystal">image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;image.png&quot;</span>)
+image.save(<span class="s">&quot;other_image.png&quot;</span>)</code></pre>
+
 
 
 
@@ -286,17 +303,9 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#check_png%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#check_png</strong>(*args, **options)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#check_png%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method" class="signature"><strong>#check_png</strong>(*args, **options, &)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#to_png%28io%3AIO%29%3ANil-instance-method" class="signature"><strong>#to_png</strong>(io : IO) : Nil</a>
+        
+          <div class="summary"><p>Output the image as PNG to <code>io</code></p></div>
         
       </li>
     
@@ -324,34 +333,6 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="check_png(*args,**options)-instance-method">
-      <div class="signature">
-        
-        def <strong>check_png</strong>(*args, **options)
-
-        <a class="method-permalink" href="#check_png%28%2Aargs%2C%2A%2Aoptions%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="check_png(*args,**options,&amp;)-instance-method">
-      <div class="signature">
-        
-        def <strong>check_png</strong>(*args, **options, &)
-
-        <a class="method-permalink" href="#check_png%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
     <div class="entry-detail" id="to_png(io:IO):Nil-instance-method">
       <div class="signature">
         
@@ -359,6 +340,11 @@
 
         <a class="method-permalink" href="#to_png%28io%3AIO%29%3ANil-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Output the image as PNG to <code>io</code></p>
+        </div>
       
       <br/>
       <div>

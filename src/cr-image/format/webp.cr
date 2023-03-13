@@ -1,6 +1,20 @@
+require "../bindings/lib_webp"
+
+# Provides methods to read from and write to WebP. Requires `libwebp` to function.
+#
+# ```
+# image = File.open("image.webp") { |file| CrImage::RGBAImage.from_webp(file) }
+# File.open("other_image.webp") { |file| image.to_webp(file) }
+# ```
+# Alternatively, you can use the convenience methods in the `Open` and `Save` modules
+# to acheive the same thing:
+# ```
+# image = CrImage::RGBAImage.open("image.webp")
+# image.save("other_image.webp")
+# ```
 module CrImage::Format::WebP
   macro included
-    # This is the preferred, most performant WebP overload with the least memory consumption.
+    # Read `image_data` as WebP encoded bytes
     def self.from_webp(image_data : Bytes) : self
       check_webp LibWebP.get_info(image_data, image_data.size, out width, out height)
       buffer = LibWebP.decode_rgba(
@@ -27,16 +41,18 @@ module CrImage::Format::WebP
       new(red, green, blue, alpha, width, height)
     end
 
-    # This is a less preferred WebP overload.
+    # Read bytes from `io` as WebP encoded
     def self.from_webp(io : IO) : self
       from_webp(io.getb_to_end)
     end
 
+    # :nodoc:
     protected def self.check_webp(code)
       raise ::CrImage::Exception.new(code.to_i) if code == 0
     end
   end
 
+  # Write image to `io` using WebP encoding
   def to_webp(io : IO) : Nil
     image_data = String.build do |string|
       size.times do |index|
@@ -62,5 +78,6 @@ module CrImage::Format::WebP
     LibWebP.free(buffer)
   end
 
+  # :nodoc:
   delegate check_webp, to: self.class
 end
