@@ -6,6 +6,8 @@ image manipulation as well as feature / information extraction from those images
 The code here takes imense inspiration from [Pluto](https://github.com/phenopolis/pluto) and [Stumpy](https://github.com/stumpycr/stumpy_core), with
 an eventual goal to be able to convert between images of this and those libraries.
 
+All sample images used are from [Unsplash](https://unsplash.com/).
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:
@@ -23,6 +25,8 @@ an eventual goal to be able to convert between images of this and those librarie
 Assuming an image `moon.jpg` already exists
 
 ![Picture of moon](./docs/images/moon.jpg)
+
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon.jpg" alt="Picture of moon"/>
 
 ```crystal
 require "cr-image"
@@ -42,13 +46,20 @@ image.crop(
 ```
 
 Yields this image:
-![Cropped example of moon](./docs/images/moon_cropped.jpg)
 
-See documentation (COMING SOON!) for more examples.
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon_cropped.jpg" alt="Cropped example of moon"/>
+
+[See documentation](http://troy.sornson.io/cr-image/) for more examples.
 
 ## Development
 
-This requires `libwebp`, `libspng`, and `libturbojpeg` to run.
+This requires `libwebp`, `libspng`, and `libturbojpeg` to run. Then:
+
+```
+> make test
+```
+
+To ensure all tests run and pass.
 
 ## Contributing
 
@@ -60,4 +71,4 @@ This requires `libwebp`, `libspng`, and `libturbojpeg` to run.
 
 ## Contributors
 
-- [Troy Sornson](https://github.com/your-github-user) - creator and maintainer
+- [Troy Sornson](https://github.com/Vici37) - creator and maintainer

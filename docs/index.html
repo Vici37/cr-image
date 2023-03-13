@@ -219,8 +219,9 @@
 </a>Crystal Image (Processing)</h1>
 <p>This shard aims to provide feature rich image processing abilities, both for the purpose of
 image manipulation as well as feature / information extraction from those images.</p>
-<p>The code here takes imense inspiration from (Pluto)[https://github.com/phenopolis/pluto] and (Stumpy)[https://github.com/stumpycr/stumpy_core], with
+<p>The code here takes imense inspiration from <a href="https://github.com/phenopolis/pluto">Pluto</a> and <a href="https://github.com/stumpycr/stumpy_core">Stumpy</a>, with
 an eventual goal to be able to convert between images of this and those libraries.</p>
+<p>All sample images used are from <a href="https://unsplash.com/">Unsplash</a>.</p>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -243,7 +244,8 @@ an eventual goal to be able to convert between images of this and those librarie
   </svg>
 </a>Usage</h2>
 <p>Assuming an image <code>moon.jpg</code> already exists</p>
-<img href="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon.jpg" alt="Picture of moon"/>
+<p><img src="./docs/images/moon.jpg" alt="Picture of moon" /></p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon.jpg" alt="Picture of moon"/>
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image&quot;</span>
 
 image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;moon.jpg&quot;</span>)
@@ -259,14 +261,16 @@ image.crop(
 ).save(<span class="s">&quot;moon_cropped.jpg&quot;</span>)
 </code></pre>
 <p>Yields this image:</p>
-<img href="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon_cropped.jpg" alt="Cropped example of moon"/>
-<p>See documentation (COMING SOON!) for more examples.</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon_cropped.jpg" alt="Cropped example of moon"/>
+<p><a href="http://troy.sornson.io/cr-image/">See documentation</a> for more examples.</p>
 <h2><a id="development" class="anchor" href="#development">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Development</h2>
-<p>This requires <code>libwebp</code>, <code>libspng</code>, and <code>libturbojpeg</code> to run.</p>
+<p>This requires <code>libwebp</code>, <code>libspng</code>, and <code>libturbojpeg</code> to run. Then:</p>
+<pre><code class="language-crystal"><span class="o">&gt;</span> make test</code></pre>
+<p>To ensure all tests run and pass.</p>
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -285,7 +289,7 @@ image.crop(
   </svg>
 </a>Contributors</h2>
 <ul>
-<li><a href="https://github.com/your-github-user">Troy Sornson</a> - creator and maintainer</li>
+<li><a href="https://github.com/Vici37">Troy Sornson</a> - creator and maintainer</li>
 </ul>
 </div>
 </body>
