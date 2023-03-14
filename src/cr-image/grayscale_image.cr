@@ -96,22 +96,22 @@ class CrImage::GrayscaleImage < CrImage::Image
 
   # Invert grayscale pixels (replace each pixel will `255 - p` for all `p` in `@gray`).
   #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background in grayscale"/>
   #
   # Becomes
   #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_inverted_sample.jpg" alt="Woman in black turtleneck on white background"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_inverted_sample.jpg" alt="Woman in black turtleneck on white background in inverted grayscale"/>
   def invert
     clone.invert!
   end
 
   # Invert grayscale pixels (replace each pixel will `255 - p` for all `p` in `@gray`). Modifies self.
   #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background in grayscale"/>
   #
   # Becomes
   #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_inverted_sample.jpg" alt="Woman in black turtleneck on white background"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_inverted_sample.jpg" alt="Woman in black turtleneck on white background in inverted grayscale"/>
   def invert!
     @gray.map! { |pix| 255u8 - pix }
     self

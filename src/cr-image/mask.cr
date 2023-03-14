@@ -105,7 +105,7 @@ class CrImage::Mask
   #
   # Becomes
   #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_inverted_example.jpg" alt="Black box with different regions colored white"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_inverted_example.jpg" alt="White box with opposite regions colored black"/>
   def invert!
     @bits.invert
     clear_caches

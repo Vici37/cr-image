@@ -59,6 +59,12 @@ class CrImage::RGBAImage < CrImage::Image
   end
 
   # Convert color image to `GrayscaleImage`, using the NTSC formula as default values.
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+  #
+  # Becomes
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background in grayscale"/>
   def to_gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114) : GrayscaleImage
     GrayscaleImage.new(
       red.map_with_index do |red_pix, i|
