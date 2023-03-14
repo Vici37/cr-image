@@ -85,7 +85,6 @@ class CrImage::GrayscaleImage < CrImage::Image
   end
 
   # Returns self
-  # IMPL: example
   def to_gray : GrayscaleImage
     self
   end
@@ -126,7 +125,6 @@ class CrImage::GrayscaleImage < CrImage::Image
   end
 
   # Construct a simple threshold `Mask` containing all pixels with a `UInt8` value greater than `threshold`
-  # IMPL: create example images for this
   # Given sample image:
   #
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>

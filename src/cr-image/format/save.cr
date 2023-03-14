@@ -21,7 +21,7 @@ module CrImage::Format::Save
       when .ends_with?(".jpg"), .ends_with?(".jpeg") then to_jpeg(file)
       when .ends_with?(".webp")                      then to_webp(file)
       when .ends_with?(".png")                       then to_png(file)
-      else                                                raise "Unknown file extension for filename #{filename}, only support .ppm, .jpg, and .jpeg"
+      else                                                raise "Unknown file extension for filename #{filename}, only support .webp, .png, .ppm, .jpg, and .jpeg"
       end
     end
     self

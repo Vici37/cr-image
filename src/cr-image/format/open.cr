@@ -17,7 +17,7 @@ module CrImage::Format::Open
     when .ends_with?(".jpg"), .ends_with?(".jpeg") then File.open(filename) { |f| self.from_jpeg(f) }
     when .ends_with?(".webp")                      then File.open(filename) { |f| self.from_webp(f) }
     when .ends_with?(".png")                       then File.open(filename) { |f| self.from_png(f) }
-    else                                                raise "Unknown file extension for filename #{filename}, only support .ppm, .jpg, and .jpeg"
+    else                                                raise "Unknown file extension for filename #{filename}, only support .webp, .png, .ppm, .jpg, and .jpeg"
     end
   end
 end

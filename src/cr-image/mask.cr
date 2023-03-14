@@ -255,7 +255,15 @@ class CrImage::Mask
   @region : Region? = nil
 
   # Returns the bounding box of the mask where all true bits are contained. Any pixels outside of the region are false
-  # IMPL: example images
+  #
+  # ```
+  # mask = CrImage::Mask.new(50, 50, false)
+  # mask[20..40, 20] = true
+  # mask[20, 20..40] = true
+  # mask.region # => Region(x: 20, y: 20, width: 20, height: 20)
+  # ```
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_region_example.jpg" alt="Black box with white lines from 20, 20 going to 20, 40 and 40, 20"/>
   def region : Region
     @region ||= calculate_region
   end
@@ -290,23 +298,40 @@ class CrImage::Mask
   # Return an array of `Mask`s, each one corresponding to an area of contiguous true bits (identified from flood fills).
   #
   # May specify `diagonal: false` for only 4-way (up, down, left, right) flood fill instead of default 8-way.
-  # Starting with sample image:
-  #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck on white background"/>
-  #
-  # Making a mask of it and saving the segments looks like:
+  # Starting with sample mask:
   # ```
-  # image.to_gray.threshold(128).segments.each_with_index do |segment, i|
-  #   segment.to_gray.save("mask_segment_#{i}.jpg")
+  # mask = CrImage::Mask.new(50, 50, false)
+  #
+  # mask[5..45, 5..45] = true
+  # mask[15..35, 15..35] = false
+  # mask[21..25, 21..25] = true
+  # mask[26..30, 26..30] = true
+  # ```
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example.jpg" alt="Black box with different regions colored white"/>
+  #
+  # Its segments look like:
+  # ```
+  # mask.segments.each_with_index do |segment, i|
+  #   segment.to_gray.save("mask_8-way_segments_example_#{i}.jpg")
   # end
   # ```
   # Yields the images:
   #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_0.jpg" alt="White pixels identifying background"/>
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_2.jpg" alt="White pixels identifying face"/>
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_3.jpg" alt="White pixels identifying ear"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_8-way_segments_example_0.jpg" alt="Black box with hollow white box in it"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_8-way_segments_example_1.jpg" alt="Black box with two diagonal white boxes touching in the corner"/>
   #
-  # (The above methods generate 12 total segments, but only 3 are shown here)
+  # Using `diagonal: false` yields:
+  # ```
+  # mask.segments(diagonal: false).each_with_index do |segment, i|
+  #   segment.to_gray.save("mask_4-way_segments_example_#{i}.jpg")
+  # end
+  # ```
+  # Yields the images:
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_4-way_segments_example_0.jpg" alt="Black box with hollow white box in it"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_4-way_segments_example_1.jpg" alt="Black box with small white box in upper left center"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_4-way_segments_example_2.jpg" alt="Black box with small white box in lower right center"/>
   def segments(*, diagonal : Bool = true) : Array(Mask)
     diagonal ? (@segments_8_way ||= calculate_segments(diagonal)) : (@segments_4_way ||= calculate_segments(diagonal))
   end
