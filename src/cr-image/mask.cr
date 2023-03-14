@@ -68,7 +68,7 @@ class CrImage::Mask
     @bits = BitArray.new(image.size, initial)
   end
 
-  # Construct a new `Mask` from an array of `BitArray`. See `#[](xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)`
+  # Construct a new `Mask` from an array of `BitArray`. See `#[](xs : Range, ys : Range) : Array(BitArray)`
   #
   # This assumes `other_bits[0]` corresponds to `x == 0` in the mask, and the corresponding
   # `BitArray` represents all bits for that row. All `BitArray`s must be of the same size in
@@ -132,13 +132,13 @@ class CrImage::Mask
   end
 
   # Return a new `BitArray` corresponding to the partial row specified
-  def [](xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32) : BitArray
+  def [](xs : Range, y : Int32) : BitArray
     start, count = resolve_to_start_and_count(xs, width)
     BitArray.new(count) { |x| self[x + start, y] }
   end
 
   # Return a new `BitArray` corresponding to the partial column specified
-  def [](x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : BitArray
+  def [](x : Int32, ys : Range) : BitArray
     start, count = resolve_to_start_and_count(ys, height)
     BitArray.new(count) { |y| self[x, y + start] }
   end
@@ -146,7 +146,7 @@ class CrImage::Mask
   # Return an `Array(BitArray)` for the partial box (of partial rows and partial columns) of this mask.
   #
   # Can be used to construct another mask from.
-  def [](xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)
+  def [](xs : Range, ys : Range) : Array(BitArray)
     start_x, count_x = resolve_to_start_and_count(xs, width)
     start_y, count_y = resolve_to_start_and_count(ys, height)
     count_y.times.to_a.map do |y|
@@ -174,7 +174,7 @@ class CrImage::Mask
   end
 
   # Set the bits for partial row `xs` at column `y`
-  def []=(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32, value : Bool) : Bool
+  def []=(xs : Range, y : Int32, value : Bool) : Bool
     raise IndexError.new("Out of bounds: #{y} is beyond the bounds of this mask's height of #{height}") if y >= height
     start_x, count_x = resolve_to_start_and_count(xs, width)
     @bits.fill(value, y * width + start_x, count_x)
@@ -183,7 +183,7 @@ class CrImage::Mask
   end
 
   # Set the bits for row `x` and partial columns `ys`
-  def []=(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool
+  def []=(x : Int32, ys : Range, value : Bool) : Bool
     raise IndexError.new("Out of bounds: #{x} is beyond the bounds of this mask's width of #{width}") if x >= width
     start_y, count_y = resolve_to_start_and_count(ys, height)
     count_y.times.to_a.each do |y|
@@ -193,7 +193,7 @@ class CrImage::Mask
   end
 
   # Set the bits for partial rows `xs` and partial columns `ys`
-  def []=(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool
+  def []=(xs : Range, ys : Range, value : Bool) : Bool
     start_x, count_x = resolve_to_start_and_count(xs, width)
     start_y, count_y = resolve_to_start_and_count(ys, height)
     count_y.times.to_a.each do |y|

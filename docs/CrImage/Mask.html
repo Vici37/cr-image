@@ -372,21 +372,21 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cy%3AInt32%29%3ABitArray-instance-method" class="signature"><strong>#[]</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32) : BitArray</a>
+        <a href="#%5B%5D%28xs%3ARange%2Cy%3AInt32%29%3ABitArray-instance-method" class="signature"><strong>#[]</strong>(xs : Range, y : Int32) : BitArray</a>
         
           <div class="summary"><p>Return a new <code>BitArray</code> corresponding to the partial row specified</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3ABitArray-instance-method" class="signature"><strong>#[]</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : BitArray</a>
+        <a href="#%5B%5D%28x%3AInt32%2Cys%3ARange%29%3ABitArray-instance-method" class="signature"><strong>#[]</strong>(x : Int32, ys : Range) : BitArray</a>
         
           <div class="summary"><p>Return a new <code>BitArray</code> corresponding to the partial column specified</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3AArray%28BitArray%29-instance-method" class="signature"><strong>#[]</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)</a>
+        <a href="#%5B%5D%28xs%3ARange%2Cys%3ARange%29%3AArray%28BitArray%29-instance-method" class="signature"><strong>#[]</strong>(xs : Range, ys : Range) : Array(BitArray)</a>
         
           <div class="summary"><p>Return an <code>Array(BitArray)</code> for the partial box (of partial rows and partial columns) of this mask.</p></div>
         
@@ -400,21 +400,21 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32, value : Bool) : Bool</a>
+        <a href="#%5B%5D%3D%28xs%3ARange%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(xs : Range, y : Int32, value : Bool) : Bool</a>
         
           <div class="summary"><p>Set the bits for partial row <code>xs</code> at column <code>y</code></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%3D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool</a>
+        <a href="#%5B%5D%3D%28x%3AInt32%2Cys%3ARange%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(x : Int32, ys : Range, value : Bool) : Bool</a>
         
           <div class="summary"><p>Set the bits for row <code>x</code> and partial columns <code>ys</code></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool</a>
+        <a href="#%5B%5D%3D%28xs%3ARange%2Cys%3ARange%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(xs : Range, ys : Range, value : Bool) : Bool</a>
         
           <div class="summary"><p>Set the bits for partial rows <code>xs</code> and partial columns <code>ys</code></p></div>
         
@@ -664,7 +664,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       
         <div class="doc">
           
-          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from an array of <code>BitArray</code>. See <code><a href="../CrImage/Mask.html#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3ABool-instance-method">#[](xs : Range(Int32, Int32)</a> | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)</code></p>
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from an array of <code>BitArray</code>. See <code><a href="../CrImage/Mask.html#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3ABool-instance-method">#[](xs : Range, ys : Range)</a> : Array(BitArray)</code></p>
 <p>This assumes <code>other_bits[0]</code> corresponds to <code>x == 0</code> in the mask, and the corresponding
 <code>BitArray</code> represents all bits for that row. All <code>BitArray</code>s must be of the same size in
 <code>other_bits</code>.</p>
@@ -723,12 +723,12 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </div>
     </div>
   
-    <div class="entry-detail" id="[](xs:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),y:Int32):BitArray-instance-method">
+    <div class="entry-detail" id="[](xs:Range,y:Int32):BitArray-instance-method">
       <div class="signature">
         
-        def <strong>[]</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32) : BitArray
+        def <strong>[]</strong>(xs : Range, y : Int32) : BitArray
 
-        <a class="method-permalink" href="#%5B%5D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cy%3AInt32%29%3ABitArray-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%28xs%3ARange%2Cy%3AInt32%29%3ABitArray-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -742,12 +742,12 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </div>
     </div>
   
-    <div class="entry-detail" id="[](x:Int32,ys:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32)):BitArray-instance-method">
+    <div class="entry-detail" id="[](x:Int32,ys:Range):BitArray-instance-method">
       <div class="signature">
         
-        def <strong>[]</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : BitArray
+        def <strong>[]</strong>(x : Int32, ys : Range) : BitArray
 
-        <a class="method-permalink" href="#%5B%5D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3ABitArray-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%28x%3AInt32%2Cys%3ARange%29%3ABitArray-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -761,12 +761,12 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </div>
     </div>
   
-    <div class="entry-detail" id="[](xs:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),ys:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32)):Array(BitArray)-instance-method">
+    <div class="entry-detail" id="[](xs:Range,ys:Range):Array(BitArray)-instance-method">
       <div class="signature">
         
-        def <strong>[]</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)
+        def <strong>[]</strong>(xs : Range, ys : Range) : Array(BitArray)
 
-        <a class="method-permalink" href="#%5B%5D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3AArray%28BitArray%29-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%28xs%3ARange%2Cys%3ARange%29%3AArray%28BitArray%29-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -800,12 +800,12 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </div>
     </div>
   
-    <div class="entry-detail" id="[]=(xs:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),y:Int32,value:Bool):Bool-instance-method">
+    <div class="entry-detail" id="[]=(xs:Range,y:Int32,value:Bool):Bool-instance-method">
       <div class="signature">
         
-        def <strong>[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32, value : Bool) : Bool
+        def <strong>[]=</strong>(xs : Range, y : Int32, value : Bool) : Bool
 
-        <a class="method-permalink" href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3D%28xs%3ARange%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -819,12 +819,12 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </div>
     </div>
   
-    <div class="entry-detail" id="[]=(x:Int32,ys:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),value:Bool):Bool-instance-method">
+    <div class="entry-detail" id="[]=(x:Int32,ys:Range,value:Bool):Bool-instance-method">
       <div class="signature">
         
-        def <strong>[]=</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool
+        def <strong>[]=</strong>(x : Int32, ys : Range, value : Bool) : Bool
 
-        <a class="method-permalink" href="#%5B%5D%3D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3D%28x%3AInt32%2Cys%3ARange%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -838,12 +838,12 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </div>
     </div>
   
-    <div class="entry-detail" id="[]=(xs:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),ys:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),value:Bool):Bool-instance-method">
+    <div class="entry-detail" id="[]=(xs:Range,ys:Range,value:Bool):Bool-instance-method">
       <div class="signature">
         
-        def <strong>[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool
+        def <strong>[]=</strong>(xs : Range, ys : Range, value : Bool) : Bool
 
-        <a class="method-permalink" href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3D%28xs%3ARange%2Cys%3ARange%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
       </div>
       
         <div class="doc">
