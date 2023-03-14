@@ -14,7 +14,7 @@ module CrImage::Format::Save
   #
   # This method _will not_ create intermediate directory paths. This method will throw an
   # error if they don't exist.
-  def save(filename : String) : Nil
+  def save(filename : String) : self
     File.open(filename, "w") do |file|
       case filename
       when .ends_with?(".ppm")                       then to_ppm(file)
@@ -24,5 +24,6 @@ module CrImage::Format::Save
       else                                                raise "Unknown file extension for filename #{filename}, only support .ppm, .jpg, and .jpeg"
       end
     end
+    self
   end
 end

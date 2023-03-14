@@ -792,6 +792,10 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
         <div class="doc">
           
           <p>Set the bit for coordinate <code>x</code> and <code>y</code></p>
+<pre><code class="language-crystal">mask <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">Mask</span>.new(<span class="n">50</span>, <span class="n">50</span>, <span class="n">false</span>)
+mask[<span class="n">20</span>, <span class="n">20</span>] <span class="o">=</span> <span class="n">true</span>
+mask.to_gray.save(<span class="s">&quot;mask_point.jpg&quot;</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_point.jpg" alt="Black box with single white point at 20, 20"/>
         </div>
       
       <br/>
@@ -811,6 +815,10 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
         <div class="doc">
           
           <p>Set the bits for partial row <code>xs</code> at column <code>y</code></p>
+<pre><code class="language-crystal">mask <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">Mask</span>.new(<span class="n">50</span>, <span class="n">50</span>, <span class="n">false</span>)
+mask[<span class="n">20</span>..<span class="n">40</span>, <span class="n">20</span>] <span class="o">=</span> <span class="n">true</span>
+mask.to_gray.save(<span class="s">&quot;mask_partial_row.jpg&quot;</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_partial_row.jpg" alt="Black box with partial white horizontal line from 20, 20 to 40, 20"/>
         </div>
       
       <br/>
@@ -830,6 +838,10 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
         <div class="doc">
           
           <p>Set the bits for row <code>x</code> and partial columns <code>ys</code></p>
+<pre><code class="language-crystal">mask <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">Mask</span>.new(<span class="n">50</span>, <span class="n">50</span>, <span class="n">false</span>)
+mask[<span class="n">20</span>..<span class="n">40</span>, <span class="n">20</span>] <span class="o">=</span> <span class="n">true</span>
+mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_partial_column.jpg" alt="Black box with partial white vertical line from 20, 20 to 20, 40"/>
         </div>
       
       <br/>
@@ -849,6 +861,10 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
         <div class="doc">
           
           <p>Set the bits for partial rows <code>xs</code> and partial columns <code>ys</code></p>
+<pre><code class="language-crystal">mask <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">Mask</span>.new(<span class="n">50</span>, <span class="n">50</span>, <span class="n">false</span>)
+mask[<span class="n">20</span>..<span class="n">40</span>, <span class="n">20</span>..<span class="n">40</span>] <span class="o">=</span> <span class="n">true</span>
+mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_box.jpg" alt="Black box with smaller white box in it from 20, 20 to 40, 40"/>
         </div>
       
       <br/>
@@ -1031,7 +1047,17 @@ IMPL: example images</p>
           
           <p>Return an array of <code><a href="../CrImage/Mask.html">Mask</a></code>s, each one corresponding to an area of contiguous true bits (identified from flood fills).</p>
 <p>May specify <code>diagonal: false</code> for only 4-way (up, down, left, right) flood fill instead of default 8-way.
-IMPL: example image</p>
+Starting with sample image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck on white background"/>
+<p>Making a mask of it and saving the segments looks like:</p>
+<pre><code class="language-crystal">image.to_gray.threshold(<span class="n">128</span>).segments.each_with_index <span class="k">do</span> <span class="o">|</span>segment, i<span class="o">|</span>
+  segment.to_gray.save(<span class="s">&quot;mask_segment_</span><span class="i">#{</span>i<span class="i">}</span><span class="s">.jpg&quot;</span>)
+<span class="k">end</span></code></pre>
+<p>Yields the images:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_0.jpg" alt="White pixels identifying background"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_2.jpg" alt="White pixels identifying face"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_3.jpg" alt="White pixels identifying ear"/>
+<p>(The above methods generate 12 total segments, but only 3 are shown here)</p>
         </div>
       
       <br/>

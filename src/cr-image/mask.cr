@@ -169,11 +169,25 @@ class CrImage::Mask
   end
 
   # Set the bit for coordinate `x` and `y`
+  #
+  # ```
+  # mask = CrImage::Mask.new(50, 50, false)
+  # mask[20, 20] = true
+  # mask.to_gray.save("mask_point.jpg")
+  # ```
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_point.jpg" alt="Black box with single white point at 20, 20"/>
   def []=(x : Int32, y : Int32, value : Bool) : Bool
     self.set(x, y, value)
   end
 
   # Set the bits for partial row `xs` at column `y`
+  #
+  # ```
+  # mask = CrImage::Mask.new(50, 50, false)
+  # mask[20..40, 20] = true
+  # mask.to_gray.save("mask_partial_row.jpg")
+  # ```
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_partial_row.jpg" alt="Black box with partial white horizontal line from 20, 20 to 40, 20"/>
   def []=(xs : Range, y : Int32, value : Bool) : Bool
     raise IndexError.new("Out of bounds: #{y} is beyond the bounds of this mask's height of #{height}") if y >= height
     start_x, count_x = resolve_to_start_and_count(xs, width)
@@ -183,6 +197,13 @@ class CrImage::Mask
   end
 
   # Set the bits for row `x` and partial columns `ys`
+  #
+  # ```
+  # mask = CrImage::Mask.new(50, 50, false)
+  # mask[20..40, 20] = true
+  # mask.to_gray.save("mask_partial_column.jpg")
+  # ```
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_partial_column.jpg" alt="Black box with partial white vertical line from 20, 20 to 20, 40"/>
   def []=(x : Int32, ys : Range, value : Bool) : Bool
     raise IndexError.new("Out of bounds: #{x} is beyond the bounds of this mask's width of #{width}") if x >= width
     start_y, count_y = resolve_to_start_and_count(ys, height)
@@ -193,6 +214,13 @@ class CrImage::Mask
   end
 
   # Set the bits for partial rows `xs` and partial columns `ys`
+  #
+  # ```
+  # mask = CrImage::Mask.new(50, 50, false)
+  # mask[20..40, 20..40] = true
+  # mask.to_gray.save("mask_partial_column.jpg")
+  # ```
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_box.jpg" alt="Black box with smaller white box in it from 20, 20 to 40, 40"/>
   def []=(xs : Range, ys : Range, value : Bool) : Bool
     start_x, count_x = resolve_to_start_and_count(xs, width)
     start_y, count_y = resolve_to_start_and_count(ys, height)
@@ -262,7 +290,23 @@ class CrImage::Mask
   # Return an array of `Mask`s, each one corresponding to an area of contiguous true bits (identified from flood fills).
   #
   # May specify `diagonal: false` for only 4-way (up, down, left, right) flood fill instead of default 8-way.
-  # IMPL: example image
+  # Starting with sample image:
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck on white background"/>
+  #
+  # Making a mask of it and saving the segments looks like:
+  # ```
+  # image.to_gray.threshold(128).segments.each_with_index do |segment, i|
+  #   segment.to_gray.save("mask_segment_#{i}.jpg")
+  # end
+  # ```
+  # Yields the images:
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_0.jpg" alt="White pixels identifying background"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_2.jpg" alt="White pixels identifying face"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_3.jpg" alt="White pixels identifying ear"/>
+  #
+  # (The above methods generate 12 total segments, but only 3 are shown here)
   def segments(*, diagonal : Bool = true) : Array(Mask)
     diagonal ? (@segments_8_way ||= calculate_segments(diagonal)) : (@segments_4_way ||= calculate_segments(diagonal))
   end

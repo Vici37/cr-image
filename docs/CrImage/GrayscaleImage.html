@@ -542,14 +542,14 @@ there is only one channel to examine, and so has methods for constructing <code>
       <li class="entry-summary">
         <a href="#threshold%28threshold%3AInt%29%3AMask-instance-method" class="signature"><strong>#threshold</strong>(threshold : Int) : Mask</a>
         
-          <div class="summary"><p>Construct a simple threshold <code><a href="../CrImage/Mask.html">Mask</a></code> containing all pixels with a <code>UInt8</code> value greater than <code><a href="../CrImage/GrayscaleImage.html#threshold%28threshold%3AInt%29%3AMask-instance-method">#threshold</a></code> IMPL: create example images for this</p></div>
+          <div class="summary"><p>Construct a simple threshold <code><a href="../CrImage/Mask.html">Mask</a></code> containing all pixels with a <code>UInt8</code> value greater than <code><a href="../CrImage/GrayscaleImage.html#threshold%28threshold%3AInt%29%3AMask-instance-method">#threshold</a></code> IMPL: create example images for this Given sample image:</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_gray%3AGrayscaleImage-instance-method" class="signature"><strong>#to_gray</strong> : GrayscaleImage</a>
         
-          <div class="summary"><p>Returns self</p></div>
+          <div class="summary"><p>Returns self IMPL: example</p></div>
         
       </li>
     
@@ -619,8 +619,8 @@ there is only one channel to examine, and so has methods for constructing <code>
   <h3>Instance methods inherited from module <code><a href="../CrImage/Format/Save.html">CrImage::Format::Save</a></code></h3>
   
   
-    <a href="../CrImage/Format/Save.html#save%28filename%3AString%29%3ANil-instance-method" class="tooltip">
-      <span>save(filename : String) : Nil</span>
+    <a href="../CrImage/Format/Save.html#save%28filename%3AString%29%3Aself-instance-method" class="tooltip">
+      <span>save(filename : String) : <span class="k">self</span></span>
     save</a>
     
   
@@ -1548,7 +1548,9 @@ image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, 
     y <span class="o">&gt;</span> (image.height <span class="o">//</span> <span class="n">2</span>) <span class="o">&amp;&amp;</span> <span class="c"># bottom half of image</span>
     pixel <span class="o">&gt;</span> <span class="n">128</span>                <span class="c"># only &quot;bright&quot; pixels</span>
 <span class="k">end</span></code></pre>
-<p>IMPL: create example images of this</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman in black turtleneck on white background"/>
+->
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_mask_from_example.jpg" alt="Mask identifying bright spots in lower left corner"/>
         </div>
       
       <br/>
@@ -1606,7 +1608,15 @@ image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, 
         <div class="doc">
           
           <p>Construct a simple threshold <code><a href="../CrImage/Mask.html">Mask</a></code> containing all pixels with a <code>UInt8</code> value greater than <code><a href="../CrImage/GrayscaleImage.html#threshold%28threshold%3AInt%29%3AMask-instance-method">#threshold</a></code>
-IMPL: create example images for this</p>
+IMPL: create example images for this
+Given sample image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">image
+  .to_gray                       <span class="c"># convert color image to grayscale one</span>
+  .threshould(<span class="n">128</span>)               <span class="c"># generate a mask using threshold operator</span>
+  .to_gray                       <span class="c"># convert mask to grayscale image</span>
+  .save(<span class="s">&quot;threshold_example.jpg&quot;</span>) <span class="c"># save mask as grayscale</span></code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_threshold_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
         </div>
       
       <br/>
@@ -1625,7 +1635,8 @@ IMPL: create example images for this</p>
       
         <div class="doc">
           
-          <p>Returns self</p>
+          <p>Returns self
+IMPL: example</p>
         </div>
       
       <br/>
