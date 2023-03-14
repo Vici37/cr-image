@@ -100,6 +100,12 @@ class CrImage::Mask
   end
 
   # Invert all bits in this instance of `Mask`. Modifies self.
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example.jpg" alt="Black box with different regions colored white"/>
+  #
+  # Becomes
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_inverted_example.jpg" alt="Black box with different regions colored white"/>
   def invert!
     @bits.invert
     clear_caches

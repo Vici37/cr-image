@@ -95,11 +95,23 @@ class CrImage::GrayscaleImage < CrImage::Image
   end
 
   # Invert grayscale pixels (replace each pixel will `255 - p` for all `p` in `@gray`).
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background"/>
+  #
+  # Becomes
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_inverted_sample.jpg" alt="Woman in black turtleneck on white background"/>
   def invert
     clone.invert!
   end
 
   # Invert grayscale pixels (replace each pixel will `255 - p` for all `p` in `@gray`). Modifies self.
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background"/>
+  #
+  # Becomes
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_inverted_sample.jpg" alt="Woman in black turtleneck on white background"/>
   def invert!
     @gray.map! { |pix| 255u8 - pix }
     self
@@ -117,7 +129,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   # ```
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman in black turtleneck on white background"/>
   # ->
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_mask_from_example.jpg" alt="Mask identifying bright spots in lower left corner"/>
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_mask_from_example.jpg" alt="Mask identifying bright spots in lower left corner"/>
   def mask_from(&block : (Int32, Int32, UInt8) -> Bool) : Mask
     Mask.new(width, BitArray.new(size) do |i|
       block.call(i % width, i // width, @gray[i])
@@ -132,7 +144,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   # ```
   # image
   #   .to_gray                       # convert color image to grayscale one
-  #   .threshould(128)               # generate a mask using threshold operator
+  #   .threshold(128)                # generate a mask using threshold operator
   #   .to_gray                       # convert mask to grayscale image
   #   .save("threshold_example.jpg") # save mask as grayscale
   # ```

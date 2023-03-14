@@ -1007,6 +1007,9 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
         <div class="doc">
           
           <p>Invert all bits in this instance of <code><a href="../CrImage/Mask.html">Mask</a></code>. Modifies self.</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example.jpg" alt="Black box with different regions colored white"/>
+<p>Becomes</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_inverted_example.jpg" alt="Black box with different regions colored white"/>
         </div>
       
       <br/>
@@ -1025,8 +1028,12 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       
         <div class="doc">
           
-          <p>Returns the bounding box of the mask where all true bits are contained. Any pixels outside of the region are false
-IMPL: example images</p>
+          <p>Returns the bounding box of the mask where all true bits are contained. Any pixels outside of the region are false</p>
+<pre><code class="language-crystal">mask <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">Mask</span>.new(<span class="n">50</span>, <span class="n">50</span>, <span class="n">false</span>)
+mask[<span class="n">20</span>..<span class="n">40</span>, <span class="n">20</span>] <span class="o">=</span> <span class="n">true</span>
+mask[<span class="n">20</span>, <span class="n">20</span>..<span class="n">40</span>] <span class="o">=</span> <span class="n">true</span>
+mask.region <span class="c"># =&gt; Region(x: 20, y: 20, width: 20, height: 20)</span></code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_region_example.jpg" alt="Black box with white lines from 20, 20 going to 20, 40 and 40, 20"/>
         </div>
       
       <br/>
@@ -1047,17 +1054,29 @@ IMPL: example images</p>
           
           <p>Return an array of <code><a href="../CrImage/Mask.html">Mask</a></code>s, each one corresponding to an area of contiguous true bits (identified from flood fills).</p>
 <p>May specify <code>diagonal: false</code> for only 4-way (up, down, left, right) flood fill instead of default 8-way.
-Starting with sample image:</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck on white background"/>
-<p>Making a mask of it and saving the segments looks like:</p>
-<pre><code class="language-crystal">image.to_gray.threshold(<span class="n">128</span>).segments.each_with_index <span class="k">do</span> <span class="o">|</span>segment, i<span class="o">|</span>
-  segment.to_gray.save(<span class="s">&quot;mask_segment_</span><span class="i">#{</span>i<span class="i">}</span><span class="s">.jpg&quot;</span>)
+Starting with sample mask:</p>
+<pre><code class="language-crystal">mask <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">Mask</span>.new(<span class="n">50</span>, <span class="n">50</span>, <span class="n">false</span>)
+
+mask[<span class="n">5</span>..<span class="n">45</span>, <span class="n">5</span>..<span class="n">45</span>] <span class="o">=</span> <span class="n">true</span>
+mask[<span class="n">15</span>..<span class="n">35</span>, <span class="n">15</span>..<span class="n">35</span>] <span class="o">=</span> <span class="n">false</span>
+mask[<span class="n">21</span>..<span class="n">25</span>, <span class="n">21</span>..<span class="n">25</span>] <span class="o">=</span> <span class="n">true</span>
+mask[<span class="n">26</span>..<span class="n">30</span>, <span class="n">26</span>..<span class="n">30</span>] <span class="o">=</span> <span class="n">true</span></code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example.jpg" alt="Black box with different regions colored white"/>
+<p>Its segments look like:</p>
+<pre><code class="language-crystal">mask.segments.each_with_index <span class="k">do</span> <span class="o">|</span>segment, i<span class="o">|</span>
+  segment.to_gray.save(<span class="s">&quot;mask_8-way_segments_example_</span><span class="i">#{</span>i<span class="i">}</span><span class="s">.jpg&quot;</span>)
 <span class="k">end</span></code></pre>
 <p>Yields the images:</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_0.jpg" alt="White pixels identifying background"/>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_2.jpg" alt="White pixels identifying face"/>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_segments_example_3.jpg" alt="White pixels identifying ear"/>
-<p>(The above methods generate 12 total segments, but only 3 are shown here)</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_8-way_segments_example_0.jpg" alt="Black box with hollow white box in it"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_8-way_segments_example_1.jpg" alt="Black box with two diagonal white boxes touching in the corner"/>
+<p>Using <code>diagonal: false</code> yields:</p>
+<pre><code class="language-crystal">mask.segments(diagonal: <span class="n">false</span>).each_with_index <span class="k">do</span> <span class="o">|</span>segment, i<span class="o">|</span>
+  segment.to_gray.save(<span class="s">&quot;mask_4-way_segments_example_</span><span class="i">#{</span>i<span class="i">}</span><span class="s">.jpg&quot;</span>)
+<span class="k">end</span></code></pre>
+<p>Yields the images:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_4-way_segments_example_0.jpg" alt="Black box with hollow white box in it"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_4-way_segments_example_1.jpg" alt="Black box with small white box in upper left center"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mask_4-way_segments_example_2.jpg" alt="Black box with small white box in lower right center"/>
         </div>
       
       <br/>
