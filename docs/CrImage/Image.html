@@ -225,6 +225,18 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Common base class for <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code> and <code><a href="../CrImage/RGBAImage.html">RGBAImage</a></code>. All <code><a href="../CrImage/Image.html">Image</a></code>s are readable and saveable
+to the filesystem or <code>IO</code> stream.</p>
+
 
 
 
@@ -290,50 +302,70 @@
       <li class="entry-summary">
         <a href="#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method" class="signature"><strong>#[]</strong>(channel_type : ChannelType) : Array(UInt8)</a>
         
+          <div class="summary"><p>Get the <code>Array(UInt8)</code> corresponding to <code>channel_type</code>)</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method" class="signature"><strong>#[]=</strong>(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)</a>
+        
+          <div class="summary"><p>Set the <code>Array(UInt8)</code> corresponding to <code>channel_type</code>) to <code>channel</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#alpha%3AArray%28UInt8%29-instance-method" class="signature"><strong>#alpha</strong> : Array(UInt8)</a>
         
+          <div class="summary"><p>Return the alpha channel</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#blue%3AArray%28UInt8%29-instance-method" class="signature"><strong>#blue</strong> : Array(UInt8)</a>
+        
+          <div class="summary"><p>Return the blue channel</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method" class="signature"><strong>#each_channel</strong>(& : Array(UInt8), ChannelType -> Nil) : Nil</a>
         
+          <div class="summary"><p>Run provided block on each channel supported by this image.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#green%3AArray%28UInt8%29-instance-method" class="signature"><strong>#green</strong> : Array(UInt8)</a>
+        
+          <div class="summary"><p>Return the green channel</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#height%3AInt32-instance-method" class="signature"><strong>#height</strong> : Int32</a>
         
+          <div class="summary"><p>Height of image</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#red%3AArray%28UInt8%29-instance-method" class="signature"><strong>#red</strong> : Array(UInt8)</a>
+        
+          <div class="summary"><p>Return the red channel</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
         
+          <div class="summary"><p>Size (total pixels) in image (<code><a href="../CrImage/Image.html#width%3AInt32-instance-method">#width</a></code> * <code><a href="../CrImage/Image.html#height%3AInt32-instance-method">#height</a></code>)</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#width%3AInt32-instance-method" class="signature"><strong>#width</strong> : Int32</a>
+        
+          <div class="summary"><p>Width of image</p></div>
         
       </li>
     
@@ -389,6 +421,11 @@
         <a class="method-permalink" href="#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Get the <code>Array(UInt8)</code> corresponding to <code>channel_type</code>)</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -402,6 +439,11 @@
 
         <a class="method-permalink" href="#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Set the <code>Array(UInt8)</code> corresponding to <code>channel_type</code>) to <code>channel</code></p>
+        </div>
       
       <br/>
       <div>
@@ -417,6 +459,11 @@
         <a class="method-permalink" href="#alpha%3AArray%28UInt8%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Return the alpha channel</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -430,6 +477,11 @@
 
         <a class="method-permalink" href="#blue%3AArray%28UInt8%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Return the blue channel</p>
+        </div>
       
       <br/>
       <div>
@@ -445,6 +497,11 @@
         <a class="method-permalink" href="#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Run provided block on each channel supported by this image.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -458,6 +515,11 @@
 
         <a class="method-permalink" href="#green%3AArray%28UInt8%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Return the green channel</p>
+        </div>
       
       <br/>
       <div>
@@ -473,6 +535,11 @@
         <a class="method-permalink" href="#height%3AInt32-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Height of image</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -486,6 +553,11 @@
 
         <a class="method-permalink" href="#red%3AArray%28UInt8%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Return the red channel</p>
+        </div>
       
       <br/>
       <div>
@@ -501,6 +573,11 @@
         <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Size (total pixels) in image (<code><a href="../CrImage/Image.html#width%3AInt32-instance-method">#width</a></code> * <code><a href="../CrImage/Image.html#height%3AInt32-instance-method">#height</a></code>)</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -514,6 +591,11 @@
 
         <a class="method-permalink" href="#width%3AInt32-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Width of image</p>
+        </div>
       
       <br/>
       <div>

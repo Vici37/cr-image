@@ -1,6 +1,6 @@
 module CrImage::Operation::Draw
   def draw_box(region : Region, color : Color, *, fill : Bool = false) : self
-    draw_box!(region, color, fill: fill)
+    clone.draw_box!(region, color, fill: fill)
   end
 
   def draw_box(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = false) : self
@@ -8,7 +8,7 @@ module CrImage::Operation::Draw
   end
 
   def draw_box!(region : Region, color : Color, *, fill : Bool = false) : self
-    clone.draw_box!(region.x, region.y, region.width, region.height, color, fill: fill)
+    draw_box!(*region.to_tuple, color, fill: fill)
   end
 
   def draw_box!(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = false) : self
@@ -35,8 +35,7 @@ module CrImage::Operation::Draw
   end
 
   def draw_circle(region : Region, radius : Int, color : Color, *, fill : Bool = false) : self
-    x, y = region.center
-    clone.draw_circle!(x, y, radius, color, fill: fill)
+    clone.draw_circle!(*region.center, radius, color, fill: fill)
   end
 
   def draw_circle(x : Int, y : Int, radius : Int, color : Color, *, fill : Bool = false) : self
@@ -44,8 +43,7 @@ module CrImage::Operation::Draw
   end
 
   def draw_circle!(region : Region, color : Color, *, fill : Bool = false, radius : Int32? = nil) : self
-    x, y = region.center
-    draw_circle!(x, y, radius, color, fill: fill)
+    draw_circle!(*region.center, radius, color, fill: fill)
   end
 
   macro mpp(*args)
@@ -55,10 +53,10 @@ module CrImage::Operation::Draw
     puts
   end
 
+  # ameba:disable Metrics/CyclomaticComplexity
   def draw_circle!(center_x : Int, center_y : Int, radius : Int, color : Color, *, fill : Bool = false) : self
     min_x = Math.max(0, center_x - radius)
     max_x = Math.min(width - 1, center_x + radius)
-    min_y = Math.max(0, center_y - radius)
     max_y = Math.min(height - 1, center_y + radius)
 
     each_channel do |channel, channel_type|

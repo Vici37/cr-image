@@ -1,3 +1,4 @@
+# Exception class for any errors thrown by CrImage
 class CrImage::Exception < ::Exception
   getter error_code : Int32?
 

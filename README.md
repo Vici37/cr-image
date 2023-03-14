@@ -34,7 +34,7 @@ image = CrImage::RGBAImage.open("moon.jpg")
 # create a mask identifying all pixels with light (i.e. the moon)
 moon_mask = image
   .to_gray
-  .threshold(8) # pixels ar UInt8, so 0 is blank, 255 is white
+  .threshold(8) # pixels are UInt8, with 0 as black and 255 as white
 
 # Crop out the moon from the image, and save it to a new file
 image.crop(

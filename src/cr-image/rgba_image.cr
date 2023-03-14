@@ -3,6 +3,7 @@ require "./bindings/*"
 require "./format/*"
 require "./operation/*"
 
+# An image with red, green, blue, and alpha color channels (i.e. a color image). This image type is likely the one read from and written to file (or `IO`).
 class CrImage::RGBAImage < CrImage::Image
   property red : Array(UInt8)
   property green : Array(UInt8)
@@ -14,6 +15,7 @@ class CrImage::RGBAImage < CrImage::Image
   def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
 
+  # Create a copy of this image
   def clone : RGBAImage
     self.class.new(
       @red.clone,
@@ -25,7 +27,8 @@ class CrImage::RGBAImage < CrImage::Image
     )
   end
 
-  def each_channel(&) : Nil
+  # Run provided block with the `ChannelType::Red`, `ChannelType::Green`, `ChannelType::Blue`, and `ChannelType::Alpha` channels.
+  def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
     yield @red, ChannelType::Red
     yield @green, ChannelType::Green
     yield @blue, ChannelType::Blue
@@ -33,6 +36,7 @@ class CrImage::RGBAImage < CrImage::Image
     nil
   end
 
+  # Return the channel corresponding to `channel_type`
   def [](channel_type : ChannelType) : Array(UInt8)
     case channel_type
     when ChannelType::Red   then @red
@@ -43,6 +47,7 @@ class CrImage::RGBAImage < CrImage::Image
     end
   end
 
+  # Set the corresponding `channel_type` with `channel`
   def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
     case channel_type
     when ChannelType::Red   then @red = channel
@@ -53,7 +58,7 @@ class CrImage::RGBAImage < CrImage::Image
     end
   end
 
-  # Convert color image to grayscale one, using the NTSC formula as default values.
+  # Convert color image to `GrayscaleImage`, using the NTSC formula as default values.
   def to_gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114) : GrayscaleImage
     GrayscaleImage.new(
       red.map_with_index do |red_pix, i|
@@ -64,6 +69,7 @@ class CrImage::RGBAImage < CrImage::Image
     )
   end
 
+  # Return the number of pixels in this image
   def size : Int32
     @width * @height
   end

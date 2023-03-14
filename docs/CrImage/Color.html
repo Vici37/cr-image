@@ -225,6 +225,19 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Utility class for parsing and representing colors that can be used for certain
+methods in CrImage.</p>
+<p>See <code><a href="../CrImage/Operation/MaskApply.html#apply_color%28mask%3AMask%2Ccolor%3AColor%29%3Aself-instance-method">Operation::MaskApply#apply_color</a></code>, <code><a href="../CrImage/Operation/Draw.html#draw_box%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">Operation::Draw#draw_box</a></code>, or <code><a href="../CrImage/Operation/Draw.html#draw_circle%28x%3AInt%2Cy%3AInt%2Cradius%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">Operation::Draw#draw_circle</a></code></p>
+
 
 
 
@@ -275,10 +288,14 @@
       <li class="entry-summary">
         <a href="#of%28color%3AString%29%3AColor-class-method" class="signature"><strong>.of</strong>(color : String) : Color</a>
         
+          <div class="summary"><p>Parse color from a hex string:</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#random%3AColor-class-method" class="signature"><strong>.random</strong> : Color</a>
+        
+          <div class="summary"><p>Generate a random color with full (255) opacity</p></div>
         
       </li>
     
@@ -306,6 +323,8 @@
       <li class="entry-summary">
         <a href="#%5B%5D%28channel_type%3AChannelType%29%3AUInt8-instance-method" class="signature"><strong>#[]</strong>(channel_type : ChannelType) : UInt8</a>
         
+          <div class="summary"><p>Receive the UInt8 portion of this color corresponding to <code>channel_type</code></p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -320,6 +339,8 @@
     
       <li class="entry-summary">
         <a href="#gray%28red_multiplier%3AFloat%3D0.299%2Cgreen_multiplier%3AFloat%3D0.587%2Cblue_multiplier%3AFloat%3D0.114%29%3AUInt8-instance-method" class="signature"><strong>#gray</strong>(red_multiplier : Float = <span class="n">0.299</span>, green_multiplier : Float = <span class="n">0.587</span>, blue_multiplier : Float = <span class="n">0.114</span>) : UInt8</a>
+        
+          <div class="summary"><p>Convert this Color to a single UInt8 gray value</p></div>
         
       </li>
     
@@ -395,6 +416,17 @@
         <a class="method-permalink" href="#of%28color%3AString%29%3AColor-class-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Parse color from a hex string:</p>
+<pre><code class="language-crystal"><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#1&quot;</span>)        <span class="c"># same as &quot;#11&quot; =&gt; Color.new(17, 17, 17, 255)</span>
+<span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#01&quot;</span>)       <span class="c"># =&gt; Color.new(1, 1, 1, 255)</span>
+<span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#123&quot;</span>)      <span class="c"># same as &quot;#112233&quot; =&gt; Color.new(17, 34, 51, 255)</span>
+<span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#1234&quot;</span>)     <span class="c"># same as &quot;#11223344&quot; =&gt; Color.new(34, 51, 68, 17)</span>
+<span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#010203&quot;</span>)   <span class="c"># =&gt; Color.new(1, 2, 3, 255)</span>
+<span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#01020304&quot;</span>) <span class="c"># =&gt; Color.new(2, 3, 4, 1)</span></code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -408,6 +440,11 @@
 
         <a class="method-permalink" href="#random%3AColor-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Generate a random color with full (255) opacity</p>
+        </div>
       
       <br/>
       <div>
@@ -451,6 +488,11 @@
         <a class="method-permalink" href="#%5B%5D%28channel_type%3AChannelType%29%3AUInt8-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Receive the UInt8 portion of this color corresponding to <code>channel_type</code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -492,6 +534,11 @@
 
         <a class="method-permalink" href="#gray%28red_multiplier%3AFloat%3D0.299%2Cgreen_multiplier%3AFloat%3D0.587%2Cblue_multiplier%3AFloat%3D0.114%29%3AUInt8-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Convert this Color to a single UInt8 gray value</p>
+        </div>
       
       <br/>
       <div>

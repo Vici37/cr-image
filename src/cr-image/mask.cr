@@ -8,6 +8,7 @@ require "./region"
 #
 # (x,y) - coordinates. Represent these positions in a Mask of size 10x10:
 #
+# ```
 # [
 #   (0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (0,7), (0,8), (0,9),
 #   (1,0), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7), (1,8), (1,9),
@@ -20,43 +21,58 @@ require "./region"
 #   (8,0), (8,1), (8,2), (8,3), (8,4), (8,5), (8,6), (8,7), (8,8), (8,9),
 #   (9,0), (9,1), (9,2), (9,3), (9,4), (9,5), (9,6), (9,7), (9,8), (9,9),
 # ]
+# ```
 #
 # And every position is a Bool value.
 #
-# Different ways to refer to coordinates
-# mask[0, 0] # => (0,0)
-# mask.at(0, 0) # => (0,0)
-# mask[0..1, 4] # => (4,0), (4,1)
-# mask[3, 3..5] # => (3,3), (3,4), (3,5)
+# Different ways to refer to coordinates:
+# ```
+# mask.at(0, 0)    # => (0,0)
+# mask[0, 0]       # => (0,0), same as .at(0, 0)
+# mask[0..1, 4]    # => (4,0), (4,1)
+# mask[3, 3..5]    # => (3,3), (3,4), (3,5)
 # mask[2..3, 4..5] # => (2,4), (2,5), (3,4), (3,5)
+# ```
+#
+# See `Operation::Crop` and `Operation::MaskApply` for how this can be useful
 class CrImage::Mask
   getter width : Int32
   getter bits : BitArray
 
+  # Construct a new `Mask` with a set width and bits from `bits`
   def initialize(@width, @bits)
     raise "BitArray size #{@bits.size} must be an even number of #{@width}" unless (@bits.size % @width) == 0
   end
 
+  # Construct a new `Mask` of width x height, preset to `initial`
   def initialize(@width, height : Int32, initial : Bool = true)
     @bits = BitArray.new(@width * height, initial)
   end
 
+  # Construct a new `Mask` of width x height using `&block` to determine if a bit should be true or not (passed in `x` and `y` coordinates)
   def initialize(@width, height : Int32, &block : (Int32, Int32) -> Bool)
     @bits = BitArray.new(@width * height) do |i|
       block.call(i % @width, i // @width)
     end
   end
 
+  # Construct a new `Mask` from an integer (useful for testing or small mask construction)
   def initialize(@width, height : Int32, int : Int)
     size = @width * height
     @bits = BitArray.new(size) { |i| int.bit(size - i - 1) > 0 }
   end
 
+  # Construct a new `Mask` from the dimensions of passed in `image` with an initial bit
   def initialize(image : Image, initial : Bool = true)
     @width = image.width
     @bits = BitArray.new(image.size, initial)
   end
 
+  # Construct a new `Mask` from an array of `BitArray`. See `#[](xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)`
+  #
+  # This assumes `other_bits[0]` corresponds to `x == 0` in the mask, and the corresponding
+  # `BitArray` represents all bits for that row. All `BitArray`s must be of the same size in
+  # `other_bits`.
   def initialize(other_bits : Array(BitArray))
     raise "Can't create an empty mask" if other_bits.empty?
     raise "Can't create an empty mask, first array is empty" if other_bits[0].empty?
@@ -71,8 +87,10 @@ class CrImage::Mask
     end
   end
 
+  # How many bits are stored in this `Mask`
   delegate size, to: bits
 
+  # Create a new `Mask` from this one without modifying it
   def clone
     Mask.new(width, bits.dup)
   end
@@ -81,18 +99,21 @@ class CrImage::Mask
     @bits.size // width
   end
 
+  # Invert all bits in this instance of `Mask`. Modifies self.
   def invert!
     @bits.invert
     clear_caches
     self
   end
 
+  # Return a new `Mask` that's a copy of this one with all bits inverted.
   def invert
     new_bits = @bits.dup
     new_bits.invert
     Mask.new(width, new_bits)
   end
 
+  # Return the bit at `index`
   def at(index : Int32) : Bool
     raise "Index #{index} exceeds mask size #{@bits.size}" if index >= size
     @bits[index]
@@ -104,21 +125,27 @@ class CrImage::Mask
     {start, count}
   end
 
+  # Return the bit at `x` and `y`
   def [](x : Int32, y : Int32) : Bool
     raise IndexError.new("Out of bounds: this mask is #{width}x#{height}, and (#{x},#{y}) is outside of that") if x >= width || y >= height
     @bits[y * width + x]
   end
 
+  # Return a new `BitArray` corresponding to the partial row specified
   def [](xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32) : BitArray
     start, count = resolve_to_start_and_count(xs, width)
     BitArray.new(count) { |x| self[x + start, y] }
   end
 
+  # Return a new `BitArray` corresponding to the partial column specified
   def [](x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : BitArray
     start, count = resolve_to_start_and_count(ys, height)
     BitArray.new(count) { |y| self[x, y + start] }
   end
 
+  # Return an `Array(BitArray)` for the partial box (of partial rows and partial columns) of this mask.
+  #
+  # Can be used to construct another mask from.
   def [](xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)
     start_x, count_x = resolve_to_start_and_count(xs, width)
     start_y, count_y = resolve_to_start_and_count(ys, height)
@@ -134,17 +161,20 @@ class CrImage::Mask
       bits == other.bits
   end
 
+  # Set the bit for coordinate `x` and `y`
   def set(x : Int32, y : Int32, value : Bool) : Bool
     raise IndexError.new("Out of bounds: this mask is #{width}x#{height}, and (#{x},#{y}) is outside of that") if x >= width || y >= height
     clear_caches
     @bits[y * width + x] = value
   end
 
+  # Set the bit for coordinate `x` and `y`
   def []=(x : Int32, y : Int32, value : Bool) : Bool
     self.set(x, y, value)
   end
 
-  def []=(xs : Range(Int32, Int32) | Range(Int32, Nil), y : Int32, value : Bool) : Bool
+  # Set the bits for partial row `xs` at column `y`
+  def []=(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32, value : Bool) : Bool
     raise IndexError.new("Out of bounds: #{y} is beyond the bounds of this mask's height of #{height}") if y >= height
     start_x, count_x = resolve_to_start_and_count(xs, width)
     @bits.fill(value, y * width + start_x, count_x)
@@ -152,7 +182,8 @@ class CrImage::Mask
     value
   end
 
-  def []=(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil), value : Bool) : Bool
+  # Set the bits for row `x` and partial columns `ys`
+  def []=(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool
     raise IndexError.new("Out of bounds: #{x} is beyond the bounds of this mask's width of #{width}") if x >= width
     start_y, count_y = resolve_to_start_and_count(ys, height)
     count_y.times.to_a.each do |y|
@@ -161,8 +192,8 @@ class CrImage::Mask
     value
   end
 
-  def []=(xs : Range(Int32, Int32) | Range(Int32, Nil), ys : Range(Int32, Int32) | Range(Int32, Nil), value : Bool) : Bool
-    # IMPL: check ranges
+  # Set the bits for partial rows `xs` and partial columns `ys`
+  def []=(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool
     start_x, count_x = resolve_to_start_and_count(xs, width)
     start_y, count_y = resolve_to_start_and_count(ys, height)
     count_y.times.to_a.each do |y|
@@ -172,14 +203,17 @@ class CrImage::Mask
     value
   end
 
-  def to_gray
+  # Convert this `Mask` to a `GrayscaleImage`, with false bits becoming 0, and true bits becoming 255
+  def to_gray : GrayscaleImage
     GrayscaleImage.new(bits.map { |b| b ? 255u8 : 0u8 }, width, height)
   end
 
+  # Apply this mask to the provided image with `Operation::MaskApply#apply`
   def apply(image : Image) : Image
     image.apply(self)
   end
 
+  # Apply this mask to the provided image with `Operation::MaskApply#apply`
   def apply(image : Image, &block : (Int32, Int32, UInt8, ChannelType) -> UInt8) : Image
     image.apply(self, &block)
   end
@@ -193,6 +227,7 @@ class CrImage::Mask
   @region : Region? = nil
 
   # Returns the bounding box of the mask where all true bits are contained. Any pixels outside of the region are false
+  # IMPL: example images
   def region : Region
     @region ||= calculate_region
   end
@@ -224,6 +259,10 @@ class CrImage::Mask
   @segments_4_way : Array(Mask)? = nil
   @last_used : Bool? = nil
 
+  # Return an array of `Mask`s, each one corresponding to an area of contiguous true bits (identified from flood fills).
+  #
+  # May specify `diagonal: false` for only 4-way (up, down, left, right) flood fill instead of default 8-way.
+  # IMPL: example image
   def segments(*, diagonal : Bool = true) : Array(Mask)
     diagonal ? (@segments_8_way ||= calculate_segments(diagonal)) : (@segments_4_way ||= calculate_segments(diagonal))
   end

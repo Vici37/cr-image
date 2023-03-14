@@ -238,25 +238,26 @@
 from an image. This can include whether a particular pixel has a value within certain conditions, OR
 if that pixel should be zeroed out or not.</p>
 <p>(x,y) - coordinates. Represent these positions in a Mask of size 10x10:</p>
-<p>[
-(0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (0,7), (0,8), (0,9),
-(1,0), (1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7), (1,8), (1,9),
-(2,0), (2,1), (2,2), (2,3), (2,4), (2,5), (2,6), (2,7), (2,8), (2,9),
-(3,0), (3,1), (3,2), (3,3), (3,4), (3,5), (3,6), (3,7), (3,8), (3,9),
-(4,0), (4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (4,7), (4,8), (4,9),
-(5,0), (5,1), (5,2), (5,3), (5,4), (5,5), (5,6), (5,7), (5,8), (5,9),
-(6,0), (6,1), (6,2), (6,3), (6,4), (6,5), (6,6), (6,7), (6,8), (6,9),
-(7,0), (7,1), (7,2), (7,3), (7,4), (7,5), (7,6), (7,7), (7,8), (7,9),
-(8,0), (8,1), (8,2), (8,3), (8,4), (8,5), (8,6), (8,7), (8,8), (8,9),
-(9,0), (9,1), (9,2), (9,3), (9,4), (9,5), (9,6), (9,7), (9,8), (9,9),
-]</p>
+<pre><code class="language-crystal">[
+  (<span class="n">0</span>,<span class="n">0</span>), (<span class="n">0</span>,<span class="n">1</span>), (<span class="n">0</span>,<span class="n">2</span>), (<span class="n">0</span>,<span class="n">3</span>), (<span class="n">0</span>,<span class="n">4</span>), (<span class="n">0</span>,<span class="n">5</span>), (<span class="n">0</span>,<span class="n">6</span>), (<span class="n">0</span>,<span class="n">7</span>), (<span class="n">0</span>,<span class="n">8</span>), (<span class="n">0</span>,<span class="n">9</span>),
+  (<span class="n">1</span>,<span class="n">0</span>), (<span class="n">1</span>,<span class="n">1</span>), (<span class="n">1</span>,<span class="n">2</span>), (<span class="n">1</span>,<span class="n">3</span>), (<span class="n">1</span>,<span class="n">4</span>), (<span class="n">1</span>,<span class="n">5</span>), (<span class="n">1</span>,<span class="n">6</span>), (<span class="n">1</span>,<span class="n">7</span>), (<span class="n">1</span>,<span class="n">8</span>), (<span class="n">1</span>,<span class="n">9</span>),
+  (<span class="n">2</span>,<span class="n">0</span>), (<span class="n">2</span>,<span class="n">1</span>), (<span class="n">2</span>,<span class="n">2</span>), (<span class="n">2</span>,<span class="n">3</span>), (<span class="n">2</span>,<span class="n">4</span>), (<span class="n">2</span>,<span class="n">5</span>), (<span class="n">2</span>,<span class="n">6</span>), (<span class="n">2</span>,<span class="n">7</span>), (<span class="n">2</span>,<span class="n">8</span>), (<span class="n">2</span>,<span class="n">9</span>),
+  (<span class="n">3</span>,<span class="n">0</span>), (<span class="n">3</span>,<span class="n">1</span>), (<span class="n">3</span>,<span class="n">2</span>), (<span class="n">3</span>,<span class="n">3</span>), (<span class="n">3</span>,<span class="n">4</span>), (<span class="n">3</span>,<span class="n">5</span>), (<span class="n">3</span>,<span class="n">6</span>), (<span class="n">3</span>,<span class="n">7</span>), (<span class="n">3</span>,<span class="n">8</span>), (<span class="n">3</span>,<span class="n">9</span>),
+  (<span class="n">4</span>,<span class="n">0</span>), (<span class="n">4</span>,<span class="n">1</span>), (<span class="n">4</span>,<span class="n">2</span>), (<span class="n">4</span>,<span class="n">3</span>), (<span class="n">4</span>,<span class="n">4</span>), (<span class="n">4</span>,<span class="n">5</span>), (<span class="n">4</span>,<span class="n">6</span>), (<span class="n">4</span>,<span class="n">7</span>), (<span class="n">4</span>,<span class="n">8</span>), (<span class="n">4</span>,<span class="n">9</span>),
+  (<span class="n">5</span>,<span class="n">0</span>), (<span class="n">5</span>,<span class="n">1</span>), (<span class="n">5</span>,<span class="n">2</span>), (<span class="n">5</span>,<span class="n">3</span>), (<span class="n">5</span>,<span class="n">4</span>), (<span class="n">5</span>,<span class="n">5</span>), (<span class="n">5</span>,<span class="n">6</span>), (<span class="n">5</span>,<span class="n">7</span>), (<span class="n">5</span>,<span class="n">8</span>), (<span class="n">5</span>,<span class="n">9</span>),
+  (<span class="n">6</span>,<span class="n">0</span>), (<span class="n">6</span>,<span class="n">1</span>), (<span class="n">6</span>,<span class="n">2</span>), (<span class="n">6</span>,<span class="n">3</span>), (<span class="n">6</span>,<span class="n">4</span>), (<span class="n">6</span>,<span class="n">5</span>), (<span class="n">6</span>,<span class="n">6</span>), (<span class="n">6</span>,<span class="n">7</span>), (<span class="n">6</span>,<span class="n">8</span>), (<span class="n">6</span>,<span class="n">9</span>),
+  (<span class="n">7</span>,<span class="n">0</span>), (<span class="n">7</span>,<span class="n">1</span>), (<span class="n">7</span>,<span class="n">2</span>), (<span class="n">7</span>,<span class="n">3</span>), (<span class="n">7</span>,<span class="n">4</span>), (<span class="n">7</span>,<span class="n">5</span>), (<span class="n">7</span>,<span class="n">6</span>), (<span class="n">7</span>,<span class="n">7</span>), (<span class="n">7</span>,<span class="n">8</span>), (<span class="n">7</span>,<span class="n">9</span>),
+  (<span class="n">8</span>,<span class="n">0</span>), (<span class="n">8</span>,<span class="n">1</span>), (<span class="n">8</span>,<span class="n">2</span>), (<span class="n">8</span>,<span class="n">3</span>), (<span class="n">8</span>,<span class="n">4</span>), (<span class="n">8</span>,<span class="n">5</span>), (<span class="n">8</span>,<span class="n">6</span>), (<span class="n">8</span>,<span class="n">7</span>), (<span class="n">8</span>,<span class="n">8</span>), (<span class="n">8</span>,<span class="n">9</span>),
+  (<span class="n">9</span>,<span class="n">0</span>), (<span class="n">9</span>,<span class="n">1</span>), (<span class="n">9</span>,<span class="n">2</span>), (<span class="n">9</span>,<span class="n">3</span>), (<span class="n">9</span>,<span class="n">4</span>), (<span class="n">9</span>,<span class="n">5</span>), (<span class="n">9</span>,<span class="n">6</span>), (<span class="n">9</span>,<span class="n">7</span>), (<span class="n">9</span>,<span class="n">8</span>), (<span class="n">9</span>,<span class="n">9</span>),
+]</code></pre>
 <p>And every position is a Bool value.</p>
-<p>Different ways to refer to coordinates
-mask[0, 0] # =&gt; (0,0)
-mask.at(0, 0) # =&gt; (0,0)
-mask[0..1, 4] # =&gt; (4,0), (4,1)
-mask[3, 3..5] # =&gt; (3,3), (3,4), (3,5)
-mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
+<p>Different ways to refer to coordinates:</p>
+<pre><code class="language-crystal">mask.at(<span class="n">0</span>, <span class="n">0</span>)    <span class="c"># =&gt; (0,0)</span>
+mask[<span class="n">0</span>, <span class="n">0</span>]       <span class="c"># =&gt; (0,0), same as .at(0, 0)</span>
+mask[<span class="n">0</span>..<span class="n">1</span>, <span class="n">4</span>]    <span class="c"># =&gt; (4,0), (4,1)</span>
+mask[<span class="n">3</span>, <span class="n">3</span>..<span class="n">5</span>]    <span class="c"># =&gt; (3,3), (3,4), (3,5)</span>
+mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span>..<span class="n">5</span>] <span class="c"># =&gt; (2,4), (2,5), (3,4), (3,5)</span></code></pre>
+<p>See <code><a href="../CrImage/Operation/Crop.html">Operation::Crop</a></code> and <code><a href="../CrImage/Operation/MaskApply.html">Operation::MaskApply</a></code> for how this can be useful</p>
 
 
 
@@ -303,30 +304,42 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
       <li class="entry-summary">
         <a href="#new%28width%3AInt32%2Cheight%3AInt32%2Cinitial%3ABool%3Dtrue%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, initial : Bool = <span class="n">true</span>)</a>
         
+          <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> of width x height, preset to <code>initial</code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28width%3AInt32%2Cheight%3AInt32%2Cint%3AInt%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, int : Int)</a>
+        
+          <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from an integer (useful for testing or small mask construction)</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28image%3AImage%2Cinitial%3ABool%3Dtrue%29-class-method" class="signature"><strong>.new</strong>(image : Image, initial : Bool = <span class="n">true</span>)</a>
         
+          <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from the dimensions of passed in <code>image</code> with an initial bit</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28width%3AInt32%2Cbits%3ABitArray%29-class-method" class="signature"><strong>.new</strong>(width : Int32, bits : BitArray)</a>
+        
+          <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> with a set width and bits from <code><a href="../CrImage/Mask.html#bits%3ABitArray-instance-method">#bits</a></code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28width%3AInt32%2Cheight%3AInt32%2C%26block%3AInt32%2CInt32-%3EBool%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, &block : Int32, Int32 -> Bool)</a>
         
+          <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> of width x height using <code>&amp;block</code> to determine if a bit should be true or not (passed in <code>x</code> and <code>y</code> coordinates)</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#new%28other_bits%3AArray%28BitArray%29%29-class-method" class="signature"><strong>.new</strong>(other_bits : Array(BitArray))</a>
+        
+          <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from an array of <code>BitArray</code>.</p></div>
         
       </li>
     
@@ -354,55 +367,77 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
       <li class="entry-summary">
         <a href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3ABool-instance-method" class="signature"><strong>#[]</strong>(x : Int32, y : Int32) : Bool</a>
         
+          <div class="summary"><p>Return the bit at <code>x</code> and <code>y</code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cy%3AInt32%29%3ABitArray-instance-method" class="signature"><strong>#[]</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32) : BitArray</a>
+        
+          <div class="summary"><p>Return a new <code>BitArray</code> corresponding to the partial row specified</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3ABitArray-instance-method" class="signature"><strong>#[]</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : BitArray</a>
         
+          <div class="summary"><p>Return a new <code>BitArray</code> corresponding to the partial column specified</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3AArray%28BitArray%29-instance-method" class="signature"><strong>#[]</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)</a>
+        
+          <div class="summary"><p>Return an <code>Array(BitArray)</code> for the partial box (of partial rows and partial columns) of this mask.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%3D%28x%3AInt32%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(x : Int32, y : Int32, value : Bool) : Bool</a>
         
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil), y : Int32, value : Bool) : Bool</a>
+          <div class="summary"><p>Set the bit for coordinate <code>x</code> and <code>y</code></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%3D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil), value : Bool) : Bool</a>
+        <a href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32, value : Bool) : Bool</a>
+        
+          <div class="summary"><p>Set the bits for partial row <code>xs</code> at column <code>y</code></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil), ys : Range(Int32, Int32) | Range(Int32, Nil), value : Bool) : Bool</a>
+        <a href="#%5B%5D%3D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool</a>
+        
+          <div class="summary"><p>Set the bits for row <code>x</code> and partial columns <code>ys</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool</a>
+        
+          <div class="summary"><p>Set the bits for partial rows <code>xs</code> and partial columns <code>ys</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#apply%28image%3AImage%29%3AImage-instance-method" class="signature"><strong>#apply</strong>(image : Image) : Image</a>
         
+          <div class="summary"><p>Apply this mask to the provided image with <code><a href="../CrImage/Operation/MaskApply.html#apply%28mask%3AMask%29%3Aself-instance-method">Operation::MaskApply#apply</a></code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#apply%28image%3AImage%2C%26block%3AInt32%2CInt32%2CUInt8%2CChannelType-%3EUInt8%29%3AImage-instance-method" class="signature"><strong>#apply</strong>(image : Image, &block : Int32, Int32, UInt8, ChannelType -> UInt8) : Image</a>
         
+          <div class="summary"><p>Apply this mask to the provided image with <code><a href="../CrImage/Operation/MaskApply.html#apply%28mask%3AMask%29%3Aself-instance-method">Operation::MaskApply#apply</a></code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#at%28index%3AInt32%29%3ABool-instance-method" class="signature"><strong>#at</strong>(index : Int32) : Bool</a>
+        
+          <div class="summary"><p>Return the bit at <code>index</code></p></div>
         
       </li>
     
@@ -414,6 +449,8 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
       <li class="entry-summary">
         <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
         
+          <div class="summary"><p>Create a new <code><a href="../CrImage/Mask.html">Mask</a></code> from this one without modifying it</p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -424,10 +461,14 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
       <li class="entry-summary">
         <a href="#invert-instance-method" class="signature"><strong>#invert</strong></a>
         
+          <div class="summary"><p>Return a new <code><a href="../CrImage/Mask.html">Mask</a></code> that's a copy of this one with all bits inverted.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#invert%21-instance-method" class="signature"><strong>#invert!</strong></a>
+        
+          <div class="summary"><p>Invert all bits in this instance of <code><a href="../CrImage/Mask.html">Mask</a></code>.</p></div>
         
       </li>
     
@@ -441,25 +482,35 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
       <li class="entry-summary">
         <a href="#segments%28%2A%2Cdiagonal%3ABool%3Dtrue%29%3AArray%28Mask%29-instance-method" class="signature"><strong>#segments</strong>(*, diagonal : Bool = <span class="n">true</span>) : Array(Mask)</a>
         
+          <div class="summary"><p>Return an array of <code><a href="../CrImage/Mask.html">Mask</a></code>s, each one corresponding to an area of contiguous true bits (identified from flood fills).</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#set%28x%3AInt32%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method" class="signature"><strong>#set</strong>(x : Int32, y : Int32, value : Bool) : Bool</a>
+        
+          <div class="summary"><p>Set the bit for coordinate <code>x</code> and <code>y</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#size%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#size</strong>(*args, **options)</a>
         
+          <div class="summary"><p>How many bits are stored in this <code><a href="../CrImage/Mask.html">Mask</a></code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#size%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method" class="signature"><strong>#size</strong>(*args, **options, &)</a>
         
+          <div class="summary"><p>How many bits are stored in this <code><a href="../CrImage/Mask.html">Mask</a></code></p></div>
+        
       </li>
     
       <li class="entry-summary">
-        <a href="#to_gray-instance-method" class="signature"><strong>#to_gray</strong></a>
+        <a href="#to_gray%3AGrayscaleImage-instance-method" class="signature"><strong>#to_gray</strong> : GrayscaleImage</a>
+        
+          <div class="summary"><p>Convert this <code><a href="../CrImage/Mask.html">Mask</a></code> to a <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code>, with false bits becoming 0, and true bits becoming 255</p></div>
         
       </li>
     
@@ -516,6 +567,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#new%28width%3AInt32%2Cheight%3AInt32%2Cinitial%3ABool%3Dtrue%29-class-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> of width x height, preset to <code>initial</code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -529,6 +585,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
 
         <a class="method-permalink" href="#new%28width%3AInt32%2Cheight%3AInt32%2Cint%3AInt%29-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from an integer (useful for testing or small mask construction)</p>
+        </div>
       
       <br/>
       <div>
@@ -544,6 +605,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#new%28image%3AImage%2Cinitial%3ABool%3Dtrue%29-class-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from the dimensions of passed in <code>image</code> with an initial bit</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -557,6 +623,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
 
         <a class="method-permalink" href="#new%28width%3AInt32%2Cbits%3ABitArray%29-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> with a set width and bits from <code><a href="../CrImage/Mask.html#bits%3ABitArray-instance-method">#bits</a></code></p>
+        </div>
       
       <br/>
       <div>
@@ -572,6 +643,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#new%28width%3AInt32%2Cheight%3AInt32%2C%26block%3AInt32%2CInt32-%3EBool%29-class-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> of width x height using <code>&amp;block</code> to determine if a bit should be true or not (passed in <code>x</code> and <code>y</code> coordinates)</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -585,6 +661,14 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
 
         <a class="method-permalink" href="#new%28other_bits%3AArray%28BitArray%29%29-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from an array of <code>BitArray</code>. See <code><a href="../CrImage/Mask.html#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3ABool-instance-method">#[](xs : Range(Int32, Int32)</a> | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32)) : Array(BitArray)</code></p>
+<p>This assumes <code>other_bits[0]</code> corresponds to <code>x == 0</code> in the mask, and the corresponding
+<code>BitArray</code> represents all bits for that row. All <code>BitArray</code>s must be of the same size in
+<code>other_bits</code>.</p>
+        </div>
       
       <br/>
       <div>
@@ -628,6 +712,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3ABool-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Return the bit at <code>x</code> and <code>y</code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -641,6 +730,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
 
         <a class="method-permalink" href="#%5B%5D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cy%3AInt32%29%3ABitArray-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Return a new <code>BitArray</code> corresponding to the partial row specified</p>
+        </div>
       
       <br/>
       <div>
@@ -656,6 +750,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#%5B%5D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3ABitArray-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Return a new <code>BitArray</code> corresponding to the partial column specified</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -669,6 +768,12 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
 
         <a class="method-permalink" href="#%5B%5D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%29%3AArray%28BitArray%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Return an <code>Array(BitArray)</code> for the partial box (of partial rows and partial columns) of this mask.</p>
+<p>Can be used to construct another mask from.</p>
+        </div>
       
       <br/>
       <div>
@@ -684,19 +789,10 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#%5B%5D%3D%28x%3AInt32%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
       </div>
       
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="[]=(xs:Range(Int32,Int32)|Range(Int32,Nil),y:Int32,value:Bool):Bool-instance-method">
-      <div class="signature">
-        
-        def <strong>[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil), y : Int32, value : Bool) : Bool
-
-        <a class="method-permalink" href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
-      </div>
+        <div class="doc">
+          
+          <p>Set the bit for coordinate <code>x</code> and <code>y</code></p>
+        </div>
       
       <br/>
       <div>
@@ -704,13 +800,18 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="[]=(x:Int32,ys:Range(Int32,Int32)|Range(Int32,Nil),value:Bool):Bool-instance-method">
+    <div class="entry-detail" id="[]=(xs:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),y:Int32,value:Bool):Bool-instance-method">
       <div class="signature">
         
-        def <strong>[]=</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil), value : Bool) : Bool
+        def <strong>[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), y : Int32, value : Bool) : Bool
 
-        <a class="method-permalink" href="#%5B%5D%3D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Set the bits for partial row <code>xs</code> at column <code>y</code></p>
+        </div>
       
       <br/>
       <div>
@@ -718,13 +819,37 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="[]=(xs:Range(Int32,Int32)|Range(Int32,Nil),ys:Range(Int32,Int32)|Range(Int32,Nil),value:Bool):Bool-instance-method">
+    <div class="entry-detail" id="[]=(x:Int32,ys:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),value:Bool):Bool-instance-method">
       <div class="signature">
         
-        def <strong>[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil), ys : Range(Int32, Int32) | Range(Int32, Nil), value : Bool) : Bool
+        def <strong>[]=</strong>(x : Int32, ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool
 
-        <a class="method-permalink" href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3D%28x%3AInt32%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Set the bits for row <code>x</code> and partial columns <code>ys</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]=(xs:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),ys:Range(Int32,Int32)|Range(Int32,Nil)|Range(Nil,Int32),value:Bool):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>[]=</strong>(xs : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), ys : Range(Int32, Int32) | Range(Int32, Nil) | Range(Nil, Int32), value : Bool) : Bool
+
+        <a class="method-permalink" href="#%5B%5D%3D%28xs%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cys%3ARange%28Int32%2CInt32%29%7CRange%28Int32%2CNil%29%7CRange%28Nil%2CInt32%29%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set the bits for partial rows <code>xs</code> and partial columns <code>ys</code></p>
+        </div>
       
       <br/>
       <div>
@@ -740,6 +865,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#apply%28image%3AImage%29%3AImage-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Apply this mask to the provided image with <code><a href="../CrImage/Operation/MaskApply.html#apply%28mask%3AMask%29%3Aself-instance-method">Operation::MaskApply#apply</a></code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -754,6 +884,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#apply%28image%3AImage%2C%26block%3AInt32%2CInt32%2CUInt8%2CChannelType-%3EUInt8%29%3AImage-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Apply this mask to the provided image with <code><a href="../CrImage/Operation/MaskApply.html#apply%28mask%3AMask%29%3Aself-instance-method">Operation::MaskApply#apply</a></code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -767,6 +902,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
 
         <a class="method-permalink" href="#at%28index%3AInt32%29%3ABool-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Return the bit at <code>index</code></p>
+        </div>
       
       <br/>
       <div>
@@ -796,6 +936,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#clone-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Create a new <code><a href="../CrImage/Mask.html">Mask</a></code> from this one without modifying it</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -824,6 +969,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#invert-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Return a new <code><a href="../CrImage/Mask.html">Mask</a></code> that's a copy of this one with all bits inverted.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -837,6 +987,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
 
         <a class="method-permalink" href="#invert%21-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Invert all bits in this instance of <code><a href="../CrImage/Mask.html">Mask</a></code>. Modifies self.</p>
+        </div>
       
       <br/>
       <div>
@@ -854,7 +1009,8 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
       
         <div class="doc">
           
-          <p>Returns the bounding box of the mask where all true bits are contained. Any pixels outside of the region are false</p>
+          <p>Returns the bounding box of the mask where all true bits are contained. Any pixels outside of the region are false
+IMPL: example images</p>
         </div>
       
       <br/>
@@ -871,6 +1027,13 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#segments%28%2A%2Cdiagonal%3ABool%3Dtrue%29%3AArray%28Mask%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Return an array of <code><a href="../CrImage/Mask.html">Mask</a></code>s, each one corresponding to an area of contiguous true bits (identified from flood fills).</p>
+<p>May specify <code>diagonal: false</code> for only 4-way (up, down, left, right) flood fill instead of default 8-way.
+IMPL: example image</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -884,6 +1047,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
 
         <a class="method-permalink" href="#set%28x%3AInt32%2Cy%3AInt32%2Cvalue%3ABool%29%3ABool-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Set the bit for coordinate <code>x</code> and <code>y</code></p>
+        </div>
       
       <br/>
       <div>
@@ -899,6 +1067,11 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#size%28%2Aargs%2C%2A%2Aoptions%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>How many bits are stored in this <code><a href="../CrImage/Mask.html">Mask</a></code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -913,19 +1086,29 @@ mask[2..3, 4..5] # =&gt; (2,4), (2,5), (3,4), (3,5)</p>
         <a class="method-permalink" href="#size%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>How many bits are stored in this <code><a href="../CrImage/Mask.html">Mask</a></code></p>
+        </div>
+      
       <br/>
       <div>
         
       </div>
     </div>
   
-    <div class="entry-detail" id="to_gray-instance-method">
+    <div class="entry-detail" id="to_gray:GrayscaleImage-instance-method">
       <div class="signature">
         
-        def <strong>to_gray</strong>
+        def <strong>to_gray</strong> : <a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a>
 
-        <a class="method-permalink" href="#to_gray-instance-method">#</a>
+        <a class="method-permalink" href="#to_gray%3AGrayscaleImage-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Convert this <code><a href="../CrImage/Mask.html">Mask</a></code> to a <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code>, with false bits becoming 0, and true bits becoming 255</p>
+        </div>
       
       <br/>
       <div>

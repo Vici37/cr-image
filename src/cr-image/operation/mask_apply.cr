@@ -11,6 +11,7 @@ module CrImage::Operation::MaskApply
     clone.apply_color!(mask, color)
   end
 
+  # TODO: add apply version that accepts 1+ ChannelType that the mask should apply to (i.e. make a background completely transparent, not just transparent black)
   def apply!(mask : Mask) : self
     raise "Mask of #{mask.width}x#{mask.height} doesn't match image dimensions #{width}x#{height}" unless mask.width == width && mask.height == height
 

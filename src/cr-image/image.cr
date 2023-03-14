@@ -2,6 +2,8 @@ require "./bindings/*"
 require "./format/*"
 require "./operation/*"
 
+# Common base class for `GrayscaleImage` and `RGBAImage`. All `Image`s are readable and saveable
+# to the filesystem or `IO` stream.
 abstract class CrImage::Image
   macro inherited
     include Format::JPEG
@@ -25,16 +27,27 @@ abstract class CrImage::Image
     include Operation::MaskApply
   end
 
+  # Return the red channel
   abstract def red : Array(UInt8)
+  # Return the green channel
   abstract def green : Array(UInt8)
+  # Return the blue channel
   abstract def blue : Array(UInt8)
+  # Return the alpha channel
   abstract def alpha : Array(UInt8)
+  # Width of image
   abstract def width : Int32
+  # Height of image
   abstract def height : Int32
+  # Size (total pixels) in image (`width` * `height`)
   abstract def size : Int32
 
+  # Run provided block on each channel supported by this image.
   abstract def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
+
+  # Get the `Array(UInt8)` corresponding to `channel_type`)
   abstract def [](channel_type : ChannelType) : Array(UInt8)
+  # Set the `Array(UInt8)` corresponding to `channel_type`) to `channel`
   abstract def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
 
   private def index_of(x : Int, y : Int) : Int

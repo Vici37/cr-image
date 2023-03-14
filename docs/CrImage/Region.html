@@ -225,6 +225,18 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Represents a rectangular area on an <code><a href="../CrImage/Image.html">Image</a></code> from its upper left corner <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code> and <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code> coordinates, and a width and height.</p>
+<p>See <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code> and <code><a href="../CrImage/Operation/Draw.html#draw_box%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">Operation::Draw#draw_box</a></code> for examples using it.</p>
+
 
 
 
@@ -296,6 +308,8 @@
       <li class="entry-summary">
         <a href="#center%3ATuple%28Int32%2CInt32%29-instance-method" class="signature"><strong>#center</strong> : Tuple(Int32, Int32)</a>
         
+          <div class="summary"><p>Return the <code>{x, y}</code> tuple of the center coordinates of this <code><a href="../CrImage/Region.html">Region</a></code></p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -311,10 +325,19 @@
       <li class="entry-summary">
         <a href="#crop%28image%3AImage%29%3AImage-instance-method" class="signature"><strong>#crop</strong>(image : Image) : Image</a>
         
+          <div class="summary"><p>Crop a provided <code><a href="../CrImage/Image.html">Image</a></code> with this region, using <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#height%3AUInt16-instance-method" class="signature"><strong>#height</strong> : UInt16</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_tuple%3ATuple%28Int32%2CInt32%2CInt32%2CInt32%29-instance-method" class="signature"><strong>#to_tuple</strong> : Tuple(Int32, Int32, Int32, Int32)</a>
+        
+          <div class="summary"><p>Return this <code><a href="../CrImage/Region.html">Region</a></code> as a <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code>, <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code>, <code><a href="../CrImage/Region.html#width%3AUInt16-instance-method">#width</a></code>, and <code><a href="../CrImage/Region.html#height%3AUInt16-instance-method">#height</a></code> tuple</p></div>
         
       </li>
     
@@ -433,6 +456,11 @@
         <a class="method-permalink" href="#center%3ATuple%28Int32%2CInt32%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Return the <code>{x, y}</code> tuple of the center coordinates of this <code><a href="../CrImage/Region.html">Region</a></code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -475,6 +503,11 @@
         <a class="method-permalink" href="#crop%28image%3AImage%29%3AImage-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Crop a provided <code><a href="../CrImage/Image.html">Image</a></code> with this region, using <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -488,6 +521,25 @@
 
         <a class="method-permalink" href="#height%3AUInt16-instance-method">#</a>
       </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_tuple:Tuple(Int32,Int32,Int32,Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>to_tuple</strong> : Tuple(Int32, Int32, Int32, Int32)
+
+        <a class="method-permalink" href="#to_tuple%3ATuple%28Int32%2CInt32%2CInt32%2CInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Return this <code><a href="../CrImage/Region.html">Region</a></code> as a <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code>, <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code>, <code><a href="../CrImage/Region.html#width%3AUInt16-instance-method">#width</a></code>, and <code><a href="../CrImage/Region.html#height%3AUInt16-instance-method">#height</a></code> tuple</p>
+        </div>
       
       <br/>
       <div>

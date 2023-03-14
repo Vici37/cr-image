@@ -225,6 +225,17 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>An image with red, green, blue, and alpha color channels (i.e. a color image). This image type is likely the one read from and written to file (or <code>IO</code>).</p>
+
 
 
 
@@ -405,15 +416,21 @@
       <li class="entry-summary">
         <a href="#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method" class="signature"><strong>#[]</strong>(channel_type : ChannelType) : Array(UInt8)</a>
         
+          <div class="summary"><p>Return the channel corresponding to <code>channel_type</code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method" class="signature"><strong>#[]=</strong>(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)</a>
         
+          <div class="summary"><p>Set the corresponding <code>channel_type</code> with <code>channel</code></p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#alpha%3AArray%28UInt8%29-instance-method" class="signature"><strong>#alpha</strong> : Array(UInt8)</a>
+        
+          <div class="summary"><p>Return the alpha channel</p></div>
         
       </li>
     
@@ -425,6 +442,8 @@
       <li class="entry-summary">
         <a href="#blue%3AArray%28UInt8%29-instance-method" class="signature"><strong>#blue</strong> : Array(UInt8)</a>
         
+          <div class="summary"><p>Return the blue channel</p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -435,15 +454,21 @@
       <li class="entry-summary">
         <a href="#clone%3ARGBAImage-instance-method" class="signature"><strong>#clone</strong> : RGBAImage</a>
         
+          <div class="summary"><p>Create a copy of this image</p></div>
+        
       </li>
     
       <li class="entry-summary">
-        <a href="#each_channel%28%26%29%3ANil-instance-method" class="signature"><strong>#each_channel</strong>(&) : Nil</a>
+        <a href="#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method" class="signature"><strong>#each_channel</strong>(& : Array(UInt8), ChannelType -> Nil) : Nil</a>
+        
+          <div class="summary"><p>Run provided block with the <code><a href="../CrImage/ChannelType.html#Red">ChannelType::Red</a></code>, <code><a href="../CrImage/ChannelType.html#Green">ChannelType::Green</a></code>, <code><a href="../CrImage/ChannelType.html#Blue">ChannelType::Blue</a></code>, and <code><a href="../CrImage/ChannelType.html#Alpha">ChannelType::Alpha</a></code> channels.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#green%3AArray%28UInt8%29-instance-method" class="signature"><strong>#green</strong> : Array(UInt8)</a>
+        
+          <div class="summary"><p>Return the green channel</p></div>
         
       </li>
     
@@ -455,6 +480,8 @@
       <li class="entry-summary">
         <a href="#height%3AInt32-instance-method" class="signature"><strong>#height</strong> : Int32</a>
         
+          <div class="summary"><p>Height of image</p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -464,6 +491,8 @@
     
       <li class="entry-summary">
         <a href="#red%3AArray%28UInt8%29-instance-method" class="signature"><strong>#red</strong> : Array(UInt8)</a>
+        
+          <div class="summary"><p>Return the red channel</p></div>
         
       </li>
     
@@ -475,17 +504,21 @@
       <li class="entry-summary">
         <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
         
+          <div class="summary"><p>Return the number of pixels in this image</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#to_gray%28red_multiplier%3AFloat%3D0.299%2Cgreen_multiplier%3AFloat%3D0.587%2Cblue_multiplier%3AFloat%3D0.114%29%3AGrayscaleImage-instance-method" class="signature"><strong>#to_gray</strong>(red_multiplier : Float = <span class="n">0.299</span>, green_multiplier : Float = <span class="n">0.587</span>, blue_multiplier : Float = <span class="n">0.114</span>) : GrayscaleImage</a>
         
-          <div class="summary"><p>Convert color image to grayscale one, using the NTSC formula as default values.</p></div>
+          <div class="summary"><p>Convert color image to <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code>, using the NTSC formula as default values.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#width%3AInt32-instance-method" class="signature"><strong>#width</strong> : Int32</a>
+        
+          <div class="summary"><p>Width of image</p></div>
         
       </li>
     
@@ -1170,6 +1203,11 @@
         <a class="method-permalink" href="#%5B%5D%28channel_type%3AChannelType%29%3AArray%28UInt8%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Return the channel corresponding to <code>channel_type</code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -1184,6 +1222,11 @@
         <a class="method-permalink" href="#%5B%5D%3D%28channel_type%3AChannelType%2Cchannel%3AArray%28UInt8%29%29%3AArray%28UInt8%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Set the corresponding <code>channel_type</code> with <code>channel</code></p>
+        </div>
+      
       <br/>
       <div>
         
@@ -1197,6 +1240,15 @@
 
         <a class="method-permalink" href="#alpha%3AArray%28UInt8%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class <a href="../CrImage/Image.html">CrImage::Image</a>
+            </div>
+          
+          <p>Return the alpha channel</p>
+        </div>
       
       <br/>
       <div>
@@ -1226,6 +1278,15 @@
         <a class="method-permalink" href="#blue%3AArray%28UInt8%29-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class <a href="../CrImage/Image.html">CrImage::Image</a>
+            </div>
+          
+          <p>Return the blue channel</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -1254,19 +1315,29 @@
         <a class="method-permalink" href="#clone%3ARGBAImage-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Create a copy of this image</p>
+        </div>
+      
       <br/>
       <div>
         
       </div>
     </div>
   
-    <div class="entry-detail" id="each_channel(&amp;):Nil-instance-method">
+    <div class="entry-detail" id="each_channel(&amp;:Array(UInt8),ChannelType-&gt;Nil):Nil-instance-method">
       <div class="signature">
         
-        def <strong>each_channel</strong>(&) : Nil
+        def <strong>each_channel</strong>(& : Array(UInt8), <a href="../CrImage/ChannelType.html">ChannelType</a> -> Nil) : Nil
 
-        <a class="method-permalink" href="#each_channel%28%26%29%3ANil-instance-method">#</a>
+        <a class="method-permalink" href="#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Run provided block with the <code><a href="../CrImage/ChannelType.html#Red">ChannelType::Red</a></code>, <code><a href="../CrImage/ChannelType.html#Green">ChannelType::Green</a></code>, <code><a href="../CrImage/ChannelType.html#Blue">ChannelType::Blue</a></code>, and <code><a href="../CrImage/ChannelType.html#Alpha">ChannelType::Alpha</a></code> channels.</p>
+        </div>
       
       <br/>
       <div>
@@ -1281,6 +1352,15 @@
 
         <a class="method-permalink" href="#green%3AArray%28UInt8%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class <a href="../CrImage/Image.html">CrImage::Image</a>
+            </div>
+          
+          <p>Return the green channel</p>
+        </div>
       
       <br/>
       <div>
@@ -1310,6 +1390,15 @@
         <a class="method-permalink" href="#height%3AInt32-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class <a href="../CrImage/Image.html">CrImage::Image</a>
+            </div>
+          
+          <p>Height of image</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -1337,6 +1426,15 @@
 
         <a class="method-permalink" href="#red%3AArray%28UInt8%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class <a href="../CrImage/Image.html">CrImage::Image</a>
+            </div>
+          
+          <p>Return the red channel</p>
+        </div>
       
       <br/>
       <div>
@@ -1366,6 +1464,11 @@
         <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Return the number of pixels in this image</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -1382,7 +1485,7 @@
       
         <div class="doc">
           
-          <p>Convert color image to grayscale one, using the NTSC formula as default values.</p>
+          <p>Convert color image to <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code>, using the NTSC formula as default values.</p>
         </div>
       
       <br/>
@@ -1398,6 +1501,15 @@
 
         <a class="method-permalink" href="#width%3AInt32-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class <a href="../CrImage/Image.html">CrImage::Image</a>
+            </div>
+          
+          <p>Width of image</p>
+        </div>
       
       <br/>
       <div>

@@ -1,6 +1,6 @@
 module CrImage::Operation::Crop
   def crop(region : Region) : self
-    crop(region.x, region.y, region.width, region.height)
+    crop(*region.to_tuple)
   end
 
   def crop(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : self
@@ -14,7 +14,7 @@ module CrImage::Operation::Crop
   end
 
   def crop!(region : Region) : self
-    crop!(region.x, region.y, region.width, region.height)
+    crop!(*region.to_tuple)
   end
 
   def crop!(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : self
