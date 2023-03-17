@@ -1,3 +1,17 @@
+# Draws shapes in the image
+#
+# Taking sample `image`:
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+#
+# ```
+# image.draw_box(40, 30, 80, 80, CrImage::Color.of("#00f"))
+# image.draw_circle(80, 70, 40, CrImage::Color.of("#00f"))
+# ```
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_box_40_30_80_80_sample.jpg" alt="Woman with blue box drawn around face"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_circle_80_70_40_sample.jpg" alt="Woman with blue circle drawn around face"/>
+#
+# Can also use the `fill: true` parameter to fill in the drawn shapes
 module CrImage::Operation::Draw
   def draw_box(region : Region, color : Color, *, fill : Bool = false) : self
     clone.draw_box!(region, color, fill: fill)
