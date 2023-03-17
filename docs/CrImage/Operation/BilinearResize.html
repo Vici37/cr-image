@@ -223,6 +223,24 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Resize an image using a bilinear resizing algorithm.</p>
+<p>Taking sample <code>image</code>:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">puts image.width, image.height <span class="c"># =&gt; 159x199</span>
+image.bilinear_resize(<span class="n">40</span>, <span class="n">50</span>).save(<span class="s">&quot;small_sample.jpg&quot;</span>)
+image.bilinear_resize(<span class="n">200</span>, <span class="n">250</span>).save(<span class="s">&quot;larger_sample.jpg&quot;</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/small_sample.jpg" alt="Sample image reduced to 20% size"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/larger_sample.jpg" alt="Sample image increased by 25% size"/>
+
 
 
 
@@ -288,10 +306,14 @@
       <li class="entry-summary">
         <a href="#bilinear_resize%28width%3AInt32%2Cheight%3AInt32%29%3Aself-instance-method" class="signature"><strong>#bilinear_resize</strong>(width : Int32, height : Int32) : <span class="k">self</span></a>
         
+          <div class="summary"><p>Resizes image to new dimensions</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#bilinear_resize%21%28width%3AInt32%2Cheight%3AInt32%29%3Aself-instance-method" class="signature"><strong>#bilinear_resize!</strong>(width : Int32, height : Int32) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Resizes image to new dimensions.</p></div>
         
       </li>
     
@@ -327,6 +349,11 @@
         <a class="method-permalink" href="#bilinear_resize%28width%3AInt32%2Cheight%3AInt32%29%3Aself-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Resizes image to new dimensions</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -340,6 +367,11 @@
 
         <a class="method-permalink" href="#bilinear_resize%21%28width%3AInt32%2Cheight%3AInt32%29%3Aself-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Resizes image to new dimensions. Modifies self.</p>
+        </div>
       
       <br/>
       <div>

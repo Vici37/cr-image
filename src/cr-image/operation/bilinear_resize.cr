@@ -1,8 +1,23 @@
+# Resize an image using a bilinear resizing algorithm.
+#
+# Taking sample `image`:
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+#
+# ```
+# puts image.width, image.height # => 159x199
+# image.bilinear_resize(40, 50).save("small_sample.jpg")
+# image.bilinear_resize(200, 250).save("larger_sample.jpg")
+# ```
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/small_sample.jpg" alt="Sample image reduced to 20% size"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/larger_sample.jpg" alt="Sample image increased by 25% size"/>
 module CrImage::Operation::BilinearResize
+  # Resizes image to new dimensions
   def bilinear_resize(width : Int32, height : Int32) : self
     clone.bilinear_resize!(width, height)
   end
 
+  # Resizes image to new dimensions. Modifies self.
   def bilinear_resize!(width : Int32, height : Int32) : self
     x_ratio = width > 1 ? (@width - 1) / (width - 1) : 0
     y_ratio = height > 1 ? (@height - 1) / (height - 1) : 0

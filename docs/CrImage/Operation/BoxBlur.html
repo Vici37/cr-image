@@ -223,6 +223,23 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Blurs the image</p>
+<p>Taking sample <code>image</code>:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">image.box_blur(<span class="n">1</span>).save(<span class="s">&quot;blurred_1_sample.jpg&quot;</span>)
+image.box_blur(<span class="n">5</span>).save(<span class="s">&quot;blurred_5_sample.jpg&quot;</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/blurred_1_sample.jpg" alt="Blurred sample image with value 1"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/blurred_5_sample.jpg" alt="Blurred sample image with value 5"/>
+
 
 
 
