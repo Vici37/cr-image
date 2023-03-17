@@ -22,14 +22,19 @@
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/apply_mask_color.jpg" alt="Thin horizontal blue bar over woman's eyes"/>
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/apply_mask_block.jpg" alt="Thin horizantal transparent blue bar over woman's eyes"/>
 module CrImage::Operation::MaskApply
+  # Black out all pixels but those found in the mask
   def apply(mask : Mask) : self
     clone.apply!(mask)
   end
 
+  # Apply block to all pixels that match mask, replacing pixel value if block returns non-nil value.
+  #
+  # Does not change values not matched by the mask
   def apply(mask : Mask, &block : (Int32, Int32, UInt8, ChannelType) -> UInt8?) : self
     clone.apply!(mask, &block)
   end
 
+  # Change the color of all pixels that match the mask
   def apply_color(mask : Mask, color : Color) : self
     clone.apply_color!(mask, color)
   end
