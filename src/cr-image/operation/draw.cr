@@ -48,6 +48,7 @@ module CrImage::Operation::Draw
     self
   end
 
+  # Draw a circle around the region's center (see `Region#center`)
   def draw_circle(region : Region, radius : Int, color : Color, *, fill : Bool = false) : self
     clone.draw_circle!(*region.center, radius, color, fill: fill)
   end
@@ -56,17 +57,12 @@ module CrImage::Operation::Draw
     clone.draw_circle!(x, y, radius, color, fill: fill)
   end
 
+  # Draw a circle around the region's center (see `Region#center`)
   def draw_circle!(region : Region, color : Color, *, fill : Bool = false, radius : Int32? = nil) : self
     draw_circle!(*region.center, radius, color, fill: fill)
   end
 
-  macro mpp(*args)
-    {% for arg in args %}
-      print "{{arg}}: #{{{arg}}}\t"
-    {% end %}
-    puts
-  end
-
+  # :nodoc:
   # ameba:disable Metrics/CyclomaticComplexity
   def draw_circle!(center_x : Int, center_y : Int, radius : Int, color : Color, *, fill : Bool = false) : self
     min_x = Math.max(0, center_x - radius)
