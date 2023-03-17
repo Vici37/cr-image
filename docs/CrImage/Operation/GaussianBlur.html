@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 1.6.2">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="cr-image">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../../js/doc.js"></script>
 
   <meta name="repository-name" content="cr-image">
-  <title>CrImage::Operation::GaussianBlur - cr-image master</title>
+  <title>CrImage::Operation::GaussianBlur - cr-image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        master-dev
       </span>
     </div>
   </div>
@@ -223,6 +223,23 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Applies a 3x3 Gaussian blur</p>
+<p>Taking sample <code>image</code>:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">image.gaussian_blur(<span class="n">1</span>).save(<span class="s">&quot;gaussian_1_sample.jpg&quot;</span>)
+image.gaussian_blur(<span class="n">5</span>).save(<span class="s">&quot;gaussian_5_sample.jpg&quot;</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gaussian_1_sample.jpg" alt="Blurred sample image with value 1"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gaussian_5_sample.jpg" alt="Blurred sample image with value 5"/>
+
 
 
 
@@ -262,9 +279,7 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/05a59d2154b3bea7c24968c93f2d297833bbf7e0/src/cr-image/operation/gaussian_blur.cr#L1" target="_blank">
-        cr-image/operation/gaussian_blur.cr
-      </a>
+      cr-image/operation/gaussian_blur.cr
     
     <br/>
   
@@ -288,12 +303,12 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#gaussian_blur%28value%3AInt32%29%3Aself-instance-method" class="signature"><strong>#gaussian_blur</strong>(value : Int32) : <span class="k">self</span></a>
+        <a href="#gaussian_blur%28sigma%3AInt32%29%3Aself-instance-method" class="signature"><strong>#gaussian_blur</strong>(sigma : Int32) : <span class="k">self</span></a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#gaussian_blur%21%28value%3AInt32%29%3Aself-instance-method" class="signature"><strong>#gaussian_blur!</strong>(value : Int32) : <span class="k">self</span></a>
+        <a href="#gaussian_blur%21%28sigma%3AInt32%29%3Aself-instance-method" class="signature"><strong>#gaussian_blur!</strong>(sigma : Int32) : <span class="k">self</span></a>
         
       </li>
     
@@ -321,34 +336,30 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="gaussian_blur(value:Int32):self-instance-method">
+    <div class="entry-detail" id="gaussian_blur(sigma:Int32):self-instance-method">
       <div class="signature">
         
-        def <strong>gaussian_blur</strong>(value : Int32) : <span class="k">self</span>
+        def <strong>gaussian_blur</strong>(sigma : Int32) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#gaussian_blur%28value%3AInt32%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#gaussian_blur%28sigma%3AInt32%29%3Aself-instance-method">#</a>
       </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/05a59d2154b3bea7c24968c93f2d297833bbf7e0/src/cr-image/operation/gaussian_blur.cr#L2" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="gaussian_blur!(value:Int32):self-instance-method">
+    <div class="entry-detail" id="gaussian_blur!(sigma:Int32):self-instance-method">
       <div class="signature">
         
-        def <strong>gaussian_blur!</strong>(value : Int32) : <span class="k">self</span>
+        def <strong>gaussian_blur!</strong>(sigma : Int32) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#gaussian_blur%21%28value%3AInt32%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#gaussian_blur%21%28sigma%3AInt32%29%3Aself-instance-method">#</a>
       </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/05a59d2154b3bea7c24968c93f2d297833bbf7e0/src/cr-image/operation/gaussian_blur.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>

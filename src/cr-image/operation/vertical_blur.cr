@@ -1,3 +1,15 @@
+# Blur an image along the vertical axis
+#
+# Taking sample `image`:
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+#
+# ```
+# image.vertical_blur(1).save("vertical_1_sample.jpg")
+# image.vertical_blur(5).save("vertical_5_sample.jpg")
+# ```
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/vertical_1_sample.jpg" alt="Blurred sample image with value 1"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/vertical_5_sample.jpg" alt="Blurred sample image with value 5"/>
 module CrImage::Operation::VerticalBlur
   def vertical_blur(value : Int32) : self
     clone.vertical_blur!(value)

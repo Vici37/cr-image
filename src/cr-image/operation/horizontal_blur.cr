@@ -1,3 +1,15 @@
+# Blur an image along the horizontal axis
+#
+# Taking sample `image`:
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+#
+# ```
+# image.horizontal_blur(1).save("horizontal_1_sample.jpg")
+# image.horizontal_blur(5).save("horizontal_5_sample.jpg")
+# ```
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/horizontal_1_sample.jpg" alt="Blurred sample image with value 1"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/horizontal_5_sample.jpg" alt="Blurred sample image with value 5"/>
 module CrImage::Operation::HorizontalBlur
   def horizontal_blur(value : Int32) : self
     clone.horizontal_blur!(value)
