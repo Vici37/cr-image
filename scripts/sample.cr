@@ -18,3 +18,12 @@ image.horizontal_blur(1).save("docs/images/horizontal_1_sample.jpg")
 image.horizontal_blur(5).save("docs/images/horizontal_5_sample.jpg")
 image.vertical_blur(1).save("docs/images/vertical_1_sample.jpg")
 image.vertical_blur(5).save("docs/images/vertical_5_sample.jpg")
+
+mask = CrImage::Mask.new(image, false)
+mask[50..90, 65..75] = true
+mask.to_gray.save("docs/images/apply_mask_mask.jpg")
+image.apply(mask).save("docs/images/apply_mask.jpg")
+image.apply_color(mask, CrImage::Color.of("#00f")).save("docs/images/apply_mask_color.jpg")
+image.apply(mask) do |_, _, pixel, channel_type|
+  Math.min(255, pixel + 80).to_u8 if channel_type == CrImage::ChannelType::Blue
+end.save("docs/images/apply_mask_block.jpg")
