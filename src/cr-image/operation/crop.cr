@@ -1,3 +1,13 @@
+# Crops an image
+#
+# Taking sample `image`:
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+#
+# ```
+# image.crop(40, 30, 80, 80)
+# ```
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/crop_40_30_80_80_sample.jpg" alt="Cropped image of woman's face"/>
 module CrImage::Operation::Crop
   def crop(region : Region) : self
     crop(*region.to_tuple)

@@ -9,5 +9,4 @@ image = CrImage::RGBAImage.open("docs/images/sample.jpg")
 # mask[21..25, 21..25] = true
 # mask[26..30, 26..30] = true
 
-image.box_blur(1).save("blurred_1_sample.jpg")
-image.box_blur(5).save("blurred_5_sample.jpg")
+image.crop(40, 30, 80, 80).save("docs/images/crop_40_30_80_80_sample.jpg")

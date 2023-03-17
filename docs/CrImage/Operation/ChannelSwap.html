@@ -223,6 +223,21 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Swaps channels of <code><a href="../../CrImage/ChannelType.html">ChannelType</a></code> supported by an image</p>
+<p>Taking sample <code>image</code>:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">image.channel_swap(<span class="n">:green</span>, <span class="n">:red</span>) <span class="c"># Crystal autocasting of symbols to Pluto::ChannelType enum is magic</span></code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/channel_swapped_green_red_sample.jpg" alt="Channel swapped image swapping the green and red channels"/>
+
 
 
 

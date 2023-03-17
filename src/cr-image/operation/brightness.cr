@@ -1,3 +1,13 @@
+# Brightens an image (increases white value)
+#
+# Taking sample `image`:
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+#
+# ```
+# image.brightness(2.0)
+# ```
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/brightened_2.0_sample.jpg" alt="Brightened sample image with value 2.0"/>
 module CrImage::Operation::Brightness
   def brightness(value : Float64) : self
     clone.brightness!(value)

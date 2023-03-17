@@ -1,3 +1,13 @@
+# Increases contrast of an image
+#
+# Taking sample `image`:
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+#
+# ```
+# image.contrast(10)
+# ```
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/contrasted_10_sample.jpg" alt="Contrasted image with value of 10"/>
 module CrImage::Operation::Contrast
   def contrast(value : Float64) : self
     clone.contrast!(value)
