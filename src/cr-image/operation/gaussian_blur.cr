@@ -1,4 +1,4 @@
-# Applies a 3x3 Gaussian blur
+# Applies a 3x3 Gaussian blur. Implementation derived from [here](https://blog.ivank.net/fastest-gaussian-blur.html)
 #
 # Taking sample `image`:
 #
