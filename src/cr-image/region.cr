@@ -1,7 +1,7 @@
 module CrImage
   # Represents a rectangular area on an `Image` from its upper left corner `x` and `y` coordinates, and a `width` and `height`.
   #
-  # See `Operation::Crop#crop` and `Operation::Draw#draw_box` for examples using it.
+  # See `Operation::Crop#crop` and `Operation::Draw#draw_square` for examples using it.
   record Region,
     x : UInt16,
     y : UInt16,

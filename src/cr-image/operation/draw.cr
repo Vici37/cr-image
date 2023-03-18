@@ -5,27 +5,27 @@
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
 #
 # ```
-# image.draw_box(40, 30, 80, 80, CrImage::Color.of("#00f"))
+# image.draw_square(40, 30, 80, 80, CrImage::Color.of("#00f"))
 # image.draw_circle(80, 70, 40, CrImage::Color.of("#00f"))
 # ```
-# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_box_40_30_80_80_sample.jpg" alt="Woman with blue box drawn around face"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_square_40_30_80_80_sample.jpg" alt="Woman with blue box drawn around face"/>
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_circle_80_70_40_sample.jpg" alt="Woman with blue circle drawn around face"/>
 #
 # Can also use the `fill: true` parameter to fill in the drawn shapes
 module CrImage::Operation::Draw
-  def draw_box(region : Region, color : Color, *, fill : Bool = false) : self
-    clone.draw_box!(region, color, fill: fill)
+  def draw_square(region : Region, color : Color, *, fill : Bool = false) : self
+    clone.draw_square!(region, color, fill: fill)
   end
 
-  def draw_box(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = false) : self
-    clone.draw_box!(x, y, box_width, box_height, color, fill: fill)
+  def draw_square(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = false) : self
+    clone.draw_square!(x, y, box_width, box_height, color, fill: fill)
   end
 
-  def draw_box!(region : Region, color : Color, *, fill : Bool = false) : self
-    draw_box!(*region.to_tuple, color, fill: fill)
+  def draw_square!(region : Region, color : Color, *, fill : Bool = false) : self
+    draw_square!(*region.to_tuple, color, fill: fill)
   end
 
-  def draw_box!(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = false) : self
+  def draw_square!(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = false) : self
     raise "Box dimensions extend #{x + box_width - width} pixels beyond width of the image (#{width})" if (x + box_width) > width
     raise "Box dimensions extend #{y + box_height - height} pixels beyond height of the image (#{height})" if (y + box_height) > height
 

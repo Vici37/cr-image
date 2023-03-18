@@ -1,7 +1,7 @@
 # Utility class for parsing and representing colors that can be used for certain
 # methods in CrImage.
 #
-# See `Operation::MaskApply#apply_color`, `Operation::Draw#draw_box`, or `Operation::Draw#draw_circle`
+# See `Operation::MaskApply#apply_color`, `Operation::Draw#draw_square`, or `Operation::Draw#draw_circle`
 class CrImage::Color
   getter red, green, blue, alpha
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 1.6.2">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="cr-image">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../../js/doc.js"></script>
 
   <meta name="repository-name" content="cr-image">
-  <title>CrImage::Operation::Draw - cr-image master</title>
+  <title>CrImage::Operation::Draw - cr-image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        master-dev
       </span>
     </div>
   </div>
@@ -235,9 +235,9 @@
   <p>Draws shapes in the image</p>
 <p>Taking sample <code>image</code>:</p>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
-<pre><code class="language-crystal">image.draw_box(<span class="n">40</span>, <span class="n">30</span>, <span class="n">80</span>, <span class="n">80</span>, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#00f&quot;</span>))
+<pre><code class="language-crystal">image.draw_square(<span class="n">40</span>, <span class="n">30</span>, <span class="n">80</span>, <span class="n">80</span>, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#00f&quot;</span>))
 image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span class="n">40</span>, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#00f&quot;</span>))</code></pre>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_box_40_30_80_80_sample.jpg" alt="Woman with blue box drawn around face"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_square_40_30_80_80_sample.jpg" alt="Woman with blue box drawn around face"/>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_circle_80_70_40_sample.jpg" alt="Woman with blue circle drawn around face"/>
 <p>Can also use the <code>fill: true</code> parameter to fill in the drawn shapes</p>
 
@@ -280,9 +280,7 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/bde3c07e6e32909357120e158346f0e71f0fd396/src/cr-image/operation/draw.cr#L15" target="_blank">
-        cr-image/operation/draw.cr
-      </a>
+      cr-image/operation/draw.cr
     
     <br/>
   
@@ -306,26 +304,6 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#draw_box%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_box</strong>(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#draw_box%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_box</strong>(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#draw_box%21%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_box!</strong>(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#draw_box%21%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_box!</strong>(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#draw_circle%28x%3AInt%2Cy%3AInt%2Cradius%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_circle</strong>(x : Int, y : Int, radius : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
         
       </li>
@@ -341,6 +319,26 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
         <a href="#draw_circle%21%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%2Cradius%3AInt32%7CNil%3Dnil%29%3Aself-instance-method" class="signature"><strong>#draw_circle!</strong>(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>, radius : Int32 | Nil = <span class="n">nil</span>) : <span class="k">self</span></a>
         
           <div class="summary"><p>Draw a circle around the region's center (see <code><a href="../../CrImage/Region.html#center%3ATuple%28Int32%2CInt32%29-instance-method">Region#center</a></code>)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_square%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_square</strong>(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_square%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_square</strong>(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_square%21%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_square!</strong>(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_square%21%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method" class="signature"><strong>#draw_square!</strong>(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span></a>
         
       </li>
     
@@ -368,70 +366,6 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="draw_box(x:Int,y:Int,box_width:Int,box_height:Int,color:Color,*,fill:Bool=false):self-instance-method">
-      <div class="signature">
-        
-        def <strong>draw_box</strong>(x : Int, y : Int, box_width : Int, box_height : Int, color : <a href="../../CrImage/Color.html">Color</a>, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#draw_box%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/bde3c07e6e32909357120e158346f0e71f0fd396/src/cr-image/operation/draw.cr#L20" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="draw_box(region:Region,color:Color,*,fill:Bool=false):self-instance-method">
-      <div class="signature">
-        
-        def <strong>draw_box</strong>(region : <a href="../../CrImage/Region.html">Region</a>, color : <a href="../../CrImage/Color.html">Color</a>, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#draw_box%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/bde3c07e6e32909357120e158346f0e71f0fd396/src/cr-image/operation/draw.cr#L16" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="draw_box!(x:Int,y:Int,box_width:Int,box_height:Int,color:Color,*,fill:Bool=false):self-instance-method">
-      <div class="signature">
-        
-        def <strong>draw_box!</strong>(x : Int, y : Int, box_width : Int, box_height : Int, color : <a href="../../CrImage/Color.html">Color</a>, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#draw_box%21%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/bde3c07e6e32909357120e158346f0e71f0fd396/src/cr-image/operation/draw.cr#L28" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="draw_box!(region:Region,color:Color,*,fill:Bool=false):self-instance-method">
-      <div class="signature">
-        
-        def <strong>draw_box!</strong>(region : <a href="../../CrImage/Region.html">Region</a>, color : <a href="../../CrImage/Color.html">Color</a>, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#draw_box%21%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/bde3c07e6e32909357120e158346f0e71f0fd396/src/cr-image/operation/draw.cr#L24" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
     <div class="entry-detail" id="draw_circle(x:Int,y:Int,radius:Int,color:Color,*,fill:Bool=false):self-instance-method">
       <div class="signature">
         
@@ -442,8 +376,6 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/bde3c07e6e32909357120e158346f0e71f0fd396/src/cr-image/operation/draw.cr#L56" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -464,8 +396,6 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/bde3c07e6e32909357120e158346f0e71f0fd396/src/cr-image/operation/draw.cr#L52" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -485,7 +415,61 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/bde3c07e6e32909357120e158346f0e71f0fd396/src/cr-image/operation/draw.cr#L61" target="_blank">View source</a>]
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="draw_square(x:Int,y:Int,box_width:Int,box_height:Int,color:Color,*,fill:Bool=false):self-instance-method">
+      <div class="signature">
+        
+        def <strong>draw_square</strong>(x : Int, y : Int, box_width : Int, box_height : Int, color : <a href="../../CrImage/Color.html">Color</a>, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#draw_square%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="draw_square(region:Region,color:Color,*,fill:Bool=false):self-instance-method">
+      <div class="signature">
+        
+        def <strong>draw_square</strong>(region : <a href="../../CrImage/Region.html">Region</a>, color : <a href="../../CrImage/Color.html">Color</a>, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#draw_square%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="draw_square!(x:Int,y:Int,box_width:Int,box_height:Int,color:Color,*,fill:Bool=false):self-instance-method">
+      <div class="signature">
+        
+        def <strong>draw_square!</strong>(x : Int, y : Int, box_width : Int, box_height : Int, color : <a href="../../CrImage/Color.html">Color</a>, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#draw_square%21%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="draw_square!(region:Region,color:Color,*,fill:Bool=false):self-instance-method">
+      <div class="signature">
+        
+        def <strong>draw_square!</strong>(region : <a href="../../CrImage/Region.html">Region</a>, color : <a href="../../CrImage/Color.html">Color</a>, *, fill : Bool = <span class="n">false</span>) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#draw_square%21%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
         
       </div>
     </div>
