@@ -2,6 +2,14 @@ require "./image"
 
 # An image in Grayscale. These image types are the easiest to perform feature and information extraction from, where
 # there is only one channel to examine, and so has methods for constructing `Mask`s from (see `#threshold` below).
+#
+# An `RGBAImage` would become a `GrayscaleImage` this way:
+# ```
+# image.to_gray
+# ```
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background in grayscale"/>
 class CrImage::GrayscaleImage < CrImage::Image
   property gray : Array(UInt8)
   property alpha : Array(UInt8)

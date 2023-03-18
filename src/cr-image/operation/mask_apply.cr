@@ -12,10 +12,13 @@
 # mask = CrImage::Mask.new(image, false)
 # mask[50..90, 65..75] = true
 # mask.to_gray.save("apply_mask_mask.jpg")
+#
 # image.apply(mask).save("apply_mask.jpg")
+#
 # image.apply_color(mask, CrImage::Color.of("#00f")).save("apply_mask_color.jpg")
+#
 # image.apply(mask) do |x, y, pixel, channel_type|
-#   Math.min(255, pixel + 50).to_u8 if channel_type == :blue
+#   Math.min(255, pixel + 50).to_u8 if channel_type.blue?
 # end.save("apply_mask_block.jpg")
 # ```
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/apply_mask.jpg" alt="Image is blacked out other than thin horizontal bar of the woman's eyes"/>

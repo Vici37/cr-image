@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 1.6.2">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="cr-image">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../../js/doc.js"></script>
 
   <meta name="repository-name" content="cr-image">
-  <title>CrImage::Operation::Crop - cr-image master</title>
+  <title>CrImage::Operation::Crop - cr-image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        master-dev
       </span>
     </div>
   </div>
@@ -235,7 +235,9 @@
   <p>Crops an image</p>
 <p>Taking sample <code>image</code>:</p>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
-<pre><code class="language-crystal">image.crop(<span class="n">40</span>, <span class="n">30</span>, <span class="n">80</span>, <span class="n">80</span>)</code></pre>
+<pre><code class="language-crystal"><span class="c"># These calls are equivalent</span>
+image.crop(<span class="n">40</span>, <span class="n">30</span>, <span class="n">80</span>, <span class="n">80</span>)
+image[<span class="n">40</span>...<span class="n">120</span>, <span class="n">30</span>...<span class="n">110</span>]</code></pre>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/crop_40_30_80_80_sample.jpg" alt="Cropped image of woman's face"/>
 
 
@@ -277,9 +279,7 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/crop.cr#L11" target="_blank">
-        cr-image/operation/crop.cr
-      </a>
+      cr-image/operation/crop.cr
     
     <br/>
   
@@ -362,8 +362,6 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/crop.cr#L20" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -377,8 +375,6 @@
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/crop.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -394,8 +390,6 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/crop.cr#L12" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -410,8 +404,6 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/crop.cr#L30" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -425,8 +417,6 @@
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/crop.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>

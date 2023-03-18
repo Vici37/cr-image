@@ -5,6 +5,7 @@ require "./region"
 # from an image. This can include whether a particular pixel has a value within certain conditions, OR
 # if that pixel should be zeroed out or not.
 #
+# See `[]=` methods below for examples of how to manually construct masks.
 #
 # (x,y) - coordinates. Represent these positions in a Mask of size 10x10:
 #

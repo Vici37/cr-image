@@ -5,7 +5,9 @@
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
 #
 # ```
+# # These calls are equivalent
 # image.crop(40, 30, 80, 80)
+# image[40...120, 30...110]
 # ```
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/crop_40_30_80_80_sample.jpg" alt="Cropped image of woman's face"/>
 module CrImage::Operation::Crop

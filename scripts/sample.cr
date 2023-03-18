@@ -25,5 +25,5 @@ mask.to_gray.save("docs/images/apply_mask_mask.jpg")
 image.apply(mask).save("docs/images/apply_mask.jpg")
 image.apply_color(mask, CrImage::Color.of("#00f")).save("docs/images/apply_mask_color.jpg")
 image.apply(mask) do |_, _, pixel, channel_type|
-  Math.min(255, pixel + 80).to_u8 if channel_type == CrImage::ChannelType::Blue
+  Math.min(255, pixel + 80).to_u8 if channel_type.blue?
 end.save("docs/images/apply_mask_block.jpg")

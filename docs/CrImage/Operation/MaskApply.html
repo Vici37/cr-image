@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 1.6.2">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="cr-image">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../../js/doc.js"></script>
 
   <meta name="repository-name" content="cr-image">
-  <title>CrImage::Operation::MaskApply - cr-image master</title>
+  <title>CrImage::Operation::MaskApply - cr-image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        master-dev
       </span>
     </div>
   </div>
@@ -240,10 +240,13 @@
 <pre><code class="language-crystal">mask <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">Mask</span>.new(image, <span class="n">false</span>)
 mask[<span class="n">50</span>..<span class="n">90</span>, <span class="n">65</span>..<span class="n">75</span>] <span class="o">=</span> <span class="n">true</span>
 mask.to_gray.save(<span class="s">&quot;apply_mask_mask.jpg&quot;</span>)
+
 image.apply(mask).save(<span class="s">&quot;apply_mask.jpg&quot;</span>)
+
 image.apply_color(mask, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#00f&quot;</span>)).save(<span class="s">&quot;apply_mask_color.jpg&quot;</span>)
+
 image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel, channel_type<span class="o">|</span>
-  <span class="t">Math</span>.min(<span class="n">255</span>, pixel <span class="o">+</span> <span class="n">50</span>).to_u8 <span class="k">if</span> channel_type <span class="o">==</span> <span class="n">:blue</span>
+  <span class="t">Math</span>.min(<span class="n">255</span>, pixel <span class="o">+</span> <span class="n">50</span>).to_u8 <span class="k">if</span> channel_type.blue?
 <span class="k">end</span>.save(<span class="s">&quot;apply_mask_block.jpg&quot;</span>)</code></pre>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/apply_mask.jpg" alt="Image is blacked out other than thin horizontal bar of the woman's eyes"/>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/apply_mask_color.jpg" alt="Thin horizontal blue bar over woman's eyes"/>
@@ -288,9 +291,7 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/mask_apply.cr#L24" target="_blank">
-        cr-image/operation/mask_apply.cr
-      </a>
+      cr-image/operation/mask_apply.cr
     
     <br/>
   
@@ -316,10 +317,14 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       <li class="entry-summary">
         <a href="#apply%28mask%3AMask%29%3Aself-instance-method" class="signature"><strong>#apply</strong>(mask : Mask) : <span class="k">self</span></a>
         
+          <div class="summary"><p>Black out all pixels but those found in the mask</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#apply%28mask%3AMask%2C%26block%3AInt32%2CInt32%2CUInt8%2CChannelType-%3EUInt8%7CNil%29%3Aself-instance-method" class="signature"><strong>#apply</strong>(mask : Mask, &block : Int32, Int32, UInt8, ChannelType -> UInt8 | Nil) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Apply block to all pixels that match mask, replacing pixel value if block returns non-nil value.</p></div>
         
       </li>
     
@@ -337,6 +342,8 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
     
       <li class="entry-summary">
         <a href="#apply_color%28mask%3AMask%2Ccolor%3AColor%29%3Aself-instance-method" class="signature"><strong>#apply_color</strong>(mask : Mask, color : Color) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Change the color of all pixels that match the mask</p></div>
         
       </li>
     
@@ -377,10 +384,13 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
         <a class="method-permalink" href="#apply%28mask%3AMask%29%3Aself-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Black out all pixels but those found in the mask</p>
+        </div>
+      
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/mask_apply.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -393,10 +403,14 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
         <a class="method-permalink" href="#apply%28mask%3AMask%2C%26block%3AInt32%2CInt32%2CUInt8%2CChannelType-%3EUInt8%7CNil%29%3Aself-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Apply block to all pixels that match mask, replacing pixel value if block returns non-nil value.</p>
+<p>Does not change values not matched by the mask</p>
+        </div>
+      
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/mask_apply.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -417,8 +431,6 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/mask_apply.cr#L38" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -433,8 +445,6 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/mask_apply.cr#L47" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -446,10 +456,13 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
         <a class="method-permalink" href="#apply_color%28mask%3AMask%2Ccolor%3AColor%29%3Aself-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Change the color of all pixels that match the mask</p>
+        </div>
+      
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/mask_apply.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -464,8 +477,6 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/f1049fa589a84b7be527e4e21af862fa5f5b23dc/src/cr-image/operation/mask_apply.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
