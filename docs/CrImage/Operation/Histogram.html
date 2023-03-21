@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../../js/doc.js"></script>
 
   <meta name="repository-name" content="cr-image">
-  <title>CrImage::Operation::GaussianBlur - cr-image master-dev</title>
+  <title>CrImage::Operation::Histogram - cr-image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -166,12 +166,12 @@
       
     </li>
   
-  <li class=" current" data-id="cr-image/CrImage/Operation/GaussianBlur" data-name="crimage::operation::gaussianblur">
+  <li class=" " data-id="cr-image/CrImage/Operation/GaussianBlur" data-name="crimage::operation::gaussianblur">
       <a href="../../CrImage/Operation/GaussianBlur.html">GaussianBlur</a>
       
     </li>
   
-  <li class=" " data-id="cr-image/CrImage/Operation/Histogram" data-name="crimage::operation::histogram">
+  <li class=" current" data-id="cr-image/CrImage/Operation/Histogram" data-name="crimage::operation::histogram">
       <a href="../../CrImage/Operation/Histogram.html">Histogram</a>
       
     </li>
@@ -220,7 +220,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> CrImage::Operation::GaussianBlur
+  <span class="kind">module</span> CrImage::Operation::Histogram
 
 </h1>
 
@@ -237,13 +237,17 @@
     Overview
   </h2>
 
-  <p>Applies a 3x3 Gaussian blur. Implementation derived from <a href="https://blog.ivank.net/fastest-gaussian-blur.html">here</a></p>
-<p>Taking sample <code>image</code>:</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
-<pre><code class="language-crystal">image.gaussian_blur(<span class="n">1</span>).save(<span class="s">&quot;gaussian_1_sample.jpg&quot;</span>)
-image.gaussian_blur(<span class="n">5</span>).save(<span class="s">&quot;gaussian_5_sample.jpg&quot;</span>)</code></pre>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gaussian_1_sample.jpg" alt="Blurred sample image with value 1"/>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gaussian_5_sample.jpg" alt="Blurred sample image with value 5"/>
+  <p>Provides methods for histogram and histogram equalization. Follows method outlined <a href="https://www.sci.utah.edu/~acoste/uou/Image/project1/Arthur_COSTE_Project_1_report.html">here</a></p>
+<p>If an image is particularly dark or particularly bright with low contrast, the <code><a href="../../CrImage/Operation/Contrast.html#contrast%28value%3AFloat64%29%3Aself-instance-method">Operation::Contrast#contrast</a></code> method will only
+make the image darker or lighter. For images like these, equalizing the image along its histogram will produce better results.</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji.jpg" alt="A dark image of Mt. Fuji"/>
+<pre><code class="language-crystal">image.contrast(<span class="n">10</span>).save(<span class="s">&quot;contrast.jpg&quot;</span>)
+image.histogram_equalize_image.save(<span class="s">&quot;equalized.jpg&quot;</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji_contrast_10.jpg" alt="Darker image of Mt. Fuji"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji.jpg" alt="A higher contrast image of Mt. Fuji"/>
+<p>This method does not work well when a given method has a bimodal distribution of color pixels. For example:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background in grayscale"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample_equalized.jpg" alt="Highly pixelated and poor quality photo of woman in black turtleneck on white background in grayscale"/>
 
 
 
@@ -284,7 +288,7 @@ image.gaussian_blur(<span class="n">5</span>).save(<span class="s">&quot;gaussia
   </h2>
   
     
-      cr-image/operation/gaussian_blur.cr
+      cr-image/operation/histogram.cr
     
     <br/>
   
@@ -308,12 +312,37 @@ image.gaussian_blur(<span class="n">5</span>).save(<span class="s">&quot;gaussia
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#gaussian_blur%28sigma%3AInt32%29%3Aself-instance-method" class="signature"><strong>#gaussian_blur</strong>(sigma : Int32) : <span class="k">self</span></a>
+        <a href="#cumulative_distribution_histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CFloat64%29-instance-method" class="signature"><strong>#cumulative_distribution_histogram</strong>(channel_type : ChannelType) : Hash(UInt8, Float64)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#gaussian_blur%21%28sigma%3AInt32%29%3Aself-instance-method" class="signature"><strong>#gaussian_blur!</strong>(sigma : Int32) : <span class="k">self</span></a>
+        <a href="#draw_histogram%28channel_type%3AChannelType%29%3ARGBAImage-instance-method" class="signature"><strong>#draw_histogram</strong>(channel_type : ChannelType) : RGBAImage</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CInt32%29-instance-method" class="signature"><strong>#histogram</strong>(channel_type : ChannelType) : Hash(UInt8, Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#histogram_equalize%28channel_type%3AChannelType%29%3AHash%28UInt8%2CUInt8%29-instance-method" class="signature"><strong>#histogram_equalize</strong>(channel_type : ChannelType) : Hash(UInt8, UInt8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#histogram_equalize_image%3Aself-instance-method" class="signature"><strong>#histogram_equalize_image</strong> : <span class="k">self</span></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#histogram_equalize_image%21%3Aself-instance-method" class="signature"><strong>#histogram_equalize_image!</strong> : <span class="k">self</span></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#normalized_histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CFloat64%29-instance-method" class="signature"><strong>#normalized_histogram</strong>(channel_type : ChannelType) : Hash(UInt8, Float64)</a>
         
       </li>
     
@@ -341,12 +370,12 @@ image.gaussian_blur(<span class="n">5</span>).save(<span class="s">&quot;gaussia
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="gaussian_blur(sigma:Int32):self-instance-method">
+    <div class="entry-detail" id="cumulative_distribution_histogram(channel_type:ChannelType):Hash(UInt8,Float64)-instance-method">
       <div class="signature">
         
-        def <strong>gaussian_blur</strong>(sigma : Int32) : <span class="k">self</span>
+        def <strong>cumulative_distribution_histogram</strong>(channel_type : <a href="../../CrImage/ChannelType.html">ChannelType</a>) : Hash(UInt8, Float64)
 
-        <a class="method-permalink" href="#gaussian_blur%28sigma%3AInt32%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#cumulative_distribution_histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CFloat64%29-instance-method">#</a>
       </div>
       
       <br/>
@@ -355,12 +384,82 @@ image.gaussian_blur(<span class="n">5</span>).save(<span class="s">&quot;gaussia
       </div>
     </div>
   
-    <div class="entry-detail" id="gaussian_blur!(sigma:Int32):self-instance-method">
+    <div class="entry-detail" id="draw_histogram(channel_type:ChannelType):RGBAImage-instance-method">
       <div class="signature">
         
-        def <strong>gaussian_blur!</strong>(sigma : Int32) : <span class="k">self</span>
+        def <strong>draw_histogram</strong>(channel_type : <a href="../../CrImage/ChannelType.html">ChannelType</a>) : <a href="../../CrImage/RGBAImage.html">RGBAImage</a>
 
-        <a class="method-permalink" href="#gaussian_blur%21%28sigma%3AInt32%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#draw_histogram%28channel_type%3AChannelType%29%3ARGBAImage-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="histogram(channel_type:ChannelType):Hash(UInt8,Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>histogram</strong>(channel_type : <a href="../../CrImage/ChannelType.html">ChannelType</a>) : Hash(UInt8, Int32)
+
+        <a class="method-permalink" href="#histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="histogram_equalize(channel_type:ChannelType):Hash(UInt8,UInt8)-instance-method">
+      <div class="signature">
+        
+        def <strong>histogram_equalize</strong>(channel_type : <a href="../../CrImage/ChannelType.html">ChannelType</a>) : Hash(UInt8, UInt8)
+
+        <a class="method-permalink" href="#histogram_equalize%28channel_type%3AChannelType%29%3AHash%28UInt8%2CUInt8%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="histogram_equalize_image:self-instance-method">
+      <div class="signature">
+        
+        def <strong>histogram_equalize_image</strong> : <span class="k">self</span>
+
+        <a class="method-permalink" href="#histogram_equalize_image%3Aself-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="histogram_equalize_image!:self-instance-method">
+      <div class="signature">
+        
+        def <strong>histogram_equalize_image!</strong> : <span class="k">self</span>
+
+        <a class="method-permalink" href="#histogram_equalize_image%21%3Aself-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="normalized_histogram(channel_type:ChannelType):Hash(UInt8,Float64)-instance-method">
+      <div class="signature">
+        
+        def <strong>normalized_histogram</strong>(channel_type : <a href="../../CrImage/ChannelType.html">ChannelType</a>) : Hash(UInt8, Float64)
+
+        <a class="method-permalink" href="#normalized_histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CFloat64%29-instance-method">#</a>
       </div>
       
       <br/>

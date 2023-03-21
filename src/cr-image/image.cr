@@ -21,6 +21,7 @@ abstract class CrImage::Image
     include Operation::VerticalBlur
     include Operation::Crop
     include Operation::Draw
+    include Operation::Histogram
     include Format::Save
     extend Format::Open
 

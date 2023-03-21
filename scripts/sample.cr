@@ -27,3 +27,5 @@ image.apply_color(mask, CrImage::Color.of("#00f")).save("docs/images/apply_mask_
 image.apply(mask) do |_, _, pixel, channel_type|
   Math.min(255, pixel + 80).to_u8 if channel_type.blue?
 end.save("docs/images/apply_mask_block.jpg")
+
+image.to_gray.histogram_equalize_image.save("docs/images/gray_sample_equalized.jpg")

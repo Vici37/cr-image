@@ -68,7 +68,7 @@ class CrImage::GrayscaleImage < CrImage::Image
 
   # Return the `Array(UInt8)` corresponding to `channel_type`
   def [](channel_type : ChannelType) : Array(UInt8)
-    return @alpha if channel_type == ChannelType::Gray
+    return @alpha if channel_type == ChannelType::Alpha
     @gray
   end
 
