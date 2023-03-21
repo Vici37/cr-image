@@ -10,7 +10,7 @@
 # image.histogram_equalize_image.save("equalized.jpg")
 # ```
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji_contrast_10.jpg" alt="Darker image of Mt. Fuji"/>
-# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji_equalized.jpg" alt="A higher contrast image of Mt. Fuji"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji_histogram_equalized.jpg" alt="A higher contrast image of Mt. Fuji"/>
 #
 # This method does not work well when a given method has a bimodal distribution of color pixels. For example:
 #
