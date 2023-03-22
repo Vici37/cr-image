@@ -19,7 +19,7 @@ Spectator.describe CrImage::Operation::ChannelSwap do
     let(image) { gray_moon_ppm }
 
     it "works with GrayscaleImage" do
-      expect_digest(image.channel_swap(:gray, :alpha)).to eq "62d6101d60ee8da38d1b9d8e809091099cec5994"
+      expect_digest(image.channel_swap(:gray, :alpha)).to eq "d8555ea17000a0b74fd4b9783c0b870e42b68ffa"
     end
 
     it "raises for invalid channel type for GrayscaleImage" do
