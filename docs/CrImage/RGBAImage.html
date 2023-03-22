@@ -171,8 +171,18 @@
       
     </li>
   
-  <li class=" " data-id="cr-image/CrImage/Operation/Histogram" data-name="crimage::operation::histogram">
-      <a href="../CrImage/Operation/Histogram.html">Histogram</a>
+  <li class="parent " data-id="cr-image/CrImage/Operation/HistogramEqualize" data-name="crimage::operation::histogramequalize">
+      <a href="../CrImage/Operation/HistogramEqualize.html">HistogramEqualize</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/HistogramEqualize/Histogram" data-name="crimage::operation::histogramequalize::histogram">
+      <a href="../CrImage/Operation/HistogramEqualize/Histogram.html">Histogram</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -281,7 +291,7 @@
     
       <li class="other-type"><a href="../CrImage/Operation/GaussianBlur.html">CrImage::Operation::GaussianBlur</a></li>
     
-      <li class="other-type"><a href="../CrImage/Operation/Histogram.html">CrImage::Operation::Histogram</a></li>
+      <li class="other-type"><a href="../CrImage/Operation/HistogramEqualize.html">CrImage::Operation::HistogramEqualize</a></li>
     
       <li class="other-type"><a href="../CrImage/Operation/HorizontalBlur.html">CrImage::Operation::HorizontalBlur</a></li>
     
@@ -324,7 +334,7 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L7" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L7" target="_blank">
         cr-image/rgba_image.cr
       </a>
     
@@ -599,42 +609,22 @@
   
     
 
-  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/Histogram.html">CrImage::Operation::Histogram</a></code></h3>
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Operation/HistogramEqualize.html">CrImage::Operation::HistogramEqualize</a></code></h3>
   
   
-    <a href="../CrImage/Operation/Histogram.html#cumulative_distribution_histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CFloat64%29-instance-method" class="tooltip">
-      <span>cumulative_distribution_histogram(channel_type : ChannelType) : Hash(UInt8, Float64)</span>
-    cumulative_distribution_histogram</a>, 
-    
-  
-    <a href="../CrImage/Operation/Histogram.html#draw_histogram%28channel_type%3AChannelType%29%3ARGBAImage-instance-method" class="tooltip">
-      <span>draw_histogram(channel_type : ChannelType) : RGBAImage</span>
-    draw_histogram</a>, 
-    
-  
-    <a href="../CrImage/Operation/Histogram.html#histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CInt32%29-instance-method" class="tooltip">
-      <span>histogram(channel_type : ChannelType) : Hash(UInt8, Int32)</span>
+    <a href="../CrImage/Operation/HistogramEqualize.html#histogram%28channel_type%3AChannelType%29%3AHistogram-instance-method" class="tooltip">
+      <span>histogram(channel_type : ChannelType) : Histogram</span>
     histogram</a>, 
     
   
-    <a href="../CrImage/Operation/Histogram.html#histogram_equalize%28channel_type%3AChannelType%29%3AHash%28UInt8%2CUInt8%29-instance-method" class="tooltip">
-      <span>histogram_equalize(channel_type : ChannelType) : Hash(UInt8, UInt8)</span>
+    <a href="../CrImage/Operation/HistogramEqualize.html#histogram_equalize%3Aself-instance-method" class="tooltip">
+      <span>histogram_equalize : <span class="k">self</span></span>
     histogram_equalize</a>, 
     
   
-    <a href="../CrImage/Operation/Histogram.html#histogram_equalize_image%3Aself-instance-method" class="tooltip">
-      <span>histogram_equalize_image : <span class="k">self</span></span>
-    histogram_equalize_image</a>, 
-    
-  
-    <a href="../CrImage/Operation/Histogram.html#histogram_equalize_image%21%3Aself-instance-method" class="tooltip">
-      <span>histogram_equalize_image! : <span class="k">self</span></span>
-    histogram_equalize_image!</a>, 
-    
-  
-    <a href="../CrImage/Operation/Histogram.html#normalized_histogram%28channel_type%3AChannelType%29%3AHash%28UInt8%2CFloat64%29-instance-method" class="tooltip">
-      <span>normalized_histogram(channel_type : ChannelType) : Hash(UInt8, Float64)</span>
-    normalized_histogram</a>
+    <a href="../CrImage/Operation/HistogramEqualize.html#histogram_equalize%21%3Aself-instance-method" class="tooltip">
+      <span>histogram_equalize! : <span class="k">self</span></span>
+    histogram_equalize!</a>
     
   
 
@@ -1236,7 +1226,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1271,7 +1261,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L40" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1292,7 +1282,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L51" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1317,7 +1307,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1333,7 +1323,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1358,7 +1348,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1374,7 +1364,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1395,7 +1385,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1416,7 +1406,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1441,7 +1431,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1457,7 +1447,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1482,7 +1472,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1498,7 +1488,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1523,7 +1513,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1539,7 +1529,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1560,7 +1550,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L79" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L79" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1584,7 +1574,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L68" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L68" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1609,7 +1599,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1625,7 +1615,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/47b184827fe6321f41e3747a1261915bae2198ec/src/cr-image/rgba_image.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/rgba_image.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
