@@ -1,4 +1,4 @@
-require "../bindings/lib_jpeg_turbo"
+require "./bindings/lib_jpeg_turbo"
 
 # Provides methods to read from and write to jpeg. Requires `libturbojpeg` to function.
 #
@@ -13,6 +13,11 @@ require "../bindings/lib_jpeg_turbo"
 # image.save("other_image.jpg")
 # ```
 module CrImage::Format::JPEG
+  {%
+    CrImage::Format::SUPPORTED_FORMATS << {extension: ".jpeg", method: "jpeg"}
+    CrImage::Format::SUPPORTED_FORMATS << {extension: ".jpg", method: "jpeg"}
+  %}
+
   macro included
     # Read `image_data` as JPEG encoded bytes
     def self.from_jpeg(image_data : Bytes) : self

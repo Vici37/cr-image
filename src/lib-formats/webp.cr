@@ -1,4 +1,4 @@
-require "../bindings/lib_webp"
+require "./bindings/lib_webp"
 
 # Provides methods to read from and write to WebP. Requires `libwebp` to function.
 #
@@ -13,6 +13,8 @@ require "../bindings/lib_webp"
 # image.save("other_image.webp")
 # ```
 module CrImage::Format::WebP
+  {% CrImage::Format::SUPPORTED_FORMATS << {extension: ".webp", method: "webp"} %}
+
   macro included
     # Read `image_data` as WebP encoded bytes
     def self.from_webp(image_data : Bytes) : self

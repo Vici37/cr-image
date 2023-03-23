@@ -1,4 +1,4 @@
-# Crystal Image (Processing)
+# [Crystal Image (Processing)](http://troy.sornson.io/cr-image/)
 
 This shard aims to provide feature rich image processing abilities, both for the purpose of
 image manipulation as well as feature / information extraction from those images.
@@ -21,6 +21,23 @@ All sample images used are from [Unsplash](https://unsplash.com/).
 2. Run `shards install`
 
 ## Usage
+
+CrImage supports the formats:
+* PPM
+* JPEG (requires `libturbojpeg`)
+* PNG (requirens `libspng`)
+* WebP (requires `libwebp`)
+
+For the formats that require a linked library, they must be `require`d explicitly:
+
+```crystal
+require "cr-image"
+require "cr-image/jpeg"
+require "cr-image/png"
+require "cr-image/webp"
+```
+
+### Example
 
 Assuming an image `moon.jpg` already exists
 

@@ -1,8 +1,3 @@
-require "./image"
-require "./bindings/*"
-require "./format/*"
-require "./operation/*"
-
 # An image with red, green, blue, and alpha color channels (i.e. a color image). This image type is likely the one read from and written to file (or `IO`).
 class CrImage::RGBAImage < CrImage::Image
   property red : Array(UInt8)

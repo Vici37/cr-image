@@ -11,6 +11,8 @@
 # image.save("other_image.ppm")
 # ```
 module CrImage::Format::PPM
+  {% CrImage::Format::SUPPORTED_FORMATS << {extension: ".ppm", method: "ppm"} %}
+
   macro included
     # Read `image_data` as PPM encoded bytes
     def self.from_ppm(image_data : Bytes) : self

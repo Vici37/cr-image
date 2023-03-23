@@ -1,15 +1,16 @@
-require "./bindings/*"
-require "./format/*"
-require "./operation/*"
-
 # Common base class for `GrayscaleImage` and `RGBAImage`. All `Image`s are readable and saveable
 # to the filesystem or `IO` stream.
 abstract class CrImage::Image
+  macro subsclasses_include(mod)
+    {% for sub in @type.subclasses %}
+      class ::{{sub}}
+        include {{mod}}
+      end
+    {% end %}
+  end
+
   macro inherited
-    include Format::JPEG
     include Format::PPM
-    include Format::WebP
-    include Format::PNG
 
     include Operation::BilinearResize
     include Operation::BoxBlur

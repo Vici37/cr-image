@@ -1,4 +1,4 @@
-require "../bindings/lib_spng"
+require "./bindings/lib_spng"
 
 # Provides methods to read from and write to PNG. Requires `libspng` to function.
 #
@@ -13,6 +13,8 @@ require "../bindings/lib_spng"
 # image.save("other_image.png")
 # ```
 module CrImage::Format::PNG
+  {% CrImage::Format::SUPPORTED_FORMATS << {extension: ".png", method: "png"} %}
+
   macro included
     # Read `image_data` and PNG encoded bytes
     def self.from_png(image_data : Bytes) : self

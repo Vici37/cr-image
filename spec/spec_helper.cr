@@ -1,6 +1,9 @@
 require "digest"
 require "spectator"
 require "../src/cr-image"
+require "../src/jpeg"
+require "../src/png"
+require "../src/webp"
 require "./helpers/**"
 
 module SpecHelper
