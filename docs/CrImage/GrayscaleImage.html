@@ -76,18 +76,8 @@
       
         <ul>
   
-  <li class=" " data-id="cr-image/CrImage/Format/JPEG" data-name="crimage::format::jpeg">
-      <a href="../CrImage/Format/JPEG.html">JPEG</a>
-      
-    </li>
-  
   <li class=" " data-id="cr-image/CrImage/Format/Open" data-name="crimage::format::open">
       <a href="../CrImage/Format/Open.html">Open</a>
-      
-    </li>
-  
-  <li class=" " data-id="cr-image/CrImage/Format/PNG" data-name="crimage::format::png">
-      <a href="../CrImage/Format/PNG.html">PNG</a>
       
     </li>
   
@@ -98,11 +88,6 @@
   
   <li class=" " data-id="cr-image/CrImage/Format/Save" data-name="crimage::format::save">
       <a href="../CrImage/Format/Save.html">Save</a>
-      
-    </li>
-  
-  <li class=" " data-id="cr-image/CrImage/Format/WebP" data-name="crimage::format::webp">
-      <a href="../CrImage/Format/WebP.html">WebP</a>
       
     </li>
   
@@ -270,15 +255,9 @@ there is only one channel to examine, and so has methods for constructing <code>
   </h2>
   <ul class="other-types-list">
     
-      <li class="other-type"><a href="../CrImage/Format/JPEG.html">CrImage::Format::JPEG</a></li>
-    
-      <li class="other-type"><a href="../CrImage/Format/PNG.html">CrImage::Format::PNG</a></li>
-    
       <li class="other-type"><a href="../CrImage/Format/PPM.html">CrImage::Format::PPM</a></li>
     
       <li class="other-type"><a href="../CrImage/Format/Save.html">CrImage::Format::Save</a></li>
-    
-      <li class="other-type"><a href="../CrImage/Format/WebP.html">CrImage::Format::WebP</a></li>
     
       <li class="other-type"><a href="../CrImage/Operation/BilinearResize.html">CrImage::Operation::BilinearResize</a></li>
     
@@ -339,7 +318,7 @@ there is only one channel to examine, and so has methods for constructing <code>
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L13" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L13" target="_blank">
         cr-image/grayscale_image.cr
       </a>
     
@@ -361,34 +340,6 @@ there is only one channel to examine, and so has methods for constructing <code>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#from_jpeg%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_jpeg</strong>(image_data : Bytes) : <span class="k">self</span></a>
-        
-          <div class="summary"><p>Read <code>image_data</code> as JPEG encoded bytes</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#from_jpeg%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_jpeg</strong>(io : IO) : <span class="k">self</span></a>
-        
-          <div class="summary"><p>Construct an Image from reading in bytes from <code>io</code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#from_png%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_png</strong>(image_data : Bytes) : <span class="k">self</span></a>
-        
-          <div class="summary"><p>Read <code>image_data</code> and PNG encoded bytes</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#from_png%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_png</strong>(io : IO) : <span class="k">self</span></a>
-        
-          <div class="summary"><p>Construct an Image by reading bytes from <code>io</code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#from_ppm%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_ppm</strong>(image_data : Bytes) : <span class="k">self</span></a>
         
           <div class="summary"><p>Read <code>image_data</code> as PPM encoded bytes</p></div>
@@ -399,20 +350,6 @@ there is only one channel to examine, and so has methods for constructing <code>
         <a href="#from_ppm%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_ppm</strong>(io : IO) : <span class="k">self</span></a>
         
           <div class="summary"><p>Read bytes from <code>io</code> as PPM encoded</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#from_webp%28image_data%3ABytes%29%3Aself-class-method" class="signature"><strong>.from_webp</strong>(image_data : Bytes) : <span class="k">self</span></a>
-        
-          <div class="summary"><p>Read <code>image_data</code> as WebP encoded bytes</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#from_webp%28io%3AIO%29%3Aself-class-method" class="signature"><strong>.from_webp</strong>(io : IO) : <span class="k">self</span></a>
-        
-          <div class="summary"><p>Read bytes from <code>io</code> as WebP encoded</p></div>
         
       </li>
     
@@ -942,69 +879,12 @@ there is only one channel to examine, and so has methods for constructing <code>
   
     
 
-  <h3>Instance methods inherited from module <code><a href="../CrImage/Format/PNG.html">CrImage::Format::PNG</a></code></h3>
-  
-  
-    <a href="../CrImage/Format/PNG.html#to_png%28io%3AIO%29%3ANil-instance-method" class="tooltip">
-      <span>to_png(io : IO) : Nil</span>
-    to_png</a>
-    
-  
-
-
-    
-
-
-    
-
-
-  
-    
-
-  <h3>Instance methods inherited from module <code><a href="../CrImage/Format/WebP.html">CrImage::Format::WebP</a></code></h3>
-  
-  
-    <a href="../CrImage/Format/WebP.html#to_webp%28io%3AIO%29%3ANil-instance-method" class="tooltip">
-      <span>to_webp(io : IO) : Nil</span>
-    to_webp</a>
-    
-  
-
-
-    
-
-
-    
-
-
-  
-    
-
   <h3>Instance methods inherited from module <code><a href="../CrImage/Format/PPM.html">CrImage::Format::PPM</a></code></h3>
   
   
     <a href="../CrImage/Format/PPM.html#to_ppm%28io%3AIO%29%3ANil-instance-method" class="tooltip">
       <span>to_ppm(io : IO) : Nil</span>
     to_ppm</a>
-    
-  
-
-
-    
-
-
-    
-
-
-  
-    
-
-  <h3>Instance methods inherited from module <code><a href="../CrImage/Format/JPEG.html">CrImage::Format::JPEG</a></code></h3>
-  
-  
-    <a href="../CrImage/Format/JPEG.html#to_jpeg%28io%3AIO%2Cquality%3AInt32%3D100%29%3ANil-instance-method" class="tooltip">
-      <span>to_jpeg(io : IO, quality : Int32 = <span class="n">100</span>) : Nil</span>
-    to_jpeg</a>
     
   
 
@@ -1112,82 +992,6 @@ there is only one channel to examine, and so has methods for constructing <code>
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="from_jpeg(image_data:Bytes):self-class-method">
-      <div class="signature">
-        
-        def self.<strong>from_jpeg</strong>(image_data : Bytes) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#from_jpeg%28image_data%3ABytes%29%3Aself-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Read <code>image_data</code> as JPEG encoded bytes</p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="from_jpeg(io:IO):self-class-method">
-      <div class="signature">
-        
-        def self.<strong>from_jpeg</strong>(io : IO) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#from_jpeg%28io%3AIO%29%3Aself-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Construct an Image from reading in bytes from <code>io</code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="from_png(image_data:Bytes):self-class-method">
-      <div class="signature">
-        
-        def self.<strong>from_png</strong>(image_data : Bytes) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#from_png%28image_data%3ABytes%29%3Aself-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Read <code>image_data</code> and PNG encoded bytes</p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="from_png(io:IO):self-class-method">
-      <div class="signature">
-        
-        def self.<strong>from_png</strong>(io : IO) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#from_png%28io%3AIO%29%3Aself-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Construct an Image by reading bytes from <code>io</code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
     <div class="entry-detail" id="from_ppm(image_data:Bytes):self-class-method">
       <div class="signature">
         
@@ -1226,44 +1030,6 @@ there is only one channel to examine, and so has methods for constructing <code>
       </div>
     </div>
   
-    <div class="entry-detail" id="from_webp(image_data:Bytes):self-class-method">
-      <div class="signature">
-        
-        def self.<strong>from_webp</strong>(image_data : Bytes) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#from_webp%28image_data%3ABytes%29%3Aself-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Read <code>image_data</code> as WebP encoded bytes</p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="from_webp(io:IO):self-class-method">
-      <div class="signature">
-        
-        def self.<strong>from_webp</strong>(io : IO) : <span class="k">self</span>
-
-        <a class="method-permalink" href="#from_webp%28io%3AIO%29%3Aself-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Read bytes from <code>io</code> as WebP encoded</p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
     <div class="entry-detail" id="new(red:Array(UInt8),green:Array(UInt8),blue:Array(UInt8),alpha:Array(UInt8),width:Int32,height:Int32)-class-method">
       <div class="signature">
         
@@ -1280,7 +1046,7 @@ there is only one channel to examine, and so has methods for constructing <code>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1296,7 +1062,7 @@ there is only one channel to examine, and so has methods for constructing <code>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1317,7 +1083,7 @@ there is only one channel to examine, and so has methods for constructing <code>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1352,7 +1118,7 @@ there is only one channel to examine, and so has methods for constructing <code>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L70" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1376,7 +1142,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L80" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1397,7 +1163,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1413,7 +1179,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1434,7 +1200,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1455,7 +1221,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1476,7 +1242,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L63" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1492,7 +1258,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1508,7 +1274,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1529,7 +1295,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L48" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1554,7 +1320,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1570,7 +1336,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1594,7 +1360,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L112" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L112" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1618,7 +1384,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L123" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L123" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1648,7 +1414,7 @@ image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, 
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L141" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L141" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1669,7 +1435,7 @@ image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, 
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L43" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1690,7 +1456,7 @@ image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, 
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1719,7 +1485,7 @@ Given sample image:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L160" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L160" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1740,7 +1506,7 @@ Given sample image:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L96" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L96" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1762,7 +1528,7 @@ Given sample image:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L91" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L91" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1787,7 +1553,7 @@ Given sample image:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1803,7 +1569,7 @@ Given sample image:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/grayscale_image.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/grayscale_image.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>

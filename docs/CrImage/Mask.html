@@ -76,18 +76,8 @@
       
         <ul>
   
-  <li class=" " data-id="cr-image/CrImage/Format/JPEG" data-name="crimage::format::jpeg">
-      <a href="../CrImage/Format/JPEG.html">JPEG</a>
-      
-    </li>
-  
   <li class=" " data-id="cr-image/CrImage/Format/Open" data-name="crimage::format::open">
       <a href="../CrImage/Format/Open.html">Open</a>
-      
-    </li>
-  
-  <li class=" " data-id="cr-image/CrImage/Format/PNG" data-name="crimage::format::png">
-      <a href="../CrImage/Format/PNG.html">PNG</a>
       
     </li>
   
@@ -98,11 +88,6 @@
   
   <li class=" " data-id="cr-image/CrImage/Format/Save" data-name="crimage::format::save">
       <a href="../CrImage/Format/Save.html">Save</a>
-      
-    </li>
-  
-  <li class=" " data-id="cr-image/CrImage/Format/WebP" data-name="crimage::format::webp">
-      <a href="../CrImage/Format/WebP.html">WebP</a>
       
     </li>
   
@@ -298,7 +283,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L39" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L39" target="_blank">
         cr-image/mask.cr
       </a>
     
@@ -334,6 +319,13 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       </li>
     
       <li class="entry-summary">
+        <a href="#new%28other_bits%3AArray%28BitArray%29%29-class-method" class="signature"><strong>.new</strong>(other_bits : Array(BitArray))</a>
+        
+          <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from an array of <code>BitArray</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#new%28image%3AImage%2Cinitial%3ABool%3Dtrue%29-class-method" class="signature"><strong>.new</strong>(image : Image, initial : Bool = <span class="n">true</span>)</a>
         
           <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from the dimensions of passed in <code>image</code> with an initial bit</p></div>
@@ -351,13 +343,6 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
         <a href="#new%28width%3AInt32%2Cheight%3AInt32%2C%26block%3AInt32%2CInt32-%3EBool%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, &block : Int32, Int32 -> Bool)</a>
         
           <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> of width x height using <code>&amp;block</code> to determine if a bit should be true or not (passed in <code>x</code> and <code>y</code> coordinates)</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#new%28other_bits%3AArray%28BitArray%29%29-class-method" class="signature"><strong>.new</strong>(other_bits : Array(BitArray))</a>
-        
-          <div class="summary"><p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from an array of <code>BitArray</code>.</p></div>
         
       </li>
     
@@ -593,7 +578,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L49" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L49" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -614,70 +599,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L61" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="new(image:Image,initial:Bool=true)-class-method">
-      <div class="signature">
-        
-        def self.<strong>new</strong>(image : <a href="../CrImage/Image.html">Image</a>, initial : Bool = <span class="n">true</span>)
-
-        <a class="method-permalink" href="#new%28image%3AImage%2Cinitial%3ABool%3Dtrue%29-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from the dimensions of passed in <code>image</code> with an initial bit</p>
-        </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L67" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="new(width:Int32,bits:BitArray)-class-method">
-      <div class="signature">
-        
-        def self.<strong>new</strong>(width : Int32, bits : BitArray)
-
-        <a class="method-permalink" href="#new%28width%3AInt32%2Cbits%3ABitArray%29-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> with a set width and bits from <code><a href="../CrImage/Mask.html#bits%3ABitArray-instance-method">#bits</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L44" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="new(width:Int32,height:Int32,&amp;block:Int32,Int32-&gt;Bool)-class-method">
-      <div class="signature">
-        
-        def self.<strong>new</strong>(width : Int32, height : Int32, &block : Int32, Int32 -> Bool)
-
-        <a class="method-permalink" href="#new%28width%3AInt32%2Cheight%3AInt32%2C%26block%3AInt32%2CInt32-%3EBool%29-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> of width x height using <code>&amp;block</code> to determine if a bit should be true or not (passed in <code>x</code> and <code>y</code> coordinates)</p>
-        </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L54" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -701,7 +623,70 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L77" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(image:Image,initial:Bool=true)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(image : <a href="../CrImage/Image.html">Image</a>, initial : Bool = <span class="n">true</span>)
+
+        <a class="method-permalink" href="#new%28image%3AImage%2Cinitial%3ABool%3Dtrue%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> from the dimensions of passed in <code>image</code> with an initial bit</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L67" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(width:Int32,bits:BitArray)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(width : Int32, bits : BitArray)
+
+        <a class="method-permalink" href="#new%28width%3AInt32%2Cbits%3ABitArray%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> with a set width and bits from <code><a href="../CrImage/Mask.html#bits%3ABitArray-instance-method">#bits</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L44" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(width:Int32,height:Int32,&amp;block:Int32,Int32-&gt;Bool)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(width : Int32, height : Int32, &block : Int32, Int32 -> Bool)
+
+        <a class="method-permalink" href="#new%28width%3AInt32%2Cheight%3AInt32%2C%26block%3AInt32%2CInt32-%3EBool%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a new <code><a href="../CrImage/Mask.html">Mask</a></code> of width x height using <code>&amp;block</code> to determine if a bit should be true or not (passed in <code>x</code> and <code>y</code> coordinates)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -731,7 +716,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L166" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L166" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -752,7 +737,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L136" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L136" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -773,7 +758,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L142" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L142" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -794,7 +779,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L148" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L148" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -816,7 +801,7 @@ mask[<span class="n">2</span>..<span class="n">3</span>, <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L156" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L156" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -841,7 +826,7 @@ mask.to_gray.save(<span class="s">&quot;mask_point.jpg&quot;</span>)</code></pre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L186" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L186" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -866,7 +851,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_row.jpg&quot;</span>)</code
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L198" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L198" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -891,7 +876,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L214" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L214" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -916,7 +901,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L231" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L231" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -937,7 +922,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L247" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L247" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -958,7 +943,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L252" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L252" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -979,7 +964,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L124" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L124" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -995,7 +980,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1016,7 +1001,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L95" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L95" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1032,7 +1017,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1053,7 +1038,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L117" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L117" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1077,7 +1062,7 @@ mask.to_gray.save(<span class="s">&quot;mask_partial_column.jpg&quot;</span>)</c
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L110" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L110" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1103,7 +1088,7 @@ mask.region <span class="c"># =&gt; Region(x: 20, y: 20, width: 20, height: 20)<
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L274" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L274" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1148,7 +1133,7 @@ mask[<span class="n">26</span>..<span class="n">30</span>, <span class="n">26</s
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L342" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L342" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1169,7 +1154,7 @@ mask[<span class="n">26</span>..<span class="n">30</span>, <span class="n">26</s
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L172" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L172" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1190,7 +1175,7 @@ mask[<span class="n">26</span>..<span class="n">30</span>, <span class="n">26</s
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L92" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L92" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1211,7 +1196,7 @@ mask[<span class="n">26</span>..<span class="n">30</span>, <span class="n">26</s
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L92" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L92" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1232,7 +1217,7 @@ mask[<span class="n">26</span>..<span class="n">30</span>, <span class="n">26</s
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L242" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L242" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1248,7 +1233,7 @@ mask[<span class="n">26</span>..<span class="n">30</span>, <span class="n">26</s
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/mask.cr#L40" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/mask.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>

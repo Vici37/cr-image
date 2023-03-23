@@ -76,18 +76,8 @@
       
         <ul>
   
-  <li class=" " data-id="cr-image/CrImage/Format/JPEG" data-name="crimage::format::jpeg">
-      <a href="../CrImage/Format/JPEG.html">JPEG</a>
-      
-    </li>
-  
   <li class=" " data-id="cr-image/CrImage/Format/Open" data-name="crimage::format::open">
       <a href="../CrImage/Format/Open.html">Open</a>
-      
-    </li>
-  
-  <li class=" " data-id="cr-image/CrImage/Format/PNG" data-name="crimage::format::png">
-      <a href="../CrImage/Format/PNG.html">PNG</a>
       
     </li>
   
@@ -98,11 +88,6 @@
   
   <li class=" " data-id="cr-image/CrImage/Format/Save" data-name="crimage::format::save">
       <a href="../CrImage/Format/Save.html">Save</a>
-      
-    </li>
-  
-  <li class=" " data-id="cr-image/CrImage/Format/WebP" data-name="crimage::format::webp">
-      <a href="../CrImage/Format/WebP.html">WebP</a>
       
     </li>
   
@@ -238,6 +223,26 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Provides a convenience method for saving image files to the filesystem.
+Currently supports:</p>
+<ul>
+<li>PPM (<code>.ppm</code>)</li>
+<li>WebP (<code>.webp</code>)</li>
+<li>JPEG (<code>.jpeg</code>, <code>.jpg</code>)</li>
+<li>PNG (<code>.png</code>)</li>
+</ul>
+<pre><code class="language-crystal">image.save(<span class="s">&quot;image.jpg&quot;</span>)</code></pre>
+<p>See <code><a href="../CrImage/Format/Open.html">Open</a></code> for a convenience method to read images from the filesystem</p>
+
 
 
 
@@ -261,14 +266,33 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/6dbbf64ce60c793ed1543a8e8b2d65ce5fd57d0d/src/cr-image/format/jpeg.cr#L15" target="_blank">
-        cr-image/format/jpeg.cr
+      <a href="https://github.com/Vici37/cr-image/blob/d9bed74afca3be04ae53d091c3e1305befa3d314/src/cr-image/format/save.cr#L12" target="_blank">
+        cr-image/format/save.cr
       </a>
     
     <br/>
   
 
 
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="SUPPORTED_FORMATS">
+        <strong>SUPPORTED_FORMATS</strong> = <code>[{extension: <span class="s">&quot;.ppm&quot;</span>, method: <span class="s">&quot;ppm&quot;</span>}] <span class="k">of</span> <span class="t">Nil</span></code>
+      </dt>
+      
+    
+  </dl>
 
 
 
