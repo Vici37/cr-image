@@ -1,4 +1,4 @@
-# [Crystal Image (Processing)](http://troy.sornson.io/cr-image/)
+<h1 tabindex="-1" dir="auto"><a href="http://troy.sornson.io/cr-image" target="_blank">Crystal Image (Processing)</a></h1>
 
 This shard aims to provide feature rich image processing abilities, both for the purpose of
 image manipulation as well as feature / information extraction from those images.
