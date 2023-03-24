@@ -6,4 +6,4 @@ benchmark:
 
 .PHONY: docs
 docs:
-	crystal doc src/cr-image.cr
+	crystal doc src/docs.cr --project-name="Crystal Image" --source-refname=$(shell git rev-parse HEAD)

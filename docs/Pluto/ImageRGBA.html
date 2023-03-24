@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.6.2">
+<meta name="crystal_docs.project_version" content="master-dev">
+<meta name="crystal_docs.project_name" content="cr-image">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="cr-image">
+  <title>Pluto::ImageRGBA - cr-image master-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          cr-image
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="cr-image/CrImage" data-name="crimage">
+      <a href="../CrImage.html">CrImage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/ChannelType" data-name="crimage::channeltype">
+      <a href="../CrImage/ChannelType.html">ChannelType</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Color" data-name="crimage::color">
+      <a href="../CrImage/Color.html">Color</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Exception" data-name="crimage::exception">
+      <a href="../CrImage/Exception.html">Exception</a>
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/Format" data-name="crimage::format">
+      <a href="../CrImage/Format.html">Format</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/Open" data-name="crimage::format::open">
+      <a href="../CrImage/Format/Open.html">Open</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/PPM" data-name="crimage::format::ppm">
+      <a href="../CrImage/Format/PPM.html">PPM</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Format/Save" data-name="crimage::format::save">
+      <a href="../CrImage/Format/Save.html">Save</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/GrayscaleImage" data-name="crimage::grayscaleimage">
+      <a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/GrayscaleImage/Pixel" data-name="crimage::grayscaleimage::pixel">
+      <a href="../CrImage/GrayscaleImage/Pixel.html">Pixel</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Image" data-name="crimage::image">
+      <a href="../CrImage/Image.html">Image</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Mask" data-name="crimage::mask">
+      <a href="../CrImage/Mask.html">Mask</a>
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/Operation" data-name="crimage::operation">
+      <a href="../CrImage/Operation.html">Operation</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/BilinearResize" data-name="crimage::operation::bilinearresize">
+      <a href="../CrImage/Operation/BilinearResize.html">BilinearResize</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/BoxBlur" data-name="crimage::operation::boxblur">
+      <a href="../CrImage/Operation/BoxBlur.html">BoxBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Brightness" data-name="crimage::operation::brightness">
+      <a href="../CrImage/Operation/Brightness.html">Brightness</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/ChannelSwap" data-name="crimage::operation::channelswap">
+      <a href="../CrImage/Operation/ChannelSwap.html">ChannelSwap</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Contrast" data-name="crimage::operation::contrast">
+      <a href="../CrImage/Operation/Contrast.html">Contrast</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Crop" data-name="crimage::operation::crop">
+      <a href="../CrImage/Operation/Crop.html">Crop</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/Draw" data-name="crimage::operation::draw">
+      <a href="../CrImage/Operation/Draw.html">Draw</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/GaussianBlur" data-name="crimage::operation::gaussianblur">
+      <a href="../CrImage/Operation/GaussianBlur.html">GaussianBlur</a>
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/Operation/HistogramEqualize" data-name="crimage::operation::histogramequalize">
+      <a href="../CrImage/Operation/HistogramEqualize.html">HistogramEqualize</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/HistogramEqualize/Histogram" data-name="crimage::operation::histogramequalize::histogram">
+      <a href="../CrImage/Operation/HistogramEqualize/Histogram.html">Histogram</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/HorizontalBlur" data-name="crimage::operation::horizontalblur">
+      <a href="../CrImage/Operation/HorizontalBlur.html">HorizontalBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/MaskApply" data-name="crimage::operation::maskapply">
+      <a href="../CrImage/Operation/MaskApply.html">MaskApply</a>
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Operation/VerticalBlur" data-name="crimage::operation::verticalblur">
+      <a href="../CrImage/Operation/VerticalBlur.html">VerticalBlur</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="cr-image/CrImage/Region" data-name="crimage::region">
+      <a href="../CrImage/Region.html">Region</a>
+      
+    </li>
+  
+  <li class="parent " data-id="cr-image/CrImage/RGBAImage" data-name="crimage::rgbaimage">
+      <a href="../CrImage/RGBAImage.html">RGBAImage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/CrImage/RGBAImage/Pixel" data-name="crimage::rgbaimage::pixel">
+      <a href="../CrImage/RGBAImage/Pixel.html">Pixel</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="cr-image/Pluto" data-name="pluto">
+      <a href="../Pluto.html">Pluto</a>
+      
+        <ul>
+  
+  <li class=" " data-id="cr-image/Pluto/ImageGA" data-name="pluto::imagega">
+      <a href="../Pluto/ImageGA.html">ImageGA</a>
+      
+    </li>
+  
+  <li class=" current" data-id="cr-image/Pluto/ImageRGBA" data-name="pluto::imagergba">
+      <a href="../Pluto/ImageRGBA.html">ImageRGBA</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Pluto::ImageRGBA
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Pluto/ImageRGBA.html">Pluto::ImageRGBA</a></li><li class="superclass">Pluto::Image</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type">Pluto::Format::JPEG</li>
+    
+      <li class="other-type">Pluto::Format::PNG</li>
+    
+      <li class="other-type">Pluto::Format::PPM</li>
+    
+      <li class="other-type">Pluto::Format::WebP</li>
+    
+      <li class="other-type">Pluto::Operation::BilinearResize</li>
+    
+      <li class="other-type">Pluto::Operation::BoxBlur</li>
+    
+      <li class="other-type">Pluto::Operation::Brightness</li>
+    
+      <li class="other-type">Pluto::Operation::ChannelSwap</li>
+    
+      <li class="other-type">Pluto::Operation::Contrast</li>
+    
+      <li class="other-type">Pluto::Operation::Crop</li>
+    
+      <li class="other-type">Pluto::Operation::GaussianBlur</li>
+    
+      <li class="other-type">Pluto::Operation::HorizontalBlur</li>
+    
+      <li class="other-type">Pluto::Operation::VerticalBlur</li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      lib/pluto/src/pluto/image_rgba.cr
+    
+    <br/>
+  
+    
+      pluto.cr
+    
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#to_crimage%3ACrImage%3A%3ARGBAImage-instance-method" class="signature"><strong>#to_crimage</strong> : CrImage::RGBAImage</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="to_crimage:CrImage::RGBAImage-instance-method">
+      <div class="signature">
+        
+        def <strong>to_crimage</strong> : <a href="../CrImage/RGBAImage.html">CrImage::RGBAImage</a>
+
+        <a class="method-permalink" href="#to_crimage%3ACrImage%3A%3ARGBAImage-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

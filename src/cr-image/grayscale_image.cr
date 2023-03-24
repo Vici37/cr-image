@@ -66,6 +66,15 @@ class CrImage::GrayscaleImage < CrImage::Image
     nil
   end
 
+  record Pixel,
+    gray : UInt8,
+    alpha : UInt8
+
+  def [](x : Int32, y : Int32) : Pixel
+    index = y * width + x
+    Pixel.new(gray[index], alpha[index])
+  end
+
   # Return the `Array(UInt8)` corresponding to `channel_type`
   def [](channel_type : ChannelType) : Array(UInt8)
     return @alpha if channel_type == ChannelType::Alpha

@@ -28,8 +28,8 @@ module CrImage::Format
         end
         {% end %}
       end
-    end
 
-    self
+      self
+    end
   end
 end

@@ -1,6 +1,7 @@
 #!/usr/bin/env -S crystal run --no-debug --release
 
 require "../src/cr-image"
+require "../src/all_formats"
 
 record Result, name : String, time : Float64, memory : Int64
 
@@ -75,6 +76,7 @@ results << benchmark { image.gaussian_blur!(10) }
 results << benchmark { image.horizontal_blur!(10) }
 results << benchmark { image.vertical_blur!(10) }
 results << benchmark { image.crop!(300, 250, 100, 100) }
+results << benchmark { image.histogram_equalize! }
 results << benchmark do
   mask = CrImage::Mask.new(image)
   image.apply!(mask)

@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="Crystal Image">
-  <title>CrImage::ChannelType - Crystal Image master-dev</title>
+  <title>StumpyCore::Canvas - Crystal Image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -51,12 +51,12 @@
   <div class="types-list">
     <ul>
   
-  <li class="parent open current" data-id="Crystal Image/CrImage" data-name="crimage">
+  <li class="parent " data-id="Crystal Image/CrImage" data-name="crimage">
       <a href="../CrImage.html">CrImage</a>
       
         <ul>
   
-  <li class=" current" data-id="Crystal Image/CrImage/ChannelType" data-name="crimage::channeltype">
+  <li class=" " data-id="Crystal Image/CrImage/ChannelType" data-name="crimage::channeltype">
       <a href="../CrImage/ChannelType.html">ChannelType</a>
       
     </li>
@@ -241,12 +241,12 @@
       
     </li>
   
-  <li class="parent " data-id="Crystal Image/StumpyCore" data-name="stumpycore">
+  <li class="parent open current" data-id="Crystal Image/StumpyCore" data-name="stumpycore">
       <a href="../StumpyCore.html">StumpyCore</a>
       
         <ul>
   
-  <li class=" " data-id="Crystal Image/StumpyCore/Canvas" data-name="stumpycore::canvas">
+  <li class=" current" data-id="Crystal Image/StumpyCore/Canvas" data-name="stumpycore::canvas">
       <a href="../StumpyCore/Canvas.html">Canvas</a>
       
     </li>
@@ -265,10 +265,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">enum</span> CrImage::ChannelType
+  <span class="kind">class</span> StumpyCore::Canvas
 
 </h1>
 
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../StumpyCore/Canvas.html">StumpyCore::Canvas</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -282,8 +284,20 @@
     Overview
   </h2>
 
-  <p>Enum representing different image channels supported by CrImage</p>
-<p>See <code><a href="../CrImage/RGBAImage.html#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method">RGBAImage#each_channel</a></code> and <code><a href="../CrImage/GrayscaleImage.html#each_channel%28%26%3AArray%28UInt8%29%2CChannelType-%3ENil%29%3ANil-instance-method">GrayscaleImage#each_channel</a></code></p>
+  <p>A canvas is 2D array of <code>RGBA</code> pixels</p>
+<p>To create a canvas of size <code>400</code> x <code>200</code></p>
+<pre><code class="language-crystal">canvas <span class="o">=</span> <span class="t">StumpyCore</span><span class="t">::</span><span class="t">Canvas</span>.new(<span class="n">400</span>, <span class="n">200</span>)</code></pre>
+<p>The default background color is transparent,
+but it can be passed in as a parameter or as a block
+that returns the color value for each <code>{x, y}</code> pair.</p>
+<pre><code class="language-crystal">canvas2 <span class="o">=</span> <span class="t">StumpyCore</span><span class="t">::</span><span class="t">Canvas</span>.new(<span class="n">400</span>, <span class="n">200</span>, <span class="t">RGBA</span><span class="t">::</span><span class="t">WHITE</span>)</code></pre>
+<pre><code class="language-crystal">canvas3 <span class="o">=</span> <span class="t">StumpyCore</span><span class="t">::</span><span class="t">Canvas</span>.new(<span class="n">256</span>, <span class="n">256</span>) <span class="k">do</span> <span class="o">|</span>x, y<span class="o">|</span>
+  <span class="t">RGBA</span>.from_rgb_n(x, y, <span class="n">255</span>, <span class="n">8</span>)
+<span class="k">end</span></code></pre>
+<p><img src="https://github.com/stumpycr/stumpy_core/blob/feature/images/rainbow.png?raw=true" alt="image" /></p>
+<p>Because of the way pixels are stored in a <code>Slice</code>,
+<code><a href="../StumpyCore/Canvas.html">Canvas</a></code>es are limited to <code>Int32::MAX = 2147483647</code> pixels in total,
+e.g. a maximal size of 46340x46340 for a square image.</p>
 
 
 
@@ -308,53 +322,21 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/src/cr-image/channel_type.cr#L4" target="_blank">
-        cr-image/channel_type.cr
+      <a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/lib/stumpy_core/src/stumpy_core/canvas.cr#L31" target="_blank">
+        lib/stumpy_core/src/stumpy_core/canvas.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/src/stumpy.cr#L6" target="_blank">
+        stumpy.cr
       </a>
     
     <br/>
   
 
 
-
-  
-    <h2>
-      <a id="enum-members" class="anchor" href="#enum-members">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-      Enum Members
-    </h2>
-  
-  <dl>
-    
-      <dt class="entry-const" id="Red">
-        <strong>Red</strong> = <code><span class="n">0</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Green">
-        <strong>Green</strong> = <code><span class="n">1</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Blue">
-        <strong>Blue</strong> = <code><span class="n">2</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Gray">
-        <strong>Gray</strong> = <code><span class="n">3</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Alpha">
-        <strong>Alpha</strong> = <code><span class="n">4</span></code>
-      </dt>
-      
-    
-  </dl>
 
 
 
@@ -373,27 +355,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#alpha%3F-instance-method" class="signature"><strong>#alpha?</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#blue%3F-instance-method" class="signature"><strong>#blue?</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#gray%3F-instance-method" class="signature"><strong>#gray?</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#green%3F-instance-method" class="signature"><strong>#green?</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#red%3F-instance-method" class="signature"><strong>#red?</strong></a>
+        <a href="#to_crimage%3ACrImage%3A%3ARGBAImage-instance-method" class="signature"><strong>#to_crimage</strong> : CrImage::RGBAImage</a>
         
       </li>
     
@@ -404,26 +366,6 @@
 
 
 <div class="methods-inherited">
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
   
     
 
@@ -461,82 +403,18 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="alpha?-instance-method">
+    <div class="entry-detail" id="to_crimage:CrImage::RGBAImage-instance-method">
       <div class="signature">
         
-        def <strong>alpha?</strong>
+        def <strong>to_crimage</strong> : <a href="../CrImage/RGBAImage.html">CrImage::RGBAImage</a>
 
-        <a class="method-permalink" href="#alpha%3F-instance-method">#</a>
+        <a class="method-permalink" href="#to_crimage%3ACrImage%3A%3ARGBAImage-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/src/cr-image/channel_type.cr#L9" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="blue?-instance-method">
-      <div class="signature">
-        
-        def <strong>blue?</strong>
-
-        <a class="method-permalink" href="#blue%3F-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/src/cr-image/channel_type.cr#L7" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="gray?-instance-method">
-      <div class="signature">
-        
-        def <strong>gray?</strong>
-
-        <a class="method-permalink" href="#gray%3F-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/src/cr-image/channel_type.cr#L8" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="green?-instance-method">
-      <div class="signature">
-        
-        def <strong>green?</strong>
-
-        <a class="method-permalink" href="#green%3F-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/src/cr-image/channel_type.cr#L6" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="red?-instance-method">
-      <div class="signature">
-        
-        def <strong>red?</strong>
-
-        <a class="method-permalink" href="#red%3F-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/src/cr-image/channel_type.cr#L5" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/770447b9fd994f49a86dc000ad2a141b1b91629b/src/stumpy.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>

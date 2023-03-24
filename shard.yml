@@ -15,6 +15,13 @@ development_dependencies:
     github: I3oris/ic
   cr-image-samples:
     github: Vici37/cr-image-samples
+  stumpy_core:
+    github: stumpycr/stumpy_core
+  stumpy_jpeg:
+    github: stumpycr/stumpy_jpeg
+  pluto:
+    github: phenopolis/pluto
+    branch: main
 
 crystal: 1.7.2
 

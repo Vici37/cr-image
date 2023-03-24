@@ -31,6 +31,17 @@ class CrImage::RGBAImage < CrImage::Image
     nil
   end
 
+  record Pixel,
+    red : UInt8,
+    green : UInt8,
+    blue : UInt8,
+    alpha : UInt8
+
+  def [](x : Int32, y : Int32) : Pixel
+    index = y * width + x
+    Pixel.new(red[index], green[index], blue[index], alpha[index])
+  end
+
   # Return the channel corresponding to `channel_type`
   def [](channel_type : ChannelType) : Array(UInt8)
     case channel_type

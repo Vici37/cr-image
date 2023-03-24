@@ -35,6 +35,9 @@ require "cr-image"
 require "cr-image/jpeg"
 require "cr-image/png"
 require "cr-image/webp"
+
+# Or, alternatively
+require "cr-image/all_formats"
 ```
 
 ### Example
@@ -65,6 +68,34 @@ Yields this image:
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon_cropped.jpg" alt="Cropped example of moon"/>
 
 [See documentation](http://troy.sornson.io/cr-image/) for more examples.
+
+### (Pluto)[https://github.com/phenopolis/pluto] and (Stumpy)[https://github.com/stumpycr/stumpy_core] Conversion
+
+If your library or application already uses Pluto or Stumpy and you want to use
+some of the functionality of this library, CrImage also provides some optional
+conversion methods:
+
+```crystal
+require "cr-image/pluto"
+pluto_image # => Pluto::ImageRGBA
+pluto_image_rgba.to_crimage # => CrImage::RGBAImage
+
+cr_image # => CrImage::RGBAImage
+cr_image.to_pluto # => Pluto::ImageRGBA
+```
+
+```crystal
+require "cr-image/stumpy"
+stumpy_canvas # => StumpyCore::Canvas
+stumpy_canvas.to_crimage # => CrImage::RGBAImage
+
+cr_image # => CrImage::RGBAImage
+cr_image.to_stumpy # => StumpyCore::Canvas
+```
+
+*NOTE:* Stumpy uses `UInt16` for its underlying raw image storage per channel per pixel, while Pluto and
+CrImage uses `UInt8`. Converting from a Stumpy `Canvas` object to `RGBAImage` may lose quality if the original
+image used 16 bit color channels (i.e. 16-bit PNG). Most image formats tend to use 8-bit color channels.
 
 ## Development
 
