@@ -84,6 +84,10 @@ cr_image # => CrImage::RGBAImage
 cr_image.to_pluto # => Pluto::ImageRGBA
 ```
 
+**NOTE:** Currently Pluto and CrImage share the same bindings for `libturbojpeg`, `libspng`, and `libwebp`. If you
+use Pluto, you _cannot_ use those formats from CrImage.
+
+
 ```crystal
 require "cr-image/stumpy"
 stumpy_canvas # => StumpyCore::Canvas
@@ -93,7 +97,7 @@ cr_image # => CrImage::RGBAImage
 cr_image.to_stumpy # => StumpyCore::Canvas
 ```
 
-*NOTE:* Stumpy uses `UInt16` for its underlying raw image storage per channel per pixel, while Pluto and
+**NOTE:** Stumpy uses `UInt16` for its underlying raw image storage per channel per pixel, while Pluto and
 CrImage uses `UInt8`. Converting from a Stumpy `Canvas` object to `RGBAImage` may lose quality if the original
 image used 16 bit color channels (i.e. 16-bit PNG). Most image formats tend to use 8-bit color channels.
 

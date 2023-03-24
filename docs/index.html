@@ -343,13 +343,15 @@ pluto_image_rgba.to_crimage <span class="c"># =&gt; CrImage::RGBAImage</span>
 
 cr_image <span class="c"># =&gt; CrImage::RGBAImage</span>
 cr_image.to_pluto <span class="c"># =&gt; Pluto::ImageRGBA</span></code></pre>
+<p><strong>NOTE:</strong> Currently Pluto and CrImage share the same bindings for <code>libturbojpeg</code>, <code>libspng</code>, and <code>libwebp</code>. If you
+use Pluto, you <em>cannot</em> use those formats from CrImage.</p>
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image/stumpy&quot;</span>
 stumpy_canvas <span class="c"># =&gt; StumpyCore::Canvas</span>
 stumpy_canvas.to_crimage <span class="c"># =&gt; CrImage::RGBAImage</span>
 
 cr_image <span class="c"># =&gt; CrImage::RGBAImage</span>
 cr_image.to_stumpy <span class="c"># =&gt; StumpyCore::Canvas</span></code></pre>
-<p><em>NOTE:</em> Stumpy uses <code>UInt16</code> for its underlying raw image storage per channel per pixel, while Pluto and
+<p><strong>NOTE:</strong> Stumpy uses <code>UInt16</code> for its underlying raw image storage per channel per pixel, while Pluto and
 CrImage uses <code>UInt8</code>. Converting from a Stumpy <code>Canvas</code> object to <code>RGBAImage</code> may lose quality if the original
 image used 16 bit color channels (i.e. 16-bit PNG). Most image formats tend to use 8-bit color channels.</p>
 <h2><a id="development" class="anchor" href="#development">
