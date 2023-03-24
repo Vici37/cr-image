@@ -69,7 +69,7 @@ Yields this image:
 
 [See documentation](http://troy.sornson.io/cr-image/) for more examples.
 
-### (Pluto)[https://github.com/phenopolis/pluto] and (Stumpy)[https://github.com/stumpycr/stumpy_core] Conversion
+### [Pluto](https://github.com/phenopolis/pluto) and [Stumpy](https://github.com/stumpycr/stumpy_core) Conversion
 
 If your library or application already uses Pluto or Stumpy and you want to use
 some of the functionality of this library, CrImage also provides some optional
