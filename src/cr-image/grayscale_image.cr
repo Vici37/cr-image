@@ -171,4 +171,50 @@ class CrImage::GrayscaleImage < CrImage::Image
       pixel >= threshold
     end
   end
+
+  # Construct a `Mask` identifying all pixels larger than `num`.
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+  #
+  # ```
+  # gray = image.to_gray                          # Convert color image to grayscale
+  # mask = gray > 128                             # Generate a threshold mask
+  # mask.to_gray.save("greater_than_example.jpg") # Convert and save the mask as a black and white image
+  # ```
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_threshold_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
+  def >(num : Int) : Mask
+    mask_from do |_, _, pixel|
+      pixel > num
+    end
+  end
+
+  # Construct a `Mask` identify all pixels larger than or equal to `num`. See `#>` for near example.
+  def >=(num : Int) : Mask
+    mask_from do |_, _, pixel|
+      pixel >= num
+    end
+  end
+
+  # Construct a `Mask` identifying all pixels smaller than `num`.
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+  #
+  # ```
+  # gray = image.to_gray                          # Convert color image to grayscale
+  # mask = gray < 128                             # Generate a threshold mask
+  # mask.to_gray.save("greater_than_example.jpg") # Convert and save the mask as a black and white image
+  # ```
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/less_than_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
+  def <(num : Int) : Mask
+    mask_from do |_, _, pixel|
+      pixel < num
+    end
+  end
+
+  # Construct a `Mask` identifying all pixels smaller than or equal to `num`. See `#<` for near example.
+  def <=(num : Int) : Mask
+    mask_from do |_, _, pixel|
+      pixel <= num
+    end
+  end
 end

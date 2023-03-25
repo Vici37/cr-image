@@ -17,6 +17,22 @@ Spectator.describe CrImage::Operation::MaskApply do
         expect_digest(image.apply(mask)).to eq "25b87524aa9dac4053ccb93264cdf17be238a159"
       end
 
+      it "applies threshold from >= operator" do
+        expect_digest(image.apply(image >= 16)).to eq "395b623395ef7c3e8cb93da9f1aaad899ebe2f57"
+      end
+
+      it "applies threshold from >= operator" do
+        expect_digest(image.apply(image > 16)).to eq "395b623395ef7c3e8cb93da9f1aaad899ebe2f57"
+      end
+
+      it "applies threshold from < operator" do
+        expect_digest(image.apply(image < 16)).to eq "b043cb7b345fbddac8e5770cf3e2847cba305563"
+      end
+
+      it "applies threshold from <= operator" do
+        expect_digest(image.apply(image <= 16)).to eq "b043cb7b345fbddac8e5770cf3e2847cba305563"
+      end
+
       it "applies threshold" do
         expect_digest(image.apply(image.threshold(16))).to eq "395b623395ef7c3e8cb93da9f1aaad899ebe2f57"
       end

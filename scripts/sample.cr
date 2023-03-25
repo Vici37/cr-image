@@ -1,5 +1,6 @@
 #!/usr/bin/env -S crystal run
 require "../src/cr-image"
+require "../src/all_formats"
 
 image = CrImage::RGBAImage.open("docs/images/sample.jpg")
 
@@ -29,3 +30,6 @@ image.apply(mask) do |_, _, pixel, channel_type|
 end.save("docs/images/apply_mask_block.jpg")
 
 image.to_gray.histogram_equalize.save("docs/images/gray_sample_equalized.jpg")
+
+mask = image.to_gray < 128
+mask.to_gray.save("docs/images/less_than_example.jpg")
