@@ -17,8 +17,8 @@ development_dependencies:
     github: Vici37/cr-image-samples
   stumpy_core:
     github: stumpycr/stumpy_core
-  stumpy_jpeg:
-    github: stumpycr/stumpy_jpeg
+  stumpy_png:
+    github: stumpycr/stumpy_png
   pluto:
     github: phenopolis/pluto
     branch: main

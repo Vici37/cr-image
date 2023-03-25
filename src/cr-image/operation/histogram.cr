@@ -19,6 +19,8 @@
 module CrImage::Operation::HistogramEqualize
   # A histogram of an `Image` for a specific `ChannelType`
   class Histogram
+    getter image, channel_type
+
     def initialize(@image : Image, @channel_type : ChannelType)
     end
 
@@ -67,27 +69,39 @@ module CrImage::Operation::HistogramEqualize
       end.to_h
     end
 
+    @mean : Float64?
+
+    def mean : Float64
+      @mean ||= counts.sum { |pixel, count| pixel.to_i64 * count }.to_f64 / @image.size
+    end
+
+    @std_dev : Float64?
+
+    def std_dev : Float64
+      @std_dev ||= Math.sqrt(counts.sum { |value, count| count * (value.to_i64 - mean)**2 }.to_f64 / @image.size)
+    end
+
     # :nodoc:
     # Still a work in progress
     # TODO: Finish this
-    def plot : RGBAImage
-      probabilities = normalize.values
-      max_prob = probabilities.max
-      mult = 100 / max_prob
+    # def plot : RGBAImage
+    #   probabilities = normalize.values
+    #   max_prob = probabilities.max
+    #   mult = 100 / max_prob
 
-      w = 100 + 40
-      h = 255 + 40
+    #   w = 100 + 40
+    #   h = 255 + 40
 
-      init = Array(UInt8).new(w * h) { 255u8 }
-      rgba = RGBAImage.new(init.clone, init.clone, init.clone, init.clone, w, h)
-      rgba.draw_square!(19, 19, 101, 256, Color.of("#f00"))
-      0.upto(255).each do |i|
-        line_length = (hist[i]? || 0) * mult
-        rgba.draw_square!(20, i + 20, line_length.to_i, 1, Color.of("#00f"))
-      end
+    #   init = Array(UInt8).new(w * h) { 255u8 }
+    #   rgba = RGBAImage.new(init.clone, init.clone, init.clone, init.clone, w, h)
+    #   rgba.draw_square!(19, 19, 101, 256, Color.of("#f00"))
+    #   0.upto(255).each do |i|
+    #     line_length = (hist[i]? || 0) * mult
+    #     rgba.draw_square!(20, i + 20, line_length.to_i, 1, Color.of("#00f"))
+    #   end
 
-      rgba
-    end
+    #   rgba
+    # end
   end
 
   def histogram(channel_type : ChannelType) : Histogram
