@@ -309,7 +309,7 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/ad4d8680053f380a9fae2f384906826daf6d3c63/src/cr-image/operation/histogram.cr#L21" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L21" target="_blank">
         cr-image/operation/histogram.cr
       </a>
     
@@ -359,6 +359,11 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#channel_type%3ACrImage%3A%3AChannelType-instance-method" class="signature"><strong>#channel_type</strong> : CrImage::ChannelType</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#counts%3AHash%28UInt8%2CInt32%29-instance-method" class="signature"><strong>#counts</strong> : Hash(UInt8, Int32)</a>
         
           <div class="summary"><p>Get the raw counts for a given pixel value (0-255) in the image</p></div>
@@ -373,9 +378,24 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#image%3ACrImage%3A%3AImage-instance-method" class="signature"><strong>#image</strong> : CrImage::Image</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mean%3AFloat64-instance-method" class="signature"><strong>#mean</strong> : Float64</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#normalize%3AHash%28UInt8%2CFloat64%29-instance-method" class="signature"><strong>#normalize</strong> : Hash(UInt8, Float64)</a>
         
           <div class="summary"><p>Get pixel counts normalized - all values between 0.0 and 1.0</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#std_dev%3AFloat64-instance-method" class="signature"><strong>#std_dev</strong> : Float64</a>
         
       </li>
     
@@ -430,7 +450,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/ad4d8680053f380a9fae2f384906826daf6d3c63/src/cr-image/operation/histogram.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -465,7 +485,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/ad4d8680053f380a9fae2f384906826daf6d3c63/src/cr-image/operation/histogram.cr#L54" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L56" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="channel_type:CrImage::ChannelType-instance-method">
+      <div class="signature">
+        
+        def <strong>channel_type</strong> : <a href="../../../CrImage/ChannelType.html">CrImage::ChannelType</a>
+
+        <a class="method-permalink" href="#channel_type%3ACrImage%3A%3AChannelType-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -486,7 +522,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/ad4d8680053f380a9fae2f384906826daf6d3c63/src/cr-image/operation/histogram.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -507,7 +543,39 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/ad4d8680053f380a9fae2f384906826daf6d3c63/src/cr-image/operation/histogram.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L66" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="image:CrImage::Image-instance-method">
+      <div class="signature">
+        
+        def <strong>image</strong> : <a href="../../../CrImage/Image.html">CrImage::Image</a>
+
+        <a class="method-permalink" href="#image%3ACrImage%3A%3AImage-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mean:Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>mean</strong> : Float64
+
+        <a class="method-permalink" href="#mean%3AFloat64-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L74" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -528,7 +596,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/ad4d8680053f380a9fae2f384906826daf6d3c63/src/cr-image/operation/histogram.cr#L45" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L47" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="std_dev:Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>std_dev</strong> : Float64
+
+        <a class="method-permalink" href="#std_dev%3AFloat64-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/35a003f0500ad9a73736a3e981dbce4c530f44ca/src/cr-image/operation/histogram.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
