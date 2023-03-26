@@ -101,6 +101,38 @@ class CrImage::GrayscaleImage < CrImage::Image
     RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, @alpha.clone, width, height)
   end
 
+  # Convert this grayscale image to an RGBA one using the provided color map.
+  #
+  # The provided map should have a key for all 0-255 possible gray pixel values, otherwise the `default`
+  # `Color` will be used instead (default is black).
+  #
+  # ```
+  # colors = 256.times.to_a.map { |i| {i.to_u8, CrImage::Color.random} }.to_h
+  # gray_image.to_rgba(colors).save("to_rgba_color_map_sample.jpg")
+  # ```
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background in grayscale"/>
+  #
+  # Becomes
+  #
+  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/to_rgba_color_map_sample.jpg" alt="Random colored pixels in rough outline of woman"/>
+  def to_rgba(color_map : Hash(UInt8, Color), *, default : Color = Color.new(0u8, 0u8, 0u8, 255u8)) : RGBAImage
+    red = Array(UInt8).new(size)
+    green = Array(UInt8).new(size)
+    blue = Array(UInt8).new(size)
+    alpha = Array(UInt8).new(size)
+
+    gray.each do |pixel|
+      color = color_map[pixel]? || default
+      red << color.red
+      green << color.green
+      blue << color.blue
+      alpha << color.alpha
+    end
+
+    RGBAImage.new(red, green, blue, alpha, width, height)
+  end
+
   # Returns self
   def to_gray : GrayscaleImage
     self

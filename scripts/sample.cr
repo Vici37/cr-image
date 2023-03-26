@@ -33,3 +33,7 @@ image.to_gray.histogram_equalize.save("docs/images/gray_sample_equalized.jpg")
 
 mask = image.to_gray < 128
 mask.to_gray.save("docs/images/less_than_example.jpg")
+
+# This should only be run once to generate the sample picture
+# colors = 256.times.to_a.map { |i| {i.to_u8, CrImage::Color.random} }.to_h
+# image.to_gray.to_rgba(colors).save("docs/images/to_rgba_color_map_sample.jpg")

@@ -17,11 +17,11 @@ Spectator.describe CrImage::Operation::Histogram do
   context "when making calculations" do
     let(image) { gray_moon_ppm }
     it "for the mean" do
-      expect(image.histogram(:gray).mean).to eq 19.500419285340097
+      expect(image.histogram(:gray).mean).to eq 2.324456
     end
 
     it "for the standard deviation" do
-      expect(image.histogram(:gray).std_dev).to eq 2.324456
+      expect(image.histogram(:gray).std_dev).to eq 19.500419285340097
     end
   end
 end

@@ -1,6 +1,7 @@
 module CrImageSampleHelper
   IMAGES = {
-    "moon" => "scenic/moon",
+    "moon"             => "scenic/moon",
+    "light_background" => "people/light_background",
   }
 
   macro included
