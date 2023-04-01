@@ -5,11 +5,11 @@ Spectator.describe CrImage::Operation::GaussianBlur do
 
   specs_for_operator(gaussian_blur(10),
     gray_hash: "217debdaffab3be19504828b08adb09949f6e7c2",
-    rgba_hash: "dda2a00d6d3ef73021620ad7e0e2531d29e68425"
+    rgba_hash: "4dd809f57d29d40e9670d6267643b22befa491c2"
   )
 
   specs_for_operator(gaussian_blur!(10),
     gray_hash: "217debdaffab3be19504828b08adb09949f6e7c2",
-    rgba_hash: "dda2a00d6d3ef73021620ad7e0e2531d29e68425"
+    rgba_hash: "4dd809f57d29d40e9670d6267643b22befa491c2"
   )
 end
