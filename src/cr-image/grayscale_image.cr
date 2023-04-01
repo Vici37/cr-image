@@ -29,6 +29,12 @@ class CrImage::GrayscaleImage < CrImage::Image
     @alpha = Array(UInt8).new(@gray.size) { 255u8 }
   end
 
+  # Create a GrayscaleImage with only an `Array(UInt8)` (alpha channel initialized as `255` throughout)
+  def initialize(@gray, @width)
+    @height = @gray.size // @width
+    @alpha = Array(UInt8).new(@gray.size) { 255u8 }
+  end
+
   # Create a new GrayscaleImage as a copy of this one
   def clone : GrayscaleImage
     self.class.new(
@@ -69,6 +75,7 @@ class CrImage::GrayscaleImage < CrImage::Image
     gray : UInt8,
     alpha : UInt8
 
+  # Return a `Pixel` representing this cell in the image.
   def [](x : Int32, y : Int32) : Pixel
     index = y * width + x
     Pixel.new(gray[index], alpha[index])
@@ -247,5 +254,12 @@ class CrImage::GrayscaleImage < CrImage::Image
     mask_from do |pixel|
       pixel <= num
     end
+  end
+
+  # Get the mean of the pixels in the `ChannelType::Gray` channel of this image.
+  #
+  # TODO: cache histogram
+  def mean : Float64
+    histogram(:gray).mean
   end
 end

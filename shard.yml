@@ -21,7 +21,6 @@ development_dependencies:
     github: stumpycr/stumpy_png
   pluto:
     github: phenopolis/pluto
-    branch: main
 
 crystal: 1.7.2
 
