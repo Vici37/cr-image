@@ -35,7 +35,7 @@ module CrImage::Operation::Crop
 
     new_size = new_width * new_height
     height_offset = y * width
-    each_channel do |channel, channel_type|
+    each_color_channel do |channel, channel_type|
       resized_channel = Array.new(new_size) { 0u8 }
 
       new_height.times do |new_y|

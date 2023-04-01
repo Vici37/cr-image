@@ -31,7 +31,7 @@ module CrImage::Operation::Draw
 
     x_i = x.to_i
     y_i = y.to_i
-    each_channel do |channel, channel_type|
+    each_color_channel do |channel, channel_type|
       channel[(y_i * width + x_i), box_width] = Array(UInt8).new(box_width) { color[channel_type] }
       channel[(y_i + box_height) * width + x_i, box_width] = Array(UInt8).new(box_width) { color[channel_type] }
       box_height.times do |i|
@@ -69,7 +69,7 @@ module CrImage::Operation::Draw
     max_x = Math.min(width - 1, center_x + radius)
     max_y = Math.min(height - 1, center_y + radius)
 
-    each_channel do |channel, channel_type|
+    each_color_channel do |channel, channel_type|
       0.upto(radius) do |y|
         theta_0 = Math.asin(Math.max(0, (y - 1)) / radius.to_f)
         theta_1 = Math.asin(y / radius.to_f)

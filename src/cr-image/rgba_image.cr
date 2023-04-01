@@ -22,12 +22,11 @@ class CrImage::RGBAImage < CrImage::Image
     )
   end
 
-  # Run provided block with the `ChannelType::Red`, `ChannelType::Green`, `ChannelType::Blue`, and `ChannelType::Alpha` channels.
-  def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
+  # Run provided block with the `ChannelType::Red`, `ChannelType::Green`, and `ChannelType::Blue` channels.
+  def each_color_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
     yield @red, ChannelType::Red
     yield @green, ChannelType::Green
     yield @blue, ChannelType::Blue
-    yield @alpha, ChannelType::Alpha
     nil
   end
 

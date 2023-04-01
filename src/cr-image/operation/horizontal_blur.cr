@@ -19,7 +19,7 @@ module CrImage::Operation::HorizontalBlur
     buffer = Bytes.new(size, 0)
     multiplier = 1 / (k + k + 1)
 
-    each_channel do |channel|
+    each_color_channel do |channel|
       @height.times do |y|
         center_index : Int32 = y * @width
         left__bound : Int32 = center_index

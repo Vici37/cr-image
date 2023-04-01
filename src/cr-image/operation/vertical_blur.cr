@@ -19,7 +19,7 @@ module CrImage::Operation::VerticalBlur
     buffer = Bytes.new(size, 0)
     multiplier = 1 / (value + value + 1)
 
-    each_channel do |channel|
+    each_color_channel do |channel|
       @width.times do |x|
         c_index : Int32 = x
         l_index : Int32 = c_index

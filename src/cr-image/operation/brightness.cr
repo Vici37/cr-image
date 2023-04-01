@@ -14,7 +14,7 @@ module CrImage::Operation::Brightness
   end
 
   def brightness!(value : Float64) : self
-    each_channel do |channel|
+    each_color_channel do |channel|
       size.times do |index|
         channel.unsafe_put(index, Math.min(255, (channel.unsafe_fetch(index) * value)).to_u8)
       end

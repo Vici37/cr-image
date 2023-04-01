@@ -113,7 +113,7 @@ module CrImage::Operation::HistogramEqualize
   end
 
   def histogram_equalize! : self
-    each_channel do |channel, channel_type|
+    each_color_channel do |channel, channel_type|
       next if channel_type.alpha?
       remap = histogram(channel_type).equalize
       size.times do |i|

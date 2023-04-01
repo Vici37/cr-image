@@ -59,10 +59,9 @@ class CrImage::GrayscaleImage < CrImage::Image
     @alpha
   end
 
-  # Run provided block with the `ChannelType::Gray` and `ChannelType::Alpha` channels and channel types.
-  def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
+  # Run provided block with the `ChannelType::Gray` channels and channel types.
+  def each_color_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
     yield @gray, ChannelType::Gray
-    yield @alpha, ChannelType::Alpha
     nil
   end
 
