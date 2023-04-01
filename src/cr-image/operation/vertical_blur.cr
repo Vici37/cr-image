@@ -29,13 +29,13 @@ module CrImage::Operation::VerticalBlur
         l_value : Int32 = channel.unsafe_fetch(c_index + @width * (@height - 1)).to_i
         c_value : Int32 = (value + 1) * f_value
 
-        (0..value - 1).each do
-          c_value += channel.unsafe_fetch(c_index)
+        (0..value - 1).each do |i|
+          c_value += channel.unsafe_fetch(c_index + i * @width)
         end
 
         (0..value).each do
           c_value += channel.unsafe_fetch(r_index).to_i - f_value
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
 
           r_index += @width
           c_index += @width
@@ -43,7 +43,7 @@ module CrImage::Operation::VerticalBlur
 
         (value + 1..@height - value - 1).each do
           c_value += channel.unsafe_fetch(r_index).to_i - channel.unsafe_fetch(l_index).to_i
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
 
           l_index += @width
           r_index += @width
@@ -52,7 +52,7 @@ module CrImage::Operation::VerticalBlur
 
         (@height - value..@height - 1).each do
           c_value += l_value - channel.unsafe_fetch(l_index).to_i
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
 
           l_index += @width
           c_index += @width

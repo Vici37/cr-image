@@ -8,54 +8,54 @@
 # image.horizontal_blur(1).save("horizontal_1_sample.jpg")
 # image.horizontal_blur(5).save("horizontal_5_sample.jpg")
 # ```
-# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/horizontal_1_sample.jpg" alt="Blurred sample image with value 1"/>
-# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/horizontal_5_sample.jpg" alt="Blurred sample image with value 5"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/horizontal_1_sample.jpg" alt="Blurred sample image with k 1"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/horizontal_5_sample.jpg" alt="Blurred sample image with k 5"/>
 module CrImage::Operation::HorizontalBlur
-  def horizontal_blur(value : Int32) : self
-    clone.horizontal_blur!(value)
+  def horizontal_blur(k : Int32) : self
+    clone.horizontal_blur!(k)
   end
 
-  def horizontal_blur!(value : Int32) : self
+  def horizontal_blur!(k : Int32) : self
     buffer = Bytes.new(size, 0)
-    multiplier = 1 / (value + value + 1)
+    multiplier = 1 / (k + k + 1)
 
     each_channel do |channel|
       @height.times do |y|
-        c_index : Int32 = y * @width
-        l_index : Int32 = c_index
-        r_index : Int32 = c_index + value
+        center_index : Int32 = y * @width
+        left__bound : Int32 = center_index
+        right_bound : Int32 = center_index + k
 
-        f_value : Int32 = channel.unsafe_fetch(c_index).to_i
-        l_value : Int32 = channel.unsafe_fetch(c_index + @width - 1).to_i
-        c_value : Int32 = (value + 1) * f_value
+        first_value : Int32 = channel.unsafe_fetch(center_index).to_i
+        last__value : Int32 = channel.unsafe_fetch(center_index + @width - 1).to_i
+        current_sum : Int32 = (k + 1) * first_value
 
-        (0..value - 1).each do
-          c_value += channel.unsafe_fetch(c_index)
+        (0..k - 1).each do |i|
+          current_sum += channel.unsafe_fetch(center_index + i)
         end
 
-        (0..value).each do
-          c_value += channel.unsafe_fetch(r_index).to_i - f_value
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+        (0..k).each do
+          current_sum += channel.unsafe_fetch(right_bound).to_i - first_value
+          buffer.unsafe_put(center_index, (current_sum * multiplier).to_u8)
 
-          r_index += 1
-          c_index += 1
+          right_bound += 1
+          center_index += 1
         end
 
-        (value + 1..@width - value - 1).each do
-          c_value += (channel.unsafe_fetch(r_index).to_i - channel.unsafe_fetch(l_index).to_i)
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+        (k + 1..@width - k - 1).each do
+          current_sum += (channel.unsafe_fetch(right_bound).to_i - channel.unsafe_fetch(left__bound).to_i)
+          buffer.unsafe_put(center_index, (current_sum * multiplier).to_u8)
 
-          r_index += 1
-          l_index += 1
-          c_index += 1
+          right_bound += 1
+          left__bound += 1
+          center_index += 1
         end
 
-        (@width - value..@width - 1).each do
-          c_value += l_value - channel.unsafe_fetch(l_index).to_i
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+        (@width - k..@width - 1).each do
+          current_sum += last__value - channel.unsafe_fetch(left__bound).to_i
+          buffer.unsafe_put(center_index, (current_sum * multiplier).to_u8)
 
-          l_index += 1
-          c_index += 1
+          left__bound += 1
+          center_index += 1
         end
       end
 
