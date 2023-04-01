@@ -169,7 +169,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   #
   # ```
   # # Construct a mask identifying the bright pixels in the bottom left corner of image
-  # image.to_gray.mask_from do |x, y, pixel|
+  # image.to_gray.mask_from do |pixel, x, y|
   #   x < image.width // 2 &&      # left half of image
   #     y > (image.height // 2) && # bottom half of image
   #     pixel > 128                # only "bright" pixels
@@ -178,9 +178,9 @@ class CrImage::GrayscaleImage < CrImage::Image
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman in black turtleneck on white background"/>
   # ->
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_mask_from_example.jpg" alt="Mask identifying bright spots in lower left corner"/>
-  def mask_from(&block : (Int32, Int32, UInt8) -> Bool) : Mask
+  def mask_from(&block : (UInt8, Int32, Int32) -> Bool) : Mask
     Mask.new(width, BitArray.new(size) do |i|
-      block.call(i % width, i // width, @gray[i])
+      block.call(@gray[i], i % width, i // width)
     end)
   end
 
@@ -198,7 +198,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   # ```
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_threshold_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
   def threshold(threshold : Int) : Mask
-    mask_from do |_, _, pixel|
+    mask_from do |pixel|
       pixel >= threshold
     end
   end
@@ -214,14 +214,14 @@ class CrImage::GrayscaleImage < CrImage::Image
   # ```
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_threshold_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
   def >(num : Int) : Mask
-    mask_from do |_, _, pixel|
+    mask_from do |pixel|
       pixel > num
     end
   end
 
   # Construct a `Mask` identify all pixels larger than or equal to `num`. See `#>` for near example.
   def >=(num : Int) : Mask
-    mask_from do |_, _, pixel|
+    mask_from do |pixel|
       pixel >= num
     end
   end
@@ -237,14 +237,14 @@ class CrImage::GrayscaleImage < CrImage::Image
   # ```
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/less_than_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
   def <(num : Int) : Mask
-    mask_from do |_, _, pixel|
+    mask_from do |pixel|
       pixel < num
     end
   end
 
   # Construct a `Mask` identifying all pixels smaller than or equal to `num`. See `#<` for near example.
   def <=(num : Int) : Mask
-    mask_from do |_, _, pixel|
+    mask_from do |pixel|
       pixel <= num
     end
   end

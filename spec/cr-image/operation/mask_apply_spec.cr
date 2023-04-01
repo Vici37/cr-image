@@ -68,7 +68,7 @@ Spectator.describe CrImage::Operation::MaskApply do
           image
             .to_gray
             .threshold(16)
-            .apply(image) do |_, _, _, channel_type|
+            .apply(image) do |_, channel_type|
               channel_type == CrImage::ChannelType::Blue ? 255u8 : 0u8
             end
         ).to eq "43e81fcc7860668fdeb0c125a863f8b2e2d5b315"

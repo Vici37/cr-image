@@ -17,7 +17,7 @@
 #
 # image.apply_color(mask, CrImage::Color.of("#00f")).save("apply_mask_color.jpg")
 #
-# image.apply(mask) do |x, y, pixel, channel_type|
+# image.apply(mask) do |pixel, channel_type, x, y|
 #   Math.min(255, pixel + 50).to_u8 if channel_type.blue?
 # end.save("apply_mask_block.jpg")
 # ```
@@ -33,7 +33,7 @@ module CrImage::Operation::MaskApply
   # Apply block to all pixels that match mask, replacing pixel value if block returns non-nil value.
   #
   # Does not change values not matched by the mask
-  def apply(mask : Mask, &block : (Int32, Int32, UInt8, ChannelType) -> UInt8?) : self
+  def apply(mask : Mask, &block : (UInt8, ChannelType, Int32, Int32) -> UInt8?) : self
     clone.apply!(mask, &block)
   end
 
@@ -52,19 +52,19 @@ module CrImage::Operation::MaskApply
     self
   end
 
-  def apply!(mask : Mask, &block : (Int32, Int32, UInt8, ChannelType) -> UInt8?) : self
+  def apply!(mask : Mask, &block : (UInt8, ChannelType, Int32, Int32) -> UInt8?) : self
     raise "Mask of #{mask.width}x#{mask.height} doesn't match image dimensions #{width}x#{height}" unless mask.width == width && mask.height == height
 
     each_color_channel do |channel, channel_type|
       channel.map_with_index! do |pixel, i|
-        mask.at(i) ? block.call(i % width, i // width, pixel, channel_type) || pixel : pixel
+        mask.at(i) ? block.call(pixel, channel_type, i % width, i // width) || pixel : pixel
       end
     end
     self
   end
 
   def apply_color!(mask : Mask, color : Color) : self
-    apply!(mask) do |_, _, _, channel_type|
+    apply!(mask) do |_, channel_type|
       color[channel_type]
     end
   end

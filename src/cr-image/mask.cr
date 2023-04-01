@@ -249,7 +249,7 @@ class CrImage::Mask
   end
 
   # Apply this mask to the provided image with `Operation::MaskApply#apply`
-  def apply(image : Image, &block : (Int32, Int32, UInt8, ChannelType) -> UInt8) : Image
+  def apply(image : Image, &block : (UInt8, ChannelType, Int32, Int32) -> UInt8) : Image
     image.apply(self, &block)
   end
 
