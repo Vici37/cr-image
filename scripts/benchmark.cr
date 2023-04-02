@@ -93,5 +93,6 @@ results << benchmark { image.to_gray.threshold(8).segments(diagonal: false) }
 results << benchmark { image.to_ppm(IO::Memory.new) }
 results << benchmark { image.to_jpeg(IO::Memory.new) }
 results << benchmark { image.to_webp(IO::Memory.new) }
+results << benchmark { image.to_webp(IO::Memory.new, lossy: true) }
 
 print_result_table(results)
