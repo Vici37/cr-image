@@ -374,35 +374,35 @@ there is only one channel to examine, and so has methods for constructing <code>
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L13" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L13" target="_blank">
         cr-image/grayscale_image.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/jpeg.cr#L4" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/jpeg.cr#L4" target="_blank">
         jpeg.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/png.cr#L4" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/png.cr#L4" target="_blank">
         png.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/stumpy.cr#L38" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/stumpy.cr#L38" target="_blank">
         stumpy.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/webp.cr#L4" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/webp.cr#L4" target="_blank">
         webp.cr
       </a>
     
@@ -638,7 +638,7 @@ there is only one channel to examine, and so has methods for constructing <code>
       </li>
     
       <li class="entry-summary">
-        <a href="#mask_from%28%26block%3AInt32%2CInt32%2CUInt8-%3EBool%29%3AMask-instance-method" class="signature"><strong>#mask_from</strong>(&block : Int32, Int32, UInt8 -> Bool) : Mask</a>
+        <a href="#mask_from%28%26block%3AUInt8%2CInt32%2CInt32-%3EBool%29%3AMask-instance-method" class="signature"><strong>#mask_from</strong>(&block : UInt8, Int32, Int32 -> Bool) : Mask</a>
         
           <div class="summary"><p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> from this <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code> using the passed in block to determine if a given pixel should be true or not</p></div>
         
@@ -716,8 +716,8 @@ there is only one channel to examine, and so has methods for constructing <code>
   <h3>Instance methods inherited from module <code><a href="../CrImage/Format/WebP.html">CrImage::Format::WebP</a></code></h3>
   
   
-    <a href="../CrImage/Format/WebP.html#to_webp%28io%3AIO%29%3ANil-instance-method" class="tooltip">
-      <span>to_webp(io : IO) : Nil</span>
+    <a href="../CrImage/Format/WebP.html#to_webp%28io%3AIO%2C%2A%2Clossy%3ABool%3Dfalse%2Cquality%3AInt32%3D100%29%3ANil-instance-method" class="tooltip">
+      <span>to_webp(io : IO, *, lossy : Bool = <span class="n">false</span>, quality : Int32 = <span class="n">100</span>) : Nil</span>
     to_webp</a>
     
   
@@ -774,12 +774,12 @@ there is only one channel to examine, and so has methods for constructing <code>
   
   
     <a href="../CrImage/Operation/MaskApply.html#apply%28mask%3AMask%29%3Aself-instance-method" class="tooltip">
-      <span>apply(mask : Mask) : <span class="k">self</span><br/>apply(mask : Mask, &block : Int32, Int32, UInt8, ChannelType -> UInt8 | Nil) : <span class="k">self</span></span>
+      <span>apply(mask : Mask) : <span class="k">self</span><br/>apply(mask : Mask, &block : UInt8, ChannelType, Int32, Int32 -> UInt8 | Nil) : <span class="k">self</span></span>
     apply</a>, 
     
   
     <a href="../CrImage/Operation/MaskApply.html#apply%21%28mask%3AMask%29%3Aself-instance-method" class="tooltip">
-      <span>apply!(mask : Mask) : <span class="k">self</span><br/>apply!(mask : Mask, &block : Int32, Int32, UInt8, ChannelType -> UInt8 | Nil) : <span class="k">self</span></span>
+      <span>apply!(mask : Mask) : <span class="k">self</span><br/>apply!(mask : Mask, &block : UInt8, ChannelType, Int32, Int32 -> UInt8 | Nil) : <span class="k">self</span></span>
     apply!</a>, 
     
   
@@ -1388,7 +1388,7 @@ there is only one channel to examine, and so has methods for constructing <code>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1404,7 +1404,7 @@ there is only one channel to examine, and so has methods for constructing <code>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1425,7 +1425,7 @@ there is only one channel to examine, and so has methods for constructing <code>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1465,7 +1465,7 @@ mask.to_gray.save(<span class="s">&quot;greater_than_example.jpg&quot;</span>) <
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L239" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L239" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1486,7 +1486,7 @@ mask.to_gray.save(<span class="s">&quot;greater_than_example.jpg&quot;</span>) <
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L246" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L246" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1512,7 +1512,7 @@ mask.to_gray.save(<span class="s">&quot;greater_than_example.jpg&quot;</span>) <
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L216" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L216" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1533,7 +1533,7 @@ mask.to_gray.save(<span class="s">&quot;greater_than_example.jpg&quot;</span>) <
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L223" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L223" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1549,7 +1549,7 @@ mask.to_gray.save(<span class="s">&quot;greater_than_example.jpg&quot;</span>) <
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L72" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L72" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1570,7 +1570,7 @@ mask.to_gray.save(<span class="s">&quot;greater_than_example.jpg&quot;</span>) <
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L78" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L78" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1594,7 +1594,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L88" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L88" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1615,7 +1615,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1631,7 +1631,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1652,7 +1652,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1673,7 +1673,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1694,7 +1694,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L63" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1710,7 +1710,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1726,7 +1726,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1747,7 +1747,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L48" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1772,7 +1772,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1788,7 +1788,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1812,7 +1812,7 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L152" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L152" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1836,24 +1836,24 @@ this method except for from other methods that will be updating the <code><a hre
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L163" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L163" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="mask_from(&amp;block:Int32,Int32,UInt8-&gt;Bool):Mask-instance-method">
+    <div class="entry-detail" id="mask_from(&amp;block:UInt8,Int32,Int32-&gt;Bool):Mask-instance-method">
       <div class="signature">
         
-        def <strong>mask_from</strong>(&block : Int32, Int32, UInt8 -> Bool) : <a href="../CrImage/Mask.html">Mask</a>
+        def <strong>mask_from</strong>(&block : UInt8, Int32, Int32 -> Bool) : <a href="../CrImage/Mask.html">Mask</a>
 
-        <a class="method-permalink" href="#mask_from%28%26block%3AInt32%2CInt32%2CUInt8-%3EBool%29%3AMask-instance-method">#</a>
+        <a class="method-permalink" href="#mask_from%28%26block%3AUInt8%2CInt32%2CInt32-%3EBool%29%3AMask-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> from this <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code> using the passed in block to determine if a given pixel should be true or not</p>
 <pre><code class="language-crystal"><span class="c"># Construct a mask identifying the bright pixels in the bottom left corner of image</span>
-image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, pixel<span class="o">|</span>
+image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>pixel, x, y<span class="o">|</span>
   x <span class="o">&lt;</span> image.width <span class="o">//</span> <span class="n">2</span> <span class="o">&amp;&amp;</span>      <span class="c"># left half of image</span>
     y <span class="o">&gt;</span> (image.height <span class="o">//</span> <span class="n">2</span>) <span class="o">&amp;&amp;</span> <span class="c"># bottom half of image</span>
     pixel <span class="o">&gt;</span> <span class="n">128</span>                <span class="c"># only &quot;bright&quot; pixels</span>
@@ -1866,7 +1866,7 @@ image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, 
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L181" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L181" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1887,7 +1887,7 @@ image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, 
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L43" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1908,7 +1908,7 @@ image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>x, y, 
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L141" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L141" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1937,7 +1937,7 @@ Given sample image:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L200" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L200" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1958,7 +1958,7 @@ Given sample image:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L136" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L136" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1986,7 +1986,7 @@ gray_image.to_rgba(colors).save(<span class="s">&quot;to_rgba_color_map_sample.j
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L118" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L118" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2008,7 +2008,7 @@ gray_image.to_rgba(colors).save(<span class="s">&quot;to_rgba_color_map_sample.j
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2024,7 +2024,7 @@ gray_image.to_rgba(colors).save(<span class="s">&quot;to_rgba_color_map_sample.j
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/stumpy.cr#L39" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/stumpy.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2049,7 +2049,7 @@ gray_image.to_rgba(colors).save(<span class="s">&quot;to_rgba_color_map_sample.j
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2065,7 +2065,7 @@ gray_image.to_rgba(colors).save(<span class="s">&quot;to_rgba_color_map_sample.j
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/grayscale_image.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/grayscale_image.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>

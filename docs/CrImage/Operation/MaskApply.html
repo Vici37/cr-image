@@ -295,7 +295,7 @@ image.apply(mask).save(<span class="s">&quot;apply_mask.jpg&quot;</span>)
 
 image.apply_color(mask, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#00f&quot;</span>)).save(<span class="s">&quot;apply_mask_color.jpg&quot;</span>)
 
-image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel, channel_type<span class="o">|</span>
+image.apply(mask) <span class="k">do</span> <span class="o">|</span>pixel, channel_type, x, y<span class="o">|</span>
   <span class="t">Math</span>.min(<span class="n">255</span>, pixel <span class="o">+</span> <span class="n">50</span>).to_u8 <span class="k">if</span> channel_type.blue?
 <span class="k">end</span>.save(<span class="s">&quot;apply_mask_block.jpg&quot;</span>)</code></pre>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/apply_mask.jpg" alt="Image is blacked out other than thin horizontal bar of the woman's eyes"/>
@@ -341,7 +341,7 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/operation/mask_apply.cr#L27" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/operation/mask_apply.cr#L27" target="_blank">
         cr-image/operation/mask_apply.cr
       </a>
     
@@ -374,7 +374,7 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       </li>
     
       <li class="entry-summary">
-        <a href="#apply%28mask%3AMask%2C%26block%3AInt32%2CInt32%2CUInt8%2CChannelType-%3EUInt8%7CNil%29%3Aself-instance-method" class="signature"><strong>#apply</strong>(mask : Mask, &block : Int32, Int32, UInt8, ChannelType -> UInt8 | Nil) : <span class="k">self</span></a>
+        <a href="#apply%28mask%3AMask%2C%26block%3AUInt8%2CChannelType%2CInt32%2CInt32-%3EUInt8%7CNil%29%3Aself-instance-method" class="signature"><strong>#apply</strong>(mask : Mask, &block : UInt8, ChannelType, Int32, Int32 -> UInt8 | Nil) : <span class="k">self</span></a>
         
           <div class="summary"><p>Apply block to all pixels that match mask, replacing pixel value if block returns non-nil value.</p></div>
         
@@ -388,7 +388,7 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       </li>
     
       <li class="entry-summary">
-        <a href="#apply%21%28mask%3AMask%2C%26block%3AInt32%2CInt32%2CUInt8%2CChannelType-%3EUInt8%7CNil%29%3Aself-instance-method" class="signature"><strong>#apply!</strong>(mask : Mask, &block : Int32, Int32, UInt8, ChannelType -> UInt8 | Nil) : <span class="k">self</span></a>
+        <a href="#apply%21%28mask%3AMask%2C%26block%3AUInt8%2CChannelType%2CInt32%2CInt32-%3EUInt8%7CNil%29%3Aself-instance-method" class="signature"><strong>#apply!</strong>(mask : Mask, &block : UInt8, ChannelType, Int32, Int32 -> UInt8 | Nil) : <span class="k">self</span></a>
         
       </li>
     
@@ -444,17 +444,17 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/operation/mask_apply.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/operation/mask_apply.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="apply(mask:Mask,&amp;block:Int32,Int32,UInt8,ChannelType-&gt;UInt8|Nil):self-instance-method">
+    <div class="entry-detail" id="apply(mask:Mask,&amp;block:UInt8,ChannelType,Int32,Int32-&gt;UInt8|Nil):self-instance-method">
       <div class="signature">
         
-        def <strong>apply</strong>(mask : <a href="../../CrImage/Mask.html">Mask</a>, &block : Int32, Int32, UInt8, <a href="../../CrImage/ChannelType.html">ChannelType</a> -> UInt8 | Nil) : <span class="k">self</span>
+        def <strong>apply</strong>(mask : <a href="../../CrImage/Mask.html">Mask</a>, &block : UInt8, <a href="../../CrImage/ChannelType.html">ChannelType</a>, Int32, Int32 -> UInt8 | Nil) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#apply%28mask%3AMask%2C%26block%3AInt32%2CInt32%2CUInt8%2CChannelType-%3EUInt8%7CNil%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#apply%28mask%3AMask%2C%26block%3AUInt8%2CChannelType%2CInt32%2CInt32-%3EUInt8%7CNil%29%3Aself-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -466,7 +466,7 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/operation/mask_apply.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/operation/mask_apply.cr#L36" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -487,23 +487,23 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/operation/mask_apply.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/operation/mask_apply.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="apply!(mask:Mask,&amp;block:Int32,Int32,UInt8,ChannelType-&gt;UInt8|Nil):self-instance-method">
+    <div class="entry-detail" id="apply!(mask:Mask,&amp;block:UInt8,ChannelType,Int32,Int32-&gt;UInt8|Nil):self-instance-method">
       <div class="signature">
         
-        def <strong>apply!</strong>(mask : <a href="../../CrImage/Mask.html">Mask</a>, &block : Int32, Int32, UInt8, <a href="../../CrImage/ChannelType.html">ChannelType</a> -> UInt8 | Nil) : <span class="k">self</span>
+        def <strong>apply!</strong>(mask : <a href="../../CrImage/Mask.html">Mask</a>, &block : UInt8, <a href="../../CrImage/ChannelType.html">ChannelType</a>, Int32, Int32 -> UInt8 | Nil) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#apply%21%28mask%3AMask%2C%26block%3AInt32%2CInt32%2CUInt8%2CChannelType-%3EUInt8%7CNil%29%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#apply%21%28mask%3AMask%2C%26block%3AUInt8%2CChannelType%2CInt32%2CInt32-%3EUInt8%7CNil%29%3Aself-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/operation/mask_apply.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/operation/mask_apply.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -524,7 +524,7 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/operation/mask_apply.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/operation/mask_apply.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -540,7 +540,7 @@ image.apply(mask) <span class="k">do</span> <span class="o">|</span>x, y, pixel,
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/d9e3c6f8b0b814804e5418ff77aae854eac1c7d8/src/cr-image/operation/mask_apply.cr#L66" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/fed6f6f215337f05e158957d6a381de00591503b/src/cr-image/operation/mask_apply.cr#L66" target="_blank">View source</a>]
         
       </div>
     </div>

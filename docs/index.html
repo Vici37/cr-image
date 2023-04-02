@@ -266,8 +266,8 @@
 <h1 tabindex="-1" dir="auto"><a href="http://troy.sornson.io/cr-image" target="_blank">Crystal Image (Processing)</a></h1>
 <p>This shard aims to provide feature rich image processing abilities, both for the purpose of
 image manipulation as well as feature / information extraction from those images.</p>
-<p>The code here takes imense inspiration from <a href="https://github.com/phenopolis/pluto">Pluto</a> and <a href="https://github.com/stumpycr/stumpy_core">Stumpy</a>, with
-an eventual goal to be able to convert between images of this and those libraries.</p>
+<p>The code here originated as a fork from <a href="https://github.com/phenopolis/pluto">Pluto</a> and further takes inspiration from <a href="https://github.com/stumpycr/stumpy_core">Stumpy</a>,
+and support converting to and from both of those libraries.</p>
 <p>All sample images used are from <a href="https://unsplash.com/">Unsplash</a>.</p>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
@@ -339,7 +339,7 @@ some of the functionality of this library, CrImage also provides some optional
 conversion methods:</p>
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image/pluto&quot;</span>
 pluto_image <span class="c"># =&gt; Pluto::ImageRGBA</span>
-pluto_image_rgba.to_crimage <span class="c"># =&gt; CrImage::RGBAImage</span>
+pluto_image.to_crimage <span class="c"># =&gt; CrImage::RGBAImage</span>
 
 cr_image <span class="c"># =&gt; CrImage::RGBAImage</span>
 cr_image.to_pluto <span class="c"># =&gt; Pluto::ImageRGBA</span></code></pre>
