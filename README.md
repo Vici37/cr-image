@@ -3,8 +3,8 @@
 This shard aims to provide feature rich image processing abilities, both for the purpose of
 image manipulation as well as feature / information extraction from those images.
 
-The code here takes imense inspiration from [Pluto](https://github.com/phenopolis/pluto) and [Stumpy](https://github.com/stumpycr/stumpy_core), with
-an eventual goal to be able to convert between images of this and those libraries.
+The code here originated as a fork from [Pluto](https://github.com/phenopolis/pluto) and further takes inspiration from [Stumpy](https://github.com/stumpycr/stumpy_core),
+and support converting to and from both of those libraries.
 
 All sample images used are from [Unsplash](https://unsplash.com/).
 
@@ -78,7 +78,7 @@ conversion methods:
 ```crystal
 require "cr-image/pluto"
 pluto_image # => Pluto::ImageRGBA
-pluto_image_rgba.to_crimage # => CrImage::RGBAImage
+pluto_image.to_crimage # => CrImage::RGBAImage
 
 cr_image # => CrImage::RGBAImage
 cr_image.to_pluto # => Pluto::ImageRGBA
