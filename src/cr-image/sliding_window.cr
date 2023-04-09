@@ -3,27 +3,19 @@ class CrImage::SlidingWindow
     image : GrayscaleImage,
     @parent : GrayscaleImage,
     *,
-    @edge_policy : EdgePolicy = EdgePolicy::Repeate
+    @edge_policy : EdgePolicy = EdgePolicy::Repeat
   )
-    @window = Int32Map.new(image.width, image.gray)
+    @window = UInt8Map.new(image.width, image.gray).as(Map)
   end
 
   def initialize(
-    @window : Float64Map | Int32Map,
+    @window : Map,
     @parent : GrayscaleImage,
     *,
     @edge_policy : EdgePolicy = EdgePolicy::Repeat
   )
     raise Exception.new "Provided window is too big: width #{@window.width} is larger than the parent width #{@parent.width}" if @window.width > @parent.width
     raise Exception.new "Provided window is too big: height #{@window.height} is larger than the parent height #{@parent.height}" if @window.height > @parent.height
-  end
-
-  private def current_x : Int32
-    @index % @parent.width
-  end
-
-  private def current_y : Int32
-    @index // @parent.height
   end
 
   def slide : Float64Map
@@ -37,9 +29,13 @@ class CrImage::SlidingWindow
 
     start_y.upto(end_y).each do |y|
       start_x.upto(end_x).each do |x|
-        view = WindowView.new(@window.width, @window.height, @parent, x, y)
+        view = case @edge_policy
+               in EdgePolicy::Repeat then RepeatView.new(@window.width, @window.height, @parent, x, y)
+               in EdgePolicy::Black  then BlackView.new(@window.width, @window.height, @parent, x, y)
+               in EdgePolicy::None   then ErrorView.new(@window.width, @window.height, @parent, x, y)
+               end
         # ret << view.sum(1.0 / @window.raw.sum) do |pixel, vx, vy|
-        ret << view.sum do |pixel, vx, vy|
+        ret << view.sum(1/9) do |pixel, vx, vy|
           @window[vx, vy] * pixel
         end.round
       end
