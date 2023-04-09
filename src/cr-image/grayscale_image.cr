@@ -262,4 +262,22 @@ class CrImage::GrayscaleImage < CrImage::Image
   def mean : Float64
     histogram(:gray).mean
   end
+
+  # Convert this image into a `IntMap`
+  def to_map : IntMap
+    IntMap.new(width, gray.map(&.to_i))
+  end
+
+  # Receive a copy of the underlying `Array(UInt8)` corresponding to the `ChannelType::Gray` channel
+  def to_a : Array(UInt8)
+    gray.dup
+  end
+
+  def *(map : Map) : FloatMap
+    to_map * map
+  end
+
+  def cross_correlate(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
+    to_map.cross_correlate(map, edge_policy: edge_policy)
+  end
 end

@@ -36,6 +36,7 @@ require "./region"
 # ```
 #
 # See `Operation::Crop` and `Operation::MaskApply` for how this can be useful
+# TODO: Rename to BoolMap
 class CrImage::Mask
   getter width : Int32
   getter bits : BitArray
