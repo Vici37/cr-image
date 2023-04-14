@@ -1,10 +1,10 @@
 module CrImage
-  abstract class Window
+  abstract class Window(T)
     getter half_width : Int32
     getter half_height : Int32
     getter width : Int32
     getter height : Int32
-    {% begin %}getter map : {{Map.includers.join(" | ").id}}{% end %}
+    getter map : Map(T)
     getter map_x : Int32
     getter map_y : Int32
 
@@ -13,13 +13,13 @@ module CrImage
       @half_width = @width // 2
     end
 
-    abstract def [](x : Int32, y : Int32) : Int32 | Float64
+    abstract def [](x : Int32, y : Int32) : T
 
     def sum : Float64
       sum(&.itself)
     end
 
-    def sum(& : (Int32 | Float64, Int32, Int32, Window) -> (Float64 | Int32)) : Float64
+    def sum(& : (T, Int32, Int32, self) -> (T)) : Float64
       values = [] of Float64
       height.times do |y|
         width.times do |x|
@@ -38,16 +38,16 @@ module CrImage
     end
   end
 
-  class RepeatView < Window
-    def [](x : Int32, y : Int32) : Int32 | Float64
+  class RepeatView(T) < Window(T)
+    def [](x : Int32, y : Int32) : T
       adjusted_x = (x - @half_width + @map_x).clamp(0, @map.width - 1)
       adjusted_y = (y - @half_height + @map_y).clamp(0, @map.height - 1)
       @map[adjusted_y * @map.width + adjusted_x]
     end
   end
 
-  class ErrorView < Window
-    def [](x : Int32, y : Int32) : Int32 | Float64
+  class ErrorView(T) < Window(T)
+    def [](x : Int32, y : Int32) : T
       adjusted_x = x - @half_width + @map_x
       adjusted_y = y - @half_height + @map_y
 
@@ -60,8 +60,8 @@ module CrImage
     end
   end
 
-  class BlackView < Window
-    def [](x : Int32, y : Int32) : Int32 | Float64
+  class BlackView(T) < Window(T)
+    def [](x : Int32, y : Int32) : T
       adjusted_x = x - @half_width + @map_x
       adjusted_y = y - @half_height + @map_y
 

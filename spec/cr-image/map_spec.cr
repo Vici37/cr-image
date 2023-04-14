@@ -3,58 +3,61 @@ require "../spec_helper"
 Spectator.describe CrImage::Map do
   include SpecHelper
 
+  alias IntMap = CrImage::IntMap
+  alias FloatMap = CrImage::FloatMap
+
   context "when initializing" do
     it "constructs from array" do
-      expect(CrImage::IntMap.new(2, [2, 2]).size).to eq 2
+      expect(IntMap.new(2, [2, 2]).size).to eq 2
     end
 
     it "raises if array isn't even multiple of width" do
       expect_raises(CrImage::Exception, /even multiple/) do
-        CrImage::IntMap.new(2, [1])
+        IntMap.new(2, [1])
       end
     end
 
     it "constructs from array of arrays" do
-      expect(CrImage::IntMap.new([[1], [1], [1]]).size).to eq 3
+      expect(IntMap.new([[1], [1], [1]]).size).to eq 3
     end
 
     it "raises if not all arrays are the same size" do
       expect_raises(CrImage::Exception, /must be the same size/) do
-        CrImage::IntMap.new([[1], [1, 2]])
+        IntMap.new([[1], [1, 2]])
       end
     end
 
     it "raises if passed in array is empty" do
       expect_raises(CrImage::Exception, /empty map/) do
-        CrImage::IntMap.new([] of Array(Int32))
+        IntMap.new([] of Array(Int32))
       end
     end
 
     it "raises if passed in array of arrays starts with an empty array" do
       expect_raises(CrImage::Exception, /first array is empty/) do
-        CrImage::IntMap.new([[] of Int32])
+        IntMap.new([[] of Int32])
       end
     end
 
     it "constructs using block" do
-      expect(CrImage::IntMap.new(2, 2) { |i| i % 2 }).to eq CrImage::IntMap.new(2, [0, 1, 0, 1])
+      expect(IntMap.new(2, 2) { |i| i % 2 }).to eq IntMap.new(2, [0, 1, 0, 1])
     end
 
     it "constructs with an initial value everywhere" do
-      expect(CrImage::IntMap.new(2, 2, 1)).to eq CrImage::IntMap.new(2, [1, 1, 1, 1])
+      expect(IntMap.new(2, 2, 1)).to eq IntMap.new(2, [1, 1, 1, 1])
     end
   end
 
   it "calculates height" do
-    expect(CrImage::IntMap.new(2, [1, 1, 1, 1, 1, 1]).height).to eq 3
+    expect(IntMap.new(2, [1, 1, 1, 1, 1, 1]).height).to eq 3
   end
 
   it "has size" do
-    expect(CrImage::IntMap.new(2, [1, 1, 1, 1, 1, 1]).size).to eq 6
+    expect(IntMap.new(2, [1, 1, 1, 1, 1, 1]).size).to eq 6
   end
 
   context "with sample data" do
-    let(map) { CrImage::IntMap.new([
+    let(map) { IntMap.new([
       [1, 2, 3],
       [4, 5, 6],
       [7, 8, 9],
@@ -111,46 +114,118 @@ Spectator.describe CrImage::Map do
     it "finds the sum of all values" do
       expect(map.sum).to eq 45
     end
+
+    # TODO: finish specs
+
+    it "constructs a mask" do
+      expect(map.mask_from { |i| (i % 2) == 0 }).to eq CrImage::Mask.new(3, 3, 0b1010101010)
+    end
+
+    it "makes mask from > threshold" do
+      expect(map > 4).to eq CrImage::Mask.new(3, 3, 0b000011111)
+    end
+
+    it "makes mask from >= threshold" do
+      expect(map >= 4).to eq CrImage::Mask.new(3, 3, 0b000111111)
+    end
+
+    it "makes mask from < threshold" do
+      expect(map < 4).to eq CrImage::Mask.new(3, 3, 0b111000000)
+    end
+
+    it "makes mask from < threshold" do
+      expect(map <= 4).to eq CrImage::Mask.new(3, 3, 0b111100000)
+    end
+
+    it "mask mask from ==" do
+      expect(map == 4).to eq CrImage::Mask.new(3, 3, 0b000100000)
+    end
+
+    it "multiplies by a scalar" do
+      expect(map * 2).to eq IntMap.new([
+        [2, 4, 6],
+        [8, 10, 12],
+        [14, 16, 18],
+      ])
+    end
+
+    it "divides by a scalar" do
+      expect(map / 2).to eq FloatMap.new([
+        [0.5, 1.0, 1.5],
+        [2.0, 2.5, 3.0],
+        [3.5, 4.0, 4.5],
+      ])
+    end
+
+    it "converts to GrayscaleImage without scaling" do
+      expect_digest(map.to_gray(scale: false)).to eq "b187aebd54e5c74e6f680c889d00d5c4df3cf8c4"
+    end
+
+    it "converts to Grayscale and scales values" do
+      expect_digest(map.to_gray).to eq "b187aebd54e5c74e6f680c889d00d5c4df3cf8c4"
+    end
+
+    it "uses method_missing to delegate to type's method (abs)" do
+      expect(IntMap.new([
+        [-1, 2, -3],
+      ]).abs).to eq IntMap.new([[1, 2, 3]])
+    end
+
+    it "uses method_missing to delegate to type's method (round)" do
+      expect(FloatMap.new([[0.4, 0.6]]).round).to eq FloatMap.new([[0.0, 1.0]])
+    end
   end
 
-  it "does a thing" do
-    # map = CrImage::IntMap.new(3, [
-    #   1, 2, 1,
-    #   2, 4, 2,
-    #   1, 2, 1,
-    # ])
-    map = CrImage::IntMap.new(3, [
-      1, 1, 1,
-      1, 1, 1,
-      1, 1, 1,
-    ])
-    # map = CrImage::IntMap.new(3, [
-    #   -1, 0, 1,
-    #   -2, 0, 2,
-    #   -1, 0, 1,
-    # ])
+  context "when cross correlating", :focus do
+    it "cross correlates 1x2" do
+      original = IntMap.new([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ])
+      map = IntMap.new([[-1, 2]])
+      expect(original * map).to eq FloatMap.new([
+        [1f64, 3f64, 4f64],
+        [4f64, 6f64, 7f64],
+        [7f64, 9f64, 10f64],
+      ])
+    end
 
-    image = gray_moon_ppm
-    image.crop!(image.threshold(16).region).save("original.ppm")
-    # start = Time.monotonic
-    # f = CrImage::SlidingWindow.new(map, image).slide
-    f = map * image * 1/9
-    # puts "Sliding took #{(Time.monotonic - start).total_milliseconds}"
-    sliding = CrImage::GrayscaleImage.new(f.raw.map(&.round.to_u8), f.width)
-    f.abs.to_gray.save("to_gray.ppm")
-    # sliding.save("box_blur.ppm")
-    expect_digest(sliding).to eq "c90987a619dd75914eb23cc9c67f80f0a80d9601"
-    # pp! sliding.gray[0, 25]
-    # pp! sliding.gray[84, 20]
-    # pp! sliding.gray[168, 20]
-    # # f.mask_from { |v| v.abs > 50 }.to_gray.save("horizontal_edge.ppm")
-    # start = Time.monotonic
-    # orig_im = image.box_blur(1)
-    # pp! orig_im.gray[0, 25]
-    # pp! orig_im.gray[84, 20]
-    # pp! orig_im.gray[168, 20]
-    # expect_digest(orig_im).to eq "7c34b7d6a9f68a1d81039c91d9cecef22aaef263"
-    # puts "Box blur took #{(Time.monotonic - start).total_milliseconds}"
-    # orig_im.save("real_box_blur.ppm")
+    it "cross correlates 2x1" do
+      original = IntMap.new([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ])
+      map = IntMap.new([[-1], [2]])
+      expect(original * map).to eq FloatMap.new([
+        [1f64, 2f64, 3f64],
+        [7f64, 8f64, 9f64],
+        [10f64, 11f64, 12f64],
+      ])
+    end
+
+    it "cross correlates with the error view" do
+      original = IntMap.new([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ])
+      map = IntMap.new([[-1], [2]])
+      expect(original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::None)).to eq FloatMap.new([
+        [7f64, 8f64, 9f64],
+      ])
+    end
+
+    it "does a full box blur" do
+      map = IntMap.new([
+        [1, 1, 1],
+        [1, 1, 1],
+        [1, 1, 1],
+      ])
+      expect_digest(
+        (map * gray_moon_ppm * 1/9).round.to_gray
+      ).to eq "79f71e9be893d731c62b883926869a93b3246088"
+    end
   end
 end
