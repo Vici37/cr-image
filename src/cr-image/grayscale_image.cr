@@ -172,25 +172,6 @@ class CrImage::GrayscaleImage < CrImage::Image
     self
   end
 
-  # Construct a `Mask` from this `GrayscaleImage` using the passed in block to determine if a given pixel should be true or not
-  #
-  # ```
-  # # Construct a mask identifying the bright pixels in the bottom left corner of image
-  # image.to_gray.mask_from do |pixel, x, y|
-  #   x < image.width // 2 &&      # left half of image
-  #     y > (image.height // 2) && # bottom half of image
-  #     pixel > 128                # only "bright" pixels
-  # end
-  # ```
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman in black turtleneck on white background"/>
-  # ->
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_mask_from_example.jpg" alt="Mask identifying bright spots in lower left corner"/>
-  def mask_from(&block : (UInt8, Int32, Int32) -> Bool) : Mask
-    Mask.new(width, BitArray.new(size) do |i|
-      block.call(@gray[i], i % width, i // width)
-    end)
-  end
-
   # Construct a simple threshold `Mask` containing all pixels with a `UInt8` value greater than `threshold`
   # Given sample image:
   #
@@ -205,67 +186,19 @@ class CrImage::GrayscaleImage < CrImage::Image
   # ```
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_threshold_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
   def threshold(threshold : Int) : Mask
-    mask_from do |pixel|
-      pixel >= threshold
-    end
+    self >= threshold
   end
 
-  # Construct a `Mask` identifying all pixels larger than `num`.
-  #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
-  #
-  # ```
-  # gray = image.to_gray                          # Convert color image to grayscale
-  # mask = gray > 128                             # Generate a threshold mask
-  # mask.to_gray.save("greater_than_example.jpg") # Convert and save the mask as a black and white image
-  # ```
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_threshold_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
-  def >(num : Int) : Mask
-    mask_from do |pixel|
-      pixel > num
-    end
-  end
-
-  # Construct a `Mask` identify all pixels larger than or equal to `num`. See `#>` for near example.
-  def >=(num : Int) : Mask
-    mask_from do |pixel|
-      pixel >= num
-    end
-  end
-
-  # Construct a `Mask` identifying all pixels smaller than `num`.
-  #
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
-  #
-  # ```
-  # gray = image.to_gray                          # Convert color image to grayscale
-  # mask = gray < 128                             # Generate a threshold mask
-  # mask.to_gray.save("greater_than_example.jpg") # Convert and save the mask as a black and white image
-  # ```
-  # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/less_than_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
-  def <(num : Int) : Mask
-    mask_from do |pixel|
-      pixel < num
-    end
-  end
-
-  # Construct a `Mask` identifying all pixels smaller than or equal to `num`. See `#<` for near example.
-  def <=(num : Int) : Mask
-    mask_from do |pixel|
-      pixel <= num
-    end
-  end
-
-  # Get the mean of the pixels in the `ChannelType::Gray` channel of this image.
-  #
-  # TODO: cache histogram
-  def mean : Float64
-    histogram(:gray).mean
-  end
+  delegate ">", ">=", "<", "<=", "==", mean, mask_from, to: to_map!
 
   # Convert this image into a `IntMap`
   def to_map : IntMap
     IntMap.new(width, gray.map(&.to_i))
+  end
+
+  # Convert this image into a `UInt8Map`. Does not clone underlying `gray` channel, both this image and map share the same data.
+  def to_map! : UInt8Map
+    UInt8Map.new(width, @gray)
   end
 
   # Receive a copy of the underlying `Array(UInt8)` corresponding to the `ChannelType::Gray` channel

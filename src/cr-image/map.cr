@@ -87,42 +87,92 @@ module CrImage
       @raw.sum
     end
 
+    # Construct a `Mask` from this `GrayscaleImage` using the passed in block to determine if a given pixel should be true or not
+    #
+    # ```
+    # # Construct a mask identifying the bright pixels in the bottom left corner of image
+    # image.to_gray.mask_from do |pixel, x, y|
+    #   x < image.width // 2 &&      # left half of image
+    #     y > (image.height // 2) && # bottom half of image
+    #     pixel > 128                # only "bright" pixels
+    # end
+    # ```
+    # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman in black turtleneck on white background"/>
+    # ->
+    # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_mask_from_example.jpg" alt="Mask identifying bright spots in lower left corner"/>
     def mask_from(&block : (T, Int32, Int32) -> Bool) : Mask
       Mask.new(width, BitArray.new(size) do |i|
         block.call(@raw[i], i % width, i // width)
       end)
     end
 
+    # Construct a `Mask` identifying all pixels larger than `num`.
+    #
+    # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+    #
+    # ```
+    # gray = image.to_gray                          # Convert color image to grayscale
+    # mask = gray > 128                             # Generate a threshold mask
+    # mask.to_gray.save("greater_than_example.jpg") # Convert and save the mask as a black and white image
+    # ```
+    # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_threshold_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
     def >(num : Int | Float) : Mask
-      mask_from do |_, _, val|
-        val > num
-      end
+      mask_from { |val| val > num }
     end
 
+    # Construct a `Mask` identify all pixels larger than or equal to `num`. See `#>` for near example.
     def >=(num : Int | Float) : Mask
-      mask_from do |_, _, val|
-        val >= num
-      end
+      mask_from { |val| val >= num }
     end
 
+    # Construct a `Mask` identifying all pixels smaller than `num`.
+    #
+    # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+    #
+    # ```
+    # gray = image.to_gray                          # Convert color image to grayscale
+    # mask = gray < 128                             # Generate a threshold mask
+    # mask.to_gray.save("greater_than_example.jpg") # Convert and save the mask as a black and white image
+    # ```
+    # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/less_than_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
     def <(num : Int | Float) : Mask
-      mask_from do |_, _, val|
-        val < num
-      end
+      mask_from { |val| val < num }
     end
 
+    # Construct a `Mask` identifying all pixels smaller than or equal to `num`. See `#<` for near example.
     def <=(num : Int | Float) : Mask
-      mask_from do |_, _, val|
-        val <= num
-      end
+      mask_from { |val| val <= num }
+    end
+
+    def ==(num : Int | Float) : Mask
+      mask_from { |val| val == num }
     end
 
     def ==(other : self) : Bool
       other.width == width && @raw == other.raw
     end
 
+    def /(num : Int | Float) : FloatMap
+      FloatMap.new(width, @raw.map { |i| i / num })
+    end
+
     def *(num : Int | Float) : self
       self.class.new(width, @raw.map { |i| i * num })
+    end
+
+    def to_gray(*, scale : Bool = false) : GrayscaleImage
+      if scale
+        max_val = max
+        min_val = min
+        multiplier = 255 / (max_val - min_val)
+        GrayscaleImage.new(@raw.map { |v| ((v - min_val) * multiplier).to_u8 }, width)
+      else
+        GrayscaleImage.new(@raw.map(&.to_u8), width)
+      end
+    end
+
+    def to_a : Array(T)
+      @raw.dup
     end
 
     def *(gray : GrayscaleImage) : FloatMap
@@ -131,21 +181,6 @@ module CrImage
 
     def *(other : Map) : FloatMap
       cross_correlate(other)
-    end
-
-    def /(num : Int | Float) : self
-      self.class.new(width, @raw.map { |i| i / num })
-    end
-
-    def to_gray : GrayscaleImage
-      max_val = max
-      min_val = min
-      scale = 255 / (max_val - min_val)
-      GrayscaleImage.new(@raw.map { |v| ((v - min_val) * scale).to_u8 }, width)
-    end
-
-    def to_a : Array(T)
-      @raw.dup
     end
 
     def cross_correlate(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
@@ -160,9 +195,9 @@ module CrImage
       start_y.upto(end_y).each do |y|
         start_x.upto(end_x).each do |x|
           view = case edge_policy
-                 in EdgePolicy::Repeat then RepeatView.new(map.width, map.height, self, x, y)
-                 in EdgePolicy::Black  then BlackView.new(map.width, map.height, self, x, y)
-                 in EdgePolicy::None   then ErrorView.new(map.width, map.height, self, x, y)
+                 in EdgePolicy::Repeat then RepeatView(T).new(map.width, map.height, self, x, y)
+                 in EdgePolicy::Black  then BlackView(T).new(map.width, map.height, self, x, y)
+                 in EdgePolicy::None   then ErrorView(T).new(map.width, map.height, self, x, y)
                  end
           # ret << view.sum(1.0 / map.raw.sum) do |pixel, vx, vy|
           ret << view.sum do |pixel, vx, vy|
@@ -178,6 +213,10 @@ module CrImage
 
   class IntMap
     include Map(Int32)
+  end
+
+  class UInt8Map
+    include Map(UInt8)
   end
 
   class FloatMap
