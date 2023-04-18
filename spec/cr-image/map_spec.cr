@@ -176,7 +176,7 @@ Spectator.describe CrImage::Map do
     end
   end
 
-  context "when cross correlating", :focus do
+  context "when cross correlating" do
     it "cross correlates 1x2" do
       original = IntMap.new([
         [1, 2, 3],
@@ -184,7 +184,7 @@ Spectator.describe CrImage::Map do
         [7, 8, 9],
       ])
       map = IntMap.new([[-1, 2]])
-      expect(original * map).to eq FloatMap.new([
+      expect(original.cross_correlate(map)).to eq FloatMap.new([
         [1f64, 3f64, 4f64],
         [4f64, 6f64, 7f64],
         [7f64, 9f64, 10f64],
@@ -198,7 +198,7 @@ Spectator.describe CrImage::Map do
         [7, 8, 9],
       ])
       map = IntMap.new([[-1], [2]])
-      expect(original * map).to eq FloatMap.new([
+      expect(original.cross_correlate(map)).to eq FloatMap.new([
         [1f64, 2f64, 3f64],
         [7f64, 8f64, 9f64],
         [10f64, 11f64, 12f64],
@@ -224,7 +224,7 @@ Spectator.describe CrImage::Map do
         [1, 1, 1],
       ])
       expect_digest(
-        (map * gray_moon_ppm * 1/9).round.to_gray
+        (gray_moon_ppm.cross_correlate(map) * 1/9).round.to_gray
       ).to eq "79f71e9be893d731c62b883926869a93b3246088"
     end
   end

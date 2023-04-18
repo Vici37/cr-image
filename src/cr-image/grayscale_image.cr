@@ -189,7 +189,7 @@ class CrImage::GrayscaleImage < CrImage::Image
     self >= threshold
   end
 
-  delegate ">", ">=", "<", "<=", "==", mean, mask_from, to: to_map!
+  delegate ">", ">=", "<", "<=", "==", mean, mask_from, cross_correlate, to: to_map!
 
   # Convert this image into a `IntMap`
   def to_map : IntMap
@@ -204,10 +204,6 @@ class CrImage::GrayscaleImage < CrImage::Image
   # Receive a copy of the underlying `Array(UInt8)` corresponding to the `ChannelType::Gray` channel
   def to_a : Array(UInt8)
     gray.dup
-  end
-
-  def *(map : Map) : FloatMap
-    to_map * map
   end
 
   def cross_correlate(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
