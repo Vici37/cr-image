@@ -215,3 +215,15 @@ module CrImage
     include Map(Float64)
   end
 end
+
+struct Float
+  def *(map : CrImage::Map)
+    map * self
+  end
+end
+
+struct Int
+  def *(map : CrImage::Map)
+    map * self
+  end
+end
