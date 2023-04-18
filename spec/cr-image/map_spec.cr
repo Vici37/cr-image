@@ -165,6 +165,39 @@ Spectator.describe CrImage::Map do
       ])
     end
 
+    it "adds by scalar" do
+      expect(map + 2).to eq IntMap.new([
+        [3, 4, 5],
+        [6, 7, 8],
+        [9, 10, 11],
+      ])
+    end
+
+    it "adds by scalar is associative" do
+      expect(2 + map).to eq IntMap.new([
+        [3, 4, 5],
+        [6, 7, 8],
+        [9, 10, 11],
+      ])
+    end
+
+    it "subtracts scalar" do
+      expect(map - 2).to eq IntMap.new([
+        [-1, 0, 1],
+        [2, 3, 4],
+        [5, 6, 7],
+      ])
+    end
+
+    it "substracts scalar (float)" do
+      expect(map - 2.0).to eq FloatMap.new([
+        [-1.0, 0.0, 1.0],
+        [2.0, 3.0, 4.0],
+        [5.0, 6.0, 7.0],
+
+      ])
+    end
+
     it "converts to GrayscaleImage without scaling" do
       expect_digest(map.to_gray(scale: false)).to eq "b187aebd54e5c74e6f680c889d00d5c4df3cf8c4"
     end

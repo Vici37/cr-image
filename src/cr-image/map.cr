@@ -160,6 +160,18 @@ module CrImage
       self.class.new(width, @raw.map { |i| i * num })
     end
 
+    def +(num : Int | Float) : self
+      self.class.new(width, @raw.map { |i| i + num })
+    end
+
+    def -(num : Int) : self
+      self.class.new(width, @raw.map { |i| i - num })
+    end
+
+    def -(num : Float) : FloatMap
+      FloatMap.new(width, @raw.map { |i| i - num })
+    end
+
     def to_gray(*, scale : Bool = false) : GrayscaleImage
       if scale
         max_val = max
@@ -220,10 +232,18 @@ struct Float
   def *(map : CrImage::Map)
     map * self
   end
+
+  def +(map : CrImage::Map)
+    map + self
+  end
 end
 
 struct Int
   def *(map : CrImage::Map)
     map * self
+  end
+
+  def +(map : CrImage::Map)
+    map + self
   end
 end
