@@ -149,6 +149,14 @@ Spectator.describe CrImage::Map do
       ])
     end
 
+    it "multiplies by scalar is associative" do
+      expect(2 * map).to eq IntMap.new([
+        [2, 4, 6],
+        [8, 10, 12],
+        [14, 16, 18],
+      ])
+    end
+
     it "divides by a scalar" do
       expect(map / 2).to eq FloatMap.new([
         [0.5, 1.0, 1.5],
