@@ -175,14 +175,6 @@ module CrImage
       @raw.dup
     end
 
-    def *(gray : GrayscaleImage) : FloatMap
-      gray.to_map * self
-    end
-
-    def *(other : Map) : FloatMap
-      cross_correlate(other)
-    end
-
     def cross_correlate(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
       half_width = map.width >> 1
       half_height = map.height >> 1
