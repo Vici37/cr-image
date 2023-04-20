@@ -16,8 +16,8 @@ module CrImage
     macro included
       {% verbatim do %}
         macro method_missing(call)
-          def {{call.name.id}} : self
-            self.class.new(width, @raw.map(&.{{call.name.id}}))
+          def {{call.name.id}}{% if call.args.size > 0 %}({{call.args.join(", ").id}}){% end %} : self
+            self.class.new(width, @raw.map(&.{{call.name.id}}{% if call.args.size > 0 %}({{call.args.join(", ").id}}){% end %}))
           end
         end
       {% end %}

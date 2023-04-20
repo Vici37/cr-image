@@ -216,6 +216,14 @@ Spectator.describe CrImage::Map do
     it "uses method_missing to delegate to type's method (round)" do
       expect(FloatMap.new([[0.4, 0.6]]).round).to eq FloatMap.new([[0.0, 1.0]])
     end
+
+    it "passes method_missing arguments to type's method (** 2)" do
+      expect(FloatMap.new([[2.0]]) ** 2).to eq FloatMap.new([[4.0]])
+    end
+
+    it "passes method_missing arguments to type's method (clamp)" do
+      expect(FloatMap.new([[2.0, 0.0]]).clamp(0.5, 1.0)).to eq FloatMap.new([[1.0, 0.5]])
+    end
   end
 
   context "when cross correlating" do
