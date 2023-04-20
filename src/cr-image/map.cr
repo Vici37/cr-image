@@ -238,6 +238,40 @@ module CrImage
   class FloatMap
     include MapImpl(Float64)
   end
+
+  class OneMap
+    include Map(Int32)
+
+    getter width : Int32
+    getter height : Int32
+
+    def initialize(@width : Int32, @height : Int32)
+    end
+
+    def shape : Tuple(Int32, Int32)
+      {width, height}
+    end
+
+    def size : Int32
+      width * height
+    end
+
+    def [](index : Int32) : Int32
+      1
+    end
+
+    def []?(index : Int32) : Int32
+      1
+    end
+
+    def [](x : Int32, y : Int32) : Int32
+      1
+    end
+
+    def []?(x : Int32, y : Int32) : Int32
+      1
+    end
+  end
 end
 
 struct Float
