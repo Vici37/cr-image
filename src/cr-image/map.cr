@@ -45,6 +45,10 @@ module CrImage
       @raw.size // @width
     end
 
+    def shape : Tuple(Int32, Int32)
+      {width, height}
+    end
+
     def size : Int32
       @raw.size
     end
