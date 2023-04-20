@@ -269,5 +269,9 @@ Spectator.describe CrImage::Map do
         (gray_moon_ppm.cross_correlate(map) * 1/9).round.to_gray
       ).to eq "79f71e9be893d731c62b883926869a93b3246088"
     end
+
+    it "does a full box blure with OneMap" do
+      expect_digest((gray_moon_ppm.cross_correlate(CrImage::OneMap.new(3, 3)) * 1/9).round.to_gray).to eq "79f71e9be893d731c62b883926869a93b3246088"
+    end
   end
 end
