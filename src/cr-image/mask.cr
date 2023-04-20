@@ -36,8 +36,9 @@ require "./region"
 # ```
 #
 # See `Operation::Crop` and `Operation::MaskApply` for how this can be useful
-# TODO: Rename to BoolMap
 class CrImage::Mask
+  include Map(Bool)
+
   getter width : Int32
   getter bits : BitArray
 
@@ -90,7 +91,14 @@ class CrImage::Mask
   end
 
   # How many bits are stored in this `Mask`
-  delegate size, to: bits
+  def size : Int32
+    bits.size
+  end
+
+  # Returns the dimension of this mask (width x height)
+  def shape : Tuple(Int32, Int32)
+    {width, height}
+  end
 
   # Create a new `Mask` from this one without modifying it
   def clone
@@ -131,6 +139,19 @@ class CrImage::Mask
     start, count = Indexable.range_to_index_and_count(range, size) || raise IndexError.new("Unable to resolve range #{range} for mask dimension of #{size}")
     raise IndexError.new("Range #{range} exceeds bounds of #{size}") if (start + count) > size
     {start, count}
+  end
+
+  # Return the bit at `index`
+  def [](index : Int32) : Bool
+    @bits[index]
+  end
+
+  def []?(index : Int32) : Bool?
+    @bits[index]?
+  end
+
+  def []?(x : Int32, y : Int32) : Bool?
+    @bits[y * width + x]?
   end
 
   # Return the bit at `x` and `y`

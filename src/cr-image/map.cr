@@ -1,6 +1,4 @@
 module CrImage
-  # TODO: add Map module to Mask / BoolMap so they all have same methods
-
   module Map(T)
     abstract def width : Int32
     abstract def height : Int32
@@ -10,10 +8,6 @@ module CrImage
     abstract def [](x : Int32, y : Int32) : T
     abstract def []?(index : Int32) : T?
     abstract def []?(x : Int32, y : Int32) : T?
-    abstract def mean : Float64
-    abstract def min : T
-    abstract def max : T
-    abstract def sum : T
   end
 
   module MapImpl(T)

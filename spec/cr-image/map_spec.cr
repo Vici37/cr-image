@@ -115,8 +115,6 @@ Spectator.describe CrImage::Map do
       expect(map.sum).to eq 45
     end
 
-    # TODO: finish specs
-
     it "constructs a mask" do
       expect(map.mask_from { |i| (i % 2) == 0 }).to eq CrImage::Mask.new(3, 3, 0b1010101010)
     end
