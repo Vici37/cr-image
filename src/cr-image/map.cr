@@ -1,10 +1,24 @@
 module CrImage
-  # TODO: create abstract Map module with all methods
-  # TODO: rename current Map to MapImpl that includes abstract map
   # TODO: add Map module to Mask / BoolMap so they all have same methods
-  # Grayscale image SHOULD NOT be a Map, but have the to_map method to construct an IntMap around @gray
 
   module Map(T)
+    abstract def width : Int32
+    abstract def height : Int32
+    abstract def size : Int32
+    abstract def shape : Tuple(Int32, Int32)
+    abstract def [](index : Int32) : T
+    abstract def [](x : Int32, y : Int32) : T
+    abstract def []?(index : Int32) : T?
+    abstract def []?(x : Int32, y : Int32) : T?
+    abstract def mean : Float64
+    abstract def min : T
+    abstract def max : T
+    abstract def sum : T
+  end
+
+  module MapImpl(T)
+    include Map(T)
+
     macro included
       {% verbatim do %}
         macro method_missing(call)
@@ -15,7 +29,7 @@ module CrImage
       {% end %}
     end
 
-    getter width
+    getter width : Int32
     getter raw : Array(T)
 
     def initialize(@width : Int32, @raw : Array(T))
@@ -220,15 +234,15 @@ module CrImage
   end
 
   class IntMap
-    include Map(Int32)
+    include MapImpl(Int32)
   end
 
   class UInt8Map
-    include Map(UInt8)
+    include MapImpl(UInt8)
   end
 
   class FloatMap
-    include Map(Float64)
+    include MapImpl(Float64)
   end
 end
 
