@@ -53,7 +53,7 @@ module CrImage
 
       if (adjusted_x < 0 || adjusted_x >= @map.width) ||
          (adjusted_y < 0 || adjusted_y >= @map.height)
-        raise Exception.new "Coordinates #{x}, #{y} correspond to #{adjusted_x}, #{adjusted_y} in sliding window centered at #{@map_x}, #{@map_y}, which is outside"
+        raise Exception.new "Coordinates #{x}, #{y} correspond to #{adjusted_x}, #{adjusted_y} in sliding window sized #{width}x#{height} centered at #{@map_x}, #{@map_y}, which is outside"
       end
 
       @map[adjusted_y * @map.width + adjusted_x]
@@ -67,7 +67,7 @@ module CrImage
 
       if (adjusted_x < 0 || adjusted_x >= @map.width) ||
          (adjusted_y < 0 || adjusted_y >= @map.height)
-        return 0
+        return T.zero
       end
 
       @map[adjusted_y * @map.width + adjusted_x]

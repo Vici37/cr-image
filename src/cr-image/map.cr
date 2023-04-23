@@ -229,6 +229,14 @@ module CrImage
 
   class IntMap
     include MapImpl(Int32)
+
+    def to_f64 : FloatMap
+      FloatMap.new(width, @raw.map(&.to_f64))
+    end
+
+    def to_i : self
+      self
+    end
   end
 
   class UInt8Map
@@ -237,6 +245,14 @@ module CrImage
 
   class FloatMap
     include MapImpl(Float64)
+
+    def to_f64 : self
+      self
+    end
+
+    def to_i : IntMap
+      IntMap.new(width, @raw.map(&.to_i))
+    end
   end
 
   class OneMap
