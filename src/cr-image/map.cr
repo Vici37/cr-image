@@ -1,4 +1,5 @@
 module CrImage
+  # An interface for 2 dimensional data. Used for various masking and correlation methods.
   module Map(T)
     abstract def width : Int32
     abstract def height : Int32
@@ -8,8 +9,15 @@ module CrImage
     abstract def [](x : Int32, y : Int32) : T
     abstract def []?(index : Int32) : T?
     abstract def []?(x : Int32, y : Int32) : T?
+
+    private def resolve_to_start_and_count(range, size) : Tuple(Int32, Int32)
+      start, count = Indexable.range_to_index_and_count(range, size) || raise IndexError.new("Unable to resolve range #{range} for mask dimension of #{size}")
+      raise IndexError.new("Range #{range} exceeds bounds of #{size}") if (start + count) > size
+      {start, count}
+    end
   end
 
+  # :nodoc:
   module MapImpl(T)
     include Map(T)
 
@@ -24,6 +32,8 @@ module CrImage
     end
 
     getter width : Int32
+
+    # Return the raw array underlying the map
     getter raw : Array(T)
 
     def initialize(@width : Int32, @raw : Array(T))
@@ -53,18 +63,22 @@ module CrImage
       @raw.size // @width
     end
 
+    # Return the shape of the map - `{width, height}`
     def shape : Tuple(Int32, Int32)
       {width, height}
     end
 
+    # Size of the map - `width * height`
     def size : Int32
       @raw.size
     end
 
+    # Get element at `index` from underlying `raw` Array.
     def [](index : Int32) : T
       @raw[index]
     end
 
+    # Get element at coordinates `x` and `y`
     def [](x : Int32, y : Int32) : T
       raise Exception.new "X coordinate #{x} is outside of Map width #{width}" if x >= width || x < 0
       raise Exception.new "Y coordinate #{y} is outside of Map height #{height}" if y >= height || y < 0
@@ -72,10 +86,12 @@ module CrImage
       self[index]
     end
 
+    # Get element at `index`, or `nil` if out of bounds
     def []?(index : Int32) : T?
       @raw[index]?
     end
 
+    # Get lement at coordinates `x` and `y`, or `nil` if coordinates are out of bounds
     def []?(x : Int32, y : Int32) : T?
       return nil if x < 0 || x >= width
       return nil if y < 0 || y >= height
@@ -83,6 +99,27 @@ module CrImage
       @raw[index]?
     end
 
+    def [](xrange : Range, yrange : Range) : self
+      xstart, xcount = resolve_to_start_and_count(xrange, width)
+      ystart, ycount = resolve_to_start_and_count(yrange, height)
+
+      raise Exception.new "Can't crop to 0 #{xcount == 0 ? "width" : "height"}" if xcount == 0 || ycount == 0
+      raise Exception.new "Crop dimensions extend #{xstart + xcount - width} pixels beyond width of the image (#{width})" if (xstart + xcount) > width
+      raise Exception.new "Crop dimensions extend #{ystart + ycount - height} pixels beyond height of the image (#{height})" if (ystart + ycount) > height
+
+      new_size = xcount * ycount
+      height_offset = ystart * width
+      new_raw = Array(T).new(new_size) { T.zero }
+
+      ycount.times do |new_y|
+        orig_index = height_offset + (new_y * width) + xstart
+        new_raw[new_y * xcount, xcount] = raw[orig_index, xcount]
+      end
+
+      {{@type}}.new(xcount, new_raw)
+    end
+
+    # Return the average of the elements in this `Map`
     def mean : Float64
       @raw.sum / size
     end
@@ -199,6 +236,23 @@ module CrImage
       @raw.dup
     end
 
+    def zero_pad(*, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0) : self
+      top = Math.max(top, 0)
+      bottom = Math.max(bottom, 0)
+      left = Math.max(left, 0)
+      right = Math.max(right, 0)
+
+      new_width = left + width + right
+      new_raw = Array(T).new((top + height + bottom) * new_width) { T.zero }
+
+      0.upto(height - 1) do |y|
+        adjusted_y = y + top
+        new_raw[adjusted_y * new_width + left, width] = raw[y * width, width]
+      end
+
+      {{@type}}.new(new_width, new_raw)
+    end
+
     def cross_correlate(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
       half_width = map.width >> 1
       half_height = map.height >> 1
@@ -225,6 +279,74 @@ module CrImage
       retf = FloatMap.new(end_x - start_x + 1, ret)
       retf
     end
+
+    def cross_correlate_dft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
+      raise Exception.new("Passed in map (#{map.width}x#{map.height}) must be smaller than this map (#{width}x#{height})") if map.width >= width || map.height >= height
+
+      start = Time.monotonic
+      pad_width, pad_height = map.width - 1, map.height - 1
+      puts "#{Time.monotonic - start}: padding and getting dft of original"
+      orig_pad_dft = zero_pad(bottom: pad_height, right: pad_width).dft
+      puts "#{Time.monotonic - start}: padding and getting dft of map"
+      map_pad_dft = map.zero_pad(bottom: height - 1, right: width - 1).dft
+      puts "#{Time.monotonic - start}: done padding and dfting"
+
+      width_range, height_range = case edge_policy
+                                  in EdgePolicy::Black
+                                    {
+                                      (pad_width//2)...(width + (pad_width//2)),
+                                      (pad_height//2)...(height + (pad_height//2)),
+                                    }
+                                  in EdgePolicy::Repeat
+                                    {
+                                      ((map.width - 1)//2)...(width + ((map.width - 1)//2)),
+                                      ((map.height - 1)//2)...(height + ((map.height - 1)//2)),
+                                    }
+                                  in EdgePolicy::None
+                                    {
+                                      (pad_width)...(pad_width + width - (map.width//2)*2),
+                                      (pad_height)...(pad_height + height - (map.height//2)*2),
+                                    }
+                                  end
+
+      # pp! width_range, height_range
+      # cm = ComplexMap.new(orig_pad_dft.width, orig_pad_dft.raw.map_with_index { |v, i| v * map_pad_dft[i] }).idft
+      ComplexMap.new(orig_pad_dft.width, orig_pad_dft.raw.map_with_index { |v, i| v * map_pad_dft[i] }).idft[
+        width_range, height_range,
+      ]
+    end
+
+    def dft : ComplexMap
+      self_to_f = to_f
+      new_raw = Array(Complex).new(raw.size) { Complex.zero }
+      sum_arr = new_raw.size.times.to_a
+
+      last = Time.monotonic
+      0.upto(width - 1) do |x|
+        0.upto(height - 1) do |y|
+          # TODO: https://mathcs.org/java/programs/FFT/FFTInfo/c12-4.pdf
+
+          new_raw[y * width + x] = sum_arr.sum do |i|
+            # puts "#{i}: #{x}x#{y} (#{x} / #{width - 1}" if y >= 501
+            k1 = i % width
+            k2 = i // width
+
+            self_to_f[i] * Math.exp(2.i * Math::PI * x * k1 / width) * Math.exp(2.i * Math::PI * y * k2 / height)
+          end
+          puts "#{Time.monotonic - last}: #{x} / #{width - 1} x#{y} / #{height - 1}: #{new_raw[y * width + x]}"
+          last = Time.monotonic
+        end
+      end
+      puts "constructing complex map of width #{width} and size #{new_raw.size}"
+      ComplexMap.new(width, new_raw)
+    end
+
+    def to_s
+      raw.each_with_index do |val, i|
+        print("#{val.round}\t")
+        puts if (i + 1) % width == 0
+      end
+    end
   end
 
   class IntMap
@@ -232,6 +354,10 @@ module CrImage
 
     def to_f64 : FloatMap
       FloatMap.new(width, @raw.map(&.to_f64))
+    end
+
+    def to_f
+      to_f64
     end
 
     def to_i : self
@@ -286,6 +412,30 @@ module CrImage
 
     def []?(x : Int32, y : Int32) : Int32
       1
+    end
+
+    def to_intmap : IntMap
+      IntMap.new(width, Array(Int32).new(size) { 1 })
+    end
+  end
+
+  class ComplexMap
+    include MapImpl(Complex)
+
+    def idft : FloatMap
+      new_raw = Array(Float64).new(raw.size) { Float64.zero }
+      0.upto(width - 1) do |x|
+        0.upto(height - 1) do |y|
+          # TODO: https://mathcs.org/java/programs/FFT/FFTInfo/c12-4.pdf
+          new_raw[y * width + x] = (new_raw.size.times.to_a.sum do |i|
+            k1 = i % width
+            k2 = i // width
+
+            self[i] * Math.exp(-2.i * Math::PI * x * k1 / width) * Math.exp(-2.i * Math::PI * y * k2 / height)
+          end / size).real
+        end
+      end
+      FloatMap.new(width, new_raw)
     end
   end
 end

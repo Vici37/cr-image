@@ -1,10 +1,12 @@
 require "../spec_helper"
+require "benchmark"
 
 Spectator.describe CrImage::Map do
   include SpecHelper
 
   alias IntMap = CrImage::IntMap
   alias FloatMap = CrImage::FloatMap
+  alias ComplexMap = CrImage::ComplexMap
 
   context "when initializing" do
     it "constructs from array" do
@@ -267,6 +269,48 @@ Spectator.describe CrImage::Map do
       ])
     end
 
+    it "cross correlates with the error view" do
+      original = IntMap.new([
+        [1, 2, 3, 10],
+        [4, 5, 6, 10],
+        [7, 8, 9, 10],
+        [7, 8, 9, 10],
+      ])
+      # map = IntMap.new([
+      #   [4, 3, 5],
+      #   [2, 1, 2],
+      #   [5, 3, 4],
+      # ])
+      map = IntMap.new([
+        [-1, 0, 1],
+        [-2, 0, 2],
+        [-1, 0, 1],
+      ])
+
+      # orig_pad_dft = original.zero_pad(bottom: map.height - 1, right: map.width - 1).dft
+      # map_pad_dft = map.zero_pad(bottom: original.height - 1, right: original.width - 1).dft
+
+      # cm = ComplexMap.new(orig_pad_dft.width, orig_pad_dft.raw.map_with_index { |v, i| v * map_pad_dft[i] }).idft
+      # puts ComplexMap.new(orig_pad_dft.width, orig_pad_dft.raw.map_with_index { |v, i| v * map_pad_dft[i] }).idft.to_s
+      # puts "dft black"
+      puts original.cross_correlate_dft(map, edge_policy: CrImage::EdgePolicy::Black).to_s
+      # puts "black"
+      puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::Black).to_s
+
+      # puts "dft repeat"
+      # puts original.cross_correlate_dft(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
+      # puts "repeat"
+      # puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
+
+      # puts "dft none"
+      # puts original.cross_correlate_dft(map, edge_policy: CrImage::EdgePolicy::None).to_s
+      # puts "none"
+      # puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::None).to_s
+      # expect(original.cross_correlate(map)).to eq FloatMap.new([
+      #   [7f64, 8f64, 9f64],
+      # ])
+    end
+
     it "does a full box blur" do
       map = IntMap.new([
         [1, 1, 1],
@@ -278,8 +322,8 @@ Spectator.describe CrImage::Map do
       ).to eq "79f71e9be893d731c62b883926869a93b3246088"
     end
 
-    it "does a full box blure with OneMap" do
-      expect_digest((gray_moon_ppm.cross_correlate(CrImage::OneMap.new(3, 3)) * 1/9).round.to_gray).to eq "79f71e9be893d731c62b883926869a93b3246088"
+    it "does a full box blur with OneMap", :focus do
+      expect_digest((gray_moon_ppm.cross_correlate_dft(CrImage::OneMap.new(3, 3).to_intmap) * 1/9).round.to_gray.save("test_convolve.jpeg")).to eq "79f71e9be893d731c62b883926869a93b3246088"
     end
   end
 end

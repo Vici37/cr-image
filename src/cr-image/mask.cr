@@ -135,12 +135,6 @@ class CrImage::Mask
     @bits[index]
   end
 
-  private def resolve_to_start_and_count(range, size) : Tuple(Int32, Int32)
-    start, count = Indexable.range_to_index_and_count(range, size) || raise IndexError.new("Unable to resolve range #{range} for mask dimension of #{size}")
-    raise IndexError.new("Range #{range} exceeds bounds of #{size}") if (start + count) > size
-    {start, count}
-  end
-
   # Return the bit at `index`
   def [](index : Int32) : Bool
     @bits[index]
