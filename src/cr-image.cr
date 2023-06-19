@@ -1,3 +1,5 @@
+require "complex"
+
 # Things that will be included directly in `image` below
 require "./cr-image/operation/*"
 require "./cr-image/format/save"
