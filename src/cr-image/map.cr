@@ -321,7 +321,7 @@ module CrImage
       new_raw = Array(Complex).new(raw.size) { Complex.zero }
       sum_arr = new_raw.size.times.to_a
 
-      last = Time.monotonic
+      # last = Time.monotonic
       0.upto(width - 1) do |x|
         0.upto(height - 1) do |y|
           # TODO: https://mathcs.org/java/programs/FFT/FFTInfo/c12-4.pdf
@@ -333,12 +333,50 @@ module CrImage
 
             self_to_f[i] * Math.exp(2.i * Math::PI * x * k1 / width) * Math.exp(2.i * Math::PI * y * k2 / height)
           end
-          puts "#{Time.monotonic - last}: #{x} / #{width - 1} x#{y} / #{height - 1}: #{new_raw[y * width + x]}"
-          last = Time.monotonic
+          # puts "#{Time.monotonic - last}: #{x} / #{width - 1} x#{y} / #{height - 1}: #{new_raw[y * width + x]}"
+          # last = Time.monotonic
         end
       end
-      puts "constructing complex map of width #{width} and size #{new_raw.size}"
+      # puts "constructing complex map of width #{width} and size #{new_raw.size}"
       ComplexMap.new(width, new_raw)
+    end
+
+    def fft : ComplexMap
+      map = to_f.zero_pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
+      rows = map.height.times.to_a.map { |i| fft1d(map[.., i..i].raw) }
+      comp_map = ComplexMap.new(rows)
+      rows = comp_map.width.times.to_a.map { |i| fft1d(comp_map[i..i, ..].raw) }
+      comp_map = ComplexMap.new(rows)
+
+      ComplexMap.new(comp_map.height.times.to_a.map { |i| comp_map[i..i, ..].raw })
+    end
+
+    private def fft1d(inp : Array(Float64) | Array(Complex)) : Array(Complex)
+      # TODO: ensure `inp` size is a power of 2
+
+      ret = [inp.map(&.to_c)]
+
+      shape = 1
+      Math.log2(inp.size).to_i.times do
+        even = ret.map { |m| m.each_slice(m.size // 2).to_a[0] }
+        odd = ret.map { |m| m.each_slice(m.size // 2).to_a[1] }
+        terms = shape.times.to_a.map { |i| Math.exp(-1.i * Math::PI * i / shape) }
+        # pp! even, odd, terms
+
+        # ret = [even + terms * odd, even - terms * odd]
+        ret = even.map_with_index do |arr, term_i|
+          arr.map_with_index do |e, i|
+            e + terms[term_i] * odd[term_i][i]
+          end
+        end + even.map_with_index do |arr, term_i|
+          arr.map_with_index do |e, i|
+            e - terms[term_i] * odd[term_i][i]
+          end
+        end
+        shape *= 2
+      end
+
+      ret.flatten
     end
 
     def to_s
@@ -436,6 +474,41 @@ module CrImage
         end
       end
       FloatMap.new(width, new_raw)
+    end
+
+    def ifft : FloatMap
+      rows = height.times.to_a.map { |i| ifft1d(self[.., i..i].raw) }
+      comp_map = ComplexMap.new(rows)
+      rows = comp_map.width.times.to_a.map { |i| ifft1d(comp_map[i..i, ..].raw) }
+      comp_map = ComplexMap.new(rows)
+
+      FloatMap.new(comp_map.height.times.to_a.map { |i| comp_map[i..i, ..].raw.map(&.real) })
+    end
+
+    private def ifft1d(inp : Array(Complex))
+      ret = [inp]
+
+      shape = 1
+      Math.log2(inp.size).to_i.times do
+        even = ret.map { |m| m.each_slice(m.size // 2).to_a[0] }
+        odd = ret.map { |m| m.each_slice(m.size // 2).to_a[1] }
+        terms = shape.times.to_a.map { |i| Math.exp(1.i * Math::PI * i / shape) }
+        # pp! even, odd, terms
+
+        # ret = [even + terms * odd, even - terms * odd]
+        ret = even.map_with_index do |arr, term_i|
+          arr.map_with_index do |e, i|
+            e + terms[term_i] * odd[term_i][i]
+          end
+        end + even.map_with_index do |arr, term_i|
+          arr.map_with_index do |e, i|
+            e - terms[term_i] * odd[term_i][i]
+          end
+        end
+        shape *= 2
+      end
+
+      ret.flatten.map(&./(inp.size))
     end
   end
 end

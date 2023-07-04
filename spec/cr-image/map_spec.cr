@@ -322,7 +322,42 @@ Spectator.describe CrImage::Map do
       ).to eq "79f71e9be893d731c62b883926869a93b3246088"
     end
 
-    it "does a full box blur with OneMap", :focus do
+    it "compares dft and fft results", :focus do
+      original = IntMap.new([
+        [1, 2, 3, 4, 5, 0, 0, 0],
+        [16, 7, 8, 9, 10, 0, 0, 0],
+        [21, 12, 13, 14, 15, 0, 0, 0],
+        [36, 17, 18, 19, 20, 0, 0, 0],
+        [41, 22, 23, 24, 25, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+      ])
+
+      # original.width.times do |i|
+      #   pp! original[.., i..i].raw
+      #   pp! original[i..i, ..].raw
+      # end
+
+      # original = IntMap.new([
+      #   [1, 2],
+      #   [3, 4],
+      # ])
+
+      puts original.dft.to_s
+      puts original.fft.to_s
+      puts original.to_f.to_s
+      puts original.fft.ifft.to_s
+      # expect(original.dft.round).to eq [
+      #   (385.0 + 0.0.i), (47.0 - 17.0.i), (48.0 - 4.0.i), (48.0 + 4.0.i), (48.0 + 17.0.i),
+      #   (-78.0 - 101.0.i), (-15.0 - 15.0.i), (-15.0 - 15.0.i), (-15.0 - 15.0.i), (-15.0 - 15.0.i),
+      #   (-78.0 - 17.0.i), (-15.0 + 4.0.i), (-15.0 + 4.0.i), (-15.0 + 4.0.i), (-15.0 + 4.0.i),
+      #   (-78.0 + 17.0.i), (-15.0 - 4.0.i), (-15.0 - 4.0.i), (-15.0 - 4.0.i), (-15.0 - 4.0.i),
+      #   (-77.0 + 101.0.i), (-15.0 + 15.0.i), (-15.0 + 15.0.i), (-15.0 + 15.0.i), (-15.0 + 15.0.i),
+      # ]
+    end
+
+    it "does a full box blur with OneMap" do
       expect_digest((gray_moon_ppm.cross_correlate_dft(CrImage::OneMap.new(3, 3).to_intmap) * 1/9).round.to_gray.save("test_convolve.jpeg")).to eq "79f71e9be893d731c62b883926869a93b3246088"
     end
   end
