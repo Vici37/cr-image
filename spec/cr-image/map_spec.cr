@@ -430,7 +430,7 @@ Spectator.describe CrImage::Map do
     # arithmetic, cross correlation using a discrete fourier transform, and cross correlation using a
     # fast fourier transform. Somehow the brute force arithmetic is still coming out as most
     # performant :/
-    context "Compare cross correlation with brute force, and fft", skip: "Reference Specs for fft, not for verification" do
+    context "Compare cross correlation with brute force, and fft" do
       it "cross correlates with the error view" do
         original = IntMap.new([
           [1, 2, 3, 10],
@@ -451,22 +451,37 @@ Spectator.describe CrImage::Map do
           [-1, 0, 1],
         ])
 
+        CrImage::EdgePolicy.each do |edge_policy|
+          expect(
+            original.cross_correlate_fft(map, edge_policy: edge_policy)
+              # remove rounding errors
+              .round(13)
+              # Fix sign differences (fft seems to want to have the opposite signs of non-fft :/)
+              .abs
+          ).to eq(
+            original.cross_correlate(map, edge_policy: edge_policy)
+              # remove rounding errors
+              .round(13)
+              # Fix sign differences (fft seems to want to have the opposite signs of non-fft :/)
+              .abs
+          )
+        end
+
+        # Keeping this, but commenting it out. Useful for comparing the fft and non-fft cross correlation implementations
         # puts "black"
         # puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::Black).to_s
         # puts "fft black"
         # puts original.cross_correlate_fft(map, edge_policy: CrImage::EdgePolicy::Black).to_s
 
-        puts "repeat"
-        puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
-        puts "fft repeat"
-        puts original.cross_correlate_fft(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
+        # puts "repeat"
+        # puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
+        # puts "fft repeat"
+        # puts original.cross_correlate_fft(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
 
         # puts "none"
         # puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::None).to_s
-        # puts "fft none"
-        # expect(original.cross_correlate(map)).to eq FloatMap.new([
-        #   [7f64, 8f64, 9f64],
-        # ])
+        # puts "none"
+        # puts original.cross_correlate_fft(map, edge_policy: CrImage::EdgePolicy::None).to_s
       end
 
       # Spec used for performance testing of the fast fourier transform 1d method. That method isn't exposed right now, so commenting this spec out.
