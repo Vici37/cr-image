@@ -330,7 +330,7 @@ Spectator.describe CrImage::Map do
     # arithmetic, cross correlation using a discrete fourier transform, and cross correlation using a
     # fast fourier transform. Somehow the brute force arithmetic is still coming out as most
     # performant :/
-    context "Compare cross correlation with brute force, dft, and fft", skip: "Reference Specs for fft, not for verification" do
+    context "Compare cross correlation with brute force, and fft", skip: "Reference Specs for fft, not for verification" do
       it "cross correlates with the error view" do
         original = IntMap.new([
           [1, 2, 3, 10],
@@ -351,64 +351,22 @@ Spectator.describe CrImage::Map do
           [-1, 0, 1],
         ])
 
-        # puts "dft black"
-        # puts original.cross_correlate_dft(map, edge_policy: CrImage::EdgePolicy::Black).to_s
         # puts "black"
         # puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::Black).to_s
         # puts "fft black"
         # puts original.cross_correlate_fft(map, edge_policy: CrImage::EdgePolicy::Black).to_s
 
-        puts "dft repeat"
-        puts original.cross_correlate_dft(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
         puts "repeat"
         puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
         puts "fft repeat"
         puts original.cross_correlate_fft(map, edge_policy: CrImage::EdgePolicy::Repeat).to_s
 
-        # puts "dft none"
-        # puts original.cross_correlate_dft(map, edge_policy: CrImage::EdgePolicy::None).to_s
         # puts "none"
         # puts original.cross_correlate(map, edge_policy: CrImage::EdgePolicy::None).to_s
         # puts "fft none"
-        # puts original.cross_correlate_dft(map, edge_policy: CrImage::EdgePolicy::None).to_s
         # expect(original.cross_correlate(map)).to eq FloatMap.new([
         #   [7f64, 8f64, 9f64],
         # ])
-      end
-
-      it "compares dft and fft results" do
-        original = IntMap.new([
-          [1, 2, 3, 4, 5, 0, 0, 0],
-          [16, 7, 8, 9, 10, 0, 0, 0],
-          [21, 12, 13, 14, 15, 0, 0, 0],
-          [36, 17, 18, 19, 20, 0, 0, 0],
-          [41, 22, 23, 24, 25, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0],
-        ])
-
-        # original.width.times do |i|
-        #   pp! original[.., i..i].raw
-        #   pp! original[i..i, ..].raw
-        # end
-
-        # original = IntMap.new([
-        #   [1, 2],
-        #   [3, 4],
-        # ])
-
-        puts original.dft.to_s
-        puts original.fft.to_s
-        puts original.to_f.to_s
-        puts original.fft.ifft.to_s
-        # expect(original.dft.round).to eq [
-        #   (385.0 + 0.0.i), (47.0 - 17.0.i), (48.0 - 4.0.i), (48.0 + 4.0.i), (48.0 + 17.0.i),
-        #   (-78.0 - 101.0.i), (-15.0 - 15.0.i), (-15.0 - 15.0.i), (-15.0 - 15.0.i), (-15.0 - 15.0.i),
-        #   (-78.0 - 17.0.i), (-15.0 + 4.0.i), (-15.0 + 4.0.i), (-15.0 + 4.0.i), (-15.0 + 4.0.i),
-        #   (-78.0 + 17.0.i), (-15.0 - 4.0.i), (-15.0 - 4.0.i), (-15.0 - 4.0.i), (-15.0 - 4.0.i),
-        #   (-77.0 + 101.0.i), (-15.0 + 15.0.i), (-15.0 + 15.0.i), (-15.0 + 15.0.i), (-15.0 + 15.0.i),
-        # ]
       end
 
       # Spec used for performance testing of the fast fourier transform 1d method. That method isn't exposed right now, so commenting this spec out.
