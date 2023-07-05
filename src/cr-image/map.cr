@@ -303,38 +303,6 @@ module CrImage
       retf
     end
 
-    def cross_correlate_dft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
-      raise Exception.new("Passed in map (#{map.width}x#{map.height}) must be smaller than this map (#{width}x#{height})") if map.width >= width || map.height >= height
-
-      pad_width, pad_height = map.width - 1, map.height - 1
-      orig_pad_dft = zero_pad(bottom: pad_height, right: pad_width).dft
-      map_pad_dft = map.zero_pad(bottom: height - 1, right: width - 1).dft
-
-      width_range, height_range = case edge_policy
-                                  in EdgePolicy::Black
-                                    {
-                                      (pad_width//2)...(width + (pad_width//2)),
-                                      (pad_height//2)...(height + (pad_height//2)),
-                                    }
-                                  in EdgePolicy::Repeat
-                                    {
-                                      ((map.width - 1)//2)...(width + ((map.width - 1)//2)),
-                                      ((map.height - 1)//2)...(height + ((map.height - 1)//2)),
-                                    }
-                                  in EdgePolicy::None
-                                    {
-                                      (pad_width)...(pad_width + width - (map.width//2)*2),
-                                      (pad_height)...(pad_height + height - (map.height//2)*2),
-                                    }
-                                  end
-
-      # pp! width_range, height_range
-      # cm = ComplexMap.new(orig_pad_dft.width, orig_pad_dft.raw.map_with_index { |v, i| v * map_pad_dft[i] }).idft
-      ComplexMap.new(orig_pad_dft.width, orig_pad_dft.raw.map_with_index { |v, i| v * map_pad_dft[i] }).idft[
-        width_range, height_range,
-      ]
-    end
-
     def cross_correlate_fft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
       max_width, max_height = Math.pw2ceil(width + map.width), Math.pw2ceil(height + map.height)
       pad_width, pad_height = map.width - 1, map.height - 1
@@ -362,26 +330,6 @@ module CrImage
       ComplexMap.new(orig_pad_fft.width, orig_pad_fft.raw.map_with_index { |v, i| v * map_pad_fft[i] }).ifft[
         width_range, height_range,
       ]
-    end
-
-    def dft : ComplexMap
-      self_to_f = to_f
-      new_raw = Array(Complex).new(raw.size) { Complex.zero }
-      sum_arr = new_raw.size.times.to_a
-
-      0.upto(width - 1) do |x|
-        0.upto(height - 1) do |y|
-          # TODO: https://mathcs.org/java/programs/FFT/FFTInfo/c12-4.pdf
-
-          new_raw[y * width + x] = sum_arr.sum do |i|
-            k1 = i % width
-            k2 = i // width
-
-            self_to_f[i] * Math.exp(2.i * Math::PI * x * k1 / width) * Math.exp(2.i * Math::PI * y * k2 / height)
-          end
-        end
-      end
-      ComplexMap.new(width, new_raw)
     end
 
     def fft : ComplexMap
@@ -520,22 +468,6 @@ module CrImage
 
   class ComplexMap
     include MapImpl(Complex)
-
-    def idft : FloatMap
-      new_raw = Array(Float64).new(raw.size) { Float64.zero }
-      0.upto(width - 1) do |x|
-        0.upto(height - 1) do |y|
-          # TODO: https://mathcs.org/java/programs/FFT/FFTInfo/c12-4.pdf
-          new_raw[y * width + x] = (new_raw.size.times.to_a.sum do |i|
-            k1 = i % width
-            k2 = i // width
-
-            self[i] * Math.exp(-2.i * Math::PI * x * k1 / width) * Math.exp(-2.i * Math::PI * y * k2 / height)
-          end / size).real
-        end
-      end
-      FloatMap.new(width, new_raw)
-    end
 
     def ifft : FloatMap
       rows = height.times.to_a.map { |i| ifft1d(self[.., i..i].raw) }
