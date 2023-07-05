@@ -259,18 +259,46 @@ module CrImage
       @raw.dup
     end
 
-    def zero_pad(*, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0) : self
+    def pad(*, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black) : self
       top = Math.max(top, 0)
       bottom = Math.max(bottom, 0)
       left = Math.max(left, 0)
       right = Math.max(right, 0)
 
       new_width = left + width + right
-      new_raw = Array(T).new((top + height + bottom) * new_width) { T.zero }
+      new_raw = case pad_type
+                in EdgePolicy::Black then Array(T).new((top + height + bottom) * new_width) { T.zero }
+                in EdgePolicy::Repeat then Array(T).new((top + height + bottom) * new_width) do |i|
+                  current_y = i // new_width
+                  next T.zero if (current_y) < top || current_y >= (top + height)
 
+                  adjusted_y = (current_y) - top
+                  adjusted_x = i % new_width
+
+                  adjusted_x <= left ? self[0, adjusted_y] : self[width - 1, adjusted_y]
+                end
+                in EdgePolicy::None then raise Exception.new("Pad method doesn't support edge policy None")
+                end
+
+      # Now copy the original values into the new raw array at the correct locations
       0.upto(height - 1) do |y|
         adjusted_y = y + top
         new_raw[adjusted_y * new_width + left, width] = raw[y * width, width]
+      end
+
+      if pad_type.repeat?
+        if top > 0
+          copy = new_raw[new_width * top, new_width]
+          top.times do |i|
+            new_raw[i * new_width, new_width] = copy
+          end
+        end
+        if bottom > 0
+          copy = new_raw[new_width * (top + height - 1), new_width]
+          bottom.times do |i|
+            new_raw[(i + top + height) * new_width, new_width] = copy
+          end
+        end
       end
 
       {{@type}}.new(new_width, new_raw)
@@ -306,8 +334,8 @@ module CrImage
     def cross_correlate_fft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
       max_width, max_height = Math.pw2ceil(width + map.width), Math.pw2ceil(height + map.height)
       pad_width, pad_height = map.width - 1, map.height - 1
-      orig_pad_fft = zero_pad(bottom: max_height - height, right: max_width - width).fft
-      map_pad_fft = map.zero_pad(bottom: max_height - map.height, right: max_width - map.width).fft
+      orig_pad_fft = pad(bottom: max_height - height, right: max_width - width).fft
+      map_pad_fft = map.pad(bottom: max_height - map.height, right: max_width - map.width).fft
 
       width_range, height_range = case edge_policy
                                   in EdgePolicy::Black
@@ -333,7 +361,7 @@ module CrImage
     end
 
     def fft : ComplexMap
-      map = to_f.zero_pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
+      map = to_f.pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
       rows = map.height.times.to_a.map { |i| fft1d(map[.., i..i].raw) }
       comp_map = ComplexMap.new(rows)
       rows = comp_map.width.times.to_a.map { |i| fft1d(comp_map[i..i, ..].raw) }
