@@ -362,12 +362,12 @@ module CrImage
 
     def fft : ComplexMap
       map = to_f.pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
-      rows = map.height.times.to_a.map { |i| fft1d(map[.., i..i].raw) }
+      rows = map.height.times.to_a.map { |i| fft1d(map[.., i].raw) }
       comp_map = ComplexMap.new(rows)
-      rows = comp_map.width.times.to_a.map { |i| fft1d(comp_map[i..i, ..].raw) }
+      rows = comp_map.width.times.to_a.map { |i| fft1d(comp_map[i, ..].raw) }
       comp_map = ComplexMap.new(rows)
 
-      ComplexMap.new(comp_map.width.times.to_a.map { |i| comp_map[i..i, ..].raw })
+      ComplexMap.new(comp_map.width.times.to_a.map { |i| comp_map[i, ..].raw })
     end
 
     private def fft1d(inp : Array(Float64) | Array(Complex)) : Array(Complex)
@@ -498,12 +498,12 @@ module CrImage
     include MapImpl(Complex)
 
     def ifft : FloatMap
-      rows = height.times.to_a.map { |i| ifft1d(self[.., i..i].raw) }
+      rows = height.times.to_a.map { |i| ifft1d(self[.., i].raw) }
       comp_map = ComplexMap.new(rows)
-      rows = comp_map.width.times.to_a.map { |i| ifft1d(comp_map[i..i, ..].raw) }
+      rows = comp_map.width.times.to_a.map { |i| ifft1d(comp_map[i, ..].raw) }
       comp_map = ComplexMap.new(rows)
 
-      FloatMap.new(comp_map.width.times.to_a.map { |i| comp_map[i..i, ..].raw.map(&.real) })
+      FloatMap.new(comp_map.width.times.to_a.map { |i| comp_map[i, ..].raw.map(&.real) })
     end
 
     private def ifft1d(inp : Array(Complex))

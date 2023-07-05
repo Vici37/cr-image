@@ -1,5 +1,4 @@
 require "../spec_helper"
-require "benchmark"
 
 Spectator.describe CrImage::Map do
   include SpecHelper
