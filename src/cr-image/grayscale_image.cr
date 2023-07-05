@@ -192,7 +192,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   delegate ">", ">=", "<", "<=", "==", mean, mask_from, cross_correlate, to: to_map!
 
   # Convert this image into a `IntMap`
-  def to_map : IntMap
+  def to_imap : IntMap
     IntMap.new(width, gray.map(&.to_i))
   end
 
@@ -207,10 +207,10 @@ class CrImage::GrayscaleImage < CrImage::Image
   end
 
   def cross_correlate(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
-    to_map.cross_correlate(map, edge_policy: edge_policy)
+    to_imap.cross_correlate(map, edge_policy: edge_policy)
   end
 
   def cross_correlate_fft(map : Map) # : FloatMap
-    to_map.cross_correlate_fft(map)
+    to_imap.cross_correlate_fft(map)
   end
 end
