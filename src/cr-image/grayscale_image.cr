@@ -213,4 +213,8 @@ class CrImage::GrayscaleImage < CrImage::Image
   def cross_correlate_dft(map : Map) # : FloatMap
     to_map.cross_correlate_dft(map)
   end
+
+  def cross_correlate_fft(map : Map) # : FloatMap
+    to_map.cross_correlate_fft(map)
+  end
 end

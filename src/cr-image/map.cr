@@ -283,13 +283,9 @@ module CrImage
     def cross_correlate_dft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
       raise Exception.new("Passed in map (#{map.width}x#{map.height}) must be smaller than this map (#{width}x#{height})") if map.width >= width || map.height >= height
 
-      start = Time.monotonic
       pad_width, pad_height = map.width - 1, map.height - 1
-      puts "#{Time.monotonic - start}: padding and getting dft of original"
       orig_pad_dft = zero_pad(bottom: pad_height, right: pad_width).dft
-      puts "#{Time.monotonic - start}: padding and getting dft of map"
       map_pad_dft = map.zero_pad(bottom: height - 1, right: width - 1).dft
-      puts "#{Time.monotonic - start}: done padding and dfting"
 
       width_range, height_range = case edge_policy
                                   in EdgePolicy::Black
@@ -316,28 +312,52 @@ module CrImage
       ]
     end
 
+    def cross_correlate_fft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
+      max_width, max_height = Math.pw2ceil(width + map.width), Math.pw2ceil(height + map.height)
+      pad_width, pad_height = map.width - 1, map.height - 1
+      orig_pad_fft = zero_pad(bottom: max_height - height, right: max_width - width).fft
+      map_pad_fft = map.zero_pad(bottom: max_height - map.height, right: max_width - map.width).fft
+
+      width_range, height_range = case edge_policy
+                                  in EdgePolicy::Black
+                                    {
+                                      (pad_width//2)...(width + (pad_width//2)),
+                                      (pad_height//2)...(height + (pad_height//2)),
+                                    }
+                                  in EdgePolicy::Repeat
+                                    {
+                                      ((map.width - 1)//2)...(width + ((map.width - 1)//2)),
+                                      ((map.height - 1)//2)...(height + ((map.height - 1)//2)),
+                                    }
+                                  in EdgePolicy::None
+                                    {
+                                      (pad_width)...(pad_width + width - (map.width//2)*2),
+                                      (pad_height)...(pad_height + height - (map.height//2)*2),
+                                    }
+                                  end
+
+      ComplexMap.new(orig_pad_fft.width, orig_pad_fft.raw.map_with_index { |v, i| v * map_pad_fft[i] }).ifft[
+        width_range, height_range,
+      ]
+    end
+
     def dft : ComplexMap
       self_to_f = to_f
       new_raw = Array(Complex).new(raw.size) { Complex.zero }
       sum_arr = new_raw.size.times.to_a
 
-      # last = Time.monotonic
       0.upto(width - 1) do |x|
         0.upto(height - 1) do |y|
           # TODO: https://mathcs.org/java/programs/FFT/FFTInfo/c12-4.pdf
 
           new_raw[y * width + x] = sum_arr.sum do |i|
-            # puts "#{i}: #{x}x#{y} (#{x} / #{width - 1}" if y >= 501
             k1 = i % width
             k2 = i // width
 
             self_to_f[i] * Math.exp(2.i * Math::PI * x * k1 / width) * Math.exp(2.i * Math::PI * y * k2 / height)
           end
-          # puts "#{Time.monotonic - last}: #{x} / #{width - 1} x#{y} / #{height - 1}: #{new_raw[y * width + x]}"
-          # last = Time.monotonic
         end
       end
-      # puts "constructing complex map of width #{width} and size #{new_raw.size}"
       ComplexMap.new(width, new_raw)
     end
 
@@ -348,7 +368,7 @@ module CrImage
       rows = comp_map.width.times.to_a.map { |i| fft1d(comp_map[i..i, ..].raw) }
       comp_map = ComplexMap.new(rows)
 
-      ComplexMap.new(comp_map.height.times.to_a.map { |i| comp_map[i..i, ..].raw })
+      ComplexMap.new(comp_map.width.times.to_a.map { |i| comp_map[i..i, ..].raw })
     end
 
     private def fft1d(inp : Array(Float64) | Array(Complex)) : Array(Complex)
@@ -357,22 +377,40 @@ module CrImage
       ret = [inp.map(&.to_c)]
 
       shape = 1
-      Math.log2(inp.size).to_i.times do
-        even = ret.map { |m| m.each_slice(m.size // 2).to_a[0] }
-        odd = ret.map { |m| m.each_slice(m.size // 2).to_a[1] }
-        terms = shape.times.to_a.map { |i| Math.exp(-1.i * Math::PI * i / shape) }
-        # pp! even, odd, terms
+      half = inp.size
+      # Initialize the memory for these arrays now
+      even = Array(Array(Complex)).new(half)
+      odd = Array(Array(Complex)).new(half)
 
+      neg_i_pi = -1.i * Math::PI
+      while half > 1
+        half //= 2
+
+        terms = Array(Complex).new(shape) { |i| Math.exp(neg_i_pi * i / shape) }
+
+        even.clear
+        odd.clear
+        ret.each_with_index do |sub_map, term_i|
+          term = terms[term_i]
+          odd << sub_map[half, half].map! { |od| term * od }
+          even << sub_map[0, half]
+        end
+
+        # This block is the most costly part of this method, and the most difficult to understand.
+        # This is essentially trying to create a new array with all of the sub arrays of even / odd
+        # being combined like:
         # ret = [even + terms * odd, even - terms * odd]
-        ret = even.map_with_index do |arr, term_i|
-          arr.map_with_index do |e, i|
-            e + terms[term_i] * odd[term_i][i]
+        # Where terms has already been applied to odd above in this case
+        ret = even.map_with_index do |even_arr, term_i|
+          even_arr.map_with_index do |e, i|
+            e + odd[term_i][i]
           end
-        end + even.map_with_index do |arr, term_i|
-          arr.map_with_index do |e, i|
-            e - terms[term_i] * odd[term_i][i]
+        end + even.map_with_index do |even_arr, term_i|
+          even_arr.map_with_index do |e, i|
+            e - odd[term_i][i]
           end
         end
+
         shape *= 2
       end
 
@@ -482,7 +520,7 @@ module CrImage
       rows = comp_map.width.times.to_a.map { |i| ifft1d(comp_map[i..i, ..].raw) }
       comp_map = ComplexMap.new(rows)
 
-      FloatMap.new(comp_map.height.times.to_a.map { |i| comp_map[i..i, ..].raw.map(&.real) })
+      FloatMap.new(comp_map.width.times.to_a.map { |i| comp_map[i..i, ..].raw.map(&.real) })
     end
 
     private def ifft1d(inp : Array(Complex))
