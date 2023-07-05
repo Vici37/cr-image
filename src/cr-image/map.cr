@@ -333,25 +333,25 @@ module CrImage
 
     def cross_correlate_fft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
       max_width, max_height = Math.pw2ceil(width + map.width), Math.pw2ceil(height + map.height)
-      pad_width, pad_height = map.width - 1, map.height - 1
-      orig_pad_fft = pad(bottom: max_height - height, right: max_width - width).fft
+      pad_type = edge_policy.none? ? EdgePolicy::Black : edge_policy
+      orig_pad_fft = pad(
+        top: (map.height // 2) + (map.height % 2),
+        bottom: max_height - height - (map.height // 2 + map.height % 2),
+        right: max_width - width - (map.width // 2 + map.width % 2),
+        left: (map.width // 2) + (map.width % 2),
+        pad_type: pad_type).fft
       map_pad_fft = map.pad(bottom: max_height - map.height, right: max_width - map.width).fft
 
       width_range, height_range = case edge_policy
-                                  in EdgePolicy::Black
+                                  in EdgePolicy::Black, EdgePolicy::Repeat
                                     {
-                                      (pad_width//2)...(width + (pad_width//2)),
-                                      (pad_height//2)...(height + (pad_height//2)),
-                                    }
-                                  in EdgePolicy::Repeat
-                                    {
-                                      ((map.width - 1)//2)...(width + ((map.width - 1)//2)),
-                                      ((map.height - 1)//2)...(height + ((map.height - 1)//2)),
+                                      (map.width)...(width + map.width),
+                                      (map.height)...(height + map.height),
                                     }
                                   in EdgePolicy::None
                                     {
-                                      (pad_width)...(pad_width + width - (map.width//2)*2),
-                                      (pad_height)...(pad_height + height - (map.height//2)*2),
+                                      (map.width + map.width // 2)..(map.width + width - map.width + 1),
+                                      (map.height + map.height // 2)..(map.height + height - map.height + 1),
                                     }
                                   end
 
