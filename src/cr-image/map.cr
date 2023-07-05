@@ -99,10 +99,27 @@ module CrImage
       @raw[index]?
     end
 
-    def [](xrange : Range, yrange : Range) : self
-      xstart, xcount = resolve_to_start_and_count(xrange, width)
-      ystart, ycount = resolve_to_start_and_count(yrange, height)
+    def row(ystart : Int32) : self
+      internal_crop(0, width, ystart, 1)
+    end
 
+    def column(xstart : Int32) : self
+      internal_crop(xstart, 1, 0, height)
+    end
+
+    def [](xrange : Range, ystart : Int32) : self
+      internal_crop(*resolve_to_start_and_count(xrange, width), ystart, 1)
+    end
+
+    def [](xstart : Int32, yrange : Range) : self
+      internal_crop(xstart, 1, *resolve_to_start_and_count(yrange, height))
+    end
+
+    def [](xrange : Range, yrange : Range) : self
+      internal_crop(*resolve_to_start_and_count(xrange, width), *resolve_to_start_and_count(yrange, height))
+    end
+
+    private def internal_crop(xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : self
       raise Exception.new "Can't crop to 0 #{xcount == 0 ? "width" : "height"}" if xcount == 0 || ycount == 0
       raise Exception.new "Crop dimensions extend #{xstart + xcount - width} pixels beyond width of the image (#{width})" if (xstart + xcount) > width
       raise Exception.new "Crop dimensions extend #{ystart + ycount - height} pixels beyond height of the image (#{height})" if (ystart + ycount) > height
