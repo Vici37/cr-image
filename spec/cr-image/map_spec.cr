@@ -227,44 +227,144 @@ Spectator.describe CrImage::Map do
       expect(FloatMap.new([[2.0, 0.0]]).clamp(0.5, 1.0)).to eq FloatMap.new([[1.0, 0.5]])
     end
 
-    it "crops with range" do
-      expect(map[1.., ..]).to eq IntMap.new([
-        [2, 3],
-        [5, 6],
-        [8, 9],
-      ])
-      expect(map[.., ..]).to eq IntMap.new([
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9],
-      ])
-      expect(map[..1, ..1]).to eq IntMap.new([
-        [1, 2],
-        [4, 5],
-      ])
-      expect(map[1..1, 1..1]).to eq IntMap.new([
-        [5],
-      ])
+    context "crops" do
+      it "with range" do
+        expect(map[1.., ..]).to eq IntMap.new([
+          [2, 3],
+          [5, 6],
+          [8, 9],
+        ])
+        expect(map[.., ..]).to eq IntMap.new([
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+        ])
+        expect(map[..1, ..1]).to eq IntMap.new([
+          [1, 2],
+          [4, 5],
+        ])
+        expect(map[1..1, 1..1]).to eq IntMap.new([
+          [5],
+        ])
+      end
+
+      it "column" do
+        expect(map[1, ..]).to eq IntMap.new(1, [2, 5, 8])
+      end
+
+      it "row" do
+        expect(map[1.., 1]).to eq IntMap.new([
+          [5, 6],
+        ])
+      end
+
+      it "gets row" do
+        expect(map.row(1)).to eq IntMap.new([
+          [4, 5, 6],
+        ])
+      end
+
+      it "column" do
+        expect(map.column(2)).to eq IntMap.new(1, [3, 6, 9])
+      end
     end
 
-    it "crops column" do
-      expect(map[1, ..]).to eq IntMap.new(1, [2, 5, 8])
-    end
+    context "pads" do
+      it "zero on the top" do
+        expect(map.pad(top: 2)).to eq IntMap.new([
+          [0, 0, 0],
+          [0, 0, 0],
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+        ])
+      end
 
-    it "crops row" do
-      expect(map[1.., 1]).to eq IntMap.new([
-        [5, 6],
-      ])
-    end
+      it "zero on the right" do
+        expect(map.pad(right: 2)).to eq IntMap.new([
+          [1, 2, 3, 0, 0],
+          [4, 5, 6, 0, 0],
+          [7, 8, 9, 0, 0],
+        ])
+      end
 
-    it "gets row" do
-      expect(map.row(1)).to eq IntMap.new([
-        [4, 5, 6],
-      ])
-    end
+      it "zero on the bottom" do
+        expect(map.pad(bottom: 2)).to eq IntMap.new([
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+          [0, 0, 0],
+          [0, 0, 0],
+        ])
+      end
 
-    it "crops column" do
-      expect(map.column(2)).to eq IntMap.new(1, [3, 6, 9])
+      it "zero on the left" do
+        expect(map.pad(left: 2)).to eq IntMap.new([
+          [0, 0, 1, 2, 3],
+          [0, 0, 4, 5, 6],
+          [0, 0, 7, 8, 9],
+        ])
+      end
+
+      it "zero on all sides" do
+        expect(map.pad(right: 2, left: 2, top: 1, bottom: 3)).to eq IntMap.new([
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 1, 2, 3, 0, 0],
+          [0, 0, 4, 5, 6, 0, 0],
+          [0, 0, 7, 8, 9, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+        ])
+      end
+
+      it "repeats on the top" do
+        expect(map.pad(top: 2, pad_type: CrImage::EdgePolicy::Repeat)).to eq IntMap.new([
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+        ])
+      end
+
+      it "repeats on the right" do
+        expect(map.pad(right: 2, pad_type: CrImage::EdgePolicy::Repeat)).to eq IntMap.new([
+          [1, 2, 3, 3, 3],
+          [4, 5, 6, 6, 6],
+          [7, 8, 9, 9, 9],
+        ])
+      end
+
+      it "repeats on the bottom" do
+        expect(map.pad(bottom: 2, pad_type: CrImage::EdgePolicy::Repeat)).to eq IntMap.new([
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+          [7, 8, 9],
+          [7, 8, 9],
+        ])
+      end
+
+      it "repeats on the left" do
+        expect(map.pad(left: 2, pad_type: CrImage::EdgePolicy::Repeat)).to eq IntMap.new([
+          [1, 1, 1, 2, 3],
+          [4, 4, 4, 5, 6],
+          [7, 7, 7, 8, 9],
+        ])
+      end
+
+      it "repeats on all sides" do
+        expect(map.pad(right: 2, left: 2, top: 1, bottom: 3, pad_type: CrImage::EdgePolicy::Repeat)).to eq IntMap.new([
+          [1, 1, 1, 2, 3, 3, 3],
+          [1, 1, 1, 2, 3, 3, 3],
+          [4, 4, 4, 5, 6, 6, 6],
+          [7, 7, 7, 8, 9, 9, 9],
+          [7, 7, 7, 8, 9, 9, 9],
+          [7, 7, 7, 8, 9, 9, 9],
+          [7, 7, 7, 8, 9, 9, 9],
+        ])
+      end
     end
   end
 
