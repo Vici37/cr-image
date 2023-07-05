@@ -226,6 +226,46 @@ Spectator.describe CrImage::Map do
     it "passes method_missing arguments to type's method (clamp)" do
       expect(FloatMap.new([[2.0, 0.0]]).clamp(0.5, 1.0)).to eq FloatMap.new([[1.0, 0.5]])
     end
+
+    it "crops with range" do
+      expect(map[1.., ..]).to eq IntMap.new([
+        [2, 3],
+        [5, 6],
+        [8, 9],
+      ])
+      expect(map[.., ..]).to eq IntMap.new([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ])
+      expect(map[..1, ..1]).to eq IntMap.new([
+        [1, 2],
+        [4, 5],
+      ])
+      expect(map[1..1, 1..1]).to eq IntMap.new([
+        [5],
+      ])
+    end
+
+    it "crops column" do
+      expect(map[1, ..]).to eq IntMap.new(1, [2, 5, 8])
+    end
+
+    it "crops row" do
+      expect(map[1.., 1]).to eq IntMap.new([
+        [5, 6],
+      ])
+    end
+
+    it "gets row" do
+      expect(map.row(1)).to eq IntMap.new([
+        [4, 5, 6],
+      ])
+    end
+
+    it "crops column" do
+      expect(map.column(2)).to eq IntMap.new(1, [3, 6, 9])
+    end
   end
 
   context "when cross correlating" do
