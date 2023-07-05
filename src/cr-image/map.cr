@@ -119,6 +119,10 @@ module CrImage
       internal_crop(*resolve_to_start_and_count(xrange, width), *resolve_to_start_and_count(yrange, height))
     end
 
+    def [](xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : self
+      internal_crop(xstart, xcount, ystart, ycount)
+    end
+
     private def internal_crop(xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : self
       raise Exception.new "Can't crop to 0 #{xcount == 0 ? "width" : "height"}" if xcount == 0 || ycount == 0
       raise Exception.new "Crop dimensions extend #{xstart + xcount - width} pixels beyond width of the image (#{width})" if (xstart + xcount) > width
