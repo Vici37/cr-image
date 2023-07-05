@@ -221,12 +221,18 @@ module CrImage
       FloatMap.new(width, @raw.map { |i| i - num })
     end
 
+    def +(other : self) : self
+      raise Exception.new "Dimensions should match (caller: #{width}x#{height}, callee: #{other.width}x#{other.height})" unless width == other.width && height == other.height
+      self.class.new(width, @raw.map_with_index { |val, i| val + other[i] })
+    end
+
     def to_gray(*, scale : Bool = false) : GrayscaleImage
       if scale
         max_val = max
         min_val = min
         multiplier = 255 / (max_val - min_val)
-        GrayscaleImage.new(@raw.map { |v| ((v - min_val) * multiplier).to_u8 }, width)
+        # Use clamp for floating point rounding errors
+        GrayscaleImage.new(@raw.map { |v| ((v - min_val) * multiplier).clamp(0, 255).to_u8 }, width)
       else
         GrayscaleImage.new(@raw.map(&.to_u8), width)
       end
