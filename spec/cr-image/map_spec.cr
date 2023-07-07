@@ -317,6 +317,29 @@ Spectator.describe CrImage::Map do
         ])
       end
 
+      it "zero on all sides equally" do
+        expect(map.pad(2)).to eq IntMap.new([
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 1, 2, 3, 0, 0],
+          [0, 0, 4, 5, 6, 0, 0],
+          [0, 0, 7, 8, 9, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+        ])
+      end
+
+      it "zero on all sides equally except for top" do
+        expect(map.pad(2, top: 1)).to eq IntMap.new([
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 1, 2, 3, 0, 0],
+          [0, 0, 4, 5, 6, 0, 0],
+          [0, 0, 7, 8, 9, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+        ])
+      end
+
       it "repeats on the top" do
         expect(map.pad(top: 2, pad_type: CrImage::EdgePolicy::Repeat)).to eq IntMap.new([
           [1, 2, 3],
@@ -359,6 +382,29 @@ Spectator.describe CrImage::Map do
           [1, 1, 1, 2, 3, 3, 3],
           [4, 4, 4, 5, 6, 6, 6],
           [7, 7, 7, 8, 9, 9, 9],
+          [7, 7, 7, 8, 9, 9, 9],
+          [7, 7, 7, 8, 9, 9, 9],
+          [7, 7, 7, 8, 9, 9, 9],
+        ])
+      end
+
+      it "repeats on all sides equally" do
+        expect(map.pad(2, pad_type: CrImage::EdgePolicy::Repeat)).to eq IntMap.new([
+          [1, 1, 1, 2, 3, 3, 3],
+          [1, 1, 1, 2, 3, 3, 3],
+          [1, 1, 1, 2, 3, 3, 3],
+          [4, 4, 4, 5, 6, 6, 6],
+          [7, 7, 7, 8, 9, 9, 9],
+          [7, 7, 7, 8, 9, 9, 9],
+          [7, 7, 7, 8, 9, 9, 9],
+        ])
+      end
+
+      it "repeats on all sides with different top value" do
+        expect(map.pad(2, top: 1, pad_type: CrImage::EdgePolicy::Repeat)).to eq IntMap.new([
+          [1, 1, 1, 2, 3, 3, 3],
+          [1, 1, 1, 2, 3, 3, 3],
+          [4, 4, 4, 5, 6, 6, 6],
           [7, 7, 7, 8, 9, 9, 9],
           [7, 7, 7, 8, 9, 9, 9],
           [7, 7, 7, 8, 9, 9, 9],
