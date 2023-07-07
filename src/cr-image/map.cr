@@ -99,12 +99,14 @@ module CrImage
       @raw[index]?
     end
 
-    def row(ystart : Int32) : self
-      internal_crop(0, width, ystart, 1)
+    # Get a single dimensional `Map` representing the row at `y`
+    def row(y : Int32) : self
+      internal_crop(0, width, y, 1)
     end
 
-    def column(xstart : Int32) : self
-      internal_crop(xstart, 1, 0, height)
+    # Get a single dimensional `Map` representing teh column at `x`
+    def column(x : Int32) : self
+      internal_crop(x, 1, 0, height)
     end
 
     def [](xrange : Range, ystart : Int32) : self
@@ -263,33 +265,22 @@ module CrImage
       @raw.dup
     end
 
-    def pad(*, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black) : self
-      top = Math.max(top, 0)
-      bottom = Math.max(bottom, 0)
-      left = Math.max(left, 0)
-      right = Math.max(right, 0)
+    def pad(all : Int32 = 0, *, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black) : self
+      top = top > 0 ? top : all
+      bottom = bottom > 0 ? bottom : all
+      left = left > 0 ? left : all
+      right = right > 0 ? right : all
 
       new_width = left + width + right
-      new_raw = case pad_type
-                in EdgePolicy::Black then Array(T).new((top + height + bottom) * new_width) { T.zero }
-                in EdgePolicy::Repeat then Array(T).new((top + height + bottom) * new_width) do |i|
-                  current_y = i // new_width
-                  next T.zero if (current_y) < top || current_y >= (top + height)
-
-                  adjusted_y = (current_y) - top
-                  adjusted_x = i % new_width
-
-                  adjusted_x <= left ? self[0, adjusted_y] : self[width - 1, adjusted_y]
-                end
-                in EdgePolicy::None then raise Exception.new("Pad method doesn't support edge policy None")
-                end
+      new_raw = initial_raw_pad(pad_type, new_width, top, bottom, left, right)
 
       # Now copy the original values into the new raw array at the correct locations
-      0.upto(height - 1) do |y|
+      height.times do |y|
         adjusted_y = y + top
-        new_raw[adjusted_y * new_width + left, width] = raw[y * width, width]
+        (new_raw.to_unsafe + adjusted_y * new_width + left).copy_from(raw.to_unsafe + y * width, width)
       end
 
+      # If the pad type is repeat, then repeat the top and bottom line of pixels, well, on the top and bottom of the image
       if pad_type.repeat?
         if top > 0
           copy = new_raw[new_width * top, new_width]
@@ -305,7 +296,23 @@ module CrImage
         end
       end
 
-      {{@type}}.new(new_width, new_raw)
+      self.class.new(new_width, new_raw)
+    end
+
+    private def initial_raw_pad(pad_type, new_width, top, bottom, left, right) : Array(T)
+      case pad_type
+      in EdgePolicy::Black then Array(T).new((top + height + bottom) * new_width) { T.zero }
+      in EdgePolicy::Repeat then Array(T).new((top + height + bottom) * new_width) do |i|
+        current_y = i // new_width
+        next T.zero if (current_y) < top || current_y >= (top + height)
+
+        adjusted_y = (current_y) - top
+        adjusted_x = i % new_width
+
+        adjusted_x <= left ? self[0, adjusted_y] : self[width - 1, adjusted_y]
+      end
+      in EdgePolicy::None then raise Exception.new("Pad method doesn't support edge policy None")
+      end
     end
 
     def cross_correlate(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
