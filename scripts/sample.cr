@@ -25,7 +25,7 @@ mask[50..90, 65..75] = true
 mask.to_gray.save("docs/images/apply_mask_mask.jpg")
 image.apply(mask).save("docs/images/apply_mask.jpg")
 image.apply_color(mask, CrImage::Color.of("#00f")).save("docs/images/apply_mask_color.jpg")
-image.apply(mask) do |_, _, pixel, channel_type|
+image.apply(mask) do |pixel, channel_type|
   Math.min(255, pixel + 80).to_u8 if channel_type.blue?
 end.save("docs/images/apply_mask_block.jpg")
 
@@ -33,6 +33,9 @@ image.to_gray.histogram_equalize.save("docs/images/gray_sample_equalized.jpg")
 
 mask = image.to_gray < 128
 mask.to_gray.save("docs/images/less_than_example.jpg")
+
+image.pad(left: 50, right: 50).save("docs/images/pad_black.jpg")
+image.pad(left: 50, right: 50, pad_type: CrImage::EdgePolicy::Repeat).save("docs/images/pad_repeat.jpg")
 
 # This should only be run once to generate the sample picture
 # colors = 256.times.to_a.map { |i| {i.to_u8, CrImage::Color.random} }.to_h
