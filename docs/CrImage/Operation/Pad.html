@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../../js/doc.js"></script>
 
   <meta name="repository-name" content="Crystal Image">
-  <title>CrImage::Operation::HistogramEqualize - Crystal Image master-dev</title>
+  <title>CrImage::Operation::Pad - Crystal Image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -221,7 +221,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="Crystal Image/CrImage/Operation/HistogramEqualize" data-name="crimage::operation::histogramequalize">
+  <li class="parent " data-id="Crystal Image/CrImage/Operation/HistogramEqualize" data-name="crimage::operation::histogramequalize">
       <a href="../../CrImage/Operation/HistogramEqualize.html">HistogramEqualize</a>
       
         <ul>
@@ -246,7 +246,7 @@
       
     </li>
   
-  <li class=" " data-id="Crystal Image/CrImage/Operation/Pad" data-name="crimage::operation::pad">
+  <li class=" current" data-id="Crystal Image/CrImage/Operation/Pad" data-name="crimage::operation::pad">
       <a href="../../CrImage/Operation/Pad.html">Pad</a>
       
     </li>
@@ -325,7 +325,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> CrImage::Operation::HistogramEqualize
+  <span class="kind">module</span> CrImage::Operation::Pad
 
 </h1>
 
@@ -342,17 +342,13 @@
     Overview
   </h2>
 
-  <p>Provides methods for histogram and histogram equalization. Follows method outlined <a href="https://www.sci.utah.edu/~acoste/uou/Image/project1/Arthur_COSTE_Project_1_report.html">here</a></p>
-<p>If an image is particularly dark or particularly bright with low contrast, the <code><a href="../../CrImage/Operation/Contrast.html#contrast%28value%3AFloat64%29%3Aself-instance-method">Operation::Contrast#contrast</a></code> method will only
-make the image darker or lighter. For images like these, equalizing the image along its histogram will produce better results.</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji.jpg" alt="A dark image of Mt. Fuji"/>
-<pre><code class="language-crystal">image.contrast(<span class="n">10</span>).save(<span class="s">&quot;contrast.jpg&quot;</span>)
-image.histogram_equalize.save(<span class="s">&quot;equalized.jpg&quot;</span>)</code></pre>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji_contrast_10.jpg" alt="Darker image of Mt. Fuji"/>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji_histogram_equalized.jpg" alt="A higher contrast image of Mt. Fuji"/>
-<p>This method does not work well when a given method has a bimodal distribution of color pixels. For example:</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background in grayscale"/>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample_equalized.jpg" alt="Highly pixelated and poor quality photo of woman in black turtleneck on white background in grayscale"/>
+  <p>Pads an image</p>
+<p>Taking sample <code>image</code>:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">image.pad(left: <span class="n">50</span>, right: <span class="n">50</span>)
+image.pad(left: <span class="n">50</span>, right: <span class="n">50</span>, pad_type: <span class="t">CrImage</span><span class="t">::</span><span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Repeat</span>)</code></pre>
+<pre><code class="language-crystal"><span class="o">&lt;</span>img src<span class="o">=</span><span class="s">&quot;https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/pad_black.jpg&quot;</span> alt<span class="o">=</span><span class="s">&quot;Picture with black padding on left and right&quot;</span><span class="o">/</span><span class="o">&gt;</span>
+<span class="o">&lt;</span>img src<span class="o">=</span><span class="s">&quot;https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/pad_repeat.jpg&quot;</span> alt<span class="o">=</span><span class="s">&quot;Picture with repeated padding on left and right&quot;</span><span class="o">/</span><span class="o">&gt;</span></code></pre>
 
 
 
@@ -393,8 +389,8 @@ image.histogram_equalize.save(<span class="s">&quot;equalized.jpg&quot;</span>)<
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/histogram.cr#L19" target="_blank">
-        cr-image/operation/histogram.cr
+      <a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/pad.cr#L14" target="_blank">
+        cr-image/operation/pad.cr
       </a>
     
     <br/>
@@ -419,17 +415,12 @@ image.histogram_equalize.save(<span class="s">&quot;equalized.jpg&quot;</span>)<
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#histogram%28channel_type%3AChannelType%29%3AHistogram-instance-method" class="signature"><strong>#histogram</strong>(channel_type : ChannelType) : Histogram</a>
+        <a href="#pad%28all%3AInt32%3D0%2C%2A%2Ctop%3AInt32%3D0%2Cbottom%3AInt32%3D0%2Cleft%3AInt32%3D0%2Cright%3AInt32%3D0%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3Aself-instance-method" class="signature"><strong>#pad</strong>(all : Int32 = <span class="n">0</span>, *, top : Int32 = <span class="n">0</span>, bottom : Int32 = <span class="n">0</span>, left : Int32 = <span class="n">0</span>, right : Int32 = <span class="n">0</span>, pad_type : EdgePolicy = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <span class="k">self</span></a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#histogram_equalize%3Aself-instance-method" class="signature"><strong>#histogram_equalize</strong> : <span class="k">self</span></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#histogram_equalize%21%3Aself-instance-method" class="signature"><strong>#histogram_equalize!</strong> : <span class="k">self</span></a>
+        <a href="#pad%21%28all%3AInt32%3D0%2C%2A%2Ctop%3AInt32%3D0%2Cbottom%3AInt32%3D0%2Cleft%3AInt32%3D0%2Cright%3AInt32%3D0%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3Aself-instance-method" class="signature"><strong>#pad!</strong>(all : Int32 = <span class="n">0</span>, *, top : Int32 = <span class="n">0</span>, bottom : Int32 = <span class="n">0</span>, left : Int32 = <span class="n">0</span>, right : Int32 = <span class="n">0</span>, pad_type : EdgePolicy = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <span class="k">self</span></a>
         
       </li>
     
@@ -457,50 +448,34 @@ image.histogram_equalize.save(<span class="s">&quot;equalized.jpg&quot;</span>)<
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="histogram(channel_type:ChannelType):Histogram-instance-method">
+    <div class="entry-detail" id="pad(all:Int32=0,*,top:Int32=0,bottom:Int32=0,left:Int32=0,right:Int32=0,pad_type:EdgePolicy=EdgePolicy::Black):self-instance-method">
       <div class="signature">
         
-        def <strong>histogram</strong>(channel_type : <a href="../../CrImage/ChannelType.html">ChannelType</a>) : <a href="../../CrImage/Operation/HistogramEqualize/Histogram.html">Histogram</a>
+        def <strong>pad</strong>(all : Int32 = <span class="n">0</span>, *, top : Int32 = <span class="n">0</span>, bottom : Int32 = <span class="n">0</span>, left : Int32 = <span class="n">0</span>, right : Int32 = <span class="n">0</span>, pad_type : <a href="../../CrImage/EdgePolicy.html">EdgePolicy</a> = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#histogram%28channel_type%3AChannelType%29%3AHistogram-instance-method">#</a>
+        <a class="method-permalink" href="#pad%28all%3AInt32%3D0%2C%2A%2Ctop%3AInt32%3D0%2Cbottom%3AInt32%3D0%2Cleft%3AInt32%3D0%2Cright%3AInt32%3D0%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3Aself-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/histogram.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/pad.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="histogram_equalize:self-instance-method">
+    <div class="entry-detail" id="pad!(all:Int32=0,*,top:Int32=0,bottom:Int32=0,left:Int32=0,right:Int32=0,pad_type:EdgePolicy=EdgePolicy::Black):self-instance-method">
       <div class="signature">
         
-        def <strong>histogram_equalize</strong> : <span class="k">self</span>
+        def <strong>pad!</strong>(all : Int32 = <span class="n">0</span>, *, top : Int32 = <span class="n">0</span>, bottom : Int32 = <span class="n">0</span>, left : Int32 = <span class="n">0</span>, right : Int32 = <span class="n">0</span>, pad_type : <a href="../../CrImage/EdgePolicy.html">EdgePolicy</a> = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#histogram_equalize%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#pad%21%28all%3AInt32%3D0%2C%2A%2Ctop%3AInt32%3D0%2Cbottom%3AInt32%3D0%2Cleft%3AInt32%3D0%2Cright%3AInt32%3D0%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3Aself-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/histogram.cr#L111" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="histogram_equalize!:self-instance-method">
-      <div class="signature">
-        
-        def <strong>histogram_equalize!</strong> : <span class="k">self</span>
-
-        <a class="method-permalink" href="#histogram_equalize%21%3Aself-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/histogram.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/pad.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>

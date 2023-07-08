@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="Crystal Image">
-  <title>CrImage::Operation - Crystal Image master-dev</title>
+  <title>CrImage::Map(T) - Crystal Image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -161,7 +161,7 @@
       
     </li>
   
-  <li class=" " data-id="Crystal Image/CrImage/Map" data-name="crimage::map(t)">
+  <li class=" current" data-id="Crystal Image/CrImage/Map" data-name="crimage::map(t)">
       <a href="../CrImage/Map.html">Map</a>
       
     </li>
@@ -176,7 +176,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="Crystal Image/CrImage/Operation" data-name="crimage::operation">
+  <li class="parent " data-id="Crystal Image/CrImage/Operation" data-name="crimage::operation">
       <a href="../CrImage/Operation.html">Operation</a>
       
         <ul>
@@ -325,7 +325,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> CrImage::Operation
+  <span class="kind">module</span> CrImage::Map(T)
 
 </h1>
 
@@ -342,7 +342,7 @@
     Overview
   </h2>
 
-  <p>Module for containing individual operations for <code><a href="../CrImage/Image.html">Image</a></code> classes.</p>
+  <p>An interface for 2 dimensional data. Used for various masking and correlation methods.</p>
 
 
 
@@ -353,6 +353,22 @@
 
 
 
+
+  <h2>
+    <a id="direct-including-types" class="anchor" href="#direct-including-types">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct including types
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../CrImage/Mask.html">CrImage::Mask</a></li>
+    
+      <li class="other-type"><a href="../CrImage/OneMap.html">CrImage::OneMap</a></li>
+    
+  </ul>
 
 
 
@@ -367,15 +383,8 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/bilinear_resize.cr#L14" target="_blank">
-        cr-image/operation/bilinear_resize.cr
-      </a>
-    
-    <br/>
-  
-    
-      <a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/operation/operation.cr#L2" target="_blank">
-        cr-image/operation/operation.cr
+      <a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L3" target="_blank">
+        cr-image/map.cr
       </a>
     
     <br/>
@@ -388,6 +397,58 @@
 
 
 
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method" class="signature"><strong>#[]</strong>(x : Int32, y : Int32) : T</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28index%3AInt32%29%3AT-instance-method" class="signature"><strong>#[]</strong>(index : Int32) : T</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%3F%28x%3AInt32%2Cy%3AInt32%29%3AT%7CNil-instance-method" class="signature"><strong>#[]?</strong>(x : Int32, y : Int32) : T | Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%3F%28index%3AInt32%29%3AT%7CNil-instance-method" class="signature"><strong>#[]?</strong>(index : Int32) : T | Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#height%3AInt32-instance-method" class="signature"><strong>#height</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#shape%3ATuple%28Int32%2CInt32%29-instance-method" class="signature"><strong>#shape</strong> : Tuple(Int32, Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#width%3AInt32-instance-method" class="signature"><strong>#width</strong> : Int32</a>
+        
+      </li>
+    
+  </ul>
 
 
 
@@ -401,6 +462,144 @@
 
 
 
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="[](x:Int32,y:Int32):T-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>[]</strong>(x : Int32, y : Int32) : T
+
+        <a class="method-permalink" href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](index:Int32):T-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>[]</strong>(index : Int32) : T
+
+        <a class="method-permalink" href="#%5B%5D%28index%3AInt32%29%3AT-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]?(x:Int32,y:Int32):T|Nil-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>[]?</strong>(x : Int32, y : Int32) : T | Nil
+
+        <a class="method-permalink" href="#%5B%5D%3F%28x%3AInt32%2Cy%3AInt32%29%3AT%7CNil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L11" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]?(index:Int32):T|Nil-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>[]?</strong>(index : Int32) : T | Nil
+
+        <a class="method-permalink" href="#%5B%5D%3F%28index%3AInt32%29%3AT%7CNil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="height:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>height</strong> : Int32
+
+        <a class="method-permalink" href="#height%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="shape:Tuple(Int32,Int32)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>shape</strong> : Tuple(Int32, Int32)
+
+        <a class="method-permalink" href="#shape%3ATuple%28Int32%2CInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>size</strong> : Int32
+
+        <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="width:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>width</strong> : Int32
+
+        <a class="method-permalink" href="#width%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/map.cr#L4" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
 

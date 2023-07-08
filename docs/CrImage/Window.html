@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="Crystal Image">
-  <title>CrImage::Region - Crystal Image master-dev</title>
+  <title>CrImage::Window(T) - Crystal Image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -261,7 +261,7 @@
       
     </li>
   
-  <li class=" current" data-id="Crystal Image/CrImage/Region" data-name="crimage::region">
+  <li class=" " data-id="Crystal Image/CrImage/Region" data-name="crimage::region">
       <a href="../CrImage/Region.html">Region</a>
       
     </li>
@@ -291,7 +291,7 @@
       
     </li>
   
-  <li class=" " data-id="Crystal Image/CrImage/Window" data-name="crimage::window(t)">
+  <li class=" current" data-id="Crystal Image/CrImage/Window" data-name="crimage::window(t)">
       <a href="../CrImage/Window.html">Window</a>
       
     </li>
@@ -325,12 +325,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">struct</span> CrImage::Region
+  <span class="kind">abstract class</span> CrImage::Window(T)
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../CrImage/Region.html">CrImage::Region</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../CrImage/Window.html">CrImage::Window(T)</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -344,8 +344,10 @@
     Overview
   </h2>
 
-  <p>Represents a rectangular area on an <code><a href="../CrImage/Image.html">Image</a></code> from its upper left corner <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code> and <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code> coordinates, and a <code><a href="../CrImage/Region.html#width%3AUInt16-instance-method">#width</a></code> and <code><a href="../CrImage/Region.html#height%3AUInt16-instance-method">#height</a></code>.</p>
-<p>See <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code> and <code><a href="../CrImage/Operation/Draw.html#draw_square%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">Operation::Draw#draw_square</a></code> for examples using it.</p>
+  <p>Represents a read-only view on top of a <code><a href="../CrImage/Map.html">Map</a></code>.</p>
+<p>Constructing one of these over a larger <code><a href="../CrImage/Map.html">Map</a></code> allows for a re-indexed view within that map. If needing to sum all values
+within a certain area, a <code><a href="../CrImage/Window.html">Window</a></code> can be constructed around that area and then summed from that.</p>
+<p>See <code><a href="../CrImage/RepeatView.html">RepeatView</a></code>, <code><a href="../CrImage/ErrorView.html">ErrorView</a></code>, and <code><a href="../CrImage/BlackView.html">BlackView</a></code> for specific edge handling cases.</p>
 
 
 
@@ -354,6 +356,24 @@
 
 
 
+
+  <h2>
+    <a id="direct-known-subclasses" class="anchor" href="#direct-known-subclasses">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct Known Subclasses
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../CrImage/BlackView.html">CrImage::BlackView(T)</a></li>
+    
+      <li class="other-type"><a href="../CrImage/ErrorView.html">CrImage::ErrorView(T)</a></li>
+    
+      <li class="other-type"><a href="../CrImage/RepeatView.html">CrImage::RepeatView(T)</a></li>
+    
+  </ul>
 
 
 
@@ -370,8 +390,8 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/region.cr#L5" target="_blank">
-        cr-image/region.cr
+      <a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L8" target="_blank">
+        cr-image/window_view.cr
       </a>
     
     <br/>
@@ -392,12 +412,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#center%28x%3AUInt16%2Cy%3AUInt16%2Cwidth%3AUInt16%2Cheight%3AUInt16%29%3ARegion-class-method" class="signature"><strong>.center</strong>(x : UInt16, y : UInt16, width : UInt16, height : UInt16) : Region</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#new%28x%3AUInt16%2Cy%3AUInt16%2Cwidth%3AUInt16%2Cheight%3AUInt16%29-class-method" class="signature"><strong>.new</strong>(x : UInt16, y : UInt16, width : UInt16, height : UInt16)</a>
+        <a href="#new%28width%3AInt32%2Cheight%3AInt32%2Cmap%3ACrImage%3A%3AMap%28T%29%2Cmap_x%3AInt32%2Cmap_y%3AInt32%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, map : CrImage::Map(T), map_x : Int32, map_y : Int32)</a>
         
       </li>
     
@@ -418,53 +433,70 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#center%3ATuple%28Int32%2CInt32%29-instance-method" class="signature"><strong>#center</strong> : Tuple(Int32, Int32)</a>
-        
-          <div class="summary"><p>Return the <code>{x, y}</code> tuple of the center coordinates of this <code><a href="../CrImage/Region.html">Region</a></code></p></div>
+        <a href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method" class="signature"><strong>#[]</strong>(x : Int32, y : Int32) : T</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
+        <a href="#half_height%3AInt32-instance-method" class="signature"><strong>#half_height</strong> : Int32</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#copy_with%28x_x%3D%40x%2Cy_y%3D%40y%2Cwidth_width%3D%40width%2Cheight_height%3D%40height%29-instance-method" class="signature"><strong>#copy_with</strong>(x _x = @x, y _y = @y, width _width = @width, height _height = @height)</a>
+        <a href="#half_width%3AInt32-instance-method" class="signature"><strong>#half_width</strong> : Int32</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#crop%28image%3AImage%29%3AImage-instance-method" class="signature"><strong>#crop</strong>(image : Image) : Image</a>
-        
-          <div class="summary"><p>Crop a provided <code><a href="../CrImage/Image.html">Image</a></code> with this region, using <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code></p></div>
+        <a href="#height%3AInt32-instance-method" class="signature"><strong>#height</strong> : Int32</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#height%3AUInt16-instance-method" class="signature"><strong>#height</strong> : UInt16</a>
+        <a href="#map%3AMap%28T%29-instance-method" class="signature"><strong>#map</strong> : Map(T)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#to_tuple%3ATuple%28Int32%2CInt32%2CInt32%2CInt32%29-instance-method" class="signature"><strong>#to_tuple</strong> : Tuple(Int32, Int32, Int32, Int32)</a>
-        
-          <div class="summary"><p>Return this <code><a href="../CrImage/Region.html">Region</a></code> as a <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code>, <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code>, <code><a href="../CrImage/Region.html#width%3AUInt16-instance-method">#width</a></code>, and <code><a href="../CrImage/Region.html#height%3AUInt16-instance-method">#height</a></code> tuple</p></div>
+        <a href="#map_x%3AInt32-instance-method" class="signature"><strong>#map_x</strong> : Int32</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#width%3AUInt16-instance-method" class="signature"><strong>#width</strong> : UInt16</a>
+        <a href="#map_y%3AInt32-instance-method" class="signature"><strong>#map_y</strong> : Int32</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#x%3AUInt16-instance-method" class="signature"><strong>#x</strong> : UInt16</a>
+        <a href="#mean%3AFloat64-instance-method" class="signature"><strong>#mean</strong> : Float64</a>
+        
+          <div class="summary"><p>Calculate the mean for all values in the window</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#y%3AUInt16-instance-method" class="signature"><strong>#y</strong> : UInt16</a>
+        <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
+        
+          <div class="summary"><p>Return the size of this window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sum%3AFloat64-instance-method" class="signature"><strong>#sum</strong> : Float64</a>
+        
+          <div class="summary"><p>Sum all values in the window together</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sum%28%26%3AT%2CInt32%2CInt32%2Cself-%3ET%29%3AFloat64-instance-method" class="signature"><strong>#sum</strong>(& : T, Int32, Int32, <span class="k">self</span> -> T) : Float64</a>
+        
+          <div class="summary"><p>Iterate over all values within the window and sum the result of the passed in block</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#width%3AInt32-instance-method" class="signature"><strong>#width</strong> : Int32</a>
         
       </li>
     
@@ -475,16 +507,6 @@
 
 
 <div class="methods-inherited">
-  
-    
-
-
-    
-
-
-    
-
-
   
     
 
@@ -518,34 +540,18 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="center(x:UInt16,y:UInt16,width:UInt16,height:UInt16):Region-class-method">
+    <div class="entry-detail" id="new(width:Int32,height:Int32,map:CrImage::Map(T),map_x:Int32,map_y:Int32)-class-method">
       <div class="signature">
         
-        def self.<strong>center</strong>(x : UInt16, y : UInt16, width : UInt16, height : UInt16) : <a href="../CrImage/Region.html">Region</a>
+        def self.<strong>new</strong>(width : Int32, height : Int32, map : <a href="../CrImage/Map.html">CrImage::Map</a>(T), map_x : Int32, map_y : Int32)
 
-        <a class="method-permalink" href="#center%28x%3AUInt16%2Cy%3AUInt16%2Cwidth%3AUInt16%2Cheight%3AUInt16%29%3ARegion-class-method">#</a>
+        <a class="method-permalink" href="#new%28width%3AInt32%2Cheight%3AInt32%2Cmap%3ACrImage%3A%3AMap%28T%29%2Cmap_x%3AInt32%2Cmap_y%3AInt32%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/region.cr#L11" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="new(x:UInt16,y:UInt16,width:UInt16,height:UInt16)-class-method">
-      <div class="signature">
-        
-        def self.<strong>new</strong>(x : UInt16, y : UInt16, width : UInt16, height : UInt16)
-
-        <a class="method-permalink" href="#new%28x%3AUInt16%2Cy%3AUInt16%2Cwidth%3AUInt16%2Cheight%3AUInt16%29-class-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/region.cr#L5" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -564,153 +570,214 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="center:Tuple(Int32,Int32)-instance-method">
+    <div class="entry-detail" id="[](x:Int32,y:Int32):T-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>[]</strong>(x : Int32, y : Int32) : T
+
+        <a class="method-permalink" href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="half_height:Int32-instance-method">
       <div class="signature">
         
-        def <strong>center</strong> : Tuple(Int32, Int32)
+        def <strong>half_height</strong> : Int32
 
-        <a class="method-permalink" href="#center%3ATuple%28Int32%2CInt32%29-instance-method">#</a>
+        <a class="method-permalink" href="#half_height%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="half_width:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>half_width</strong> : Int32
+
+        <a class="method-permalink" href="#half_width%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="height:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>height</strong> : Int32
+
+        <a class="method-permalink" href="#height%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L12" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="map:Map(T)-instance-method">
+      <div class="signature">
+        
+        def <strong>map</strong> : <a href="../CrImage/Map.html">Map</a>(T)
+
+        <a class="method-permalink" href="#map%3AMap%28T%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L13" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="map_x:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>map_x</strong> : Int32
+
+        <a class="method-permalink" href="#map_x%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L14" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="map_y:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>map_y</strong> : Int32
+
+        <a class="method-permalink" href="#map_y%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mean:Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>mean</strong> : Float64
+
+        <a class="method-permalink" href="#mean%3AFloat64-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Return the <code>{x, y}</code> tuple of the center coordinates of this <code><a href="../CrImage/Region.html">Region</a></code></p>
+          <p>Calculate the mean for all values in the window</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/region.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="clone-instance-method">
+    <div class="entry-detail" id="size:Int32-instance-method">
       <div class="signature">
         
-        def <strong>clone</strong>
+        def <strong>size</strong> : Int32
 
-        <a class="method-permalink" href="#clone-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/region.cr#L5" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="copy_with(x_x=@x,y_y=@y,width_width=@width,height_height=@height)-instance-method">
-      <div class="signature">
-        
-        def <strong>copy_with</strong>(x _x = @x, y _y = @y, width _width = @width, height _height = @height)
-
-        <a class="method-permalink" href="#copy_with%28x_x%3D%40x%2Cy_y%3D%40y%2Cwidth_width%3D%40width%2Cheight_height%3D%40height%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/region.cr#L5" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="crop(image:Image):Image-instance-method">
-      <div class="signature">
-        
-        def <strong>crop</strong>(image : <a href="../CrImage/Image.html">Image</a>) : <a href="../CrImage/Image.html">Image</a>
-
-        <a class="method-permalink" href="#crop%28image%3AImage%29%3AImage-instance-method">#</a>
+        <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Crop a provided <code><a href="../CrImage/Image.html">Image</a></code> with this region, using <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code></p>
+          <p>Return the size of this window</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/region.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="height:UInt16-instance-method">
+    <div class="entry-detail" id="sum:Float64-instance-method">
       <div class="signature">
         
-        def <strong>height</strong> : UInt16
+        def <strong>sum</strong> : Float64
 
-        <a class="method-permalink" href="#height%3AUInt16-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="to_tuple:Tuple(Int32,Int32,Int32,Int32)-instance-method">
-      <div class="signature">
-        
-        def <strong>to_tuple</strong> : Tuple(Int32, Int32, Int32, Int32)
-
-        <a class="method-permalink" href="#to_tuple%3ATuple%28Int32%2CInt32%2CInt32%2CInt32%29-instance-method">#</a>
+        <a class="method-permalink" href="#sum%3AFloat64-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Return this <code><a href="../CrImage/Region.html">Region</a></code> as a <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code>, <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code>, <code><a href="../CrImage/Region.html#width%3AUInt16-instance-method">#width</a></code>, and <code><a href="../CrImage/Region.html#height%3AUInt16-instance-method">#height</a></code> tuple</p>
+          <p>Sum all values in the window together</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/region.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="width:UInt16-instance-method">
+    <div class="entry-detail" id="sum(&amp;:T,Int32,Int32,self-&gt;T):Float64-instance-method">
       <div class="signature">
         
-        def <strong>width</strong> : UInt16
+        def <strong>sum</strong>(& : T, Int32, Int32, <span class="k">self</span> -> T) : Float64
 
-        <a class="method-permalink" href="#width%3AUInt16-instance-method">#</a>
+        <a class="method-permalink" href="#sum%28%26%3AT%2CInt32%2CInt32%2Cself-%3ET%29%3AFloat64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Iterate over all values within the window and sum the result of the passed in block</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="width:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>width</strong> : Int32
+
+        <a class="method-permalink" href="#width%3AInt32-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="x:UInt16-instance-method">
-      <div class="signature">
-        
-        def <strong>x</strong> : UInt16
-
-        <a class="method-permalink" href="#x%3AUInt16-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="y:UInt16-instance-method">
-      <div class="signature">
-        
-        def <strong>y</strong> : UInt16
-
-        <a class="method-permalink" href="#y%3AUInt16-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
+          [<a href="https://github.com/Vici37/cr-image/blob/950c7f266ab8daf1b6e757911695aaac836584fa/src/cr-image/window_view.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>

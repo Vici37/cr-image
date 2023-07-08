@@ -545,6 +545,7 @@ module CrImage
   end
 end
 
+# :nodoc:
 struct Float
   def *(map : CrImage::Map)
     map * self
@@ -555,6 +556,7 @@ struct Float
   end
 end
 
+# :nodoc:
 struct Int
   def *(map : CrImage::Map)
     map * self
