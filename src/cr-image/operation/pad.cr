@@ -8,7 +8,6 @@
 # image.pad(left: 50, right: 50)
 # image.pad(left: 50, right: 50, pad_type: CrImage::EdgePolicy::Repeat)
 # ```
-# ```
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/pad_black.jpg" alt="Picture with black padding on left and right"/>
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/pad_repeat.jpg" alt="Picture with repeated padding on left and right"/>
 module CrImage::Operation::Pad
@@ -21,6 +20,7 @@ module CrImage::Operation::Pad
     new_width = width
     new_height = height
     # puts "Memory start: #{GC.stats.total_bytes - mem_start}"
+    # TODO: resize alpha channel
     each_color_channel do |channel, channel_type|
       padded = UInt8Map.new(width, channel).pad(all, top: top, bottom: bottom, left: left, right: right, pad_type: pad_type)
       self[channel_type] = padded.raw
