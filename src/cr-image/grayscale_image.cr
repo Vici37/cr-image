@@ -71,6 +71,13 @@ class CrImage::GrayscaleImage < CrImage::Image
     nil
   end
 
+  # Run provided block with the `ChannelType::Gray` channels and channel types.
+  def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
+    yield @gray, ChannelType::Gray
+    yield @alpha, ChannelType::Alpha
+    nil
+  end
+
   record Pixel,
     gray : UInt8,
     alpha : UInt8

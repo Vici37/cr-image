@@ -48,6 +48,9 @@ abstract class CrImage::Image
   # Run provided block on each channel supported by this image.
   abstract def each_color_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
 
+  # Run provided block on each channel supported by this image.
+  abstract def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
+
   # Get the `Array(UInt8)` corresponding to `channel_type`)
   abstract def [](channel_type : ChannelType) : Array(UInt8)
   # Set the `Array(UInt8)` corresponding to `channel_type`) to `channel`
