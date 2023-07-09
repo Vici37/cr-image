@@ -30,7 +30,7 @@ module CrImage::Operation::Crop
   end
 
   def crop!(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : self
-    each_color_channel do |channel, channel_type|
+    each_channel do |channel, channel_type|
       self[channel_type] = UInt8Map.new(width, channel)[x, new_width, y, new_height].raw
     end
 

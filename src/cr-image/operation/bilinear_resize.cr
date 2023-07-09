@@ -22,8 +22,7 @@ module CrImage::Operation::BilinearResize
     x_ratio = width > 1 ? (@width - 1) / (width - 1) : 0
     y_ratio = height > 1 ? (@height - 1) / (height - 1) : 0
 
-    # TODO: resize alpha channel
-    each_color_channel do |channel, channel_type|
+    each_channel do |channel, channel_type|
       resized_channel = Array.new(width * height) { 0u8 }
 
       height.times do |h|
