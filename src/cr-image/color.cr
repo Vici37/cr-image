@@ -5,13 +5,17 @@
 class CrImage::Color
   getter red, green, blue, alpha
 
-  def initialize(@red : UInt8, @green : UInt8, @blue : UInt8, @alpha : UInt8 = 255)
+  def initialize(@red : UInt8, @green : UInt8, @blue : UInt8, @alpha : UInt8 = ChannelType::Alpha.default)
+  end
+
+  def self.default : Color
+    new(ChannelType::Red.default, ChannelType::Green.default, ChannelType::Blue.default, ChannelType::Alpha.default)
   end
 
   # Generate a random color with full (255) opacity
   def self.random : Color
     r = Random.new
-    new(r.rand(UInt8), r.rand(UInt8), r.rand(UInt8), 255u8)
+    new(r.rand(UInt8), r.rand(UInt8), r.rand(UInt8), ChannelType::Alpha.default)
   end
 
   # Convert this Color to a single UInt8 gray value

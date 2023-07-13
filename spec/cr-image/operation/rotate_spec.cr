@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-Spectator.describe CrImage::Operation::Rotate, :focus do
+Spectator.describe CrImage::Operation::Rotate do
   include SpecHelper
 
   specs_for_operator(rotate(45),
