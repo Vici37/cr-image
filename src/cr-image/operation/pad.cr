@@ -18,7 +18,7 @@ module CrImage::Operation::Pad
   def pad!(all : Int32 = 0, *, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black) : self
     orig_width = width
     each_channel do |channel, channel_type|
-      padded = UInt8Map.new(orig_width, channel).pad(all, top: top, bottom: bottom, left: left, right: right, pad_type: pad_type)
+      padded = UInt8Map.new(orig_width, channel).pad(all, top: top, bottom: bottom, left: left, right: right, pad_type: pad_type, pad_black_value: channel_type.default)
       self[channel_type] = padded.raw
       @width = padded.width
       @height = padded.height

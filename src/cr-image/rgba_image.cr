@@ -89,6 +89,11 @@ class CrImage::RGBAImage < CrImage::Image
     )
   end
 
+  # Returns self
+  def to_rgba : RGBAImage
+    self
+  end
+
   # Return the number of pixels in this image
   def size : Int32
     @width * @height
