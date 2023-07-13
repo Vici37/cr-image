@@ -26,13 +26,13 @@ class CrImage::GrayscaleImage < CrImage::Image
 
   # Create a GrayscaleImage with only an `Array(UInt8)` (alpha channel initialized as `255` throughout)
   def initialize(@gray, @width, @height)
-    @alpha = Array(UInt8).new(@gray.size) { 255u8 }
+    @alpha = Array(UInt8).new(@gray.size) { ChannelType::Alpha.default }
   end
 
   # Create a GrayscaleImage with only an `Array(UInt8)` (alpha channel initialized as `255` throughout)
   def initialize(@gray, @width)
     @height = @gray.size // @width
-    @alpha = Array(UInt8).new(@gray.size) { 255u8 }
+    @alpha = Array(UInt8).new(@gray.size) { ChannelType::Alpha.default }
   end
 
   # Create a new GrayscaleImage as a copy of this one
@@ -129,7 +129,7 @@ class CrImage::GrayscaleImage < CrImage::Image
   # Becomes
   #
   # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/to_rgba_color_map_sample.jpg" alt="Random colored pixels in rough outline of woman"/>
-  def to_rgba(color_map : Hash(UInt8, Color), *, default : Color = Color.new(0u8, 0u8, 0u8, 255u8)) : RGBAImage
+  def to_rgba(color_map : Hash(UInt8, Color), *, default : Color = Color.default) : RGBAImage
     red = Array(UInt8).new(size)
     green = Array(UInt8).new(size)
     blue = Array(UInt8).new(size)
