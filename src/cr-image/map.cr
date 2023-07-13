@@ -265,14 +265,14 @@ module CrImage
       @raw.dup
     end
 
-    def pad(all : Int32 = 0, *, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black) : self
+    def pad(all : Int32 = 0, *, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black, pad_black_value : T = T.zero) : self
       top = top > 0 ? top : all
       bottom = bottom > 0 ? bottom : all
       left = left > 0 ? left : all
       right = right > 0 ? right : all
 
       new_width = left + width + right
-      new_raw = initial_raw_pad(pad_type, new_width, top, bottom, left, right)
+      new_raw = initial_raw_pad(pad_type, new_width, top, bottom, left, right, pad_black_value)
 
       # Now copy the original values into the new raw array at the correct locations
       height.times do |y|
@@ -299,12 +299,12 @@ module CrImage
       self.class.new(new_width, new_raw)
     end
 
-    private def initial_raw_pad(pad_type, new_width, top, bottom, left, right) : Array(T)
+    private def initial_raw_pad(pad_type, new_width, top, bottom, left, right, pad_black_value) : Array(T)
       case pad_type
-      in EdgePolicy::Black then Array(T).new((top + height + bottom) * new_width) { T.zero }
+      in EdgePolicy::Black then Array(T).new((top + height + bottom) * new_width) { pad_black_value }
       in EdgePolicy::Repeat then Array(T).new((top + height + bottom) * new_width) do |i|
         current_y = i // new_width
-        next T.zero if (current_y) < top || current_y >= (top + height)
+        next pad_black_value if (current_y) < top || current_y >= (top + height)
 
         adjusted_y = (current_y) - top
         adjusted_x = i % new_width

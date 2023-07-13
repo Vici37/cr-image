@@ -17,13 +17,14 @@ abstract class CrImage::Image
     include Operation::Brightness
     include Operation::ChannelSwap
     include Operation::Contrast
-    include Operation::GaussianBlur
-    include Operation::HorizontalBlur
-    include Operation::VerticalBlur
     include Operation::Crop
-    include Operation::Pad
     include Operation::Draw
+    include Operation::GaussianBlur
     include Operation::HistogramEqualize
+    include Operation::HorizontalBlur
+    include Operation::Rotate
+    include Operation::Pad
+    include Operation::VerticalBlur
     include Format::Save
     extend Format::Open
 

@@ -7,4 +7,8 @@ enum CrImage::ChannelType
   Blue
   Gray
   Alpha
+
+  def default : UInt8
+    alpha? ? 255u8 : 0u8
+  end
 end

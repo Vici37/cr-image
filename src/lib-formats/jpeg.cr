@@ -45,10 +45,10 @@ module CrImage::Format::JPEG
       )
       check_jpeg handle, LibJPEGTurbo.destroy(handle)
 
-      red = Array.new(width * height) { 0u8 }
-      green = Array.new(width * height) { 0u8 }
-      blue = Array.new(width * height) { 0u8 }
-      alpha = Array.new(width * height) { 255u8 }
+      red = Array.new(width * height) { ChannelType::Red.default }
+      green = Array.new(width * height) { ChannelType::Green.default }
+      blue = Array.new(width * height) { ChannelType::Blue.default }
+      alpha = Array.new(width * height) { ChannelType::Alpha.default }
 
       (width * height).times do |index|
         red.unsafe_put(index, buffer[index * 3])
