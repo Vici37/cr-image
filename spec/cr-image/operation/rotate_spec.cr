@@ -28,19 +28,13 @@ Spectator.describe CrImage::Operation::Rotate do
     rgba_hash: "ba9d444ed5f4567830d6037990231aae0f3431ca"
   )
 
-  # specs_for_operator(crop(0, 0, 750, 500),
-  #   gray_hash: "62d6101d60ee8da38d1b9d8e809091099cec5994",
-  #   rgba_hash: "d764459f778b4839972367f78197bf9a96cd11fd"
-  # )
+  specs_for_operator(rotate(45, pad: true),
+    gray_hash: "7c2fcb8541211f4cfd4f8d9a51a638233a16dfb7",
+    rgba_hash: "21cf483faed9e7333801b78e9c4b4bc373a4ada9"
+  )
 
-  let(image) { gray_moon_ppm }
-
-  it "rotates" do
-    image.to_rgba
-      .draw_square(0, 0, image.width - 1, image.height - 1, CrImage::Color.random)
-      .draw_circle(375, 250, 5, CrImage::Color.of("#ff0000"), fill: true)
-      .save("original.jpg")
-      .rotate(-45, center_x: 375, center_y: 250, radius: 20, pad: true)
-      .save("rotated.jpg")
-  end
+  specs_for_operator(rotate(45, pad: true, edge_policy: CrImage::EdgePolicy::Repeat),
+    gray_hash: "7c2fcb8541211f4cfd4f8d9a51a638233a16dfb7",
+    rgba_hash: "90103263037ed12b1fc39554307ee8c49eafcbe1"
+  )
 end
