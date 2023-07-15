@@ -36,6 +36,8 @@ mask.to_gray.save("docs/images/less_than_example.jpg")
 
 image.pad(left: 50, right: 50).save("docs/images/pad_black.jpg")
 image.pad(left: 50, right: 50, pad_type: CrImage::EdgePolicy::Repeat).save("docs/images/pad_repeat.jpg")
+image.rotate(45).save("docs/images/rotate_45.jpg")
+image.rotate(45, pad: true).save("docs/images/rotate_45_pad.jpg")
 
 # This should only be run once to generate the sample picture
 # colors = 256.times.to_a.map { |i| {i.to_u8, CrImage::Color.random} }.to_h

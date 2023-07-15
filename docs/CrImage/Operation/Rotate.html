@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../../js/doc.js"></script>
 
   <meta name="repository-name" content="Crystal Image">
-  <title>CrImage::Operation::HistogramEqualize - Crystal Image master-dev</title>
+  <title>CrImage::Operation::Rotate - Crystal Image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -227,7 +227,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="Crystal Image/CrImage/Operation/HistogramEqualize" data-name="crimage::operation::histogramequalize">
+  <li class="parent " data-id="Crystal Image/CrImage/Operation/HistogramEqualize" data-name="crimage::operation::histogramequalize">
       <a href="../../CrImage/Operation/HistogramEqualize.html">HistogramEqualize</a>
       
         <ul>
@@ -257,7 +257,7 @@
       
     </li>
   
-  <li class=" " data-id="Crystal Image/CrImage/Operation/Rotate" data-name="crimage::operation::rotate">
+  <li class=" current" data-id="Crystal Image/CrImage/Operation/Rotate" data-name="crimage::operation::rotate">
       <a href="../../CrImage/Operation/Rotate.html">Rotate</a>
       
     </li>
@@ -336,7 +336,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> CrImage::Operation::HistogramEqualize
+  <span class="kind">module</span> CrImage::Operation::Rotate
 
 </h1>
 
@@ -353,17 +353,13 @@
     Overview
   </h2>
 
-  <p>Provides methods for histogram and histogram equalization. Follows method outlined <a href="https://www.sci.utah.edu/~acoste/uou/Image/project1/Arthur_COSTE_Project_1_report.html">here</a></p>
-<p>If an image is particularly dark or particularly bright with low contrast, the <code><a href="../../CrImage/Operation/Contrast.html#contrast%28value%3AFloat64%29%3Aself-instance-method">Operation::Contrast#contrast</a></code> method will only
-make the image darker or lighter. For images like these, equalizing the image along its histogram will produce better results.</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji.jpg" alt="A dark image of Mt. Fuji"/>
-<pre><code class="language-crystal">image.contrast(<span class="n">10</span>).save(<span class="s">&quot;contrast.jpg&quot;</span>)
-image.histogram_equalize.save(<span class="s">&quot;equalized.jpg&quot;</span>)</code></pre>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji_contrast_10.jpg" alt="Darker image of Mt. Fuji"/>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/mt_fuji_histogram_equalized.jpg" alt="A higher contrast image of Mt. Fuji"/>
-<p>This method does not work well when a given method has a bimodal distribution of color pixels. For example:</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample.jpg" alt="Woman in black turtleneck on white background in grayscale"/>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_sample_equalized.jpg" alt="Highly pixelated and poor quality photo of woman in black turtleneck on white background in grayscale"/>
+  <p>Rotates an image</p>
+<p>Taking sample <code>image</code>:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">image.rotate(<span class="n">45</span>)
+image.rotate(<span class="n">45</span>, pad: <span class="n">true</span>)</code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/rotate_45.jpg" alt="Rotated image by 45 degrees"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/rotate_45_pad.jpg" alt="Rotated image by 45 degrees, padded to show corners"/>
 
 
 
@@ -404,8 +400,8 @@ image.histogram_equalize.save(<span class="s">&quot;equalized.jpg&quot;</span>)<
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/eb080a9d0259dc88a2fc3b5bd3bb5e2df7e80e55/src/cr-image/operation/histogram.cr#L19" target="_blank">
-        cr-image/operation/histogram.cr
+      <a href="https://github.com/Vici37/cr-image/blob/eb080a9d0259dc88a2fc3b5bd3bb5e2df7e80e55/src/cr-image/operation/rotate.cr#L13" target="_blank">
+        cr-image/operation/rotate.cr
       </a>
     
     <br/>
@@ -430,17 +426,16 @@ image.histogram_equalize.save(<span class="s">&quot;equalized.jpg&quot;</span>)<
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#histogram%28channel_type%3AChannelType%29%3AHistogram-instance-method" class="signature"><strong>#histogram</strong>(channel_type : ChannelType) : Histogram</a>
+        <a href="#rotate%28degrees%3AFloat64%2C%2A%2Ccenter_x%3AInt32%3Dwidth//2%2Ccenter_y%3AInt32%3Dheight//2%2Cradius%3AInt32%3D-1%2Cpad%3ABool%3Dfalse%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3Aself-instance-method" class="signature"><strong>#rotate</strong>(degrees : Float64, *, center_x : Int32 = width <span class="o">//</span> <span class="n">2</span>, center_y : Int32 = height <span class="o">//</span> <span class="n">2</span>, radius : Int32 = <span class="n">-1</span>, pad : Bool = <span class="n">false</span>, pad_type : EdgePolicy = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Rotates an image by <code>degrees</code></p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#histogram_equalize%3Aself-instance-method" class="signature"><strong>#histogram_equalize</strong> : <span class="k">self</span></a>
+        <a href="#rotate%21%28degrees%3AFloat64%2C%2A%2Ccenter_x%3AInt32%3Dwidth//2%2Ccenter_y%3AInt32%3Dheight//2%2Cradius%3AInt32%3D-1%2Cpad%3ABool%3Dfalse%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3Aself-instance-method" class="signature"><strong>#rotate!</strong>(degrees : Float64, *, center_x : Int32 = width <span class="o">//</span> <span class="n">2</span>, center_y : Int32 = height <span class="o">//</span> <span class="n">2</span>, radius : Int32 = <span class="n">-1</span>, pad : Bool = <span class="n">false</span>, pad_type : EdgePolicy = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <span class="k">self</span></a>
         
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#histogram_equalize%21%3Aself-instance-method" class="signature"><strong>#histogram_equalize!</strong> : <span class="k">self</span></a>
+          <div class="summary"><p>Rotates an image by <code>degrees</code>.</p></div>
         
       </li>
     
@@ -468,50 +463,54 @@ image.histogram_equalize.save(<span class="s">&quot;equalized.jpg&quot;</span>)<
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="histogram(channel_type:ChannelType):Histogram-instance-method">
+    <div class="entry-detail" id="rotate(degrees:Float64,*,center_x:Int32=width//2,center_y:Int32=height//2,radius:Int32=-1,pad:Bool=false,pad_type:EdgePolicy=EdgePolicy::Black):self-instance-method">
       <div class="signature">
         
-        def <strong>histogram</strong>(channel_type : <a href="../../CrImage/ChannelType.html">ChannelType</a>) : <a href="../../CrImage/Operation/HistogramEqualize/Histogram.html">Histogram</a>
+        def <strong>rotate</strong>(degrees : Float64, *, center_x : Int32 = width <span class="o">//</span> <span class="n">2</span>, center_y : Int32 = height <span class="o">//</span> <span class="n">2</span>, radius : Int32 = <span class="n">-1</span>, pad : Bool = <span class="n">false</span>, pad_type : <a href="../../CrImage/EdgePolicy.html">EdgePolicy</a> = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#histogram%28channel_type%3AChannelType%29%3AHistogram-instance-method">#</a>
+        <a class="method-permalink" href="#rotate%28degrees%3AFloat64%2C%2A%2Ccenter_x%3AInt32%3Dwidth//2%2Ccenter_y%3AInt32%3Dheight//2%2Cradius%3AInt32%3D-1%2Cpad%3ABool%3Dfalse%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3Aself-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Rotates an image by <code>degrees</code></p>
+<p><code>center_x</code> and <code>center_y</code> represents the point in the image that will be rotated around. Defaults to image center.
+<code>radius</code> can be used to only rotate a smaller circular region in the image. Can't be used with <code>pad</code>
+<code>pad</code> can be used to pad out the image so that corners that would normally be occluded, are visible.
+<code>pad_type</code> behaves the same as <code>pad_type</code> in <code><a href="../../CrImage/Operation/Pad.html">Pad</a></code></p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/eb080a9d0259dc88a2fc3b5bd3bb5e2df7e80e55/src/cr-image/operation/histogram.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/eb080a9d0259dc88a2fc3b5bd3bb5e2df7e80e55/src/cr-image/operation/rotate.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="histogram_equalize:self-instance-method">
+    <div class="entry-detail" id="rotate!(degrees:Float64,*,center_x:Int32=width//2,center_y:Int32=height//2,radius:Int32=-1,pad:Bool=false,pad_type:EdgePolicy=EdgePolicy::Black):self-instance-method">
       <div class="signature">
         
-        def <strong>histogram_equalize</strong> : <span class="k">self</span>
+        def <strong>rotate!</strong>(degrees : Float64, *, center_x : Int32 = width <span class="o">//</span> <span class="n">2</span>, center_y : Int32 = height <span class="o">//</span> <span class="n">2</span>, radius : Int32 = <span class="n">-1</span>, pad : Bool = <span class="n">false</span>, pad_type : <a href="../../CrImage/EdgePolicy.html">EdgePolicy</a> = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <span class="k">self</span>
 
-        <a class="method-permalink" href="#histogram_equalize%3Aself-instance-method">#</a>
+        <a class="method-permalink" href="#rotate%21%28degrees%3AFloat64%2C%2A%2Ccenter_x%3AInt32%3Dwidth//2%2Ccenter_y%3AInt32%3Dheight//2%2Cradius%3AInt32%3D-1%2Cpad%3ABool%3Dfalse%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3Aself-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Rotates an image by <code>degrees</code>. Modifies <code>self</code></p>
+<p><code>center_x</code> and <code>center_y</code> represents the point in the image that will be rotated around. Defaults to image center.
+<code>radius</code> can be used to only rotate a smaller circular region in the image. Can't be used with <code>pad</code>
+<code>pad</code> can be used to pad out the image so that corners that would normally be occluded, are visible.
+<code>pad_type</code> behaves the same as <code>pad_type</code> in <code><a href="../../CrImage/Operation/Pad.html">Pad</a></code>
+Can't really find good ways to reduce this more than it is, so disabling this check here
+ameba:disable Metrics/CyclomaticComplexity</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/eb080a9d0259dc88a2fc3b5bd3bb5e2df7e80e55/src/cr-image/operation/histogram.cr#L111" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="histogram_equalize!:self-instance-method">
-      <div class="signature">
-        
-        def <strong>histogram_equalize!</strong> : <span class="k">self</span>
-
-        <a class="method-permalink" href="#histogram_equalize%21%3Aself-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/eb080a9d0259dc88a2fc3b5bd3bb5e2df7e80e55/src/cr-image/operation/histogram.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/eb080a9d0259dc88a2fc3b5bd3bb5e2df7e80e55/src/cr-image/operation/rotate.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>

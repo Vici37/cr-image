@@ -33,7 +33,7 @@ Spectator.describe CrImage::Operation::Rotate do
     rgba_hash: "21cf483faed9e7333801b78e9c4b4bc373a4ada9"
   )
 
-  specs_for_operator(rotate(45, pad: true, edge_policy: CrImage::EdgePolicy::Repeat),
+  specs_for_operator(rotate(45, pad: true, pad_type: CrImage::EdgePolicy::Repeat),
     gray_hash: "7c2fcb8541211f4cfd4f8d9a51a638233a16dfb7",
     rgba_hash: "90103263037ed12b1fc39554307ee8c49eafcbe1"
   )

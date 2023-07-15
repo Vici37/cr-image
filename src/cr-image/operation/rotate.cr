@@ -1,4 +1,22 @@
+# Rotates an image
+#
+# Taking sample `image`:
+#
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+#
+# ```
+# image.rotate(45)
+# image.rotate(45, pad: true)
+# ```
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/rotate_45.jpg" alt="Rotated image by 45 degrees"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/rotate_45_pad.jpg" alt="Rotated image by 45 degrees, padded to show corners"/>
 module CrImage::Operation::Rotate
+  # Rotates an image by `degrees`
+  #
+  # `center_x` and `center_y` represents the point in the image that will be rotated around. Defaults to image center.
+  # `radius` can be used to only rotate a smaller circular region in the image. Can't be used with `pad`
+  # `pad` can be used to pad out the image so that corners that would normally be occluded, are visible.
+  # `pad_type` behaves the same as `pad_type` in `Pad`
   def rotate(
     degrees : Float64,
     *,
@@ -6,11 +24,17 @@ module CrImage::Operation::Rotate
     center_y : Int32 = height // 2,
     radius : Int32 = -1,
     pad : Bool = false,
-    edge_policy : EdgePolicy = EdgePolicy::Black
+    pad_type : EdgePolicy = EdgePolicy::Black
   ) : self
-    clone.rotate!(degrees, center_x: center_x, center_y: center_y, radius: radius, pad: pad, edge_policy: edge_policy)
+    clone.rotate!(degrees, center_x: center_x, center_y: center_y, radius: radius, pad: pad, pad_type: pad_type)
   end
 
+  # Rotates an image by `degrees`. Modifies `self`
+  #
+  # `center_x` and `center_y` represents the point in the image that will be rotated around. Defaults to image center.
+  # `radius` can be used to only rotate a smaller circular region in the image. Can't be used with `pad`
+  # `pad` can be used to pad out the image so that corners that would normally be occluded, are visible.
+  # `pad_type` behaves the same as `pad_type` in `Pad`
   # Can't really find good ways to reduce this more than it is, so disabling this check here
   # ameba:disable Metrics/CyclomaticComplexity
   def rotate!(
@@ -20,9 +44,9 @@ module CrImage::Operation::Rotate
     center_y : Int32 = height // 2,
     radius : Int32 = -1,
     pad : Bool = false,
-    edge_policy : EdgePolicy = EdgePolicy::Black
+    pad_type : EdgePolicy = EdgePolicy::Black
   ) : self
-    raise Exception.new("Edge policy None doesn't apply to rotation") if edge_policy.none?
+    raise Exception.new("Edge policy None doesn't apply to rotation") if pad_type.none?
     raise Exception.new("Can't pad image and limit rotation by radius") if pad && radius >= 0
 
     # Rotate backwards, so that we can "look back" from the output pixel location into the input pixel location
@@ -48,7 +72,7 @@ module CrImage::Operation::Rotate
         orig_x = (cos * (new_x - out_center_x) - sin * (new_y - out_center_y) + center_x).round.to_i
         orig_y = (sin * (new_x - out_center_x) + cos * (new_y - out_center_y) + center_y).round.to_i
 
-        if edge_policy.black?
+        if pad_type.black?
           next channel_type.default if orig_x < 0 || orig_x >= width || orig_y < 0 || orig_y >= height
         else
           orig_x = orig_x.clamp(0, width - 1)
