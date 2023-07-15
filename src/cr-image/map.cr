@@ -302,15 +302,21 @@ module CrImage
     private def initial_raw_pad(pad_type, new_width, top, bottom, left, right, pad_black_value) : Array(T)
       case pad_type
       in EdgePolicy::Black then Array(T).new((top + height + bottom) * new_width) { pad_black_value }
-      in EdgePolicy::Repeat then Array(T).new((top + height + bottom) * new_width) do |i|
-        current_y = i // new_width
-        next pad_black_value if (current_y) < top || current_y >= (top + height)
+      in EdgePolicy::Repeat
+        adjusted_x = -1
+        current_y = 0
+        Array(T).new((top + height + bottom) * new_width) do |i|
+          adjusted_x += 1
+          if adjusted_x == new_width
+            adjusted_x = 0
+            current_y += 1
+          end
+          next pad_black_value if (current_y) < top || current_y >= (top + height)
 
-        adjusted_y = (current_y) - top
-        adjusted_x = i % new_width
+          adjusted_y = (current_y) - top
 
-        adjusted_x <= left ? self[0, adjusted_y] : self[width - 1, adjusted_y]
-      end
+          adjusted_x <= left ? self[0, adjusted_y] : self[width - 1, adjusted_y]
+        end
       in EdgePolicy::None then raise Exception.new("Pad method doesn't support edge policy None")
       end
     end
