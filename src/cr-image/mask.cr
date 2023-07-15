@@ -42,6 +42,9 @@ class CrImage::Mask
   getter width : Int32
   getter bits : BitArray
 
+  @segments_8_way : Array(Mask)? = nil
+  @segments_4_way : Array(Mask)? = nil
+
   # Construct a new `Mask` with a set width and bits from `bits`
   def initialize(@width, @bits)
     raise "BitArray size #{@bits.size} must be an even number of #{@width}" unless (@bits.size % @width) == 0
@@ -314,10 +317,6 @@ class CrImage::Mask
     Region.new(min_x, min_y, max_x - min_x + 1, max_y - min_y + 1)
   end
 
-  @segments_8_way : Array(Mask)? = nil
-  @segments_4_way : Array(Mask)? = nil
-  @last_used : Bool? = nil
-
   # Return an array of `Mask`s, each one corresponding to an area of contiguous true bits (identified from flood fills).
   #
   # May specify `diagonal: false` for only 4-way (up, down, left, right) flood fill instead of default 8-way.
@@ -366,15 +365,20 @@ class CrImage::Mask
     ret = [] of Mask
     copy = clone
 
+    outer_x = -1
+    outer_y = 0
     # TODO: implement a scanline algo: http://www.adammil.net/blog/v126_A_More_Efficient_Flood_Fill.html
-    size.times do |index|
-      x = index % width
-      y = index // width
+    size.times do
+      outer_x += 1
+      if outer_x == width
+        outer_x = 0
+        outer_y += 1
+      end
 
-      next unless copy[x, y]
+      next unless copy[outer_x, outer_y]
 
       new_mask = Mask.new(width, height, false)
-      queue = Deque(Tuple(Int32, Int32)).new([{x, y}])
+      queue = Deque(Tuple(Int32, Int32)).new([{outer_x, outer_y}])
 
       while coords = queue.shift?
         x, y = coords
