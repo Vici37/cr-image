@@ -78,6 +78,7 @@ results << benchmark { image.vertical_blur!(10) }
 results << benchmark { image.crop!(300, 250, 100, 100) }
 results << benchmark { image.histogram_equalize! }
 results << benchmark { image.pad!(100) }
+results << benchmark { image.rotate!(45) }
 results << benchmark do
   mask = CrImage::Mask.new(image)
   image.apply!(mask)
