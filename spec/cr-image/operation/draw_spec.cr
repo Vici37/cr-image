@@ -59,4 +59,9 @@ Spectator.describe CrImage::Operation::Draw do
     gray_hash: "a549a00b8e2a5bc42bd53df577ae92d58ee573a5",
     rgba_hash: "22e57ead344f2fe90e6a4ed7d0807822f035a3c7"
   )
+
+  it "draws a line", :focus do
+    puts "Drawing"
+    rgba_moon_ppm.draw_line(100, 100, 200, 200, Color.of("#00f")).save("moon_with_line.jpg")
+  end
 end

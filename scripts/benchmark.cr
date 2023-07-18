@@ -84,6 +84,7 @@ results << benchmark { image.draw_square!(100, 100, 100, 100, Color.random) }
 results << benchmark { image.draw_square!(100, 100, 100, 100, Color.random, fill: true) }
 results << benchmark { image.draw_circle!(100, 100, 100, Color.random) }
 results << benchmark { image.draw_circle!(100, 100, 100, Color.random, fill: true) }
+results << benchmark { image.draw_line!(100, 100, 100, 100, Color.random) }
 
 results << benchmark do
   mask = CrImage::Mask.new(image)

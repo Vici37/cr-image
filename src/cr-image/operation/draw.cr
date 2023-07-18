@@ -129,4 +129,46 @@ module CrImage::Operation::Draw
 
     self
   end
+
+  def draw_line(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : Color, *, thickness : Int32 = 1) : self
+    clone.draw_line!(x1, y1, x2, y2, color, thickness: thickness)
+  end
+
+  # Implementation of http://www.edepot.com/linec.html
+  def draw_line!(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : Color, *, thickness : Int32 = 1) : self
+    # TODO: use thickness
+    rise_by_height = false
+    short = y2 - y1
+    long = x2 - x1
+
+    if short.abs > long.abs
+      short, long = long, short
+      rise_by_height = true
+    end
+
+    end_val = long
+
+    long = -long if long < 0
+
+    gradient = long == 0 ? short : short / long.to_f
+    if rise_by_height
+      each_color_channel do |channel, channel_type|
+        jump = 0.0
+        0.to(end_val) do |i|
+          channel[index_of(x1 + jump.to_i, y1 + i)] = color[channel_type]
+          jump += gradient
+        end
+      end
+    else
+      each_color_channel do |channel, channel_type|
+        jump = 0.0
+        0.to(end_val) do |i|
+          channel[index_of(x1 + i, y1 + jump.to_i)] = color[channel_type]
+          jump += gradient
+        end
+      end
+    end
+
+    self
+  end
 end
