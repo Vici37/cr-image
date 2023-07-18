@@ -4,6 +4,7 @@ require "../src/cr-image"
 require "../src/all_formats"
 
 record Result, name : String, time : Float64, memory : Int64
+alias Color = CrImage::Color
 
 def benchmark_memory(&)
   bytes_before_measure = GC.stats.total_bytes
@@ -79,6 +80,11 @@ results << benchmark { image.crop!(300, 250, 100, 100) }
 results << benchmark { image.histogram_equalize! }
 results << benchmark { image.pad!(100) }
 results << benchmark { image.rotate!(45) }
+results << benchmark { image.draw_square!(100, 100, 100, 100, Color.random) }
+results << benchmark { image.draw_square!(100, 100, 100, 100, Color.random, fill: true) }
+results << benchmark { image.draw_circle!(100, 100, 100, Color.random) }
+results << benchmark { image.draw_circle!(100, 100, 100, Color.random, fill: true) }
+
 results << benchmark do
   mask = CrImage::Mask.new(image)
   image.apply!(mask)
