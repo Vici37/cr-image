@@ -357,9 +357,11 @@
 <p>Taking sample <code>image</code>:</p>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
 <pre><code class="language-crystal">image.draw_square(<span class="n">40</span>, <span class="n">30</span>, <span class="n">80</span>, <span class="n">80</span>, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#00f&quot;</span>))
-image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span class="n">40</span>, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#00f&quot;</span>))</code></pre>
+image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span class="n">40</span>, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#00f&quot;</span>))
+image.draw_line(<span class="n">50</span>, <span class="n">50</span>, <span class="n">70</span>, <span class="n">90</span>, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#0f0&quot;</span>))</code></pre>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_square_40_30_80_80_sample.jpg" alt="Woman with blue box drawn around face"/>
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_circle_80_70_40_sample.jpg" alt="Woman with blue circle drawn around face"/>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_line_50_50_70_90_sample.jpg" alt="Woman with green line across face"/>
 <p>Can also use the <code>fill: true</code> parameter to fill in the drawn shapes</p>
 
 
@@ -401,7 +403,7 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/fd89f42264390380de75928f8ad42e100c5507bd/src/cr-image/operation/draw.cr#L15" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L17" target="_blank">
         cr-image/operation/draw.cr
       </a>
     
@@ -442,6 +444,18 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
         <a href="#draw_circle%21%28region%3ARegion%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%2Cradius%3AInt32%7CNil%3Dnil%29%3Aself-instance-method" class="signature"><strong>#draw_circle!</strong>(region : Region, color : Color, *, fill : Bool = <span class="n">false</span>, radius : Int32 | Nil = <span class="n">nil</span>) : <span class="k">self</span></a>
         
           <div class="summary"><p>Draw a circle around the region's center (see <code><a href="../../CrImage/Region.html#center%3ATuple%28Int32%2CInt32%29-instance-method">Region#center</a></code>)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_line%28x1%3AInt32%2Cy1%3AInt32%2Cx2%3AInt32%2Cy2%3AInt32%2Ccolor%3AColor%29%3Aself-instance-method" class="signature"><strong>#draw_line</strong>(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : Color) : <span class="k">self</span></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_line%21%28x1%3AInt32%2Cy1%3AInt32%2Cx2%3AInt32%2Cy2%3AInt32%2Ccolor%3AColor%29%3Aself-instance-method" class="signature"><strong>#draw_line!</strong>(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : Color) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Implementation of http://www.edepot.com/linec.html</p></div>
         
       </li>
     
@@ -500,7 +514,7 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/fd89f42264390380de75928f8ad42e100c5507bd/src/cr-image/operation/draw.cr#L56" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -521,7 +535,7 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/fd89f42264390380de75928f8ad42e100c5507bd/src/cr-image/operation/draw.cr#L52" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -542,7 +556,44 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/fd89f42264390380de75928f8ad42e100c5507bd/src/cr-image/operation/draw.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L63" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="draw_line(x1:Int32,y1:Int32,x2:Int32,y2:Int32,color:Color):self-instance-method">
+      <div class="signature">
+        
+        def <strong>draw_line</strong>(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : <a href="../../CrImage/Color.html">Color</a>) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#draw_line%28x1%3AInt32%2Cy1%3AInt32%2Cx2%3AInt32%2Cy2%3AInt32%2Ccolor%3AColor%29%3Aself-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L135" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="draw_line!(x1:Int32,y1:Int32,x2:Int32,y2:Int32,color:Color):self-instance-method">
+      <div class="signature">
+        
+        def <strong>draw_line!</strong>(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : <a href="../../CrImage/Color.html">Color</a>) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#draw_line%21%28x1%3AInt32%2Cy1%3AInt32%2Cx2%3AInt32%2Cy2%3AInt32%2Ccolor%3AColor%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Implementation of http://www.edepot.com/linec.html</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L140" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -558,7 +609,7 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/fd89f42264390380de75928f8ad42e100c5507bd/src/cr-image/operation/draw.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -574,7 +625,7 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/fd89f42264390380de75928f8ad42e100c5507bd/src/cr-image/operation/draw.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -590,7 +641,7 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/fd89f42264390380de75928f8ad42e100c5507bd/src/cr-image/operation/draw.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -606,7 +657,7 @@ image.draw_circle(<span class="n">80</span>, <span class="n">70</span>, <span cl
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/fd89f42264390380de75928f8ad42e100c5507bd/src/cr-image/operation/draw.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/7598d675b4594fe79e5d0a268317cc702eb80e6d/src/cr-image/operation/draw.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
