@@ -7,9 +7,11 @@
 # ```
 # image.draw_square(40, 30, 80, 80, CrImage::Color.of("#00f"))
 # image.draw_circle(80, 70, 40, CrImage::Color.of("#00f"))
+# image.draw_line(50, 50, 70, 90, CrImage::Color.of("#0f0"))
 # ```
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_square_40_30_80_80_sample.jpg" alt="Woman with blue box drawn around face"/>
 # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_circle_80_70_40_sample.jpg" alt="Woman with blue circle drawn around face"/>
+# <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/draw_line_50_50_70_90_sample.jpg" alt="Woman with green line across face"/>
 #
 # Can also use the `fill: true` parameter to fill in the drawn shapes
 module CrImage::Operation::Draw
@@ -130,13 +132,15 @@ module CrImage::Operation::Draw
     self
   end
 
-  def draw_line(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : Color, *, thickness : Int32 = 1) : self
-    clone.draw_line!(x1, y1, x2, y2, color, thickness: thickness)
+  def draw_line(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : Color) : self
+    clone.draw_line!(x1, y1, x2, y2, color)
   end
 
   # Implementation of http://www.edepot.com/linec.html
-  def draw_line!(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : Color, *, thickness : Int32 = 1) : self
-    # TODO: use thickness
+  def draw_line!(x1 : Int32, y1 : Int32, x2 : Int32, y2 : Int32, color : Color) : self
+    raise Exception.new("First point (#{x1},#{y1}) lies outside of the available drawing window (#{width}x#{height})") unless 0 <= x1 < width && 0 <= y1 < height
+    raise Exception.new("Second point (#{x2},#{y2}) lies outside of the available drawing window (#{width}x#{height})") unless 0 <= x2 < width && 0 <= y2 < height
+
     rise_by_height = false
     short = y2 - y1
     long = x2 - x1
@@ -148,9 +152,9 @@ module CrImage::Operation::Draw
 
     end_val = long
 
-    long = -long if long < 0
+    long_abs = long.abs
 
-    gradient = long == 0 ? short : short / long.to_f
+    gradient = long_abs == 0 ? short : short / long_abs.to_f
     if rise_by_height
       each_color_channel do |channel, channel_type|
         jump = 0.0

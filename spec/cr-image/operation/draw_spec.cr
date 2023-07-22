@@ -60,8 +60,34 @@ Spectator.describe CrImage::Operation::Draw do
     rgba_hash: "22e57ead344f2fe90e6a4ed7d0807822f035a3c7"
   )
 
-  it "draws a line", :focus do
-    puts "Drawing"
-    rgba_moon_ppm.draw_line(100, 100, 200, 200, Color.of("#00f")).save("moon_with_line.jpg")
+  specs_for_operator(draw_line(0, 0, image.width - 1, image.height - 1, Color.of("#f")),
+    gray_hash: "21e66ec056a382633d3c4158d70d61191309dc75",
+    rgba_hash: "2abcbd00bedb20c0aeff5c0c25cb2100817f1299"
+  )
+
+  specs_for_operator(draw_line(100, 100, 100, 200, Color.of("#f")),
+    gray_hash: "b2f46f6bcd4391703e07c35607604aba9e881b1b",
+    rgba_hash: "8fc01dfd506c1b14c348d6d39357d782d524478d"
+  )
+
+  specs_for_operator(draw_line(100, 100, 200, 100, Color.of("#f")),
+    gray_hash: "90c46c6817c59dc027a58257722aaea549590629",
+    rgba_hash: "da5361b9db4d95e045463f854e0cf51701c4dc0a"
+  )
+
+  specs_for_operator(draw_line(100, 100, 200, 110, Color.of("#f")),
+    gray_hash: "5f4806022bc984525256bb3985d76b533a4c912b",
+    rgba_hash: "b3c2785f1bb51da14ca08f4f5ef12282f156fa9d"
+  )
+
+  context "checks bounds" do
+    let(image) { gray_moon_ppm }
+    it "throws if first point is outside of image" do
+      expect_raises(CrImage::Exception, /First point/) { image.draw_line!(-1, -1, 0, 0, Color.random) }
+    end
+
+    it "throws if second point is outside of image" do
+      expect_raises(CrImage::Exception, /Second point/) { image.draw_line!(0, 0, 1000, 0, Color.random) }
+    end
   end
 end
