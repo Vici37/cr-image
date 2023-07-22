@@ -152,9 +152,7 @@ module CrImage::Operation::Draw
 
     end_val = long
 
-    long_abs = long.abs
-
-    gradient = long_abs == 0 ? short : short / long_abs.to_f
+    gradient = long == 0 ? short : short / long.abs.to_f
     if rise_by_height
       each_color_channel do |channel, channel_type|
         jump = 0.0
