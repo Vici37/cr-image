@@ -127,9 +127,7 @@ class CrImage::Mask
 
   # Return a new `Mask` that's a copy of this one with all bits inverted.
   def invert
-    new_bits = @bits.dup
-    new_bits.invert
-    Mask.new(width, new_bits)
+    clone.invert!
   end
 
   # Return the bit at `index`
@@ -411,5 +409,74 @@ class CrImage::Mask
     end
 
     ret
+  end
+
+  # (Dilation)[https://en.wikipedia.org/wiki/Mathematical_morphology#Dilation] operator
+  def dilate(*, diagonal : Bool = true) : Mask
+    clone.dilate!(diagonal: diagonal)
+  end
+
+  # :ditto:
+  def dilate!(*, diagonal : Bool = true) : self
+    clear_caches
+
+    new_bits = bits.dup
+
+    x = -1
+    y = 0
+    bits.size.times do |i|
+      x += 1
+      if x == width
+        x = 0
+        y += 1
+      end
+
+      next if bits[i]
+
+      new_bits[i] = (x != 0 && bits[i - 1]) ||
+                    (x != (width - 1) && bits[i + 1]) ||
+                    (y != 0 && bits[i - width]) ||
+                    (y != (height - 1) && bits[i + width]) ||
+                    (diagonal && (
+                      (x != 0 && y != 0 && bits[i - width - 1]) ||
+                      (x != (width - 1) && y != 0 && bits[i - width + 1]) ||
+                      (x != 0 && y != (height - 1) && bits[i + width - 1]) ||
+                      (x != (width - 1) && y != (height - 1) && bits[i + width + 1])
+                    ))
+    end
+
+    @bits = new_bits
+
+    self
+  end
+
+  # (Erosion)[https://en.wikipedia.org/wiki/Mathematical_morphology#Erosion] operator
+  def erode(*, diagonal : Bool = true) : Mask
+    clone.erode!(diagonal: diagonal)
+  end
+
+  # :ditto:
+  def erode!(*, diagonal : Bool = true) : Mask
+    invert!.dilate!(diagonal: diagonal).invert!
+  end
+
+  # (Opening)[https://en.wikipedia.org/wiki/Mathematical_morphology#Opening] operator
+  def opening(*, diagonal : Bool = true) : Mask
+    clone.opening!(diagonal: diagonal)
+  end
+
+  # :ditto:
+  def opening!(*, diagonal : Bool = true) : Mask
+    erode!(diagonal: diagonal).dilate!(diagonal: diagonal)
+  end
+
+  # (Closing)[https://en.wikipedia.org/wiki/Mathematical_morphology#Closing] operator
+  def closing(*, diagonal : Bool = true) : Mask
+    clone.closing!(diagonal: diagonal)
+  end
+
+  # :ditto:
+  def closing!(*, diagonal : Bool = true) : Mask
+    dilate!(diagonal: diagonal).erode!(diagonal: diagonal)
   end
 end

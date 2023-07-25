@@ -395,4 +395,125 @@ Spectator.describe CrImage::Mask do
     mask = Mask.new(4, 4, 0b1010010110100101)
     expect_digest(mask.to_gray).to eq "3f5741961d8c2290ca93988c23c7f13bc97c66aa"
   end
+
+  context "with morphological operators" do
+    let(mask) { Mask.new(7, 7, false) }
+
+    it "dilates diagonally" do
+      mask[3, 3] = true
+
+      expect(mask.dilate).to eq Mask.new([
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0011100),
+        bits(7, 0b0011100),
+        bits(7, 0b0011100),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+      ])
+    end
+
+    it "dilates non-diagonally" do
+      mask[3, 3] = true
+
+      expect(mask.dilate(diagonal: false)).to eq Mask.new([
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0001000),
+        bits(7, 0b0011100),
+        bits(7, 0b0001000),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+      ])
+    end
+
+    it "erodes non-diagonally" do
+      mask[.., ..] = true
+      mask[3, 3] = false
+
+      expect(mask.erode(diagonal: false)).to eq Mask.new([
+        bits(7, 0b1111111),
+        bits(7, 0b1111111),
+        bits(7, 0b1110111),
+        bits(7, 0b1100011),
+        bits(7, 0b1110111),
+        bits(7, 0b1111111),
+        bits(7, 0b1111111),
+      ])
+    end
+
+    it "erodes diagonally" do
+      mask[.., ..] = true
+      mask[3, 3] = false
+
+      expect(mask.erode).to eq Mask.new([
+        bits(7, 0b1111111),
+        bits(7, 0b1111111),
+        bits(7, 0b1100011),
+        bits(7, 0b1100011),
+        bits(7, 0b1100011),
+        bits(7, 0b1111111),
+        bits(7, 0b1111111),
+      ])
+    end
+
+    it "closing diagonally" do
+      mask[2, 2..4] = true
+      mask[4, 2..4] = true
+
+      expect(mask.closing).to eq Mask.new([
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0011100),
+        bits(7, 0b0011100),
+        bits(7, 0b0011100),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+      ])
+    end
+
+    it "closing non-diagonally" do
+      mask[2, 2..4] = true
+      mask[4, 2..4] = true
+
+      expect(mask.closing(diagonal: false)).to eq Mask.new([
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0010100),
+        bits(7, 0b0011100),
+        bits(7, 0b0010100),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+      ])
+    end
+
+    it "opening diagonally" do
+      mask[2, 2..4] = true
+      mask[4, 2..4] = true
+
+      expect(mask.opening).to eq Mask.new([
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+      ])
+    end
+
+    it "opening non-diagonally" do
+      mask[2..4, 2..4] = true
+
+      expect(mask.opening(diagonal: false)).to eq Mask.new([
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+        bits(7, 0b0001000),
+        bits(7, 0b0011100),
+        bits(7, 0b0001000),
+        bits(7, 0b0000000),
+        bits(7, 0b0000000),
+      ])
+    end
+  end
 end

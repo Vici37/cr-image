@@ -35,8 +35,6 @@ module CrImage::Operation::Rotate
   # `radius` can be used to only rotate a smaller circular region in the image. Can't be used with `pad`
   # `pad` can be used to pad out the image so that corners that would normally be occluded, are visible.
   # `pad_type` behaves the same as `pad_type` in `Pad`
-  # Can't really find good ways to reduce this more than it is, so disabling this check here
-  # ameba:disable Metrics/CyclomaticComplexity
   def rotate!(
     degrees : Float64,
     *,
