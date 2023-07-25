@@ -459,6 +459,10 @@ module CrImage
 
   class UInt8Map
     include MapImpl(UInt8)
+
+    def to_i : IntMap
+      IntMap.new(width, @raw.map(&.to_i))
+    end
   end
 
   class FloatMap

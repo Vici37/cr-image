@@ -356,7 +356,6 @@ class CrImage::Mask
     diagonal ? (@segments_8_way ||= calculate_segments(diagonal)) : (@segments_4_way ||= calculate_segments(diagonal))
   end
 
-  # ameba:disable Metrics/CyclomaticComplexity
   private def calculate_segments(diagonal) : Array(Mask)
     return [] of Mask unless bits.any?(&.itself)
 
@@ -411,7 +410,7 @@ class CrImage::Mask
     ret
   end
 
-  # (Dilation)[https://en.wikipedia.org/wiki/Mathematical_morphology#Dilation] operator
+  # [Dilation](https://en.wikipedia.org/wiki/Mathematical_morphology#Dilation) operator
   def dilate(*, diagonal : Bool = true) : Mask
     clone.dilate!(diagonal: diagonal)
   end
@@ -450,7 +449,7 @@ class CrImage::Mask
     self
   end
 
-  # (Erosion)[https://en.wikipedia.org/wiki/Mathematical_morphology#Erosion] operator
+  # [Erosion](https://en.wikipedia.org/wiki/Mathematical_morphology#Erosion) operator
   def erode(*, diagonal : Bool = true) : Mask
     clone.erode!(diagonal: diagonal)
   end
@@ -460,7 +459,7 @@ class CrImage::Mask
     invert!.dilate!(diagonal: diagonal).invert!
   end
 
-  # (Opening)[https://en.wikipedia.org/wiki/Mathematical_morphology#Opening] operator
+  # [Opening](https://en.wikipedia.org/wiki/Mathematical_morphology#Opening) operator
   def opening(*, diagonal : Bool = true) : Mask
     clone.opening!(diagonal: diagonal)
   end
@@ -470,7 +469,7 @@ class CrImage::Mask
     erode!(diagonal: diagonal).dilate!(diagonal: diagonal)
   end
 
-  # (Closing)[https://en.wikipedia.org/wiki/Mathematical_morphology#Closing] operator
+  # [Closing](https://en.wikipedia.org/wiki/Mathematical_morphology#Closing) operator
   def closing(*, diagonal : Bool = true) : Mask
     clone.closing!(diagonal: diagonal)
   end

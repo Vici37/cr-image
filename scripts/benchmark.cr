@@ -48,8 +48,9 @@ def print_result_table(name : String, results : Array(Result))
     table.each do |row|
       string << "| " << row.join(" | ") << " |\n"
     end
-    string << "\nTotal Time: " << elapsed_text(results.sum(&.time)) << "\n"
-    string << "Total Memory: " << results.sum(&.memory).humanize_bytes
+    # string << "\nTotal Time: " << elapsed_text(results.sum(&.time)) << "\n"
+    # string << "Total Memory: " << results.sum(&.memory).humanize_bytes
+    string << "========================="
   end
 
   puts output
@@ -76,6 +77,22 @@ macro benchmark_mask(&)
     end
   end
   Result.new(name: "{{yield.id.strip.split("\n")[-1].id}}".gsub("mask.", ""), memory: memory, time: time.total_milliseconds)
+end
+
+macro benchmark_map(&)
+  map = CrImage::GrayscaleImage.open("lib/cr-image-samples/scenic/moon.ppm").to_map!.to_i
+  template = CrImage::IntMap.new([
+    [-1, 0, 1],
+    [-2, 0, 2],
+    [-1, 0, 1]
+  ])
+  memory = 0i64
+  time = benchmark_time do
+    memory = benchmark_memory do
+      {{yield}}
+    end
+  end
+  Result.new(name: "{{yield.id.strip.split("\n")[-1].id}}".gsub("map.", ""), memory: memory, time: time.total_milliseconds)
 end
 
 results = [] of Result
@@ -127,6 +144,12 @@ results << benchmark_mask { mask.closing! }
 results << benchmark_mask { mask.closing!(diagonal: false) }
 
 print_result_table("Mask", results)
+results.clear
+
+results << benchmark_map { map.cross_correlate(template) }
+results << benchmark_map { map.cross_correlate_fft(template) }
+
+print_result_table("Map", results)
 results.clear
 
 results << benchmark { image.to_gray }

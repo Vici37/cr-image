@@ -55,6 +55,7 @@ module CrImage::Operation::Draw
     clone.draw_circle!(*region.center, radius, color, fill: fill)
   end
 
+  # Draw a circle centered at x, y with radius
   def draw_circle(x : Int, y : Int, radius : Int, color : Color, *, fill : Bool = false) : self
     clone.draw_circle!(x, y, radius, color, fill: fill)
   end
@@ -64,8 +65,6 @@ module CrImage::Operation::Draw
     draw_circle!(*region.center, radius, color, fill: fill)
   end
 
-  # :nodoc:
-  # ameba:disable Metrics/CyclomaticComplexity
   def draw_circle!(center_x : Int, center_y : Int, radius : Int, color : Color, *, fill : Bool = false) : self
     min_x = Math.max(0, center_x - radius)
     max_x = Math.min(width - 1, center_x + radius)

@@ -28,13 +28,13 @@ module CrImage
 
     # Iterate over all values within the window and sum the result of the passed in block
     def sum(& : (T, Int32, Int32, self) -> (T)) : Float64
-      values = [] of Float64
+      ret = 0f64
       height.times do |y|
         width.times do |x|
-          values << (yield self[x, y], x, y, self).to_f64
+          ret += (yield self[x, y], x, y, self).to_f64
         end
       end
-      values.sum
+      ret
     end
 
     # Calculate the mean for all values in the window
