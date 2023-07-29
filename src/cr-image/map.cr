@@ -388,49 +388,63 @@ module CrImage
     end
 
     private def fft1d(inp : Array(Float64) | Array(Complex)) : Array(Complex)
+      #   MapImpl.fft1d(inp)
+      # end
+
+      # def self.fft1d(inp : Array(Float64) | Array(Complex)) : Array(Complex)
       # TODO: ensure `inp` size is a power of 2
 
-      ret = [inp.map(&.to_c)]
+      ret = inp.is_a?(Array(Complex)) ? inp.dup : inp.map(&.to_c)
+      ret_copy = Array(Complex).new(inp.size) { Complex.zero }
 
       shape = 1
       half = inp.size
-      # Initialize the memory for these arrays now
-      even = Array(Array(Complex)).new(half)
-      odd = Array(Array(Complex)).new(half)
+      real_half = inp.size // 2
 
-      neg_i_pi = -1.i * Math::PI
       while half > 1
+        double_half = half
         half //= 2
+        neg_i_pi_div_shape = -Math::PI.i / shape
+        ret_copy.to_unsafe.copy_from(ret.to_unsafe, inp.size)
 
-        terms = Array(Complex).new(shape) { |i| Math.exp(neg_i_pi * i / shape) }
-
-        even.clear
-        odd.clear
-        ret.each_with_index do |sub_map, term_i|
-          term = terms[term_i]
-          odd << sub_map[half, half].map! { |od| term * od }
-          even << sub_map[0, half]
+        shape.times do |i|
+          term = Math.exp(neg_i_pi_div_shape * i)
+          half.times do |j|
+            offset = half + j + (i * double_half)
+            ret_copy.unsafe_put(offset, ret_copy.unsafe_fetch(offset) * term)
+          end
         end
 
-        # This block is the most costly part of this method, and the most difficult to understand.
-        # This is essentially trying to create a new array with all of the sub arrays of even / odd
-        # being combined like:
-        # ret = [even + terms * odd, even - terms * odd]
-        # Where terms has already been applied to odd above in this case
-        ret = even.map_with_index do |even_arr, term_i|
-          even_arr.map_with_index do |e, i|
-            e + odd[term_i][i]
+        offset = -1
+        counter = -1
+        real_half.times do |i|
+          offset += 1
+          counter += 1
+          if counter == half
+            counter = 0
+            offset += half
           end
-        end + even.map_with_index do |even_arr, term_i|
-          even_arr.map_with_index do |e, i|
-            e - odd[term_i][i]
+
+          ret[i] = ret_copy[offset] + ret_copy[offset + half]
+        end
+
+        offset = -1
+        counter = -1
+        real_half.times do |i|
+          offset += 1
+          counter += 1
+          if counter == half
+            counter = 0
+            offset += half
           end
+
+          ret[i + real_half] = ret_copy[offset] - ret_copy[offset + half]
         end
 
         shape *= 2
       end
 
-      ret.flatten
+      ret
     end
 
     def to_s
@@ -528,29 +542,60 @@ module CrImage
     end
 
     private def ifft1d(inp : Array(Complex))
-      ret = [inp]
+      #   ComplexMap.ifft1d(inp)
+      # end
+
+      # def self.ifft1d(inp : Array(Complex))
+      ret = inp.dup
+      ret_copy = Array(Complex).new(inp.size) { Complex.zero }
 
       shape = 1
-      Math.log2(inp.size).to_i.times do
-        even = ret.map { |m| m.each_slice(m.size // 2).to_a[0] }
-        odd = ret.map { |m| m.each_slice(m.size // 2).to_a[1] }
-        terms = shape.times.to_a.map { |i| Math.exp(1.i * Math::PI * i / shape) }
-        # pp! even, odd, terms
+      half = inp.size
+      real_half = inp.size // 2
 
-        # ret = [even + terms * odd, even - terms * odd]
-        ret = even.map_with_index do |arr, term_i|
-          arr.map_with_index do |e, i|
-            e + terms[term_i] * odd[term_i][i]
-          end
-        end + even.map_with_index do |arr, term_i|
-          arr.map_with_index do |e, i|
-            e - terms[term_i] * odd[term_i][i]
+      while half > 1
+        double_half = half
+        half //= 2
+        neg_i_pi_div_shape = Math::PI.i / shape
+        ret_copy.to_unsafe.copy_from(ret.to_unsafe, inp.size)
+
+        shape.times do |i|
+          term = Math.exp(neg_i_pi_div_shape * i)
+          half.times do |j|
+            offset = half + j + (i * double_half)
+            ret_copy.unsafe_put(offset, ret_copy.unsafe_fetch(offset) * term)
           end
         end
+
+        offset = -1
+        counter = -1
+        real_half.times do |i|
+          offset += 1
+          counter += 1
+          if counter == half
+            counter = 0
+            offset += half
+          end
+
+          ret[i] = ret_copy[offset] + ret_copy[offset + half]
+        end
+
+        offset = -1
+        counter = -1
+        real_half.times do |i|
+          offset += 1
+          counter += 1
+          if counter == half
+            counter = 0
+            offset += half
+          end
+
+          ret[i + real_half] = ret_copy[offset] - ret_copy[offset + half]
+        end
+
         shape *= 2
       end
-
-      ret.flatten.map(&./(inp.size))
+      ret.map!(&./(inp.size))
     end
   end
 end
