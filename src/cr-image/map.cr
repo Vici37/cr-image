@@ -425,7 +425,8 @@ module CrImage
             offset += half
           end
 
-          ret[i] = ret_copy[offset] + ret_copy[offset + half]
+          ret.unsafe_put(i,
+            ret_copy.unsafe_fetch(offset) + ret_copy.unsafe_fetch(offset + half))
         end
 
         offset = -1
@@ -438,7 +439,8 @@ module CrImage
             offset += half
           end
 
-          ret[i + real_half] = ret_copy[offset] - ret_copy[offset + half]
+          ret.unsafe_put(i + real_half,
+            ret_copy.unsafe_fetch(offset) - ret_copy.unsafe_fetch(offset + half))
         end
 
         shape *= 2
@@ -577,7 +579,8 @@ module CrImage
             offset += half
           end
 
-          ret[i] = ret_copy[offset] + ret_copy[offset + half]
+          ret.unsafe_put(i,
+            ret_copy.unsafe_fetch(offset) + ret_copy.unsafe_fetch(offset + half))
         end
 
         offset = -1
@@ -590,7 +593,8 @@ module CrImage
             offset += half
           end
 
-          ret[i + real_half] = ret_copy[offset] - ret_copy[offset + half]
+          ret.unsafe_put(i + real_half,
+            ret_copy.unsafe_fetch(offset) - ret_copy.unsafe_fetch(offset + half))
         end
 
         shape *= 2
