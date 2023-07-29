@@ -447,18 +447,6 @@ module CrImage
 
           ret.unsafe_put(i,
             ret_copy.unsafe_fetch(offset) + ret_copy.unsafe_fetch(offset + half))
-        end
-
-        offset = -1
-        counter = -1
-        real_half.times do |i|
-          offset += 1
-          counter += 1
-          if counter == half
-            counter = 0
-            offset += half
-          end
-
           ret.unsafe_put(i + real_half,
             ret_copy.unsafe_fetch(offset) - ret_copy.unsafe_fetch(offset + half))
         end
@@ -626,18 +614,6 @@ module CrImage
 
           ret.unsafe_put(i,
             ret_copy.unsafe_fetch(offset) + ret_copy.unsafe_fetch(offset + half))
-        end
-
-        offset = -1
-        counter = -1
-        real_half.times do |i|
-          offset += 1
-          counter += 1
-          if counter == half
-            counter = 0
-            offset += half
-          end
-
           ret.unsafe_put(i + real_half,
             ret_copy.unsafe_fetch(offset) - ret_copy.unsafe_fetch(offset + half))
         end
