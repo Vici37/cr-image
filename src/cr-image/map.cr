@@ -379,12 +379,34 @@ module CrImage
 
     def fft : ComplexMap
       map = to_f.pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
-      rows = map.height.times.to_a.map { |i| fft1d(map[.., i].raw) }
-      comp_map = ComplexMap.new(rows)
-      rows = comp_map.width.times.to_a.map { |i| fft1d(comp_map[i, ..].raw) }
-      comp_map = ComplexMap.new(rows)
 
-      ComplexMap.new(comp_map.width.times.to_a.map { |i| comp_map[i, ..].raw })
+      row_buffer = Array(Float64).new(width) { 0f64 }
+      height_buffer = Array(Complex).new(height) { Complex.zero }
+      ret_raw = Array(Complex).new(map.size) { Complex.zero }
+
+      beginning = -width
+      height.times do
+        beginning += width
+        row_buffer.to_unsafe.copy_from(map.raw.to_unsafe + beginning, width)
+        fft_raw = fft1d(row_buffer)
+        (ret_raw.to_unsafe + beginning).copy_from(fft_raw.to_unsafe, width)
+      end
+
+      width.times do |x|
+        spot = 0
+        height.times do |i|
+          height_buffer.unsafe_put(i, ret_raw.unsafe_fetch(spot + x))
+          spot += width
+        end
+        fft_raw = fft1d(height_buffer)
+        spot = 0
+        height.times do |i|
+          ret_raw.unsafe_put(spot + x, fft_raw.unsafe_fetch(i))
+          spot += width
+        end
+      end
+
+      ComplexMap.new(map.width, ret_raw)
     end
 
     private def fft1d(inp : Array(Float64) | Array(Complex)) : Array(Complex)
@@ -535,12 +557,34 @@ module CrImage
     include MapImpl(Complex)
 
     def ifft : FloatMap
-      rows = height.times.to_a.map { |i| ifft1d(self[.., i].raw) }
-      comp_map = ComplexMap.new(rows)
-      rows = comp_map.width.times.to_a.map { |i| ifft1d(comp_map[i, ..].raw) }
-      comp_map = ComplexMap.new(rows)
+      row_buffer = Array(Complex).new(width) { Complex.zero }
+      height_buffer = Array(Complex).new(height) { Complex.zero }
+      complex_raw = Array(Complex).new(size) { Complex.zero }
+      ret_raw = Array(Float64).new(size) { 0f64 }
 
-      FloatMap.new(comp_map.width.times.to_a.map { |i| comp_map[i, ..].raw.map(&.real) })
+      beginning = -width
+      height.times do
+        beginning += width
+        row_buffer.to_unsafe.copy_from(raw.to_unsafe + beginning, width)
+        fft_raw = ifft1d(row_buffer)
+        (complex_raw.to_unsafe + beginning).copy_from(fft_raw.to_unsafe, width)
+      end
+
+      width.times do |x|
+        spot = 0
+        height.times do |i|
+          height_buffer.unsafe_put(i, complex_raw.unsafe_fetch(spot + x))
+          spot += width
+        end
+        fft_raw = ifft1d(height_buffer)
+        spot = 0
+        height.times do |i|
+          ret_raw.unsafe_put(spot + x, fft_raw.unsafe_fetch(i).real)
+          spot += width
+        end
+      end
+
+      FloatMap.new(width, ret_raw)
     end
 
     private def ifft1d(inp : Array(Complex))

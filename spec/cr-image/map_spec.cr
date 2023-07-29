@@ -478,10 +478,10 @@ Spectator.describe CrImage::Map do
     context "Compare cross correlation with brute force, and fft" do
       it "cross correlates with the error view" do
         original = IntMap.new([
-          [1, 2, 3, 10],
-          [4, 5, 6, 10],
-          [7, 8, 9, 10],
-          [7, 8, 9, 10],
+          [1, 2, 3, 10, 3],
+          [4, 5, 6, 10, 3],
+          [7, 8, 9, 10, 3],
+          [7, 8, 9, 10, 3],
         ])
         # Interesting, the input map (or original I suppose) must be symetrical like the below, or
         # get signs crossed?
