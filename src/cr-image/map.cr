@@ -378,18 +378,19 @@ module CrImage
     end
 
     def fft : ComplexMap
-      map = to_f.pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
+      map = ComplexMap.new(width, Array(Complex).new(size) { |i| Complex.new(raw.unsafe_fetch(i)) })
+        .pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
 
-      row_buffer = Array(Float64).new(width) { 0f64 }
+      row_buffer = Array(Complex).new(width) { Complex.zero }
       height_buffer = Array(Complex).new(height) { Complex.zero }
-      ret_raw = Array(Complex).new(map.size) { Complex.zero }
+      ret_raw = map.raw # Array(Complex).new(map.size) { |i| Complex.new(map.raw[i]) }
 
       beginning = -width
       height.times do
         beginning += width
-        row_buffer.to_unsafe.copy_from(map.raw.to_unsafe + beginning, width)
-        fft_raw = fft1d(row_buffer)
-        (ret_raw.to_unsafe + beginning).copy_from(fft_raw.to_unsafe, width)
+        row_buffer.to_unsafe.copy_from(ret_raw.to_unsafe + beginning, width)
+        row_buffer = fft1d_unsafe(row_buffer)
+        (ret_raw.to_unsafe + beginning).copy_from(row_buffer.to_unsafe, width)
       end
 
       width.times do |x|
@@ -398,10 +399,10 @@ module CrImage
           height_buffer.unsafe_put(i, ret_raw.unsafe_fetch(spot + x))
           spot += width
         end
-        fft_raw = fft1d(height_buffer)
+        fft1d_unsafe(height_buffer)
         spot = 0
         height.times do |i|
-          ret_raw.unsafe_put(spot + x, fft_raw.unsafe_fetch(i))
+          ret_raw.unsafe_put(spot + x, height_buffer.unsafe_fetch(i))
           spot += width
         end
       end
@@ -409,32 +410,29 @@ module CrImage
       ComplexMap.new(map.width, ret_raw)
     end
 
-    private def fft1d(inp : Array(Float64) | Array(Complex)) : Array(Complex)
-      #   MapImpl.fft1d(inp)
-      # end
+    private def fft1d_unsafe(ret : Array(Complex)) : Array(Complex)
+      # TODO: ensure `ret` size is a power of 2
 
-      # def self.fft1d(inp : Array(Float64) | Array(Complex)) : Array(Complex)
-      # TODO: ensure `inp` size is a power of 2
-
-      ret = inp.is_a?(Array(Complex)) ? inp.dup : inp.map(&.to_c)
-      ret_copy = Array(Complex).new(inp.size) { Complex.zero }
+      ret_copy = ret.dup
 
       shape = 1
-      half = inp.size
-      real_half = inp.size // 2
+      half = ret.size
+      real_half = ret.size // 2
 
       while half > 1
         double_half = half
         half //= 2
         neg_i_pi_div_shape = -Math::PI.i / shape
-        ret_copy.to_unsafe.copy_from(ret.to_unsafe, inp.size)
+        ret_copy.to_unsafe.copy_from(ret.to_unsafe, ret.size)
 
+        half_offset = 0
         shape.times do |i|
           term = Math.exp(neg_i_pi_div_shape * i)
           half.times do |j|
-            offset = half + j + (i * double_half)
+            offset = half + j + (half_offset)
             ret_copy.unsafe_put(offset, ret_copy.unsafe_fetch(offset) * term)
           end
+          half_offset += double_half
         end
 
         offset = -1
@@ -566,8 +564,8 @@ module CrImage
       height.times do
         beginning += width
         row_buffer.to_unsafe.copy_from(raw.to_unsafe + beginning, width)
-        fft_raw = ifft1d(row_buffer)
-        (complex_raw.to_unsafe + beginning).copy_from(fft_raw.to_unsafe, width)
+        ifft1d_unsafe(row_buffer)
+        (complex_raw.to_unsafe + beginning).copy_from(row_buffer.to_unsafe, width)
       end
 
       width.times do |x|
@@ -576,10 +574,10 @@ module CrImage
           height_buffer.unsafe_put(i, complex_raw.unsafe_fetch(spot + x))
           spot += width
         end
-        fft_raw = ifft1d(height_buffer)
+        ifft1d_unsafe(height_buffer)
         spot = 0
         height.times do |i|
-          ret_raw.unsafe_put(spot + x, fft_raw.unsafe_fetch(i).real)
+          ret_raw.unsafe_put(spot + x, height_buffer.unsafe_fetch(i).real)
           spot += width
         end
       end
@@ -588,22 +586,25 @@ module CrImage
     end
 
     private def ifft1d(inp : Array(Complex))
+      ifft1d_unsafe(inp.dup)
+    end
+
+    private def ifft1d_unsafe(ret : Array(Complex)) : Array(Complex)
       #   ComplexMap.ifft1d(inp)
       # end
 
       # def self.ifft1d(inp : Array(Complex))
-      ret = inp.dup
-      ret_copy = Array(Complex).new(inp.size) { Complex.zero }
+      ret_copy = ret.dup
 
       shape = 1
-      half = inp.size
-      real_half = inp.size // 2
+      half = ret.size
+      real_half = ret.size // 2
 
       while half > 1
         double_half = half
         half //= 2
         neg_i_pi_div_shape = Math::PI.i / shape
-        ret_copy.to_unsafe.copy_from(ret.to_unsafe, inp.size)
+        ret_copy.to_unsafe.copy_from(ret.to_unsafe, ret.size)
 
         shape.times do |i|
           term = Math.exp(neg_i_pi_div_shape * i)
@@ -643,7 +644,7 @@ module CrImage
 
         shape *= 2
       end
-      ret.map!(&./(inp.size))
+      ret.map!(&./(ret.size))
     end
   end
 end
