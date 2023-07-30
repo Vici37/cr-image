@@ -48,6 +48,8 @@ arr = np.array([1, 2, 3, 4, 7, 6, 9, 2])
 print(fft_v(arr))
 print(np.fft.fft(arr))
 
+# print(np.fft.fft2([[1,2,3,4],[7,6,9,2]]))
+
 
 # r = np.random.random(1024)
 
