@@ -134,9 +134,12 @@ module CrImage
       height_offset = ystart * width
       new_raw = Array(T).new(new_size) { T.zero }
 
-      ycount.times do |new_y|
-        orig_index = height_offset + (new_y * width) + xstart
-        new_raw[new_y * xcount, xcount] = raw[orig_index, xcount]
+      old_i = -width + height_offset + xstart
+      new_i = -xcount
+      ycount.times do
+        old_i += width
+        new_i += xcount
+        new_raw[new_i, xcount] = raw[old_i, xcount]
       end
 
       {{@type}}.new(xcount, new_raw)
