@@ -381,80 +381,9 @@ module CrImage
       map = ComplexMap.new(width, Array(Complex).new(size) { |i| Complex.new(raw.unsafe_fetch(i)) })
         .pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
 
-      row_buffer = Array(Complex).new(width) { Complex.zero }
-      height_buffer = Array(Complex).new(height) { Complex.zero }
-      ret_raw = map.raw # Array(Complex).new(map.size) { |i| Complex.new(map.raw[i]) }
+      buffer = Array(Complex).new(Math.max(map.height, map.width)) { Complex.zero }
 
-      beginning = -width
-      height.times do
-        beginning += width
-        row_buffer.to_unsafe.copy_from(ret_raw.to_unsafe + beginning, width)
-        row_buffer = fft1d_unsafe(row_buffer)
-        (ret_raw.to_unsafe + beginning).copy_from(row_buffer.to_unsafe, width)
-      end
-
-      width.times do |x|
-        spot = 0
-        height.times do |i|
-          height_buffer.unsafe_put(i, ret_raw.unsafe_fetch(spot + x))
-          spot += width
-        end
-        fft1d_unsafe(height_buffer)
-        spot = 0
-        height.times do |i|
-          ret_raw.unsafe_put(spot + x, height_buffer.unsafe_fetch(i))
-          spot += width
-        end
-      end
-
-      ComplexMap.new(map.width, ret_raw)
-    end
-
-    private def fft1d_unsafe(ret : Array(Complex)) : Array(Complex)
-      # TODO: ensure `ret` size is a power of 2
-
-      ret_copy = ret.dup
-
-      shape = 1
-      half = ret.size
-      real_half = ret.size // 2
-
-      while half > 1
-        double_half = half
-        half //= 2
-        neg_i_pi_div_shape = -Math::PI.i / shape
-        ret_copy.to_unsafe.copy_from(ret.to_unsafe, ret.size)
-
-        half_offset = 0
-        shape.times do |i|
-          term = Math.exp(neg_i_pi_div_shape * i)
-          half.times do |j|
-            offset = half + j + (half_offset)
-            ret_copy.unsafe_put(offset, ret_copy.unsafe_fetch(offset) * term)
-          end
-          half_offset += double_half
-        end
-
-        offset = -1
-        counter = -1
-        real_half.times do |i|
-          offset += 1
-          counter += 1
-          if counter == half
-            counter = 0
-            offset += half
-          end
-
-          ret.unsafe_put(i,
-            ret_copy.unsafe_fetch(offset) + ret_copy.unsafe_fetch(offset + half))
-          ret.unsafe_put(i + real_half,
-            ret_copy.unsafe_fetch(offset) - ret_copy.unsafe_fetch(offset + half))
-        end
-
-        shape *= 2
-      end
-
-      ret
+      ComplexMap.new(map.width, FftUtil.fft2d_unsafe(map.width, map.raw, buffer))
     end
 
     def to_s
