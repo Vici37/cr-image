@@ -268,6 +268,10 @@ module CrImage
       @raw.dup
     end
 
+    def to_c : ComplexMap
+      ComplexMap.new(width, raw.map(&.to_c))
+    end
+
     def pad(all : Int32 = 0, *, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black, pad_black_value : T = T.zero) : self
       top = top > 0 ? top : all
       bottom = bottom > 0 ? bottom : all
@@ -354,13 +358,6 @@ module CrImage
     def cross_correlate_fft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
       max_width, max_height = Math.pw2ceil(width + map.width), Math.pw2ceil(height + map.height)
       pad_type = edge_policy.none? ? EdgePolicy::Black : edge_policy
-      orig_pad_fft = pad(
-        top: (map.height // 2) + (map.height % 2),
-        bottom: max_height - height - (map.height // 2 + map.height % 2),
-        right: max_width - width - (map.width // 2 + map.width % 2),
-        left: (map.width // 2) + (map.width % 2),
-        pad_type: pad_type).fft
-      map_pad_fft = map.pad(bottom: max_height - map.height, right: max_width - map.width).fft
 
       width_range, height_range = case edge_policy
                                   in EdgePolicy::Black, EdgePolicy::Repeat
@@ -375,9 +372,26 @@ module CrImage
                                     }
                                   end
 
-      ComplexMap.new(orig_pad_fft.width, orig_pad_fft.raw.map_with_index { |v, i| v * map_pad_fft[i] }).ifft[
-        width_range, height_range,
-      ]
+      orig_pad_fft = pad(
+        # These paddings "bumps" the original map down and to the right, for the sake of edge_policy Repeat
+        top: (map.height // 2) + (map.height % 2),
+        bottom: max_height - height - (map.height // 2 + map.height % 2),
+        right: max_width - width - (map.width // 2 + map.width % 2),
+        left: (map.width // 2) + (map.width % 2),
+        pad_type: pad_type).to_c
+      map_pad_fft = map.pad(bottom: max_height - map.height, right: max_width - map.width).to_c
+
+      buffer = Array(Complex).new(Math.max(max_width, max_height)) { Complex.zero }
+      FftUtil.fft2d_unsafe(max_width, orig_pad_fft.raw, buffer)
+      FftUtil.fft2d_unsafe(max_width, map_pad_fft.raw, buffer)
+
+      orig_pad_fft.raw.map_with_index! { |o, i| o * map_pad_fft[i] }
+
+      FftUtil.ifft2d_unsafe(max_width, orig_pad_fft.raw, buffer)
+
+      ret = FloatMap.new(max_width, orig_pad_fft.raw.map(&.real))[width_range, height_range]
+
+      ret
     end
 
     def fft : ComplexMap
@@ -469,6 +483,29 @@ module CrImage
     def to_intmap : IntMap
       IntMap.new(width, Array(Int32).new(size) { 1 })
     end
+
+    def pad(all : Int32 = 0, *, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black, pad_black_value : T = T.zero) : OneMap | IntMap
+      case pad_type
+      in EdgePolicy::Black then to_i.pad(all, top: top, bottom: bottom, left: left, right: right, pad_type: pad_type, pad_black_value: pad_black_value)
+      in EdgePolicy::Repeat
+        top = top > 0 ? top : all
+        bottom = bottom > 0 ? bottom : all
+        left = left > 0 ? left : all
+        right = right > 0 ? right : all
+        @width += left + right
+        @height += top + bottom
+        self
+      in EdgePolicy::None then raise Exception.new("Pad method doesn't support edge policy None")
+      end
+    end
+
+    def to_i : IntMap
+      IntMap.new(width, Array(Int32).new(size) { 1 })
+    end
+
+    def to_c : ComplexMap
+      ComplexMap.new(width, Array(Complex).new(size) { Complex.new(1) })
+    end
   end
 
   class ComplexMap
@@ -476,6 +513,10 @@ module CrImage
 
     def ifft : FloatMap
       FloatMap.new(width, FftUtil.ifft2d(width, raw).map(&.real))
+    end
+
+    def to_c : ComplexMap
+      self
     end
   end
 end

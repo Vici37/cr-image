@@ -15,16 +15,14 @@ class CrImage::FftUtil
   end
 
   def self.fft2d_unsafe(width : Int32, ret : Array(Complex), buffer : Array(Complex)) : Array(Complex)
-    row_buffer = Array(Complex).new(width) { Complex.zero }
     height = ret.size // width
     height_buffer = Array(Complex).new(height) { Complex.zero }
 
     beginning = -width
     height.times do
       beginning += width
-      row_buffer.to_unsafe.copy_from(ret.to_unsafe + beginning, width)
-      FftUtil.fft1d_unsafe(row_buffer, buffer)
-      (ret.to_unsafe + beginning).copy_from(row_buffer.to_unsafe, width)
+      slice = Slice(Complex).new(ret.to_unsafe + beginning, width)
+      FftUtil.fft1d_unsafe(slice, buffer)
     end
 
     width.times do |x|
@@ -56,24 +54,24 @@ class CrImage::FftUtil
   end
 
   # Calculates Fast Fourier Transform of `ret`. Uses and modifies `ret` in place.
-  def self.fft1d_unsafe(ret : Array(Complex), buffer : Array(Complex) = ret.dup) : Array(Complex)
+  def self.fft1d_unsafe(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) = ret.dup) : Array(Complex) | Slice(Complex)
     # TODO: ensure `ret` size is a power of 2
 
     shape = 1
     half = ret.size
-    real_half = ret.size // 2
+    real_half = (ret.size >> 1)
 
     while half > 1
       double_half = half
-      half //= 2
+      half >>= 1
       neg_i_pi_div_shape = -Math::PI.i / shape
       buffer.to_unsafe.copy_from(ret.to_unsafe, ret.size)
 
-      half_offset = 0
+      half_offset = half
       shape.times do |i|
         term = Math.exp(neg_i_pi_div_shape * i)
         half.times do |j|
-          offset = half + j + (half_offset)
+          offset = j + half_offset
           buffer.unsafe_put(offset, buffer.unsafe_fetch(offset) * term)
         end
         half_offset += double_half
@@ -95,7 +93,7 @@ class CrImage::FftUtil
           buffer.unsafe_fetch(offset) - buffer.unsafe_fetch(offset + half))
       end
 
-      shape *= 2
+      shape <<= 1
     end
 
     ret
@@ -110,16 +108,14 @@ class CrImage::FftUtil
   end
 
   def self.ifft2d_unsafe(width : Int32, ret : Array(Complex), buffer : Array(Complex)) : Array(Complex)
-    row_buffer = Array(Complex).new(width) { Complex.zero }
     height = ret.size // width
     height_buffer = Array(Complex).new(height) { Complex.zero }
 
     beginning = -width
     height.times do
       beginning += width
-      row_buffer.to_unsafe.copy_from(ret.to_unsafe + beginning, width)
-      FftUtil.ifft1d_unsafe(row_buffer, buffer)
-      (ret.to_unsafe + beginning).copy_from(row_buffer.to_unsafe, width)
+      slice = Slice(Complex).new(ret.to_unsafe + beginning, width)
+      FftUtil.ifft1d_unsafe(slice, buffer)
     end
 
     width.times do |x|
@@ -142,23 +138,25 @@ class CrImage::FftUtil
     FftUtil.ifft1d_unsafe(inp.dup, buffer)
   end
 
-  def self.ifft1d_unsafe(ret : Array(Complex), buffer : Array(Complex) = ret.dup) : Array(Complex)
+  def self.ifft1d_unsafe(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) = ret.dup) : Array(Complex) | Slice(Complex)
     shape = 1
     half = ret.size
-    real_half = ret.size // 2
+    real_half = (ret.size >> 1)
 
     while half > 1
       double_half = half
-      half //= 2
+      half >>= 1
       neg_i_pi_div_shape = Math::PI.i / shape
       buffer.to_unsafe.copy_from(ret.to_unsafe, ret.size)
 
+      half_offset = half
       shape.times do |i|
         term = Math.exp(neg_i_pi_div_shape * i)
         half.times do |j|
-          offset = half + j + (i * double_half)
+          offset = j + half_offset
           buffer.unsafe_put(offset, buffer.unsafe_fetch(offset) * term)
         end
+        half_offset += double_half
       end
 
       offset = -1
@@ -177,7 +175,7 @@ class CrImage::FftUtil
           buffer.unsafe_fetch(offset) - buffer.unsafe_fetch(offset + half))
       end
 
-      shape *= 2
+      shape <<= 1
     end
     ret.map!(&./(ret.size))
   end

@@ -79,20 +79,16 @@ macro benchmark_mask(&)
   Result.new(name: "{{yield.id.strip.split("\n")[-1].id}}".gsub("mask.", ""), memory: memory, time: time.total_milliseconds)
 end
 
-macro benchmark_map(&)
+macro benchmark_map(size = 3, &)
   map = CrImage::GrayscaleImage.open("lib/cr-image-samples/scenic/moon.ppm").to_map!.to_i
-  template = CrImage::IntMap.new([
-    [-1, 0, 1],
-    [-2, 0, 2],
-    [-1, 0, 1]
-  ])
+  template = CrImage::OneMap.new({{size}}, {{size}})
   memory = 0i64
   time = benchmark_time do
     memory = benchmark_memory do
       {{yield}}
     end
   end
-  Result.new(name: "{{yield.id.strip.split("\n")[-1].id}}".gsub("map.", ""), memory: memory, time: time.total_milliseconds)
+  Result.new(name: "{{yield.id.strip.split("\n")[-1].id}}".gsub("map.", "").gsub("template", "template[{{size}}]"), memory: memory, time: time.total_milliseconds)
 end
 
 results = [] of Result
@@ -146,8 +142,14 @@ results << benchmark_mask { mask.closing!(diagonal: false) }
 print_result_table("Mask", results)
 results.clear
 
-results << benchmark_map { map.cross_correlate(template) }
-results << benchmark_map { map.cross_correlate_fft(template) }
+results << benchmark_map(3) { map.cross_correlate(template) }
+results << benchmark_map(3) { map.cross_correlate_fft(template) }
+results << benchmark_map(7) { map.cross_correlate(template) }
+results << benchmark_map(7) { map.cross_correlate_fft(template) }
+results << benchmark_map(13) { map.cross_correlate(template) }
+results << benchmark_map(13) { map.cross_correlate_fft(template) }
+results << benchmark_map(17) { map.cross_correlate(template) }
+results << benchmark_map(17) { map.cross_correlate_fft(template) }
 
 print_result_table("Map", results)
 results.clear
