@@ -171,11 +171,16 @@ class CrImage::Mask
   #
   # Can be used to construct another mask from.
   def [](xs : Range, ys : Range) : Array(BitArray)
-    start_x, count_x = resolve_to_start_and_count(xs, width)
-    start_y, count_y = resolve_to_start_and_count(ys, height)
-    count_y.times.to_a.map do |y|
-      BitArray.new(count_x) do |x|
-        self[x + start_x, y + start_y]
+    xstart, xcount = resolve_to_start_and_count(xs, width)
+    ystart, ycount = resolve_to_start_and_count(ys, height)
+    self[xstart, xcount, ystart, ycount]
+  end
+
+  # :ditto:
+  def [](xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : Array(BitArray)
+    ycount.times.to_a.map do |y|
+      BitArray.new(xcount) do |x|
+        self[x + xstart, y + ystart]
       end
     end
   end

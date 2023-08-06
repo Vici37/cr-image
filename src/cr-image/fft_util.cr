@@ -1,19 +1,30 @@
 # Utility class for Fast Fourier Transforms
+#
+# At some point in the future, this may be moved to its own shard.
 class CrImage::FftUtil
   # ============================================== FFT ==============================================
 
-  # Perform Fast Fourier transform, treating as `inp` as a 2 dimensional array with `width`
+  # Perform Fast Fourier Transform, treating as `inp` as a 2 dimensional array with `width`.
+  #
+  # Can optionally pass in `buffer` which must be an array at least the larger of `width` or `inp.size // width`.
   def self.fft2d(width : Int32, inp : Array(Float64), buffer : Array(Complex)? = nil) : Array(Complex)
     FftUtil.fft2d(width, inp.map(&.to_c), buffer)
   end
 
+  # :ditto:
   def self.fft2d(width : Int32, inp : Array(Complex), buffer : Array(Complex)? = nil) : Array(Complex)
+    raise Exception.new "Width #{width} must be power of 2 (next power of two: #{width.next_power_of_two})" unless width == width.next_power_of_two
+    height = inp.size // width
+    raise Exception.new "Input height #{height} must be power of 2 (next power of two: #{(height).next_power_of_two})" unless height == height.next_power_of_two
+
     unless buf = buffer
       buf = Array(Complex).new(Math.max(width, inp.size // width)) { Complex.zero }
     end
     FftUtil.fft2d_unsafe(width, inp.dup, buf)
   end
 
+  # Perform Fast Fourier Transform, using and rewriting `ret` for the output, as a 2 dimensional array with `width`. `buffer` must be an array
+  # of length at least the longer of `width` or `height` of the input array.
   def self.fft2d_unsafe(width : Int32, ret : Array(Complex), buffer : Array(Complex)) : Array(Complex)
     height = ret.size // width
     height_buffer = Array(Complex).new(height) { Complex.zero }
@@ -42,21 +53,27 @@ class CrImage::FftUtil
     ret
   end
 
+  # Perform Fast Fourier Transform on `inp`.
+  #
+  # Can optionally pass in `buffer` which must be the same length as `inp`
   def self.fft1d(inp : Array(Float64), buffer : Array(Complex)? = nil) : Array(Complex)
+    # TODO: implement an even faster real-to-complex version of FFT: https://kovleventer.com/blog/fft_real/#:~:text=Fourier%20transforms%20are%20used%20to,will%20consist%20of%20real%20numbers
     unless buf = buffer
       buf = Array(Complex).new(inp.size) { Complex.zero }
     end
-    FftUtil.fft1d_unsafe(Array(Complex).new(inp.size) { |i| Complex.new(inp[i]) }, buf)
+    FftUtil.fft1d(Array(Complex).new(inp.size) { |i| Complex.new(inp.unsafe_fetch(i)) }, buf)
   end
 
+  # :ditto:
   def self.fft1d(inp : Array(Complex), buffer : Array(Complex) = inp.dup) : Array(Complex)
+    raise Exception.new "Input is of size #{inp.size}, which is not a power of 2 (next power of 2: #{inp.size.next_power_of_two})" unless inp.size == inp.size.next_power_of_two
     FftUtil.fft1d_unsafe(inp.dup, buffer)
   end
 
   # Calculates Fast Fourier Transform of `ret`. Uses and modifies `ret` in place.
-  def self.fft1d_unsafe(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) = ret.dup) : Array(Complex) | Slice(Complex)
-    # TODO: ensure `ret` size is a power of 2
-
+  #
+  # Can optionally pass in `buffer` which must be the same length as `inp`. This method makes no bound checks or error checks.
+  def self.fft1d_unsafe(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) | Slice(Complex) = ret.dup) : Array(Complex) | Slice(Complex)
     shape = 1
     half = ret.size
     real_half = (ret.size >> 1)
@@ -100,7 +117,15 @@ class CrImage::FftUtil
   end
 
   # ============================================== IFFT ==============================================
+
+  # Perform Inverse Fast Fourier Transform, treating as `inp` as a 2 dimensional array with `width`.
+  #
+  # Can optionally pass in `buffer` which must be an array at least the larger of `width` or `inp.size // width`.
   def self.ifft2d(width : Int32, inp : Array(Complex), buffer : Array(Complex)? = nil) : Array(Complex)
+    raise Exception.new "Width #{width} must be power of 2 (next power of two: #{width.next_power_of_two})" unless width == width.next_power_of_two
+    height = inp.size // width
+    raise Exception.new "Input height #{height} must be power of 2 (next power of two: #{(height).next_power_of_two})" unless height == height.next_power_of_two
+
     unless buf = buffer
       buf = Array(Complex).new(Math.max(width, inp.size // width)) { Complex.zero }
     end
@@ -134,10 +159,17 @@ class CrImage::FftUtil
     ret
   end
 
+  # Perform Inverse Fast Fourier Transform on `inp`.
+  #
+  # Can optionally pass in `buffer` which must be at least the same size of `inp`.
   def self.ifft1d(inp : Array(Complex), buffer : Array(Complex) = inp.dup) : Array(Complex)
+    raise Exception.new "Input is of size #{inp.size}, which is not a power of 2 (next power of 2: #{inp.size.next_power_of_two})" unless inp.size == inp.size.next_power_of_two
     FftUtil.ifft1d_unsafe(inp.dup, buffer)
   end
 
+  # Perform Inverse Fast Fourier Transform on `ret`. Will use and overwrite the original values in `ret` to do so.
+  #
+  # Can optionally pass in `buffer` which must be at least the same size of `inp`. This method makes no bound checks or error checks.
   def self.ifft1d_unsafe(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) = ret.dup) : Array(Complex) | Slice(Complex)
     shape = 1
     half = ret.size

@@ -40,4 +40,20 @@ Spectator.describe CrImage::FftUtil do
       Complex.new(-14, 0), Complex.new(0, +6), Complex.new(-10, +0), Complex.new(0, -6),
     ]).map(&.round(8))).to eq [1, 2, 3, 4, 7, 6, 9, 2].map(&.to_f)
   end
+
+  it "checks 1d size is power of 2" do
+    expect_raises(CrImage::Exception) do
+      CrImage::FftUtil.fft1d([3.0, 3.0, 3.0])
+    end
+  end
+
+  it "checks 2d dimensions are power of 2" do
+    expect_raises(CrImage::Exception, /Width/) do
+      CrImage::FftUtil.fft2d(3, [1.0, 1.0, 1.0, 2.0, 2.0, 2.0])
+    end
+    expect_raises(CrImage::Exception, /height/) do
+      CrImage::FftUtil.fft2d(2, [1.0, 1.0, 2.0, 2.0, 3.0, 3.0])
+    end
+    CrImage::FftUtil.fft2d(2, [1.0, 1.0, 2.0, 2.0])
+  end
 end

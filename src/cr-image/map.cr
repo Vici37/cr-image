@@ -10,6 +10,12 @@ module CrImage
     abstract def []?(index : Int32) : T?
     abstract def []?(x : Int32, y : Int32) : T?
 
+    # Commented out for now until `Mask` figures out if `Array(BitArray)` is correct or not
+    # abstract def [](xstart : Int32, yrange : Range) : Map(T)
+    # abstract def [](xrange : Range, ystart : Int32) : Map(T)
+    # abstract def [](xrange : Range, yrange : Range) : Map(T)
+    # abstract def [](xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : Map(T)
+
     private def resolve_to_start_and_count(range, size) : Tuple(Int32, Int32)
       start, count = Indexable.range_to_index_and_count(range, size) || raise IndexError.new("Unable to resolve range #{range} for mask dimension of #{size}")
       raise IndexError.new("Range #{range} exceeds bounds of #{size}") if (start + count) > size
@@ -17,9 +23,24 @@ module CrImage
     end
   end
 
-  # :nodoc:
-  module MapImpl(T)
+  # Additional methods for `Map` that assume `T` is a numeric type. See `MapImpl`
+  module NumericMap(T)
     include Map(T)
+
+    abstract def to_i : NumericMap(Int32)
+    abstract def to_c : NumericMap(Complex)
+    abstract def to_f : NumericMap(Float64)
+
+    abstract def sum : T
+    abstract def max : T
+    abstract def min : T
+  end
+
+  # A collection of implementations of `NumericMap(T)`, intended to be included in base classes.
+  #
+  # See `IntMap`, `FloatMap`, and `ComplexMap`.
+  module MapImpl(T)
+    include NumericMap(T)
 
     macro included
       {% verbatim do %}
@@ -109,18 +130,22 @@ module CrImage
       internal_crop(x, 1, 0, height)
     end
 
+    # Crop the map, returning only the values in row at `ystart`
     def [](xrange : Range, ystart : Int32) : self
       internal_crop(*resolve_to_start_and_count(xrange, width), ystart, 1)
     end
 
+    # Crop the map, returning only the values in column at `xstart`
     def [](xstart : Int32, yrange : Range) : self
       internal_crop(xstart, 1, *resolve_to_start_and_count(yrange, height))
     end
 
+    # Crop the map to the values contained in `xrange` and `yrange`
     def [](xrange : Range, yrange : Range) : self
       internal_crop(*resolve_to_start_and_count(xrange, width), *resolve_to_start_and_count(yrange, height))
     end
 
+    # Crop the map to the values contained from `xstart` out by `xcount`, and `ystart` out by `ycount`
     def [](xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : self
       internal_crop(xstart, xcount, ystart, ycount)
     end
@@ -150,14 +175,17 @@ module CrImage
       @raw.sum / size
     end
 
+    # Return the minimum value in this `Map`
     def min : T
       @raw.min
     end
 
+    # Return the maximum value in this `Map`
     def max : T
       @raw.max
     end
 
+    # Return the sum of all values in this `Map`
     def sum : T
       @raw.sum
     end
@@ -214,44 +242,58 @@ module CrImage
       mask_from { |val| val < num }
     end
 
-    # Construct a `Mask` identifying all pixels smaller than or equal to `num`. See `#<` for near example.
+    # Construct a `Mask` identifying all pixels smaller than or equal to `num`. See `#<` for example.
     def <=(num : Int | Float) : Mask
       mask_from { |val| val <= num }
     end
 
+    # Construct a `Mask` identifying all pixels equal to `num`
     def ==(num : Int | Float) : Mask
       mask_from { |val| val == num }
     end
 
+    # Check if this `Map` is equal to `other`
     def ==(other : self) : Bool
       other.width == width && @raw == other.raw
     end
 
+    # Divides each point in this `Map` by `num`
+    #
+    # TODO: ComplexMap shouldn't return a FloatMap
     def /(num : Int | Float) : FloatMap
       FloatMap.new(width, @raw.map { |i| i / num })
     end
 
+    # Multiply each point in this `Map` by `num`
     def *(num : Int | Float) : self
       self.class.new(width, @raw.map { |i| i * num })
     end
 
+    # Add each point in this `Map` by `num`
     def +(num : Int | Float) : self
       self.class.new(width, @raw.map { |i| i + num })
     end
 
+    # Subtract each point in this `Map` by `num`
     def -(num : Int) : self
       self.class.new(width, @raw.map { |i| i - num })
     end
 
+    # :ditto:
     def -(num : Float) : FloatMap
       FloatMap.new(width, @raw.map { |i| i - num })
     end
 
+    # Add each point of this `Map` with each point in `other`
     def +(other : self) : self
       raise Exception.new "Dimensions should match (caller: #{width}x#{height}, callee: #{other.width}x#{other.height})" unless width == other.width && height == other.height
       self.class.new(width, @raw.map_with_index { |val, i| val + other[i] })
     end
 
+    # Convert this `Map` to a `GrayscaleImage`.
+    #
+    # Set `scale: true` so that all of the values will scale, such that `max` will become `255u8`, and `min` will become `0u8`. All other values will be
+    # linearly scaled between those values.
     def to_gray(*, scale : Bool = false) : GrayscaleImage
       if scale
         max_val = max
@@ -264,14 +306,17 @@ module CrImage
       end
     end
 
+    # Receive a copy of the underlying `raw` array.
     def to_a : Array(T)
       @raw.dup
     end
 
+    # Convert this `Map` to a `ComplexMap`
     def to_c : ComplexMap
       ComplexMap.new(width, raw.map(&.to_c))
     end
 
+    # Pad the borders of this `Map` corresponding to `pad_type`.
     def pad(all : Int32 = 0, *, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black, pad_black_value : T = T.zero) : self
       top = top > 0 ? top : all
       bottom = bottom > 0 ? bottom : all
@@ -328,9 +373,10 @@ module CrImage
       end
     end
 
-    def cross_correlate(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
-      half_width = map.width >> 1
-      half_height = map.height >> 1
+    # Perform a brute force cross correlation calculation with provided `template`.
+    def cross_correlate(template : Map, *, edge_policy : EdgePolicy = EdgePolicy::Repeat) : FloatMap
+      half_width = template.width >> 1
+      half_height = template.height >> 1
 
       start_x, start_y = (edge_policy.none? ? {half_width, half_height} : {0, 0})
       end_x, end_y = (edge_policy.none? ? {width - half_width - 1, height - half_height - 1} : {width - 1, height - 1})
@@ -340,13 +386,13 @@ module CrImage
       start_y.upto(end_y).each do |y|
         start_x.upto(end_x).each do |x|
           view = case edge_policy
-                 in EdgePolicy::Repeat then RepeatView(T).new(map.width, map.height, self, x, y)
-                 in EdgePolicy::Black  then BlackView(T).new(map.width, map.height, self, x, y)
-                 in EdgePolicy::None   then ErrorView(T).new(map.width, map.height, self, x, y)
+                 in EdgePolicy::Repeat then RepeatView(T).new(template.width, template.height, self, x, y)
+                 in EdgePolicy::Black  then BlackView(T).new(template.width, template.height, self, x, y)
+                 in EdgePolicy::None   then ErrorView(T).new(template.width, template.height, self, x, y)
                  end
-          # ret << view.sum(1.0 / map.raw.sum) do |pixel, vx, vy|
+          # ret << view.sum(1.0 / template.raw.sum) do |pixel, vx, vy|
           ret << view.sum do |pixel, vx, vy|
-            map[vx, vy] * pixel
+            template[vx, vy] * pixel
           end
         end
       end
@@ -355,31 +401,32 @@ module CrImage
       retf
     end
 
-    def cross_correlate_fft(map : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
-      max_width, max_height = Math.pw2ceil(width + map.width), Math.pw2ceil(height + map.height)
+    # Perform a Fast Fourier Transform cross correlation (convolution?) with provided `template`. See `FftUtil`
+    def cross_correlate_fft(template : Map, *, edge_policy : EdgePolicy = EdgePolicy::Black) : FloatMap
+      max_width, max_height = Math.pw2ceil(width + template.width), Math.pw2ceil(height + template.height)
       pad_type = edge_policy.none? ? EdgePolicy::Black : edge_policy
 
       width_range, height_range = case edge_policy
                                   in EdgePolicy::Black, EdgePolicy::Repeat
                                     {
-                                      (map.width)...(width + map.width),
-                                      (map.height)...(height + map.height),
+                                      (template.width)...(width + template.width),
+                                      (template.height)...(height + template.height),
                                     }
                                   in EdgePolicy::None
                                     {
-                                      (map.width + map.width // 2)..(map.width + width - map.width + 1),
-                                      (map.height + map.height // 2)..(map.height + height - map.height + 1),
+                                      (template.width + template.width // 2)..(template.width + width - template.width + 1),
+                                      (template.height + template.height // 2)..(template.height + height - template.height + 1),
                                     }
                                   end
 
       orig_pad_fft = pad(
-        # These paddings "bumps" the original map down and to the right, for the sake of edge_policy Repeat
-        top: (map.height // 2) + (map.height % 2),
-        bottom: max_height - height - (map.height // 2 + map.height % 2),
-        right: max_width - width - (map.width // 2 + map.width % 2),
-        left: (map.width // 2) + (map.width % 2),
+        # These paddings "bumps" the original template down and to the right, for the sake of edge_policy Repeat
+        top: (template.height // 2) + (template.height % 2),
+        bottom: max_height - height - (template.height // 2 + template.height % 2),
+        right: max_width - width - (template.width // 2 + template.width % 2),
+        left: (template.width // 2) + (template.width % 2),
         pad_type: pad_type).to_c
-      map_pad_fft = map.pad(bottom: max_height - map.height, right: max_width - map.width).to_c
+      map_pad_fft = template.pad(bottom: max_height - template.height, right: max_width - template.width).to_c
 
       buffer = Array(Complex).new(Math.max(max_width, max_height)) { Complex.zero }
       FftUtil.fft2d_unsafe(max_width, orig_pad_fft.raw, buffer)
@@ -394,23 +441,24 @@ module CrImage
       ret
     end
 
+    # Performe a Fast Fourier Transform, padding out this `Map` so dimensions are a power of 2. See `FftUtil`
     def fft : ComplexMap
-      map = ComplexMap.new(width, Array(Complex).new(size) { |i| Complex.new(raw.unsafe_fetch(i)) })
-        .pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width)
+      map = pad(bottom: Math.pw2ceil(height) - height, right: Math.pw2ceil(width) - width).to_c
 
       buffer = Array(Complex).new(Math.max(map.height, map.width)) { Complex.zero }
 
       ComplexMap.new(map.width, FftUtil.fft2d_unsafe(map.width, map.raw, buffer))
     end
 
-    def to_s
-      raw.each_with_index do |val, i|
-        print("#{val.round}\t")
-        puts if (i + 1) % width == 0
-      end
-    end
+    # def to_s
+    #   raw.each_with_index do |val, i|
+    #     print("#{val.round}\t")
+    #     puts if (i + 1) % width == 0
+    #   end
+    # end
   end
 
+  # Implementation of `MapImpl` for `Int32` types.
   class IntMap
     include MapImpl(Int32)
 
@@ -418,7 +466,7 @@ module CrImage
       FloatMap.new(width, @raw.map(&.to_f64))
     end
 
-    def to_f
+    def to_f : FloatMap
       to_f64
     end
 
@@ -427,14 +475,20 @@ module CrImage
     end
   end
 
+  # Implementation of `MapImpl` for `UInt8` types. This type is useful for `MapImpl` operations around channels.
   class UInt8Map
     include MapImpl(UInt8)
 
     def to_i : IntMap
       IntMap.new(width, @raw.map(&.to_i))
     end
+
+    def to_f : FloatMap
+      FloatMap.new(width, @raw.map(&.to_f))
+    end
   end
 
+  # Implementation of `MapImpl` for `Float64` types.
   class FloatMap
     include MapImpl(Float64)
 
@@ -445,8 +499,13 @@ module CrImage
     def to_i : IntMap
       IntMap.new(width, @raw.map(&.to_i))
     end
+
+    def to_f : FloatMap
+      self
+    end
   end
 
+  # Memory efficient implementation of `MapImpl` when all values are equal to `1`
   class OneMap
     include Map(Int32)
 
@@ -480,9 +539,29 @@ module CrImage
       1
     end
 
-    def to_intmap : IntMap
-      IntMap.new(width, Array(Int32).new(size) { 1 })
+    def [](xstart : Int32, yrange : Range) : OneMap
+      _, ycount = range_to_index_and_count(yrange)
+      OneMap.new(1, ycount)
     end
+
+    def [](xrange : Range, ystart : Int32) : OneMap
+      _, xcount = range_to_index_and_count(xrange)
+      OneMap.new(xcount, 1)
+    end
+
+    def [](xrange : Range, yrange : Range) : OneMap
+      _, xcount = range_to_index_and_count(xrange)
+      _, ycount = range_to_index_and_count(yrange)
+      OneMap.new(xcount, ycount)
+    end
+
+    def [](xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : OneMap
+      OneMap.new(xcount, ycount)
+    end
+
+    # def to_intmap : IntMap
+    #   IntMap.new(width, Array(Int32).new(size) { 1 })
+    # end
 
     def pad(all : Int32 = 0, *, top : Int32 = 0, bottom : Int32 = 0, left : Int32 = 0, right : Int32 = 0, pad_type : EdgePolicy = EdgePolicy::Black, pad_black_value : T = T.zero) : OneMap | IntMap
       case pad_type
@@ -517,6 +596,14 @@ module CrImage
 
     def to_c : ComplexMap
       self
+    end
+
+    def to_i : IntMap
+      raise Exception.new "Unable to convert ComplexMap to IntMap"
+    end
+
+    def to_f : FloatMap
+      raise Exception.new "Unable to convert ComplexMap to FloatMap"
     end
   end
 end
