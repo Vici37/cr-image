@@ -15,3 +15,7 @@ require "./cr-image/rgba_image"
 
 # Include anything else
 require "./cr-image/**"
+
+# This module by itself isn't very interesting. Try taking a look through the [tutorials](./Tutorial.html) for better examples.
+module CrImage
+end

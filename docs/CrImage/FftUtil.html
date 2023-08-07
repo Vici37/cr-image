@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="Crystal Image">
-  <title>CrImage::Region - Crystal Image master-dev</title>
+  <title>CrImage::FftUtil - Crystal Image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -97,7 +97,7 @@
       
     </li>
   
-  <li class=" " data-id="Crystal Image/CrImage/FftUtil" data-name="crimage::fftutil">
+  <li class=" current" data-id="Crystal Image/CrImage/FftUtil" data-name="crimage::fftutil">
       <a href="../CrImage/FftUtil.html">FftUtil</a>
       
     </li>
@@ -287,7 +287,7 @@
       
     </li>
   
-  <li class=" current" data-id="Crystal Image/CrImage/Region" data-name="crimage::region">
+  <li class=" " data-id="Crystal Image/CrImage/Region" data-name="crimage::region">
       <a href="../CrImage/Region.html">Region</a>
       
     </li>
@@ -386,12 +386,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">struct</span> CrImage::Region
+  <span class="kind">class</span> CrImage::FftUtil
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../CrImage/Region.html">CrImage::Region</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../CrImage/FftUtil.html">CrImage::FftUtil</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -405,8 +405,8 @@
     Overview
   </h2>
 
-  <p>Represents a rectangular area on an <code><a href="../CrImage/Image.html">Image</a></code> from its upper left corner <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code> and <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code> coordinates, and a <code><a href="../CrImage/Region.html#width%3AUInt16-instance-method">#width</a></code> and <code><a href="../CrImage/Region.html#height%3AUInt16-instance-method">#height</a></code>.</p>
-<p>See <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code> and <code><a href="../CrImage/Operation/Draw.html#draw_square%28x%3AInt%2Cy%3AInt%2Cbox_width%3AInt%2Cbox_height%3AInt%2Ccolor%3AColor%2C%2A%2Cfill%3ABool%3Dfalse%29%3Aself-instance-method">Operation::Draw#draw_square</a></code> for examples using it.</p>
+  <p>Utility class for Fast Fourier Transforms</p>
+<p>At some point in the future, this may be moved to its own shard.</p>
 
 
 
@@ -431,8 +431,8 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/region.cr#L5" target="_blank">
-        cr-image/region.cr
+      <a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L4" target="_blank">
+        cr-image/fft_util.cr
       </a>
     
     <br/>
@@ -442,94 +442,89 @@
 
 
 
+
+
   <h2>
-    <a id="constructors" class="anchor" href="#constructors">
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Constructors
+    Class Method Summary
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#center%28x%3AUInt16%2Cy%3AUInt16%2Cwidth%3AUInt16%2Cheight%3AUInt16%29%3ARegion-class-method" class="signature"><strong>.center</strong>(x : UInt16, y : UInt16, width : UInt16, height : UInt16) : Region</a>
+        <a href="#fft1d%28inp%3AArray%28Float64%29%2Cbuffer%3AArray%28Complex%29%7CNil%3Dnil%29%3AArray%28Complex%29-class-method" class="signature"><strong>.fft1d</strong>(inp : Array(Float64), buffer : Array(Complex) | Nil = <span class="n">nil</span>) : Array(Complex)</a>
+        
+          <div class="summary"><p>Perform Fast Fourier Transform on <code>inp</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28x%3AUInt16%2Cy%3AUInt16%2Cwidth%3AUInt16%2Cheight%3AUInt16%29-class-method" class="signature"><strong>.new</strong>(x : UInt16, y : UInt16, width : UInt16, height : UInt16)</a>
+        <a href="#fft1d%28inp%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%3Dinp.dup%29%3AArray%28Complex%29-class-method" class="signature"><strong>.fft1d</strong>(inp : Array(Complex), buffer : Array(Complex) = inp.dup) : Array(Complex)</a>
+        
+          <div class="summary"><p>Perform Fast Fourier Transform on <code>inp</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fft1d_unsafe%28ret%3AArray%28Complex%29%7CSlice%28Complex%29%2Cbuffer%3AArray%28Complex%29%7CSlice%28Complex%29%3Dret.dup%29%3AArray%28Complex%29%7CSlice%28Complex%29-class-method" class="signature"><strong>.fft1d_unsafe</strong>(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) | Slice(Complex) = ret.dup) : Array(Complex) | Slice(Complex)</a>
+        
+          <div class="summary"><p>Calculates Fast Fourier Transform of <code>ret</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fft2d%28width%3AInt32%2Cinp%3AArray%28Float64%29%2Cbuffer%3AArray%28Complex%29%7CNil%3Dnil%29%3AArray%28Complex%29-class-method" class="signature"><strong>.fft2d</strong>(width : Int32, inp : Array(Float64), buffer : Array(Complex) | Nil = <span class="n">nil</span>) : Array(Complex)</a>
+        
+          <div class="summary"><p>Perform Fast Fourier Transform, treating as <code>inp</code> as a 2 dimensional array with <code>width</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fft2d%28width%3AInt32%2Cinp%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%7CNil%3Dnil%29%3AArray%28Complex%29-class-method" class="signature"><strong>.fft2d</strong>(width : Int32, inp : Array(Complex), buffer : Array(Complex) | Nil = <span class="n">nil</span>) : Array(Complex)</a>
+        
+          <div class="summary"><p>Perform Fast Fourier Transform, treating as <code>inp</code> as a 2 dimensional array with <code>width</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fft2d_unsafe%28width%3AInt32%2Cret%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%29%3AArray%28Complex%29-class-method" class="signature"><strong>.fft2d_unsafe</strong>(width : Int32, ret : Array(Complex), buffer : Array(Complex)) : Array(Complex)</a>
+        
+          <div class="summary"><p>Perform Fast Fourier Transform, using and rewriting <code>ret</code> for the output, as a 2 dimensional array with <code>width</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ifft1d%28inp%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%3Dinp.dup%29%3AArray%28Complex%29-class-method" class="signature"><strong>.ifft1d</strong>(inp : Array(Complex), buffer : Array(Complex) = inp.dup) : Array(Complex)</a>
+        
+          <div class="summary"><p>Perform Inverse Fast Fourier Transform on <code>inp</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ifft1d_unsafe%28ret%3AArray%28Complex%29%7CSlice%28Complex%29%2Cbuffer%3AArray%28Complex%29%3Dret.dup%29%3AArray%28Complex%29%7CSlice%28Complex%29-class-method" class="signature"><strong>.ifft1d_unsafe</strong>(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) = ret.dup) : Array(Complex) | Slice(Complex)</a>
+        
+          <div class="summary"><p>Perform Inverse Fast Fourier Transform on <code>ret</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ifft2d%28width%3AInt32%2Cinp%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%7CNil%3Dnil%29%3AArray%28Complex%29-class-method" class="signature"><strong>.ifft2d</strong>(width : Int32, inp : Array(Complex), buffer : Array(Complex) | Nil = <span class="n">nil</span>) : Array(Complex)</a>
+        
+          <div class="summary"><p>Perform Inverse Fast Fourier Transform, treating as <code>inp</code> as a 2 dimensional array with <code>width</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ifft2d_unsafe%28width%3AInt32%2Cret%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%29%3AArray%28Complex%29-class-method" class="signature"><strong>.ifft2d_unsafe</strong>(width : Int32, ret : Array(Complex), buffer : Array(Complex)) : Array(Complex)</a>
         
       </li>
     
   </ul>
 
 
-
-
-
-  <h2>
-    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Summary
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#center%3ATuple%28Int32%2CInt32%29-instance-method" class="signature"><strong>#center</strong> : Tuple(Int32, Int32)</a>
-        
-          <div class="summary"><p>Return the <code>{x, y}</code> tuple of the center coordinates of this <code><a href="../CrImage/Region.html">Region</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#copy_with%28x_x%3D%40x%2Cy_y%3D%40y%2Cwidth_width%3D%40width%2Cheight_height%3D%40height%29-instance-method" class="signature"><strong>#copy_with</strong>(x _x = @x, y _y = @y, width _width = @width, height _height = @height)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#crop%28image%3AImage%29%3AImage-instance-method" class="signature"><strong>#crop</strong>(image : Image) : Image</a>
-        
-          <div class="summary"><p>Crop a provided <code><a href="../CrImage/Image.html">Image</a></code> with this region, using <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#height%3AUInt16-instance-method" class="signature"><strong>#height</strong> : UInt16</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#to_tuple%3ATuple%28Int32%2CInt32%2CInt32%2CInt32%29-instance-method" class="signature"><strong>#to_tuple</strong> : Tuple(Int32, Int32, Int32, Int32)</a>
-        
-          <div class="summary"><p>Return this <code><a href="../CrImage/Region.html">Region</a></code> as a <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code>, <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code>, <code><a href="../CrImage/Region.html#width%3AUInt16-instance-method">#width</a></code>, and <code><a href="../CrImage/Region.html#height%3AUInt16-instance-method">#height</a></code> tuple</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#width%3AUInt16-instance-method" class="signature"><strong>#width</strong> : UInt16</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#x%3AUInt16-instance-method" class="signature"><strong>#x</strong> : UInt16</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#y%3AUInt16-instance-method" class="signature"><strong>#y</strong> : UInt16</a>
-        
-      </li>
-    
-  </ul>
 
 
 
@@ -557,225 +552,236 @@
 
 
   
-    
-
-
-    
-
-
-    
-
-
-  
 </div>
 
 
+
+
   <h2>
-    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Constructor Detail
+    Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="center(x:UInt16,y:UInt16,width:UInt16,height:UInt16):Region-class-method">
+    <div class="entry-detail" id="fft1d(inp:Array(Float64),buffer:Array(Complex)|Nil=nil):Array(Complex)-class-method">
       <div class="signature">
         
-        def self.<strong>center</strong>(x : UInt16, y : UInt16, width : UInt16, height : UInt16) : <a href="../CrImage/Region.html">Region</a>
+        def self.<strong>fft1d</strong>(inp : Array(Float64), buffer : Array(Complex) | Nil = <span class="n">nil</span>) : Array(Complex)
 
-        <a class="method-permalink" href="#center%28x%3AUInt16%2Cy%3AUInt16%2Cwidth%3AUInt16%2Cheight%3AUInt16%29%3ARegion-class-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/region.cr#L11" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="new(x:UInt16,y:UInt16,width:UInt16,height:UInt16)-class-method">
-      <div class="signature">
-        
-        def self.<strong>new</strong>(x : UInt16, y : UInt16, width : UInt16, height : UInt16)
-
-        <a class="method-permalink" href="#new%28x%3AUInt16%2Cy%3AUInt16%2Cwidth%3AUInt16%2Cheight%3AUInt16%29-class-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/region.cr#L5" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-
-
-
-
-
-  <h2>
-    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Detail
-  </h2>
-  
-    <div class="entry-detail" id="center:Tuple(Int32,Int32)-instance-method">
-      <div class="signature">
-        
-        def <strong>center</strong> : Tuple(Int32, Int32)
-
-        <a class="method-permalink" href="#center%3ATuple%28Int32%2CInt32%29-instance-method">#</a>
+        <a class="method-permalink" href="#fft1d%28inp%3AArray%28Float64%29%2Cbuffer%3AArray%28Complex%29%7CNil%3Dnil%29%3AArray%28Complex%29-class-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Return the <code>{x, y}</code> tuple of the center coordinates of this <code><a href="../CrImage/Region.html">Region</a></code></p>
+          <p>Perform Fast Fourier Transform on <code>inp</code>.</p>
+<p>Can optionally pass in <code>buffer</code> which must be the same length as <code>inp</code></p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/region.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L59" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="clone-instance-method">
+    <div class="entry-detail" id="fft1d(inp:Array(Complex),buffer:Array(Complex)=inp.dup):Array(Complex)-class-method">
       <div class="signature">
         
-        def <strong>clone</strong>
+        def self.<strong>fft1d</strong>(inp : Array(Complex), buffer : Array(Complex) = inp.dup) : Array(Complex)
 
-        <a class="method-permalink" href="#clone-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/region.cr#L5" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="copy_with(x_x=@x,y_y=@y,width_width=@width,height_height=@height)-instance-method">
-      <div class="signature">
-        
-        def <strong>copy_with</strong>(x _x = @x, y _y = @y, width _width = @width, height _height = @height)
-
-        <a class="method-permalink" href="#copy_with%28x_x%3D%40x%2Cy_y%3D%40y%2Cwidth_width%3D%40width%2Cheight_height%3D%40height%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/region.cr#L5" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="crop(image:Image):Image-instance-method">
-      <div class="signature">
-        
-        def <strong>crop</strong>(image : <a href="../CrImage/Image.html">Image</a>) : <a href="../CrImage/Image.html">Image</a>
-
-        <a class="method-permalink" href="#crop%28image%3AImage%29%3AImage-instance-method">#</a>
+        <a class="method-permalink" href="#fft1d%28inp%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%3Dinp.dup%29%3AArray%28Complex%29-class-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Crop a provided <code><a href="../CrImage/Image.html">Image</a></code> with this region, using <code><a href="../CrImage/Operation/Crop.html#crop%28x%3AInt32%2Cy%3AInt32%2Cnew_width%3AInt32%2Cnew_height%3AInt32%29%3Aself-instance-method">Operation::Crop#crop</a></code></p>
+          <p>Perform Fast Fourier Transform on <code>inp</code>.</p>
+<p>Can optionally pass in <code>buffer</code> which must be the same length as <code>inp</code></p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/region.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L68" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="height:UInt16-instance-method">
+    <div class="entry-detail" id="fft1d_unsafe(ret:Array(Complex)|Slice(Complex),buffer:Array(Complex)|Slice(Complex)=ret.dup):Array(Complex)|Slice(Complex)-class-method">
       <div class="signature">
         
-        def <strong>height</strong> : UInt16
+        def self.<strong>fft1d_unsafe</strong>(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) | Slice(Complex) = ret.dup) : Array(Complex) | Slice(Complex)
 
-        <a class="method-permalink" href="#height%3AUInt16-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="to_tuple:Tuple(Int32,Int32,Int32,Int32)-instance-method">
-      <div class="signature">
-        
-        def <strong>to_tuple</strong> : Tuple(Int32, Int32, Int32, Int32)
-
-        <a class="method-permalink" href="#to_tuple%3ATuple%28Int32%2CInt32%2CInt32%2CInt32%29-instance-method">#</a>
+        <a class="method-permalink" href="#fft1d_unsafe%28ret%3AArray%28Complex%29%7CSlice%28Complex%29%2Cbuffer%3AArray%28Complex%29%7CSlice%28Complex%29%3Dret.dup%29%3AArray%28Complex%29%7CSlice%28Complex%29-class-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Return this <code><a href="../CrImage/Region.html">Region</a></code> as a <code><a href="../CrImage/Region.html#x%3AUInt16-instance-method">#x</a></code>, <code><a href="../CrImage/Region.html#y%3AUInt16-instance-method">#y</a></code>, <code><a href="../CrImage/Region.html#width%3AUInt16-instance-method">#width</a></code>, and <code><a href="../CrImage/Region.html#height%3AUInt16-instance-method">#height</a></code> tuple</p>
+          <p>Calculates Fast Fourier Transform of <code>ret</code>. Uses and modifies <code>ret</code> in place.</p>
+<p>Can optionally pass in <code>buffer</code> which must be the same length as <code>inp</code>. This method makes no bound checks or error checks.</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/region.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L76" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="width:UInt16-instance-method">
+    <div class="entry-detail" id="fft2d(width:Int32,inp:Array(Float64),buffer:Array(Complex)|Nil=nil):Array(Complex)-class-method">
       <div class="signature">
         
-        def <strong>width</strong> : UInt16
+        def self.<strong>fft2d</strong>(width : Int32, inp : Array(Float64), buffer : Array(Complex) | Nil = <span class="n">nil</span>) : Array(Complex)
 
-        <a class="method-permalink" href="#width%3AUInt16-instance-method">#</a>
+        <a class="method-permalink" href="#fft2d%28width%3AInt32%2Cinp%3AArray%28Float64%29%2Cbuffer%3AArray%28Complex%29%7CNil%3Dnil%29%3AArray%28Complex%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Perform Fast Fourier Transform, treating as <code>inp</code> as a 2 dimensional array with <code>width</code>.</p>
+<p>Can optionally pass in <code>buffer</code> which must be an array at least the larger of <code>width</code> or <code>inp.size // width</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="fft2d(width:Int32,inp:Array(Complex),buffer:Array(Complex)|Nil=nil):Array(Complex)-class-method">
+      <div class="signature">
+        
+        def self.<strong>fft2d</strong>(width : Int32, inp : Array(Complex), buffer : Array(Complex) | Nil = <span class="n">nil</span>) : Array(Complex)
+
+        <a class="method-permalink" href="#fft2d%28width%3AInt32%2Cinp%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%7CNil%3Dnil%29%3AArray%28Complex%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Perform Fast Fourier Transform, treating as <code>inp</code> as a 2 dimensional array with <code>width</code>.</p>
+<p>Can optionally pass in <code>buffer</code> which must be an array at least the larger of <code>width</code> or <code>inp.size // width</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="fft2d_unsafe(width:Int32,ret:Array(Complex),buffer:Array(Complex)):Array(Complex)-class-method">
+      <div class="signature">
+        
+        def self.<strong>fft2d_unsafe</strong>(width : Int32, ret : Array(Complex), buffer : Array(Complex)) : Array(Complex)
+
+        <a class="method-permalink" href="#fft2d_unsafe%28width%3AInt32%2Cret%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%29%3AArray%28Complex%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Perform Fast Fourier Transform, using and rewriting <code>ret</code> for the output, as a 2 dimensional array with <code>width</code>. <code>buffer</code> must be an array
+of length at least the longer of <code>width</code> or <code>height</code> of the input array.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ifft1d(inp:Array(Complex),buffer:Array(Complex)=inp.dup):Array(Complex)-class-method">
+      <div class="signature">
+        
+        def self.<strong>ifft1d</strong>(inp : Array(Complex), buffer : Array(Complex) = inp.dup) : Array(Complex)
+
+        <a class="method-permalink" href="#ifft1d%28inp%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%3Dinp.dup%29%3AArray%28Complex%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Perform Inverse Fast Fourier Transform on <code>inp</code>.</p>
+<p>Can optionally pass in <code>buffer</code> which must be at least the same size of <code>inp</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L165" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ifft1d_unsafe(ret:Array(Complex)|Slice(Complex),buffer:Array(Complex)=ret.dup):Array(Complex)|Slice(Complex)-class-method">
+      <div class="signature">
+        
+        def self.<strong>ifft1d_unsafe</strong>(ret : Array(Complex) | Slice(Complex), buffer : Array(Complex) = ret.dup) : Array(Complex) | Slice(Complex)
+
+        <a class="method-permalink" href="#ifft1d_unsafe%28ret%3AArray%28Complex%29%7CSlice%28Complex%29%2Cbuffer%3AArray%28Complex%29%3Dret.dup%29%3AArray%28Complex%29%7CSlice%28Complex%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Perform Inverse Fast Fourier Transform on <code>ret</code>. Will use and overwrite the original values in <code>ret</code> to do so.</p>
+<p>Can optionally pass in <code>buffer</code> which must be at least the same size of <code>inp</code>. This method makes no bound checks or error checks.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ifft2d(width:Int32,inp:Array(Complex),buffer:Array(Complex)|Nil=nil):Array(Complex)-class-method">
+      <div class="signature">
+        
+        def self.<strong>ifft2d</strong>(width : Int32, inp : Array(Complex), buffer : Array(Complex) | Nil = <span class="n">nil</span>) : Array(Complex)
+
+        <a class="method-permalink" href="#ifft2d%28width%3AInt32%2Cinp%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%7CNil%3Dnil%29%3AArray%28Complex%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Perform Inverse Fast Fourier Transform, treating as <code>inp</code> as a 2 dimensional array with <code>width</code>.</p>
+<p>Can optionally pass in <code>buffer</code> which must be an array at least the larger of <code>width</code> or <code>inp.size // width</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L124" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ifft2d_unsafe(width:Int32,ret:Array(Complex),buffer:Array(Complex)):Array(Complex)-class-method">
+      <div class="signature">
+        
+        def self.<strong>ifft2d_unsafe</strong>(width : Int32, ret : Array(Complex), buffer : Array(Complex)) : Array(Complex)
+
+        <a class="method-permalink" href="#ifft2d_unsafe%28width%3AInt32%2Cret%3AArray%28Complex%29%2Cbuffer%3AArray%28Complex%29%29%3AArray%28Complex%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/fft_util.cr#L135" target="_blank">View source</a>]
+        
       </div>
     </div>
   
-    <div class="entry-detail" id="x:UInt16-instance-method">
-      <div class="signature">
-        
-        def <strong>x</strong> : UInt16
 
-        <a class="method-permalink" href="#x%3AUInt16-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="y:UInt16-instance-method">
-      <div class="signature">
-        
-        def <strong>y</strong> : UInt16
 
-        <a class="method-permalink" href="#y%3AUInt16-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
 
 
 

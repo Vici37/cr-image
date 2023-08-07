@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.8.2">
+<meta name="crystal_docs.project_version" content="master-dev">
+<meta name="crystal_docs.project_name" content="Crystal Image">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="Crystal Image">
+  <title>CrImage::MapImpl(T) - Crystal Image master-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          Crystal Image
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="Crystal Image/CrImage" data-name="crimage">
+      <a href="../CrImage.html">CrImage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/CrImage/BlackView" data-name="crimage::blackview(t)">
+      <a href="../CrImage/BlackView.html">BlackView</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/ChannelType" data-name="crimage::channeltype">
+      <a href="../CrImage/ChannelType.html">ChannelType</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Color" data-name="crimage::color">
+      <a href="../CrImage/Color.html">Color</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/ComplexMap" data-name="crimage::complexmap">
+      <a href="../CrImage/ComplexMap.html">ComplexMap</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/EdgePolicy" data-name="crimage::edgepolicy">
+      <a href="../CrImage/EdgePolicy.html">EdgePolicy</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/ErrorView" data-name="crimage::errorview(t)">
+      <a href="../CrImage/ErrorView.html">ErrorView</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Exception" data-name="crimage::exception">
+      <a href="../CrImage/Exception.html">Exception</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/FftUtil" data-name="crimage::fftutil">
+      <a href="../CrImage/FftUtil.html">FftUtil</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/FloatMap" data-name="crimage::floatmap">
+      <a href="../CrImage/FloatMap.html">FloatMap</a>
+      
+    </li>
+  
+  <li class="parent " data-id="Crystal Image/CrImage/Format" data-name="crimage::format">
+      <a href="../CrImage/Format.html">Format</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Format/JPEG" data-name="crimage::format::jpeg">
+      <a href="../CrImage/Format/JPEG.html">JPEG</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Format/Open" data-name="crimage::format::open">
+      <a href="../CrImage/Format/Open.html">Open</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Format/PNG" data-name="crimage::format::png">
+      <a href="../CrImage/Format/PNG.html">PNG</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Format/PPM" data-name="crimage::format::ppm">
+      <a href="../CrImage/Format/PPM.html">PPM</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Format/Save" data-name="crimage::format::save">
+      <a href="../CrImage/Format/Save.html">Save</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Format/WebP" data-name="crimage::format::webp">
+      <a href="../CrImage/Format/WebP.html">WebP</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="Crystal Image/CrImage/GrayscaleImage" data-name="crimage::grayscaleimage">
+      <a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/CrImage/GrayscaleImage/Pixel" data-name="crimage::grayscaleimage::pixel">
+      <a href="../CrImage/GrayscaleImage/Pixel.html">Pixel</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Image" data-name="crimage::image">
+      <a href="../CrImage/Image.html">Image</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/IntMap" data-name="crimage::intmap">
+      <a href="../CrImage/IntMap.html">IntMap</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Map" data-name="crimage::map(t)">
+      <a href="../CrImage/Map.html">Map</a>
+      
+    </li>
+  
+  <li class=" current" data-id="Crystal Image/CrImage/MapImpl" data-name="crimage::mapimpl(t)">
+      <a href="../CrImage/MapImpl.html">MapImpl</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Mask" data-name="crimage::mask">
+      <a href="../CrImage/Mask.html">Mask</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/NumericMap" data-name="crimage::numericmap(t)">
+      <a href="../CrImage/NumericMap.html">NumericMap</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/OneMap" data-name="crimage::onemap">
+      <a href="../CrImage/OneMap.html">OneMap</a>
+      
+    </li>
+  
+  <li class="parent " data-id="Crystal Image/CrImage/Operation" data-name="crimage::operation">
+      <a href="../CrImage/Operation.html">Operation</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/BilinearResize" data-name="crimage::operation::bilinearresize">
+      <a href="../CrImage/Operation/BilinearResize.html">BilinearResize</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/BoxBlur" data-name="crimage::operation::boxblur">
+      <a href="../CrImage/Operation/BoxBlur.html">BoxBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/Brightness" data-name="crimage::operation::brightness">
+      <a href="../CrImage/Operation/Brightness.html">Brightness</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/ChannelSwap" data-name="crimage::operation::channelswap">
+      <a href="../CrImage/Operation/ChannelSwap.html">ChannelSwap</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/Contrast" data-name="crimage::operation::contrast">
+      <a href="../CrImage/Operation/Contrast.html">Contrast</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/Crop" data-name="crimage::operation::crop">
+      <a href="../CrImage/Operation/Crop.html">Crop</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/Draw" data-name="crimage::operation::draw">
+      <a href="../CrImage/Operation/Draw.html">Draw</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/GaussianBlur" data-name="crimage::operation::gaussianblur">
+      <a href="../CrImage/Operation/GaussianBlur.html">GaussianBlur</a>
+      
+    </li>
+  
+  <li class="parent " data-id="Crystal Image/CrImage/Operation/HistogramEqualize" data-name="crimage::operation::histogramequalize">
+      <a href="../CrImage/Operation/HistogramEqualize.html">HistogramEqualize</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/HistogramEqualize/Histogram" data-name="crimage::operation::histogramequalize::histogram">
+      <a href="../CrImage/Operation/HistogramEqualize/Histogram.html">Histogram</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/HorizontalBlur" data-name="crimage::operation::horizontalblur">
+      <a href="../CrImage/Operation/HorizontalBlur.html">HorizontalBlur</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/MaskApply" data-name="crimage::operation::maskapply">
+      <a href="../CrImage/Operation/MaskApply.html">MaskApply</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/Pad" data-name="crimage::operation::pad">
+      <a href="../CrImage/Operation/Pad.html">Pad</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/Rotate" data-name="crimage::operation::rotate">
+      <a href="../CrImage/Operation/Rotate.html">Rotate</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Operation/VerticalBlur" data-name="crimage::operation::verticalblur">
+      <a href="../CrImage/Operation/VerticalBlur.html">VerticalBlur</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Region" data-name="crimage::region">
+      <a href="../CrImage/Region.html">Region</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/RepeatView" data-name="crimage::repeatview(t)">
+      <a href="../CrImage/RepeatView.html">RepeatView</a>
+      
+    </li>
+  
+  <li class="parent " data-id="Crystal Image/CrImage/RGBAImage" data-name="crimage::rgbaimage">
+      <a href="../CrImage/RGBAImage.html">RGBAImage</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/CrImage/RGBAImage/Pixel" data-name="crimage::rgbaimage::pixel">
+      <a href="../CrImage/RGBAImage/Pixel.html">Pixel</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/UInt8Map" data-name="crimage::uint8map">
+      <a href="../CrImage/UInt8Map.html">UInt8Map</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/CrImage/Window" data-name="crimage::window(t)">
+      <a href="../CrImage/Window.html">Window</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="Crystal Image/Pluto" data-name="pluto">
+      <a href="../Pluto.html">Pluto</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/Pluto/ImageGA" data-name="pluto::imagega">
+      <a href="../Pluto/ImageGA.html">ImageGA</a>
+      
+    </li>
+  
+  <li class=" " data-id="Crystal Image/Pluto/ImageRGBA" data-name="pluto::imagergba">
+      <a href="../Pluto/ImageRGBA.html">ImageRGBA</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="Crystal Image/StumpyCore" data-name="stumpycore">
+      <a href="../StumpyCore.html">StumpyCore</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/StumpyCore/Canvas" data-name="stumpycore::canvas">
+      <a href="../StumpyCore/Canvas.html">Canvas</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="Crystal Image/Tutorial" data-name="tutorial">
+      <a href="../Tutorial.html">Tutorial</a>
+      
+        <ul>
+  
+  <li class=" " data-id="Crystal Image/Tutorial/EdgeDetection" data-name="tutorial::edgedetection">
+      <a href="../Tutorial/EdgeDetection.html">EdgeDetection</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> CrImage::MapImpl(T)
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A collection of implementations of <code><a href="../CrImage/NumericMap.html">NumericMap</a>(T)</code>, intended to be included in base classes.</p>
+<p>See <code><a href="../CrImage/IntMap.html">IntMap</a></code>, <code><a href="../CrImage/FloatMap.html">FloatMap</a></code>, and <code><a href="../CrImage/ComplexMap.html">ComplexMap</a></code>.</p>
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../CrImage/NumericMap.html">CrImage::NumericMap(T)</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+  <h2>
+    <a id="direct-including-types" class="anchor" href="#direct-including-types">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct including types
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../CrImage/ComplexMap.html">CrImage::ComplexMap</a></li>
+    
+      <li class="other-type"><a href="../CrImage/FloatMap.html">CrImage::FloatMap</a></li>
+    
+      <li class="other-type"><a href="../CrImage/IntMap.html">CrImage::IntMap</a></li>
+    
+      <li class="other-type"><a href="../CrImage/UInt8Map.html">CrImage::UInt8Map</a></li>
+    
+  </ul>
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L42" target="_blank">
+        cr-image/map.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28width%3AInt32%2Cheight%3AInt32%2Cinitial%3AT%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, initial : T)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28width%3AInt32%2Craw%3AArray%28T%29%29-class-method" class="signature"><strong>.new</strong>(width : Int32, raw : Array(T))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28other%3AArray%28Array%28T%29%29%29-class-method" class="signature"><strong>.new</strong>(other : Array(Array(T)))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28width%3AInt32%2Cheight%3AInt32%2C%26%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, &)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%2A%28num%3AInt%7CFloat%29%3Aself-instance-method" class="signature"><strong>#*</strong>(num : Int | Float) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Multiply each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%2B%28num%3AInt%7CFloat%29%3Aself-instance-method" class="signature"><strong>#+</strong>(num : Int | Float) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Add each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%2B%28other%3Aself%29%3Aself-instance-method" class="signature"><strong>#+</strong>(other : <span class="k">self</span>) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Add each point of this <code><a href="../CrImage/Map.html">Map</a></code> with each point in <code>other</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#-%28num%3AInt%29%3Aself-instance-method" class="signature"><strong>#-</strong>(num : Int) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Subtract each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#-%28num%3AFloat%29%3AFloatMap-instance-method" class="signature"><strong>#-</strong>(num : Float) : FloatMap</a>
+        
+          <div class="summary"><p>Subtract each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#/%28num%3AInt%7CFloat%29%3AFloatMap-instance-method" class="signature"><strong>#/</strong>(num : Int | Float) : FloatMap</a>
+        
+          <div class="summary"><p>Divides each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3C%28num%3AInt%7CFloat%29%3AMask-instance-method" class="signature"><strong>#<</strong>(num : Int | Float) : Mask</a>
+        
+          <div class="summary"><p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identifying all pixels smaller than <code>num</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3C%3D%28num%3AInt%7CFloat%29%3AMask-instance-method" class="signature"><strong>#<=</strong>(num : Int | Float) : Mask</a>
+        
+          <div class="summary"><p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identifying all pixels smaller than or equal to <code>num</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28num%3AInt%7CFloat%29%3AMask-instance-method" class="signature"><strong>#==</strong>(num : Int | Float) : Mask</a>
+        
+          <div class="summary"><p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identifying all pixels equal to <code>num</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3Aself%29%3ABool-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>) : Bool</a>
+        
+          <div class="summary"><p>Check if this <code><a href="../CrImage/Map.html">Map</a></code> is equal to <code>other</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3E%28num%3AInt%7CFloat%29%3AMask-instance-method" class="signature"><strong>#></strong>(num : Int | Float) : Mask</a>
+        
+          <div class="summary"><p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identifying all pixels larger than <code>num</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3E%3D%28num%3AInt%7CFloat%29%3AMask-instance-method" class="signature"><strong>#>=</strong>(num : Int | Float) : Mask</a>
+        
+          <div class="summary"><p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identify all pixels larger than or equal to <code>num</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28xstart%3AInt32%2Cxcount%3AInt32%2Cystart%3AInt32%2Cycount%3AInt32%29%3Aself-instance-method" class="signature"><strong>#[]</strong>(xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Crop the map to the values contained from <code>xstart</code> out by <code>xcount</code>, and <code>ystart</code> out by <code>ycount</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method" class="signature"><strong>#[]</strong>(x : Int32, y : Int32) : T</a>
+        
+          <div class="summary"><p>Get element at coordinates <code>x</code> and <code>y</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28xrange%3ARange%2Cystart%3AInt32%29%3Aself-instance-method" class="signature"><strong>#[]</strong>(xrange : Range, ystart : Int32) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Crop the map, returning only the values in row at <code>ystart</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28xstart%3AInt32%2Cyrange%3ARange%29%3Aself-instance-method" class="signature"><strong>#[]</strong>(xstart : Int32, yrange : Range) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Crop the map, returning only the values in column at <code>xstart</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28xrange%3ARange%2Cyrange%3ARange%29%3Aself-instance-method" class="signature"><strong>#[]</strong>(xrange : Range, yrange : Range) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Crop the map to the values contained in <code>xrange</code> and <code>yrange</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28index%3AInt32%29%3AT-instance-method" class="signature"><strong>#[]</strong>(index : Int32) : T</a>
+        
+          <div class="summary"><p>Get element at <code>index</code> from underlying <code><a href="../CrImage/MapImpl.html#raw%3AArray%28T%29-instance-method">#raw</a></code> Array.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%3F%28x%3AInt32%2Cy%3AInt32%29%3AT%7CNil-instance-method" class="signature"><strong>#[]?</strong>(x : Int32, y : Int32) : T | Nil</a>
+        
+          <div class="summary"><p>Get lement at coordinates <code>x</code> and <code>y</code>, or <code>nil</code> if coordinates are out of bounds</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%3F%28index%3AInt32%29%3AT%7CNil-instance-method" class="signature"><strong>#[]?</strong>(index : Int32) : T | Nil</a>
+        
+          <div class="summary"><p>Get element at <code>index</code>, or <code>nil</code> if out of bounds</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#column%28x%3AInt32%29%3Aself-instance-method" class="signature"><strong>#column</strong>(x : Int32) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Get a single dimensional <code><a href="../CrImage/Map.html">Map</a></code> representing teh column at <code>x</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cross_correlate%28template%3AMap%2C%2A%2Cedge_policy%3AEdgePolicy%3DEdgePolicy%3A%3ARepeat%29%3AFloatMap-instance-method" class="signature"><strong>#cross_correlate</strong>(template : Map, *, edge_policy : EdgePolicy = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Repeat</span>) : FloatMap</a>
+        
+          <div class="summary"><p>Perform a brute force cross correlation calculation with provided <code>template</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cross_correlate_fft%28template%3AMap%2C%2A%2Cedge_policy%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3AFloatMap-instance-method" class="signature"><strong>#cross_correlate_fft</strong>(template : Map, *, edge_policy : EdgePolicy = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : FloatMap</a>
+        
+          <div class="summary"><p>Perform a Fast Fourier Transform cross correlation (convolution?) with provided <code>template</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fft%3AComplexMap-instance-method" class="signature"><strong>#fft</strong> : ComplexMap</a>
+        
+          <div class="summary"><p>Performe a Fast Fourier Transform, padding out this <code><a href="../CrImage/Map.html">Map</a></code> so dimensions are a power of 2.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#height%3AInt32-instance-method" class="signature"><strong>#height</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mask_from%28%26block%3AT%2CInt32%2CInt32-%3EBool%29%3AMask-instance-method" class="signature"><strong>#mask_from</strong>(&block : T, Int32, Int32 -> Bool) : Mask</a>
+        
+          <div class="summary"><p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> from this <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code> using the passed in block to determine if a given pixel should be true or not</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max%3AT-instance-method" class="signature"><strong>#max</strong> : T</a>
+        
+          <div class="summary"><p>Return the maximum value in this <code><a href="../CrImage/Map.html">Map</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mean%3AFloat64-instance-method" class="signature"><strong>#mean</strong> : Float64</a>
+        
+          <div class="summary"><p>Return the average of the elements in this <code><a href="../CrImage/Map.html">Map</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#min%3AT-instance-method" class="signature"><strong>#min</strong> : T</a>
+        
+          <div class="summary"><p>Return the minimum value in this <code><a href="../CrImage/Map.html">Map</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pad%28all%3AInt32%3D0%2C%2A%2Ctop%3AInt32%3D0%2Cbottom%3AInt32%3D0%2Cleft%3AInt32%3D0%2Cright%3AInt32%3D0%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%2Cpad_black_value%3AT%3DT.zero%29%3Aself-instance-method" class="signature"><strong>#pad</strong>(all : Int32 = <span class="n">0</span>, *, top : Int32 = <span class="n">0</span>, bottom : Int32 = <span class="n">0</span>, left : Int32 = <span class="n">0</span>, right : Int32 = <span class="n">0</span>, pad_type : EdgePolicy = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>, pad_black_value : T = <span class="t">T</span>.zero) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Pad the borders of this <code><a href="../CrImage/Map.html">Map</a></code> corresponding to <code>pad_type</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#raw%3AArray%28T%29-instance-method" class="signature"><strong>#raw</strong> : Array(T)</a>
+        
+          <div class="summary"><p>Return the raw array underlying the map</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#row%28y%3AInt32%29%3Aself-instance-method" class="signature"><strong>#row</strong>(y : Int32) : <span class="k">self</span></a>
+        
+          <div class="summary"><p>Get a single dimensional <code><a href="../CrImage/Map.html">Map</a></code> representing the row at <code>y</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#shape%3ATuple%28Int32%2CInt32%29-instance-method" class="signature"><strong>#shape</strong> : Tuple(Int32, Int32)</a>
+        
+          <div class="summary"><p>Return the shape of the map - <code>{width, height}</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
+        
+          <div class="summary"><p>Size of the map - <code>width * height</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sum%3AT-instance-method" class="signature"><strong>#sum</strong> : T</a>
+        
+          <div class="summary"><p>Return the sum of all values in this <code><a href="../CrImage/Map.html">Map</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_a%3AArray%28T%29-instance-method" class="signature"><strong>#to_a</strong> : Array(T)</a>
+        
+          <div class="summary"><p>Receive a copy of the underlying <code><a href="../CrImage/MapImpl.html#raw%3AArray%28T%29-instance-method">#raw</a></code> array.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_c%3AComplexMap-instance-method" class="signature"><strong>#to_c</strong> : ComplexMap</a>
+        
+          <div class="summary"><p>Convert this <code><a href="../CrImage/Map.html">Map</a></code> to a <code><a href="../CrImage/ComplexMap.html">ComplexMap</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_gray%28%2A%2Cscale%3ABool%3Dfalse%29%3AGrayscaleImage-instance-method" class="signature"><strong>#to_gray</strong>(*, scale : Bool = <span class="n">false</span>) : GrayscaleImage</a>
+        
+          <div class="summary"><p>Convert this <code><a href="../CrImage/Map.html">Map</a></code> to a <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#width%3AInt32-instance-method" class="signature"><strong>#width</strong> : Int32</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/NumericMap.html">CrImage::NumericMap(T)</a></code></h3>
+  
+  
+    <a href="../CrImage/NumericMap.html#max%3AT-instance-method" class="tooltip">
+      <span>max : T</span>
+    max</a>, 
+    
+  
+    <a href="../CrImage/NumericMap.html#min%3AT-instance-method" class="tooltip">
+      <span>min : T</span>
+    min</a>, 
+    
+  
+    <a href="../CrImage/NumericMap.html#sum%3AT-instance-method" class="tooltip">
+      <span>sum : T</span>
+    sum</a>, 
+    
+  
+    <a href="../CrImage/NumericMap.html#to_c%3ANumericMap%28Complex%29-instance-method" class="tooltip">
+      <span>to_c : NumericMap(Complex)</span>
+    to_c</a>, 
+    
+  
+    <a href="../CrImage/NumericMap.html#to_f%3ANumericMap%28Float64%29-instance-method" class="tooltip">
+      <span>to_f : NumericMap(Float64)</span>
+    to_f</a>, 
+    
+  
+    <a href="../CrImage/NumericMap.html#to_i%3ANumericMap%28Int32%29-instance-method" class="tooltip">
+      <span>to_i : NumericMap(Int32)</span>
+    to_i</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../CrImage/Map.html">CrImage::Map(T)</a></code></h3>
+  
+  
+    <a href="../CrImage/Map.html#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method" class="tooltip">
+      <span>[](x : Int32, y : Int32) : T<br/>[](index : Int32) : T</span>
+    []</a>, 
+    
+  
+    <a href="../CrImage/Map.html#%5B%5D%3F%28x%3AInt32%2Cy%3AInt32%29%3AT%7CNil-instance-method" class="tooltip">
+      <span>[]?(x : Int32, y : Int32) : T | Nil<br/>[]?(index : Int32) : T | Nil</span>
+    []?</a>, 
+    
+  
+    <a href="../CrImage/Map.html#height%3AInt32-instance-method" class="tooltip">
+      <span>height : Int32</span>
+    height</a>, 
+    
+  
+    <a href="../CrImage/Map.html#shape%3ATuple%28Int32%2CInt32%29-instance-method" class="tooltip">
+      <span>shape : Tuple(Int32, Int32)</span>
+    shape</a>, 
+    
+  
+    <a href="../CrImage/Map.html#size%3AInt32-instance-method" class="tooltip">
+      <span>size : Int32</span>
+    size</a>, 
+    
+  
+    <a href="../CrImage/Map.html#width%3AInt32-instance-method" class="tooltip">
+      <span>width : Int32</span>
+    width</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(width:Int32,height:Int32,initial:T)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(width : Int32, height : Int32, initial : T)
+
+        <a class="method-permalink" href="#new%28width%3AInt32%2Cheight%3AInt32%2Cinitial%3AT%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L79" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(width:Int32,raw:Array(T))-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(width : Int32, raw : Array(T))
+
+        <a class="method-permalink" href="#new%28width%3AInt32%2Craw%3AArray%28T%29%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L60" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(other:Array(Array(T)))-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(other : Array(Array(T)))
+
+        <a class="method-permalink" href="#new%28other%3AArray%28Array%28T%29%29%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L64" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(width:Int32,height:Int32,&amp;)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(width : Int32, height : Int32, &)
+
+        <a class="method-permalink" href="#new%28width%3AInt32%2Cheight%3AInt32%2C%26%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L73" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="*(num:Int|Float):self-instance-method">
+      <div class="signature">
+        
+        def <strong>*</strong>(num : Int | Float) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#%2A%28num%3AInt%7CFloat%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Multiply each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L268" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="+(num:Int|Float):self-instance-method">
+      <div class="signature">
+        
+        def <strong>+</strong>(num : Int | Float) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#%2B%28num%3AInt%7CFloat%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L273" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="+(other:self):self-instance-method">
+      <div class="signature">
+        
+        def <strong>+</strong>(other : <span class="k">self</span>) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#%2B%28other%3Aself%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add each point of this <code><a href="../CrImage/Map.html">Map</a></code> with each point in <code>other</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L288" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="-(num:Int):self-instance-method">
+      <div class="signature">
+        
+        def <strong>-</strong>(num : Int) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#-%28num%3AInt%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Subtract each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L278" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="-(num:Float):FloatMap-instance-method">
+      <div class="signature">
+        
+        def <strong>-</strong>(num : Float) : <a href="../CrImage/FloatMap.html">FloatMap</a>
+
+        <a class="method-permalink" href="#-%28num%3AFloat%29%3AFloatMap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Subtract each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L283" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="/(num:Int|Float):FloatMap-instance-method">
+      <div class="signature">
+        
+        def <strong>/</strong>(num : Int | Float) : <a href="../CrImage/FloatMap.html">FloatMap</a>
+
+        <a class="method-permalink" href="#/%28num%3AInt%7CFloat%29%3AFloatMap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Divides each point in this <code><a href="../CrImage/Map.html">Map</a></code> by <code>num</code></p>
+<p><span class="flag orange">TODO</span>  ComplexMap shouldn't return a FloatMap</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L263" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&lt;(num:Int|Float):Mask-instance-method">
+      <div class="signature">
+        
+        def <strong><</strong>(num : Int | Float) : <a href="../CrImage/Mask.html">Mask</a>
+
+        <a class="method-permalink" href="#%3C%28num%3AInt%7CFloat%29%3AMask-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identifying all pixels smaller than <code>num</code>.</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">gray <span class="o">=</span> image.to_gray                          <span class="c"># Convert color image to grayscale</span>
+mask <span class="o">=</span> gray <span class="o">&lt;</span> <span class="n">128</span>                             <span class="c"># Generate a threshold mask</span>
+mask.to_gray.save(<span class="s">&quot;greater_than_example.jpg&quot;</span>) <span class="c"># Convert and save the mask as a black and white image</span></code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/less_than_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&lt;=(num:Int|Float):Mask-instance-method">
+      <div class="signature">
+        
+        def <strong><=</strong>(num : Int | Float) : <a href="../CrImage/Mask.html">Mask</a>
+
+        <a class="method-permalink" href="#%3C%3D%28num%3AInt%7CFloat%29%3AMask-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identifying all pixels smaller than or equal to <code>num</code>. See <code>#&lt;</code> for example.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L246" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(num:Int|Float):Mask-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(num : Int | Float) : <a href="../CrImage/Mask.html">Mask</a>
+
+        <a class="method-permalink" href="#%3D%3D%28num%3AInt%7CFloat%29%3AMask-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identifying all pixels equal to <code>num</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L251" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(other:self):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : <span class="k">self</span>) : Bool
+
+        <a class="method-permalink" href="#%3D%3D%28other%3Aself%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Check if this <code><a href="../CrImage/Map.html">Map</a></code> is equal to <code>other</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L256" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&gt;(num:Int|Float):Mask-instance-method">
+      <div class="signature">
+        
+        def <strong>></strong>(num : Int | Float) : <a href="../CrImage/Mask.html">Mask</a>
+
+        <a class="method-permalink" href="#%3E%28num%3AInt%7CFloat%29%3AMask-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identifying all pixels larger than <code>num</code>.</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<pre><code class="language-crystal">gray <span class="o">=</span> image.to_gray                          <span class="c"># Convert color image to grayscale</span>
+mask <span class="o">=</span> gray <span class="o">&gt;</span> <span class="n">128</span>                             <span class="c"># Generate a threshold mask</span>
+mask.to_gray.save(<span class="s">&quot;greater_than_example.jpg&quot;</span>) <span class="c"># Convert and save the mask as a black and white image</span></code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_threshold_example.jpg" alt="Black and white silhouette with background and woman's face as white, hair and sweater black"/>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L222" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&gt;=(num:Int|Float):Mask-instance-method">
+      <div class="signature">
+        
+        def <strong>>=</strong>(num : Int | Float) : <a href="../CrImage/Mask.html">Mask</a>
+
+        <a class="method-permalink" href="#%3E%3D%28num%3AInt%7CFloat%29%3AMask-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> identify all pixels larger than or equal to <code>num</code>. See <code>#&gt;</code> for near example.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L227" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](xstart:Int32,xcount:Int32,ystart:Int32,ycount:Int32):self-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(xstart : Int32, xcount : Int32, ystart : Int32, ycount : Int32) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#%5B%5D%28xstart%3AInt32%2Cxcount%3AInt32%2Cystart%3AInt32%2Cycount%3AInt32%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Crop the map to the values contained from <code>xstart</code> out by <code>xcount</code>, and <code>ystart</code> out by <code>ycount</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L149" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](x:Int32,y:Int32):T-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(x : Int32, y : Int32) : T
+
+        <a class="method-permalink" href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get element at coordinates <code>x</code> and <code>y</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L103" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](xrange:Range,ystart:Int32):self-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(xrange : Range, ystart : Int32) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#%5B%5D%28xrange%3ARange%2Cystart%3AInt32%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Crop the map, returning only the values in row at <code>ystart</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L134" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](xstart:Int32,yrange:Range):self-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(xstart : Int32, yrange : Range) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#%5B%5D%28xstart%3AInt32%2Cyrange%3ARange%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Crop the map, returning only the values in column at <code>xstart</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L139" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](xrange:Range,yrange:Range):self-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(xrange : Range, yrange : Range) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#%5B%5D%28xrange%3ARange%2Cyrange%3ARange%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Crop the map to the values contained in <code>xrange</code> and <code>yrange</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L144" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](index:Int32):T-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(index : Int32) : T
+
+        <a class="method-permalink" href="#%5B%5D%28index%3AInt32%29%3AT-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get element at <code>index</code> from underlying <code><a href="../CrImage/MapImpl.html#raw%3AArray%28T%29-instance-method">#raw</a></code> Array.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]?(x:Int32,y:Int32):T|Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>[]?</strong>(x : Int32, y : Int32) : T | Nil
+
+        <a class="method-permalink" href="#%5B%5D%3F%28x%3AInt32%2Cy%3AInt32%29%3AT%7CNil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get lement at coordinates <code>x</code> and <code>y</code>, or <code>nil</code> if coordinates are out of bounds</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L116" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]?(index:Int32):T|Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>[]?</strong>(index : Int32) : T | Nil
+
+        <a class="method-permalink" href="#%5B%5D%3F%28index%3AInt32%29%3AT%7CNil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get element at <code>index</code>, or <code>nil</code> if out of bounds</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L111" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="column(x:Int32):self-instance-method">
+      <div class="signature">
+        
+        def <strong>column</strong>(x : Int32) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#column%28x%3AInt32%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get a single dimensional <code><a href="../CrImage/Map.html">Map</a></code> representing teh column at <code>x</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L129" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cross_correlate(template:Map,*,edge_policy:EdgePolicy=EdgePolicy::Repeat):FloatMap-instance-method">
+      <div class="signature">
+        
+        def <strong>cross_correlate</strong>(template : <a href="../CrImage/Map.html">Map</a>, *, edge_policy : <a href="../CrImage/EdgePolicy.html">EdgePolicy</a> = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Repeat</span>) : <a href="../CrImage/FloatMap.html">FloatMap</a>
+
+        <a class="method-permalink" href="#cross_correlate%28template%3AMap%2C%2A%2Cedge_policy%3AEdgePolicy%3DEdgePolicy%3A%3ARepeat%29%3AFloatMap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Perform a brute force cross correlation calculation with provided <code>template</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L377" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cross_correlate_fft(template:Map,*,edge_policy:EdgePolicy=EdgePolicy::Black):FloatMap-instance-method">
+      <div class="signature">
+        
+        def <strong>cross_correlate_fft</strong>(template : <a href="../CrImage/Map.html">Map</a>, *, edge_policy : <a href="../CrImage/EdgePolicy.html">EdgePolicy</a> = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>) : <a href="../CrImage/FloatMap.html">FloatMap</a>
+
+        <a class="method-permalink" href="#cross_correlate_fft%28template%3AMap%2C%2A%2Cedge_policy%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%29%3AFloatMap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Perform a Fast Fourier Transform cross correlation (convolution?) with provided <code>template</code>. See <code><a href="../CrImage/FftUtil.html">FftUtil</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L405" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="fft:ComplexMap-instance-method">
+      <div class="signature">
+        
+        def <strong>fft</strong> : <a href="../CrImage/ComplexMap.html">ComplexMap</a>
+
+        <a class="method-permalink" href="#fft%3AComplexMap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Performe a Fast Fourier Transform, padding out this <code><a href="../CrImage/Map.html">Map</a></code> so dimensions are a power of 2. See <code><a href="../CrImage/FftUtil.html">FftUtil</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L445" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="height:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>height</strong> : Int32
+
+        <a class="method-permalink" href="#height%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L83" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mask_from(&amp;block:T,Int32,Int32-&gt;Bool):Mask-instance-method">
+      <div class="signature">
+        
+        def <strong>mask_from</strong>(&block : T, Int32, Int32 -> Bool) : <a href="../CrImage/Mask.html">Mask</a>
+
+        <a class="method-permalink" href="#mask_from%28%26block%3AT%2CInt32%2CInt32-%3EBool%29%3AMask-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Construct a <code><a href="../CrImage/Mask.html">Mask</a></code> from this <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code> using the passed in block to determine if a given pixel should be true or not</p>
+<pre><code class="language-crystal"><span class="c"># Construct a mask identifying the bright pixels in the bottom left corner of image</span>
+image.to_gray.mask_from <span class="k">do</span> <span class="o">|</span>pixel, x, y<span class="o">|</span>
+  x <span class="o">&lt;</span> image.width <span class="o">//</span> <span class="n">2</span> <span class="o">&amp;&amp;</span>      <span class="c"># left half of image</span>
+    y <span class="o">&gt;</span> (image.height <span class="o">//</span> <span class="n">2</span>) <span class="o">&amp;&amp;</span> <span class="c"># bottom half of image</span>
+    pixel <span class="o">&gt;</span> <span class="n">128</span>                <span class="c"># only &quot;bright&quot; pixels</span>
+<span class="k">end</span></code></pre>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman in black turtleneck on white background"/>
+->
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_mask_from_example.jpg" alt="Mask identifying bright spots in lower left corner"/>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L206" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="max:T-instance-method">
+      <div class="signature">
+        
+        def <strong>max</strong> : T
+
+        <a class="method-permalink" href="#max%3AT-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Return the maximum value in this <code><a href="../CrImage/Map.html">Map</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L184" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mean:Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>mean</strong> : Float64
+
+        <a class="method-permalink" href="#mean%3AFloat64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Return the average of the elements in this <code><a href="../CrImage/Map.html">Map</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L174" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="min:T-instance-method">
+      <div class="signature">
+        
+        def <strong>min</strong> : T
+
+        <a class="method-permalink" href="#min%3AT-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Return the minimum value in this <code><a href="../CrImage/Map.html">Map</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L179" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pad(all:Int32=0,*,top:Int32=0,bottom:Int32=0,left:Int32=0,right:Int32=0,pad_type:EdgePolicy=EdgePolicy::Black,pad_black_value:T=T.zero):self-instance-method">
+      <div class="signature">
+        
+        def <strong>pad</strong>(all : Int32 = <span class="n">0</span>, *, top : Int32 = <span class="n">0</span>, bottom : Int32 = <span class="n">0</span>, left : Int32 = <span class="n">0</span>, right : Int32 = <span class="n">0</span>, pad_type : <a href="../CrImage/EdgePolicy.html">EdgePolicy</a> = <span class="t">EdgePolicy</span><span class="t">::</span><span class="t">Black</span>, pad_black_value : T = <span class="t">T</span>.zero) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#pad%28all%3AInt32%3D0%2C%2A%2Ctop%3AInt32%3D0%2Cbottom%3AInt32%3D0%2Cleft%3AInt32%3D0%2Cright%3AInt32%3D0%2Cpad_type%3AEdgePolicy%3DEdgePolicy%3A%3ABlack%2Cpad_black_value%3AT%3DT.zero%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pad the borders of this <code><a href="../CrImage/Map.html">Map</a></code> corresponding to <code>pad_type</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L320" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="raw:Array(T)-instance-method">
+      <div class="signature">
+        
+        def <strong>raw</strong> : Array(T)
+
+        <a class="method-permalink" href="#raw%3AArray%28T%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Return the raw array underlying the map</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L58" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="row(y:Int32):self-instance-method">
+      <div class="signature">
+        
+        def <strong>row</strong>(y : Int32) : <span class="k">self</span>
+
+        <a class="method-permalink" href="#row%28y%3AInt32%29%3Aself-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get a single dimensional <code><a href="../CrImage/Map.html">Map</a></code> representing the row at <code>y</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L124" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="shape:Tuple(Int32,Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>shape</strong> : Tuple(Int32, Int32)
+
+        <a class="method-permalink" href="#shape%3ATuple%28Int32%2CInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Return the shape of the map - <code>{width, height}</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L88" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>size</strong> : Int32
+
+        <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Size of the map - <code>width * height</code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L93" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sum:T-instance-method">
+      <div class="signature">
+        
+        def <strong>sum</strong> : T
+
+        <a class="method-permalink" href="#sum%3AT-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Return the sum of all values in this <code><a href="../CrImage/Map.html">Map</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L189" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_a:Array(T)-instance-method">
+      <div class="signature">
+        
+        def <strong>to_a</strong> : Array(T)
+
+        <a class="method-permalink" href="#to_a%3AArray%28T%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Receive a copy of the underlying <code><a href="../CrImage/MapImpl.html#raw%3AArray%28T%29-instance-method">#raw</a></code> array.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L310" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_c:ComplexMap-instance-method">
+      <div class="signature">
+        
+        def <strong>to_c</strong> : <a href="../CrImage/ComplexMap.html">ComplexMap</a>
+
+        <a class="method-permalink" href="#to_c%3AComplexMap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convert this <code><a href="../CrImage/Map.html">Map</a></code> to a <code><a href="../CrImage/ComplexMap.html">ComplexMap</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L315" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_gray(*,scale:Bool=false):GrayscaleImage-instance-method">
+      <div class="signature">
+        
+        def <strong>to_gray</strong>(*, scale : Bool = <span class="n">false</span>) : <a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a>
+
+        <a class="method-permalink" href="#to_gray%28%2A%2Cscale%3ABool%3Dfalse%29%3AGrayscaleImage-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convert this <code><a href="../CrImage/Map.html">Map</a></code> to a <code><a href="../CrImage/GrayscaleImage.html">GrayscaleImage</a></code>.</p>
+<p>Set <code>scale: true</code> so that all of the values will scale, such that <code><a href="../CrImage/MapImpl.html#max%3AT-instance-method">#max</a></code> will become <code>255u8</code>, and <code><a href="../CrImage/MapImpl.html#min%3AT-instance-method">#min</a></code> will become <code>0u8</code>. All other values will be
+linearly scaled between those values.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L297" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="width:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>width</strong> : Int32
+
+        <a class="method-permalink" href="#width%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/cr-image/map.cr#L55" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
