@@ -204,8 +204,16 @@ module CrImage
     # ->
     # <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/gray_mask_from_example.jpg" alt="Mask identifying bright spots in lower left corner"/>
     def mask_from(&block : (T, Int32, Int32) -> Bool) : Mask
+      x = -1
+      y = -1
       Mask.new(width, BitArray.new(size) do |i|
-        block.call(@raw[i], i % width, i // width)
+        x += 1
+        if x == width
+          x = 0
+          y += 1
+        end
+
+        block.call(@raw[i], x, y)
       end)
     end
 

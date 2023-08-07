@@ -297,18 +297,8 @@
       
     </li>
   
-  <li class="parent " data-id="Crystal Image/CrImage/RGBAImage" data-name="crimage::rgbaimage">
+  <li class=" " data-id="Crystal Image/CrImage/RGBAImage" data-name="crimage::rgbaimage">
       <a href="../CrImage/RGBAImage.html">RGBAImage</a>
-      
-        <ul>
-  
-  <li class=" " data-id="Crystal Image/CrImage/RGBAImage/Pixel" data-name="crimage::rgbaimage::pixel">
-      <a href="../CrImage/RGBAImage/Pixel.html">Pixel</a>
-      
-    </li>
-  
-</ul>
-
       
     </li>
   
@@ -367,6 +357,11 @@
       
         <ul>
   
+  <li class=" " data-id="Crystal Image/Tutorial/ChromaKey" data-name="tutorial::chromakey">
+      <a href="../Tutorial/ChromaKey.html">ChromaKey</a>
+      
+    </li>
+  
   <li class=" current" data-id="Crystal Image/Tutorial/EdgeDetection" data-name="tutorial::edgedetection">
       <a href="../Tutorial/EdgeDetection.html">EdgeDetection</a>
       
@@ -403,8 +398,34 @@
     Overview
   </h2>
 
-  <p>Given image:</p>
-<p>This is how you find edges</p>
+  <p>Given <code>sample.jpg</code> image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<p>We can run the <a href="https://en.wikipedia.org/wiki/Sobel_operator">Sobel Operator</a> to detect edges in it:</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image&quot;</span>
+<span class="k">require</span> <span class="s">&quot;cr-image/jpeg&quot;</span>
+
+vertical_sobel <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">IntMap</span>.new([
+  [<span class="n">-1</span>, <span class="n">-2</span>, <span class="n">-1</span>],
+  [<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>],
+  [<span class="n">1</span>, <span class="n">2</span>, <span class="n">1</span>],
+])
+
+horizontal_sobel <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">IntMap</span>.new([
+  [<span class="n">-1</span>, <span class="n">0</span>, <span class="n">1</span>],
+  [<span class="n">-2</span>, <span class="n">0</span>, <span class="n">2</span>],
+  [<span class="n">-1</span>, <span class="n">0</span>, <span class="n">1</span>],
+])
+
+image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">GrayscaleImage</span>.open(<span class="s">&quot;sample.jpg&quot;</span>)
+
+dx <span class="o">=</span> image.cross_correlate(horizontal_sobel)
+dy <span class="o">=</span> image.cross_correlate(vertical_sobel)
+
+(dx <span class="o">**</span> <span class="n">2</span> <span class="o">+</span> dy <span class="o">**</span> <span class="n">2</span>).to_gray(scale: <span class="n">true</span>).save(<span class="s">&quot;edge_detection.jpg&quot;</span>)</code></pre>
+<p>Results in image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/tutorials/edge_detection.jpg" alt="Black image with white outline of woman"/>
+<p>This script ran on my machine in <code>11ms</code> in <code>--release</code> mode.</p>
+<p><strong>Note</strong>: This tutorial is using <code>cross_correlate</code>. For large images (or medium-to-large operators), the <code>cross_correlate_fft</code> may perform better.</p>
 
 
 
@@ -429,7 +450,7 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/5dfb37732a70101cfc2e1b9eee6fd01e5bd184f0/src/tutorials/edge_detection_tutorial.cr#L5" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/c1987c579d16c6a6c5d3d746ce91251aea6872aa/src/tutorials/edge_detection_tutorial.cr#L38" target="_blank">
         tutorials/edge_detection_tutorial.cr
       </a>
     

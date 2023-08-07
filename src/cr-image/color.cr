@@ -96,4 +96,12 @@ class CrImage::Color
       blue == other.blue &&
       alpha == other.alpha
   end
+
+  def dist(other : Color, *, manhattan : Bool = false) : Float64
+    if manhattan
+      (red.to_f - other.red).abs + (blue.to_i - other.blue).abs + (green.to_i - other.green).abs
+    else
+      Math.sqrt(((red.to_i - other.red) ** 2) + ((green.to_i - other.green) ** 2) + ((blue.to_i - other.blue) ** 2))
+    end
+  end
 end

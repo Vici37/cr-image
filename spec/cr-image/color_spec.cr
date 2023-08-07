@@ -95,4 +95,24 @@ Spectator.describe CrImage::Color do
       expect(color[:gray]).to eq 96u8
     end
   end
+
+  context "when calculating distances" do
+    it "calculates euler distance by default" do
+      expect(Color.of("#000001").dist(Color.of("#0"))).to eq 1
+    end
+
+    it "calculates euler distance even if negative" do
+      expect(Color.of("#0").dist(Color.of("#000001"))).to eq 1
+    end
+
+    it "calculates max distance" do
+      expect(Color.of("#f").dist(Color.of("#0")).round(6)).to eq 441.672956
+    end
+
+    it "calculates manahattan distance" do
+      expect(Color.of("#0").dist(Color.of("#000001"), manhattan: true)).to eq 1
+      expect(Color.of("#0").dist(Color.of("#010101"), manhattan: true)).to eq 3
+      expect(Color.of("#0").dist(Color.of("#f"), manhattan: true)).to eq 765
+    end
+  end
 end

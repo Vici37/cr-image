@@ -39,15 +39,9 @@ class CrImage::RGBAImage < CrImage::Image
     nil
   end
 
-  record Pixel,
-    red : UInt8,
-    green : UInt8,
-    blue : UInt8,
-    alpha : UInt8
-
-  def [](x : Int32, y : Int32) : Pixel
+  def [](x : Int32, y : Int32) : Color
     index = y * width + x
-    Pixel.new(red[index], green[index], blue[index], alpha[index])
+    Color.new(red[index], green[index], blue[index], alpha[index])
   end
 
   # Return the channel corresponding to `channel_type`
@@ -97,5 +91,19 @@ class CrImage::RGBAImage < CrImage::Image
   # Return the number of pixels in this image
   def size : Int32
     @width * @height
+  end
+
+  def mask_from(&block : (Color, Int32, Int32) -> Bool) : Mask
+    x = -1
+    y = -1
+    Mask.new(width, BitArray.new(size) do |i|
+      x += 1
+      if x == width
+        x = 0
+        y += 1
+      end
+
+      block.call(Color.new(red.unsafe_fetch(i), green.unsafe_fetch(i), blue.unsafe_fetch(i), alpha.unsafe_fetch(i)), x, y)
+    end)
   end
 end
