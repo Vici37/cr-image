@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="Crystal Image">
-  <title>CrImage::EdgePolicy - Crystal Image master</title>
+  <title>Tutorial::ChromaKey - Crystal Image master</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -57,7 +57,7 @@
   <div class="types-list">
     <ul>
   
-  <li class="parent open current" data-id="Crystal Image/CrImage" data-name="crimage">
+  <li class="parent " data-id="Crystal Image/CrImage" data-name="crimage">
       <a href="../CrImage.html">CrImage</a>
       
         <ul>
@@ -82,7 +82,7 @@
       
     </li>
   
-  <li class=" current" data-id="Crystal Image/CrImage/EdgePolicy" data-name="crimage::edgepolicy">
+  <li class=" " data-id="Crystal Image/CrImage/EdgePolicy" data-name="crimage::edgepolicy">
       <a href="../CrImage/EdgePolicy.html">EdgePolicy</a>
       
     </li>
@@ -352,12 +352,12 @@
       
     </li>
   
-  <li class="parent " data-id="Crystal Image/Tutorial" data-name="tutorial">
+  <li class="parent open current" data-id="Crystal Image/Tutorial" data-name="tutorial">
       <a href="../Tutorial.html">Tutorial</a>
       
         <ul>
   
-  <li class=" " data-id="Crystal Image/Tutorial/ChromaKey" data-name="tutorial::chromakey">
+  <li class=" current" data-id="Crystal Image/Tutorial/ChromaKey" data-name="tutorial::chromakey">
       <a href="../Tutorial/ChromaKey.html">ChromaKey</a>
       
     </li>
@@ -381,7 +381,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">enum</span> CrImage::EdgePolicy
+  <span class="kind">module</span> Tutorial::ChromaKey
 
 </h1>
 
@@ -398,7 +398,32 @@
     Overview
   </h2>
 
-  <p>A general enum for determining behavior around edges of <code><a href="../CrImage/Image.html">Image</a></code> or <code><a href="../CrImage/Map.html">Map</a></code>s. See also <code>Operator::Pad</code></p>
+  <p>Given <code>sample.jpg</code> image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
+<p>We can swap out the background by creating a mask representing the pixels that are close in color, and replacing them using an <code>MaskApply#apply_color</code> method.</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image&quot;</span>
+<span class="k">require</span> <span class="s">&quot;cr-image/jpeg&quot;</span>
+
+image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;sample.jpg&quot;</span>)
+
+<span class="c"># Grab a color from the background, for comparison</span>
+background <span class="o">=</span> image[<span class="n">10</span>, <span class="n">10</span>]
+
+<span class="c"># Construct a mask of all pixels within a color distance of our background</span>
+background_mask <span class="o">=</span> image.mask_from <span class="k">do</span> <span class="o">|</span>color<span class="o">|</span>
+  <span class="c"># 25 chosen through trial-and-error</span>
+  color.dist(background) <span class="o">&lt;</span> <span class="n">25</span>
+<span class="k">end</span>
+  .closing! <span class="c"># Remove small `true` regions</span>
+  .opening! <span class="c"># Remove small `false` regions</span>
+
+<span class="c"># Now make the background blue</span>
+image
+  .apply_color(background_mask, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#0000cc&quot;</span>))
+  .save(<span class="s">&quot;chromakey.jpg&quot;</span>)</code></pre>
+<p>Results in image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/tutorials/chromakey.jpg" alt="Background is blue, woman is unchanged"/>
+<p>This script ran on my machine in <code>4ms</code> in <code>--release</code> mode.</p>
 
 
 
@@ -423,8 +448,8 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/60b5f62399d445552830522fdd91129bb85fea66/src/cr-image/edge_policy.cr#L3" target="_blank">
-        cr-image/edge_policy.cr
+      <a href="https://github.com/Vici37/cr-image/blob/60b5f62399d445552830522fdd91129bb85fea66/src/tutorials/chromakey_tutorial.cr#L35" target="_blank">
+        tutorials/chromakey_tutorial.cr
       </a>
     
     <br/>
@@ -432,67 +457,11 @@
 
 
 
-  
-    <h2>
-      <a id="enum-members" class="anchor" href="#enum-members">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-      Enum Members
-    </h2>
-  
-  <dl>
-    
-      <dt class="entry-const" id="Black">
-        <strong>Black</strong> = <code><span class="n">0</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Repeat">
-        <strong>Repeat</strong> = <code><span class="n">1</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="None">
-        <strong>None</strong> = <code><span class="n">2</span></code>
-      </dt>
-      
-    
-  </dl>
 
 
 
 
 
-
-
-  <h2>
-    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Summary
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#black%3F-instance-method" class="signature"><strong>#black?</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#none%3F-instance-method" class="signature"><strong>#none?</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#repeat%3F-instance-method" class="signature"><strong>#repeat?</strong></a>
-        
-      </li>
-    
-  </ul>
 
 
 
@@ -500,110 +469,12 @@
 
 <div class="methods-inherited">
   
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
 </div>
 
 
 
 
 
-
-  <h2>
-    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Detail
-  </h2>
-  
-    <div class="entry-detail" id="black?-instance-method">
-      <div class="signature">
-        
-        def <strong>black?</strong>
-
-        <a class="method-permalink" href="#black%3F-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/60b5f62399d445552830522fdd91129bb85fea66/src/cr-image/edge_policy.cr#L4" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="none?-instance-method">
-      <div class="signature">
-        
-        def <strong>none?</strong>
-
-        <a class="method-permalink" href="#none%3F-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/60b5f62399d445552830522fdd91129bb85fea66/src/cr-image/edge_policy.cr#L6" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="repeat?-instance-method">
-      <div class="signature">
-        
-        def <strong>repeat?</strong>
-
-        <a class="method-permalink" href="#repeat%3F-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/60b5f62399d445552830522fdd91129bb85fea66/src/cr-image/edge_policy.cr#L5" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
 
 
 
