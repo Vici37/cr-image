@@ -46,7 +46,7 @@ module CrImage::Operation::MaskApply
   def apply!(mask : Mask) : self
     raise "Mask of #{mask.width}x#{mask.height} doesn't match image dimensions #{width}x#{height}" unless mask.width == width && mask.height == height
 
-    each_color_channel do |channel|
+    each_channel do |channel|
       channel.map_with_index! { |pixel, i| mask.at(i) ? pixel : 0u8 }
     end
     self
@@ -55,7 +55,7 @@ module CrImage::Operation::MaskApply
   def apply!(mask : Mask, &block : (UInt8, ChannelType, Int32, Int32) -> UInt8?) : self
     raise "Mask of #{mask.width}x#{mask.height} doesn't match image dimensions #{width}x#{height}" unless mask.width == width && mask.height == height
 
-    each_color_channel do |channel, channel_type|
+    each_channel do |channel, channel_type|
       channel.map_with_index! do |pixel, i|
         mask.at(i) ? block.call(pixel, channel_type, i % width, i // width) || pixel : pixel
       end

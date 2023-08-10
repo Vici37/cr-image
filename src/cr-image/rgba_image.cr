@@ -10,6 +10,13 @@ class CrImage::RGBAImage < CrImage::Image
   def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
 
+  def initialize(@width, @height)
+    @red = Array(UInt8).new(@width * @height) { ChannelType::Red.default }
+    @green = Array(UInt8).new(@width * @height) { ChannelType::Green.default }
+    @blue = Array(UInt8).new(@width * @height) { ChannelType::Blue.default }
+    @alpha = Array(UInt8).new(@width * @height) { ChannelType::Alpha.default }
+  end
+
   # Create a copy of this image
   def clone : RGBAImage
     self.class.new(

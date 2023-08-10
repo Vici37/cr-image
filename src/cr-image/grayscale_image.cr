@@ -24,6 +24,11 @@ class CrImage::GrayscaleImage < CrImage::Image
   def initialize(@gray, @alpha, @width, @height)
   end
 
+  def initialize(@width, @height)
+    @gray = Array(UInt8).new(@width * @height) { ChannelType::Gray.default }
+    @alpha = Array(UInt8).new(@width * @height) { ChannelType::Alpha.default }
+  end
+
   # Create a GrayscaleImage with only an `Array(UInt8)` (alpha channel initialized as `255` throughout)
   def initialize(@gray, @width, @height)
     @alpha = Array(UInt8).new(@gray.size) { ChannelType::Alpha.default }
