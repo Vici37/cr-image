@@ -67,7 +67,7 @@ Yields this image:
 
 <img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/moon_cropped.jpg" alt="Cropped example of moon"/>
 
-[See documentation](http://troy.sornson.io/cr-image/) for more examples.
+[See the tutorials](http://troy.sornson.io/cr-image/Tutorial.html) for more examples.
 
 ### [Pluto](https://github.com/phenopolis/pluto) and [Stumpy](https://github.com/stumpycr/stumpy_core) Conversion
 
