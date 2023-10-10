@@ -1,6 +1,9 @@
 test:
 	crystal spec --profile --rand --error-trace
 
+test-no-rand:
+	crystal spec --profile --error-trace
+
 benchmark:
 	crystal run scripts/benchmark.cr --release
 

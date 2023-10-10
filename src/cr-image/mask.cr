@@ -483,4 +483,8 @@ class CrImage::Mask
   def closing!(*, diagonal : Bool = true) : Mask
     dilate!(diagonal: diagonal).erode!(diagonal: diagonal)
   end
+
+  def |(other : Mask) : Mask
+    Mask.new(width, BitArray.new(size) { |i| bits[i] | other.bits[i] })
+  end
 end

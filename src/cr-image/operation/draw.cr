@@ -28,8 +28,8 @@ module CrImage::Operation::Draw
   end
 
   def draw_square!(x : Int, y : Int, box_width : Int, box_height : Int, color : Color, *, fill : Bool = false) : self
-    raise "Box dimensions extend #{x + box_width - width} pixels beyond width of the image (#{width})" if (x + box_width) > width
-    raise "Box dimensions extend #{y + box_height - height} pixels beyond height of the image (#{height})" if (y + box_height) > height
+    raise "Box dimensions extend #{x + box_width - width + 1} pixels beyond width of the image (#{width})" if (x + box_width) > width
+    raise "Box dimensions extend #{y + box_height - height + 1} pixels beyond height of the image (#{height})" if (y + box_height) > height
 
     x_i = x.to_i
     y_i = y.to_i
@@ -42,7 +42,7 @@ module CrImage::Operation::Draw
           channel[((y_i + i) * width + x_i), box_width] = Array(UInt8).new(box_width) { color[channel_type] }
         else
           channel.unsafe_put((y_i + i) * width + x_i, color[channel_type])
-          channel.unsafe_put((y_i + i) * width + x_i + box_width, color[channel_type])
+          channel.unsafe_put((y_i + i) * width + x_i + box_width - 1, color[channel_type])
         end
       end
     end

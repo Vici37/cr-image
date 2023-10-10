@@ -6,23 +6,23 @@ Spectator.describe CrImage::Operation::Draw do
   alias Color = CrImage::Color
 
   specs_for_operator(draw_square(image.to_gray.threshold(8).region, Color.of("#00f")),
-    gray_hash: "23be9687013d598d9416fa3cf428d699f5fe9572",
-    rgba_hash: "1235b84c0debd42b71b5d20786386f7451928321"
+    gray_hash: "4d8323c4cfce2cae736185b0b714252ac4547f79",
+    rgba_hash: "ba0d7b953555121c252843f3db01d0a1c2c9dd89"
   )
 
   specs_for_operator(draw_square!(image.to_gray.threshold(8).region, Color.of("#00f")),
-    gray_hash: "23be9687013d598d9416fa3cf428d699f5fe9572",
-    rgba_hash: "1235b84c0debd42b71b5d20786386f7451928321",
+    gray_hash: "4d8323c4cfce2cae736185b0b714252ac4547f79",
+    rgba_hash: "ba0d7b953555121c252843f3db01d0a1c2c9dd89",
   )
 
   specs_for_operator(draw_square(20, 20, 100, 100, Color.of("#00f")),
-    gray_hash: "1ed4dcb15c6bc97af31eb8dadd05717eea09c082",
-    rgba_hash: "6aa0ca38d5e245291632f1d6f2861bad5e05d4be"
+    gray_hash: "48acaf112aa49d6b7d8073b37883f03fb4c2b2e5",
+    rgba_hash: "ad5686a6597cdf660077d9457ddd6b3a1733a2b3"
   )
 
   specs_for_operator(draw_square!(20, 20, 100, 100, Color.of("#00f")),
-    gray_hash: "1ed4dcb15c6bc97af31eb8dadd05717eea09c082",
-    rgba_hash: "6aa0ca38d5e245291632f1d6f2861bad5e05d4be",
+    gray_hash: "48acaf112aa49d6b7d8073b37883f03fb4c2b2e5",
+    rgba_hash: "ad5686a6597cdf660077d9457ddd6b3a1733a2b3",
   )
 
   specs_for_operator(draw_square(20, 20, 100, 100, Color.of("#0f0"), fill: true),

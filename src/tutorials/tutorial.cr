@@ -3,5 +3,6 @@
 # See:
 # * `EdgeDetection`
 # * `ChromaKey`
+# * `FindDifferences`
 module Tutorial
 end

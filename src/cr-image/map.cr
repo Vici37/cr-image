@@ -34,6 +34,9 @@ module CrImage
     abstract def sum : T
     abstract def max : T
     abstract def min : T
+
+    abstract def -(other : NumericMap(T)) : NumericMap(T)
+    abstract def +(other : NumericMap(T)) : NumericMap(T)
   end
 
   # A collection of implementations of `NumericMap(T)`, intended to be included in base classes.
@@ -188,6 +191,11 @@ module CrImage
     # Return the sum of all values in this `Map`
     def sum : T
       @raw.sum
+    end
+
+    def -(other : NumericMap(T)) : self
+      raise Exception.new "Unable to subtract a map of different dimensions: #{width}x#{height} vs #{other.width}x#{other.height}" unless width == other.width && height == other.height
+      self.class.new(width, raw.map_with_index { |v, i| v - other.raw[i] })
     end
 
     # Construct a `Mask` from this `GrayscaleImage` using the passed in block to determine if a given pixel should be true or not
