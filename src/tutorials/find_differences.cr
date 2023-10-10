@@ -50,7 +50,7 @@
 #
 # This script ran on my machine in `66ms` in `--release` mode.
 #
-# **NODE**: There's a difference in the seeds on one of the watermelons that don't survive the blurring process, and so aren't picked
+# **NOTE**: There's a difference in the seeds on one of the watermelons that don't survive the blurring process, and so aren't picked
 # up by the differences algorithm above.
-module Tutorial::ChromaKey
+module Tutorial::FindDifferences
 end
