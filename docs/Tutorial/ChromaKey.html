@@ -398,32 +398,51 @@
     Overview
   </h2>
 
-  <p>Given <code>sample.jpg</code> image:</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/sample.jpg" alt="Woman with black turtleneck and white background"/>
-<p>We can swap out the background by creating a mask representing the pixels that are close in color, and replacing them using an <code>MaskApply#apply_color</code> method.</p>
-<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;cr-image&quot;</span>
-<span class="k">require</span> <span class="s">&quot;cr-image/jpeg&quot;</span>
+  <p>Given <code>differences.jpg</code> image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/tutorials/differences_start.jpg" alt="Two almost identical images with subtle differences"/>
+<p>We can programatically detect <em>most</em> of the differences between these two images:</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;../../src/cr-image&quot;</span>
+<span class="k">require</span> <span class="s">&quot;../../src/all_formats&quot;</span>
 
-image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;sample.jpg&quot;</span>)
+image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;differences.jpg&quot;</span>)
+ret <span class="o">=</span> image.clone
 
-<span class="c"># Grab a color from the background, for comparison</span>
-background <span class="o">=</span> image[<span class="n">10</span>, <span class="n">10</span>]
+<span class="c"># Perform a blur to remove random noise</span>
+img1 <span class="o">=</span> image.gaussian_blur(<span class="n">1</span>)[<span class="n">2</span>...<span class="n">340</span>, ..]
+img2 <span class="o">=</span> image.gaussian_blur(<span class="n">1</span>)[<span class="n">361</span>...<span class="n">699</span>, ..]
 
-<span class="c"># Construct a mask of all pixels within a color distance of our background</span>
-background_mask <span class="o">=</span> image.mask_from <span class="k">do</span> <span class="o">|</span>color<span class="o">|</span>
-  <span class="c"># 25 chosen through trial-and-error</span>
-  color.dist(background) <span class="o">&lt;</span> <span class="n">25</span>
+<span class="c"># Convert each color channel into a IntMap</span>
+red_img1 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img1.width, img1.red).to_i
+gre_img1 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img1.width, img1.green).to_i
+blu_img1 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img1.width, img1.blue).to_i
+red_img2 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img2.width, img2.red).to_i
+gre_img2 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img2.width, img2.green).to_i
+blu_img2 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img2.width, img2.blue).to_i
+
+<span class="c"># Calculate a pixel by pixel difference calculation, convert it to a `Mask`</span>
+red_mask <span class="o">=</span> (red_img1 <span class="o">-</span> red_img2).abs.<span class="o">&gt;</span>(<span class="n">50</span>)
+gre_mask <span class="o">=</span> (gre_img1 <span class="o">-</span> gre_img2).abs.<span class="o">&gt;</span>(<span class="n">50</span>)
+blu_mask <span class="o">=</span> (blu_img1 <span class="o">-</span> blu_img2).abs.<span class="o">&gt;</span>(<span class="n">50</span>)
+
+<span class="c"># Combine the different color channel masks</span>
+combo_mask <span class="o">=</span> (red_mask <span class="o">|</span> blu_mask <span class="o">|</span> gre_mask).dilate!
+
+<span class="c"># Expensive way to make a thick box.</span>
+<span class="n">3</span>.times <span class="k">do</span>
+  combo_mask.dilate!.segments.each <span class="k">do</span> <span class="o">|</span>v<span class="o">|</span>
+    <span class="c"># Draw a box in the first image</span>
+    ret.draw_square!(v.region.x <span class="o">+</span> <span class="n">2</span>, v.region.y, v.region.width, v.region.height, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#f00&quot;</span>))
+    <span class="c"># ... and the second image</span>
+    ret.draw_square!(v.region.x <span class="o">+</span> <span class="n">361</span>, v.region.y, v.region.width, v.region.height, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#f00&quot;</span>))
+  <span class="k">end</span>
 <span class="k">end</span>
-  .closing! <span class="c"># Remove small `true` regions</span>
-  .opening! <span class="c"># Remove small `false` regions</span>
 
-<span class="c"># Now make the background blue</span>
-image
-  .apply_color(background_mask, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#0000cc&quot;</span>))
-  .save(<span class="s">&quot;chromakey.jpg&quot;</span>)</code></pre>
+ret.save(<span class="s">&quot;differences_end.jpg&quot;</span>)</code></pre>
 <p>Results in image:</p>
-<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/tutorials/chromakey.jpg" alt="Background is blue, woman is unchanged"/>
-<p>This script ran on my machine in <code>4ms</code> in <code>--release</code> mode.</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/tutorials/differences_end.jpg" alt="Two images with subtle differences outlined in red boxes"/>
+<p>This script ran on my machine in <code>66ms</code> in <code>--release</code> mode.</p>
+<p><strong>NODE</strong>: There's a difference in the seeds on one of the watermelons that don't survive the blurring process, and so aren't picked
+up by the differences algorithm above.</p>
 
 
 
@@ -448,8 +467,15 @@ image
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/372e385fa6e738a1f042ba1124ecdeb46f31800a/src/tutorials/chromakey_tutorial.cr#L35" target="_blank">
+      <a href="https://github.com/Vici37/cr-image/blob/60d41aca4ffec1a787bb551d19df8aba08dd80fe/src/tutorials/chromakey_tutorial.cr#L35" target="_blank">
         tutorials/chromakey_tutorial.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/Vici37/cr-image/blob/60d41aca4ffec1a787bb551d19df8aba08dd80fe/src/tutorials/find_differences.cr#L55" target="_blank">
+        tutorials/find_differences.cr
       </a>
     
     <br/>
