@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="Crystal Image">
-  <title>CrImage::BlackView(T) - Crystal Image master-dev</title>
+  <title>Tutorial::FindDifferences - Crystal Image master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -57,12 +57,12 @@
   <div class="types-list">
     <ul>
   
-  <li class="parent open current" data-id="Crystal Image/CrImage" data-name="crimage">
+  <li class="parent " data-id="Crystal Image/CrImage" data-name="crimage">
       <a href="../CrImage.html">CrImage</a>
       
         <ul>
   
-  <li class=" current" data-id="Crystal Image/CrImage/BlackView" data-name="crimage::blackview(t)">
+  <li class=" " data-id="Crystal Image/CrImage/BlackView" data-name="crimage::blackview(t)">
       <a href="../CrImage/BlackView.html">BlackView</a>
       
     </li>
@@ -352,7 +352,7 @@
       
     </li>
   
-  <li class="parent " data-id="Crystal Image/Tutorial" data-name="tutorial">
+  <li class="parent open current" data-id="Crystal Image/Tutorial" data-name="tutorial">
       <a href="../Tutorial.html">Tutorial</a>
       
         <ul>
@@ -367,7 +367,7 @@
       
     </li>
   
-  <li class=" " data-id="Crystal Image/Tutorial/FindDifferences" data-name="tutorial::finddifferences">
+  <li class=" current" data-id="Crystal Image/Tutorial/FindDifferences" data-name="tutorial::finddifferences">
       <a href="../Tutorial/FindDifferences.html">FindDifferences</a>
       
     </li>
@@ -386,12 +386,10 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> CrImage::BlackView(T)
+  <span class="kind">module</span> Tutorial::FindDifferences
 
 </h1>
 
-
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../CrImage/BlackView.html">CrImage::BlackView(T)</a></li><li class="superclass"><a href="../CrImage/Window.html">CrImage::Window(T)</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -405,7 +403,51 @@
     Overview
   </h2>
 
-  <p>An implementation of <code><a href="../CrImage/Window.html">Window</a></code>, where the value of a point in the window that is off the edge of the underlying <code><a href="../CrImage/Map.html">Map</a></code> resolves to zero (or black)</p>
+  <p>Given <code>differences.jpg</code> image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/tutorials/differences_start.jpg" alt="Two almost identical images with subtle differences"/>
+<p>We can programatically detect <em>most</em> of the differences between these two images:</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;../../src/cr-image&quot;</span>
+<span class="k">require</span> <span class="s">&quot;../../src/all_formats&quot;</span>
+
+image <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">RGBAImage</span>.open(<span class="s">&quot;differences.jpg&quot;</span>)
+ret <span class="o">=</span> image.clone
+
+<span class="c"># Perform a blur to remove random noise</span>
+img1 <span class="o">=</span> image.gaussian_blur(<span class="n">1</span>)[<span class="n">2</span>...<span class="n">340</span>, ..]
+img2 <span class="o">=</span> image.gaussian_blur(<span class="n">1</span>)[<span class="n">361</span>...<span class="n">699</span>, ..]
+
+<span class="c"># Convert each color channel into a IntMap</span>
+red_img1 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img1.width, img1.red).to_i
+gre_img1 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img1.width, img1.green).to_i
+blu_img1 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img1.width, img1.blue).to_i
+red_img2 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img2.width, img2.red).to_i
+gre_img2 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img2.width, img2.green).to_i
+blu_img2 <span class="o">=</span> <span class="t">CrImage</span><span class="t">::</span><span class="t">UInt8Map</span>.new(img2.width, img2.blue).to_i
+
+<span class="c"># Calculate a pixel by pixel difference calculation, convert it to a `Mask`</span>
+red_mask <span class="o">=</span> (red_img1 <span class="o">-</span> red_img2).abs.<span class="o">&gt;</span>(<span class="n">50</span>)
+gre_mask <span class="o">=</span> (gre_img1 <span class="o">-</span> gre_img2).abs.<span class="o">&gt;</span>(<span class="n">50</span>)
+blu_mask <span class="o">=</span> (blu_img1 <span class="o">-</span> blu_img2).abs.<span class="o">&gt;</span>(<span class="n">50</span>)
+
+<span class="c"># Combine the different color channel masks</span>
+combo_mask <span class="o">=</span> (red_mask <span class="o">|</span> blu_mask <span class="o">|</span> gre_mask).dilate!
+
+<span class="c"># Expensive way to make a thick box.</span>
+<span class="n">3</span>.times <span class="k">do</span>
+  combo_mask.dilate!.segments.each <span class="k">do</span> <span class="o">|</span>v<span class="o">|</span>
+    <span class="c"># Draw a box in the first image</span>
+    ret.draw_square!(v.region.x <span class="o">+</span> <span class="n">2</span>, v.region.y, v.region.width, v.region.height, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#f00&quot;</span>))
+    <span class="c"># ... and the second image</span>
+    ret.draw_square!(v.region.x <span class="o">+</span> <span class="n">361</span>, v.region.y, v.region.width, v.region.height, <span class="t">CrImage</span><span class="t">::</span><span class="t">Color</span>.<span class="k">of</span>(<span class="s">&quot;#f00&quot;</span>))
+  <span class="k">end</span>
+<span class="k">end</span>
+
+ret.save(<span class="s">&quot;differences_end.jpg&quot;</span>)</code></pre>
+<p>Results in image:</p>
+<img src="https://raw.githubusercontent.com/Vici37/cr-image/master/docs/images/tutorials/differences_end.jpg" alt="Two images with subtle differences outlined in red boxes"/>
+<p>This script ran on my machine in <code>66ms</code> in <code>--release</code> mode.</p>
+<p><strong>NOTE</strong>: There's a difference in the seeds on one of the watermelons that don't survive the blurring process, and so aren't picked
+up by the differences algorithm above.</p>
 
 
 
@@ -430,8 +472,8 @@
   </h2>
   
     
-      <a href="https://github.com/Vici37/cr-image/blob/3c3ac18861233f5a0a4249be46c8f70b4c3735a2/src/cr-image/window_view.cr#L76" target="_blank">
-        cr-image/window_view.cr
+      <a href="https://github.com/Vici37/cr-image/blob/3c3ac18861233f5a0a4249be46c8f70b4c3735a2/src/tutorials/find_differences.cr#L55" target="_blank">
+        tutorials/find_differences.cr
       </a>
     
     <br/>
@@ -441,43 +483,9 @@
 
 
 
-  <h2>
-    <a id="constructors" class="anchor" href="#constructors">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Constructors
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#new%28width%2Cheight%2Cmap%2Cmap_x%2Cmap_y%29-class-method" class="signature"><strong>.new</strong>(width, height, map, map_x, map_y)</a>
-        
-      </li>
-    
-  </ul>
 
 
 
-
-
-  <h2>
-    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Summary
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method" class="signature"><strong>#[]</strong>(x : Int32, y : Int32) : T</a>
-        
-      </li>
-    
-  </ul>
 
 
 
@@ -485,162 +493,12 @@
 
 <div class="methods-inherited">
   
-    
-
-  <h3>Instance methods inherited from class <code><a href="../CrImage/Window.html">CrImage::Window(T)</a></code></h3>
-  
-  
-    <a href="../CrImage/Window.html#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method" class="tooltip">
-      <span>[](x : Int32, y : Int32) : T</span>
-    []</a>, 
-    
-  
-    <a href="../CrImage/Window.html#half_height%3AInt32-instance-method" class="tooltip">
-      <span>half_height : Int32</span>
-    half_height</a>, 
-    
-  
-    <a href="../CrImage/Window.html#half_width%3AInt32-instance-method" class="tooltip">
-      <span>half_width : Int32</span>
-    half_width</a>, 
-    
-  
-    <a href="../CrImage/Window.html#height%3AInt32-instance-method" class="tooltip">
-      <span>height : Int32</span>
-    height</a>, 
-    
-  
-    <a href="../CrImage/Window.html#map%3AMap%28T%29-instance-method" class="tooltip">
-      <span>map : Map(T)</span>
-    map</a>, 
-    
-  
-    <a href="../CrImage/Window.html#map_x%3AInt32-instance-method" class="tooltip">
-      <span>map_x : Int32</span>
-    map_x</a>, 
-    
-  
-    <a href="../CrImage/Window.html#map_y%3AInt32-instance-method" class="tooltip">
-      <span>map_y : Int32</span>
-    map_y</a>, 
-    
-  
-    <a href="../CrImage/Window.html#mean%3AFloat64-instance-method" class="tooltip">
-      <span>mean : Float64</span>
-    mean</a>, 
-    
-  
-    <a href="../CrImage/Window.html#size%3AInt32-instance-method" class="tooltip">
-      <span>size : Int32</span>
-    size</a>, 
-    
-  
-    <a href="../CrImage/Window.html#sum%3AFloat64-instance-method" class="tooltip">
-      <span>sum : Float64<br/>sum(& : T, Int32, Int32, <span class="k">self</span> -> T) : Float64</span>
-    sum</a>, 
-    
-  
-    <a href="../CrImage/Window.html#width%3AInt32-instance-method" class="tooltip">
-      <span>width : Int32</span>
-    width</a>
-    
-  
-
-
-    
-
-  <h3>Constructor methods inherited from class <code><a href="../CrImage/Window.html">CrImage::Window(T)</a></code></h3>
-  
-  
-    <a href="../CrImage/Window.html#new%28width%3AInt32%2Cheight%3AInt32%2Cmap%3ACrImage%3A%3AMap%28T%29%2Cmap_x%3AInt32%2Cmap_y%3AInt32%29-class-method" class="tooltip">
-      <span>new(width : Int32, height : Int32, map : CrImage::Map(T), map_x : Int32, map_y : Int32)</span>
-    new</a>
-    
-  
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
 </div>
 
 
-  <h2>
-    <a id="constructor-detail" class="anchor" href="#constructor-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Constructor Detail
-  </h2>
-  
-    <div class="entry-detail" id="new(width,height,map,map_x,map_y)-class-method">
-      <div class="signature">
-        
-        def self.<strong>new</strong>(width, height, map, map_x, map_y)
-
-        <a class="method-permalink" href="#new%28width%2Cheight%2Cmap%2Cmap_x%2Cmap_y%29-class-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/3c3ac18861233f5a0a4249be46c8f70b4c3735a2/src/cr-image/window_view.cr#L17" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
 
 
 
-
-
-  <h2>
-    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Detail
-  </h2>
-  
-    <div class="entry-detail" id="[](x:Int32,y:Int32):T-instance-method">
-      <div class="signature">
-        
-        def <strong>[]</strong>(x : Int32, y : Int32) : T
-
-        <a class="method-permalink" href="#%5B%5D%28x%3AInt32%2Cy%3AInt32%29%3AT-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/Vici37/cr-image/blob/3c3ac18861233f5a0a4249be46c8f70b4c3735a2/src/cr-image/window_view.cr#L77" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
 
 
 
