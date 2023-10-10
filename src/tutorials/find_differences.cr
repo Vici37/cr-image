@@ -5,8 +5,8 @@
 # We can programatically detect _most_ of the differences between these two images:
 #
 # ```
-# require "../../src/cr-image"
-# require "../../src/all_formats"
+# require "cr-image"
+# require "cr-image/jpeg"
 #
 # image = CrImage::RGBAImage.open("differences.jpg")
 # ret = image.clone
