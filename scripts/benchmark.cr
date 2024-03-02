@@ -1,7 +1,8 @@
 #!/usr/bin/env -S crystal run --no-debug --release
 
 require "../src/cr-image"
-require "../src/all_formats"
+require "../src/webp"
+require "../src/jpeg"
 
 record Result, name : String, time : Float64, memory : Int64
 alias Color = CrImage::Color
@@ -156,6 +157,10 @@ results.clear
 
 results << benchmark { image.to_gray }
 results << benchmark { image.to_ppm(IO::Memory.new) }
+# NOTE: to get the benchmark for libspng, you need to:
+# require "../src/png"
+# Since the perf of both is so close, the default is for the native implementation
+results << benchmark { image.to_png(IO::Memory.new) }
 results << benchmark { image.to_jpeg(IO::Memory.new) }
 results << benchmark { image.to_webp(IO::Memory.new) }
 results << benchmark { image.to_webp(IO::Memory.new, lossy: true) }

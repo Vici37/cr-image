@@ -81,6 +81,8 @@ For these tests, with `template[n]`, `template = CrImage::OneMap.new(n, n)`
 | ------------------------------------ | -------- | ------- |
 |                              to_gray | 1.95ms   | 732kiB  |
 |               to_ppm(IO::Memory.new) | 6.9ms    | 4.01MiB |
+|libspng        to_png(IO::Memory.new) | 119.5ms  | 1.55MiB |
+|native crystal to_png(IO::Memory.new) | 117.86ms | 1.93MiB |
 |              to_jpeg(IO::Memory.new) | 10.24ms  | 1.2MiB  |
 |              to_webp(IO::Memory.new) | 213.93ms | 1.5MiB  |
 | to_webp(IO::Memory.new, lossy: true) | 38.07ms  | 1.45MiB |
