@@ -11,6 +11,7 @@ abstract class CrImage::Image
 
   macro inherited
     include Format::PPM
+    include Format::PNG
 
     include Operation::BilinearResize
     include Operation::BoxBlur

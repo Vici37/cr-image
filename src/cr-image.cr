@@ -7,6 +7,7 @@ require "./cr-image/format/open"
 
 # Native crystal image format implementations
 require "./cr-image/format/ppm"
+require "./cr-image/format/png"
 
 # Require `image` first, and then subclasses of it
 require "./cr-image/image"

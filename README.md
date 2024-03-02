@@ -25,7 +25,7 @@ All sample images used are from [Unsplash](https://unsplash.com/).
 CrImage supports the formats:
 * PPM
 * JPEG (requires `libturbojpeg`)
-* PNG (requirens `libspng`)
+* PNG (natively by default, or optionally through requires `libspng`)
 * WebP (requires `libwebp`)
 
 For the formats that require a linked library, they must be `require`d explicitly:
@@ -33,8 +33,8 @@ For the formats that require a linked library, they must be `require`d explicitl
 ```crystal
 require "cr-image"
 require "cr-image/jpeg"
-require "cr-image/png"
 require "cr-image/webp"
+require "cr-image/png" # replaces native crystal with libspng
 
 # Or, alternatively
 require "cr-image/all_formats"

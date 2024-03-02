@@ -4,6 +4,10 @@ version: 0.1.0
 authors:
   - Troy Sornson <troy@sornson.io>
 
+dependencies:
+  png:
+    github: sleepinginsomniac/png
+
 development_dependencies:
   spectator:
     gitlab: arctic-fox/spectator
